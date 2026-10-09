@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 600 800" fill="none" stroke="#1F3A5F" stroke-width="5.5" stroke-linecap="round" stroke-linejoin="round">
+  <!-- Placeholder artwork for an extra style slot: a simple browser window, as single pen strokes.
+       Same format as face-line.svg: the path whose id ends in "-main" is the continuous line. It enters
+       at the top centre (x=300) and leaves at the bottom centre (x=300). Every other path draws left to
+       right when the main line reaches its height (data-y). Replace this file with the real drawing. -->
+  <path id="placeholder-main" d="M300,0 C300,40 300,90 300,118 C300,140 288,150 268,150 L110,150 C90,150 80,160 80,180 L80,570 C80,590 90,600 110,600 L300,600 C300,640 300,740 300,800"/>
+  <path id="placeholder-right" data-y="150" d="M300,150 L490,150 C510,150 520,160 520,180 L520,570 C520,590 510,600 490,600 L300,600"/>
+  <path id="placeholder-bar" data-y="200" d="M80,200 L520,200"/>
+  <path id="placeholder-dot-1" data-y="172" d="M108,175 L109,175"/>
+  <path id="placeholder-dot-2" data-y="172" d="M128,175 L129,175"/>
+  <path id="placeholder-dot-3" data-y="172" d="M148,175 L149,175"/>
+  <path id="placeholder-title" data-y="260" d="M120,262 L360,262"/>
+  <path id="placeholder-text-1" data-y="300" d="M120,302 L470,302"/>
+  <path id="placeholder-text-2" data-y="330" d="M120,332 L430,332"/>
+  <path id="placeholder-image" data-y="380" d="M120,382 L290,382 L290,552 L120,552 Z"/>
+  <path id="placeholder-text-3" data-y="400" d="M330,402 L480,402"/>
+  <path id="placeholder-text-4" data-y="432" d="M330,432 L470,432"/>
+  <path id="placeholder-text-5" data-y="462" d="M330,462 L450,462"/>
+</svg>

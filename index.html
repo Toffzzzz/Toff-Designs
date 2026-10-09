@@ -1,0 +1,178 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Toff Studio · Websites, planned with you, designed and delivered</title>
+    <meta name="description" content="Toff Studio designs and builds websites. You plan, we design, we deliver." />
+    <meta name="theme-color" content="#F7F5F0" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F7F5F0'/%3E%3Cpath d='M7 21c4-9 7-12 9-10s-3 9 1 9 6-8 8-11' fill='none' stroke='%231F3A5F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="preload" href="assets/fonts/inter/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="vendor/lenis-1.3.26.css" />
+    <link rel="stylesheet" href="styles.css" />
+    <!-- Hides the not-yet-drawn parts before the scripts start (never with reduced motion) -->
+    <script>
+      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-motion');
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#message" data-skip-to-chat>Skip to the message box</a>
+
+    <!-- Studio name mark, always visible -->
+    <a class="studio-mark" href="#top" data-studio-name>Toff Studio</a>
+
+    <main id="top">
+      <!-- ============ SECTION 1: THE HANDWRITING OPENING ============
+           The phrases are drawn as pen strokes into this section's ink layer
+           (script.js). The heading below carries them as real text. -->
+      <section class="opening" data-section="opening" aria-labelledby="opening-title">
+        <h1 id="opening-title" class="visually-hidden" data-opening-title>You plan. We design. We deliver. So… what will it be?</h1>
+        <p class="scroll-cue" data-scroll-cue aria-hidden="true">
+          <span>Scroll</span>
+        </p>
+      </section>
+
+      <!-- ============ SECTIONS 2–4: STYLES ============
+           Built from the templates below, in the order and with the content
+           set in settings.js (sectionOrder and styles). -->
+      <div data-styles></div>
+
+      <!-- ============ SECTION 5: FINALE ============ -->
+      <section class="finale" data-section="finale" aria-labelledby="finale-title">
+        <div class="finale-stage" data-stage>
+          <div class="finale-row-slot" data-row-slot>
+            <ul class="finale-row" data-row aria-label="Website styles shown above"></ul>
+          </div>
+          <div class="finale-heading-slot" data-heading-slot>
+            <h2 id="finale-title" class="visually-hidden" data-finale-title>Tell us what you need</h2>
+          </div>
+
+          <form class="chat" data-chat novalidate>
+            <label for="message" class="visually-hidden" data-message-label>Tell us what you need</label>
+            <textarea id="message" name="message" rows="4" required data-message></textarea>
+            <div class="chat-bar">
+              <label class="consent">
+                <input type="checkbox" name="consent" required data-consent />
+                <span data-consent-label>I agree to Toff Studio using my message to reply to me.</span>
+              </label>
+              <button type="submit" class="send" data-send>Send</button>
+            </div>
+            <p class="chat-note">
+              <span data-privacy-note></span>
+              <a data-privacy-link hidden>Privacy policy</a>
+            </p>
+            <p class="chat-demo" data-demo-note hidden></p>
+            <p class="chat-status" role="status" aria-live="polite" data-status></p>
+          </form>
+        </div>
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p class="footer-name" data-studio-name>Toff Studio</p>
+      <a class="footer-email" data-email hidden></a>
+      <p class="footer-copy">© <span data-year>2026</span> <span data-studio-name>Toff Studio</span></p>
+    </footer>
+
+    <!-- ============ TEMPLATES ============ -->
+
+    <!-- A style shown as a single-stroke drawing (kind: 'lineart') -->
+    <template id="tpl-lineart">
+      <section class="style" data-section>
+        <div class="style-inner">
+          <div class="style-caption" data-caption>
+            <h2 class="style-title" data-title></h2>
+            <p class="style-subtitle" data-subtitle></p>
+            <a class="style-link" data-link target="_blank" rel="noopener"></a>
+          </div>
+          <!-- Reserves the drawing's space; the drawing itself is in the ink layer -->
+          <div class="style-art lineart-art" data-art></div>
+        </div>
+      </section>
+    </template>
+
+    <!-- The Everest Climate Solutions air-conditioning animation (kind: 'everest-ac').
+         Markup copied from the Everest site's index.html (the unit and the
+         temperature readout of the cool scene), with classes prefixed "ev-". -->
+    <template id="tpl-everest">
+      <section class="style style--everest" data-section>
+        <!-- The room's colour, animated from warm peach back to the page colour -->
+        <div class="ev-room" data-ev-room aria-hidden="true"></div>
+        <div class="style-inner">
+          <div class="style-caption" data-caption>
+            <h2 class="style-title" data-title></h2>
+            <p class="style-subtitle" data-subtitle></p>
+            <a class="style-link" data-link target="_blank" rel="noopener"></a>
+          </div>
+          <div class="style-art ev-scene" data-art data-ev-scene>
+            <div class="ev-column">
+              <!--
+                The AC unit. The three images are 1441x452, pixel-aligned and stacked
+                exactly on top of each other; the timeline crossfades
+                closed → half open → open as the room cools.
+              -->
+              <div class="ev-unit" data-unit>
+                <picture class="ev-unit-img" data-unit-closed>
+                  <source srcset="assets/everest/ac-closed.webp" type="image/webp" />
+                  <img src="assets/everest/ac-closed.png" width="1441" height="452" alt="A white wall-mounted air conditioning unit" />
+                </picture>
+                <picture class="ev-unit-img ev-unit-img--later" data-unit-half>
+                  <source srcset="assets/everest/ac-half.webp" type="image/webp" />
+                  <img src="assets/everest/ac-half.png" width="1441" height="452" alt="" />
+                </picture>
+                <picture class="ev-unit-img ev-unit-img--later" data-unit-open>
+                  <source srcset="assets/everest/ac-open.webp" type="image/webp" />
+                  <img src="assets/everest/ac-open.png" width="1441" height="452" alt="" />
+                </picture>
+              </div>
+
+              <!-- The room temperature, counted down by the timeline. Decorative:
+                   hidden from screen readers. -->
+              <div class="ev-readout" data-readout aria-hidden="true">
+                <p class="ev-readout-label">
+                  <span data-label-hot>Room temperature</span>
+                  <span data-label-cool>Just right</span>
+                </p>
+                <p class="ev-readout-temp" data-temp-colour>
+                  <span data-temp>32</span><span class="ev-readout-unit">°C</span>
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+    </template>
+
+    <!-- Finale previews -->
+    <template id="tpl-preview-lineart">
+      <li class="preview preview--lineart" data-preview>
+        <svg class="preview-art" aria-hidden="true" focusable="false"></svg>
+        <span class="visually-hidden" data-preview-label></span>
+      </li>
+    </template>
+    <template id="tpl-preview-everest">
+      <li class="preview preview--everest" data-preview>
+        <!-- The finished state: the open unit and the final temperature (as in the
+             Everest overview's "18°C · Just right") -->
+        <div class="ev-unit-final">
+          <picture>
+            <source srcset="assets/everest/ac-open.webp" type="image/webp" />
+            <img src="assets/everest/ac-open.png" width="1441" height="452" alt="" />
+          </picture>
+        </div>
+        <p class="ev-readout-small" aria-hidden="true">
+          <span class="ev-readout-small-temp" data-temp-final>18°C</span> · Just right
+        </p>
+        <span class="visually-hidden" data-preview-label></span>
+      </li>
+    </template>
+
+    <!-- Scripts: settings first, then libraries (local copies), then the site -->
+    <script src="settings.js"></script>
+    <script src="vendor/gsap-3.15.0.min.js"></script>
+    <script src="vendor/lenis-1.3.26.min.js"></script>
+    <script src="js/handwriting.js"></script>
+    <script src="js/everest-ac.js"></script>
+    <script src="script.js"></script>
+  </body>
+</html>

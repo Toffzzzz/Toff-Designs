@@ -1,0 +1,195 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <title>Single-line fonts preview · Toff Studio</title>
+    <meta name="robots" content="noindex" />
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F7F5F0'/%3E%3Cpath d='M7 21c4-9 7-12 9-10s-3 9 1 9 6-8 8-11' fill='none' stroke='%231F3A5F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
+    <link rel="preload" href="assets/fonts/inter/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
+    <style>
+      @font-face {
+        font-family: 'Inter';
+        font-style: normal;
+        font-weight: 400 600;
+        font-display: swap;
+        src: url('assets/fonts/inter/inter-latin-variable.woff2') format('woff2');
+      }
+      :root {
+        --bg: #f7f5f0;
+        --ink: #1f3a5f;
+        --muted: #5a6472;
+        --line: rgba(31, 58, 95, 0.12);
+      }
+      * { box-sizing: border-box; }
+      body {
+        margin: 0;
+        background: var(--bg);
+        color: var(--ink);
+        font: 400 16px/1.55 Inter, system-ui, sans-serif;
+      }
+      main { max-width: 1280px; margin: 0 auto; padding: 48px 24px 96px; }
+      h1 { font-size: 28px; font-weight: 600; letter-spacing: -0.02em; margin: 0 0 8px; }
+      .intro { color: var(--muted); max-width: 720px; margin: 0 0 16px; }
+      .intro code { background: rgba(31, 58, 95, 0.07); padding: 1px 6px; border-radius: 6px; font-size: 14px; }
+      .controls { display: flex; gap: 12px; flex-wrap: wrap; margin: 0 0 40px; }
+      button {
+        font: 500 15px/1 Inter, system-ui, sans-serif;
+        color: var(--bg);
+        background: var(--ink);
+        border: 0;
+        border-radius: 999px;
+        padding: 12px 20px;
+        cursor: pointer;
+        min-height: 44px;
+      }
+      button.ghost { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1.5px var(--ink); }
+      button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+      .font {
+        padding: 32px 0;
+        border-top: 1px solid var(--line);
+      }
+      .font header { display: flex; flex-wrap: wrap; align-items: baseline; gap: 4px 16px; margin-bottom: 16px; }
+      .font h2 { font-size: 19px; font-weight: 600; margin: 0; }
+      .font .id { font: 500 14px/1 ui-monospace, SFMono-Regular, Menlo, monospace; color: var(--ink); background: rgba(31, 58, 95, 0.07); padding: 4px 8px; border-radius: 6px; }
+      .font .lic { font-size: 14px; color: var(--muted); }
+      .font .chosen { font-size: 13px; font-weight: 600; color: var(--bg); background: var(--ink); padding: 3px 9px; border-radius: 999px; }
+      .samples { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px 32px; }
+      .sample svg { display: block; width: 100%; height: auto; overflow: visible; }
+      .sample .label { font-size: 12px; color: var(--muted); letter-spacing: 0.04em; text-transform: uppercase; margin-top: 2px; }
+      .ink path { fill: none; stroke: var(--ink); stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .shadow { filter: blur(1px); opacity: 0.3; transform: translateY(2.5px); }
+      .shadow path { fill: none; stroke: #7d838c; stroke-width: 2.2; stroke-linecap: round; stroke-linejoin: round; }
+      .starts circle { fill: #c0392b; }
+      body:not(.show-starts) .starts { display: none; }
+      @media (max-width: 600px) { main { padding: 32px 16px 64px; } }
+    </style>
+  </head>
+  <body>
+    <main>
+      <h1>Single-line fonts</h1>
+      <p class="intro">
+        Every phrase in every single-line font available. To change a phrase's font, copy the
+        font's id (for example <code>EMSAllure</code>) into <code>phrases</code> in
+        <code>settings.js</code>. The finale heading uses phrase 4's font unless
+        <code>finale.font</code> is set. Fonts marked "In use" are the current choices.
+      </p>
+      <div class="controls">
+        <button type="button" data-draw-all>Draw them all</button>
+        <button type="button" class="ghost" data-starts aria-pressed="false">Show where each stroke starts</button>
+      </div>
+      <div data-list></div>
+    </main>
+
+    <script src="settings.js"></script>
+    <script src="paths/fonts/index.js"></script>
+    <script src="js/handwriting.js"></script>
+    <script>
+      (async function () {
+        const S = window.TOFF_SETTINGS;
+        const texts = [...S.phrases.map((p) => p.text), S.finale.heading];
+        const inUse = new Set([...S.phrases.map((p) => p.font), S.finale.font || S.phrases[3].font]);
+        const list = document.querySelector('[data-list]');
+        const NS = 'http://www.w3.org/2000/svg';
+        const em = 56;
+
+        const order = [...window.TOFF_FONT_LIST].sort((a, b) => (inUse.has(b.id) - inUse.has(a.id)) || a.family.localeCompare(b.family));
+        for (const meta of order) {
+          const font = await window.TOFF_HW.loadFont(meta.id);
+          const block = document.createElement('section');
+          block.className = 'font';
+          block.innerHTML = `<header><h2></h2><span class="id"></span><span class="lic"></span></header><div class="samples"></div>`;
+          block.querySelector('h2').textContent = meta.family;
+          block.querySelector('.id').textContent = meta.id;
+          block.querySelector('.lic').textContent = meta.licence;
+          if (inUse.has(meta.id)) {
+            const c = document.createElement('span');
+            c.className = 'chosen';
+            c.textContent = 'In use';
+            block.querySelector('header').append(c);
+          }
+          const samples = block.querySelector('.samples');
+          texts.forEach((text, i) => {
+            const spacing = i === 1 ? 0.22 : 0;
+            const r = window.TOFF_HW.layout(font, text, { em, letterSpacing: spacing, x: 4, y: em });
+            const pad = 8;
+            const vb = `${r.bbox.minX - pad} ${r.bbox.minY - pad} ${r.bbox.width + pad * 2} ${r.bbox.height + pad * 2}`;
+            const fig = document.createElement('figure');
+            fig.className = 'sample';
+            fig.style.margin = '0';
+            const svg = document.createElementNS(NS, 'svg');
+            svg.setAttribute('viewBox', vb);
+            svg.setAttribute('role', 'img');
+            svg.setAttribute('aria-label', `${text} in ${meta.family}`);
+            svg.style.maxWidth = `${(r.bbox.width + pad * 2) * 0.8}px`;
+            const gs = document.createElementNS(NS, 'g');
+            gs.setAttribute('class', 'shadow');
+            const gi = document.createElementNS(NS, 'g');
+            gi.setAttribute('class', 'ink');
+            const gd = document.createElementNS(NS, 'g');
+            gd.setAttribute('class', 'starts');
+            for (const s of r.strokes) {
+              for (const g of [gs, gi]) {
+                const p = document.createElementNS(NS, 'path');
+                p.setAttribute('d', s.d);
+                g.append(p);
+              }
+              const c = document.createElementNS(NS, 'circle');
+              c.setAttribute('cx', s.start[0]);
+              c.setAttribute('cy', s.start[1]);
+              c.setAttribute('r', 3);
+              gd.append(c);
+            }
+            svg.append(gs, gi, gd);
+            const label = document.createElement('figcaption');
+            label.className = 'label';
+            label.textContent = i < 4 ? `Phrase ${i + 1}` : 'Finale heading';
+            fig.append(svg, label);
+            samples.append(fig);
+          });
+          list.append(block);
+        }
+
+        // Replays the drawing, stroke by stroke, at the site's writing speed
+        function draw(svg) {
+          const ink = [...svg.querySelectorAll('.ink path')];
+          const shadow = [...svg.querySelectorAll('.shadow path')];
+          let t = 0;
+          const plan = ink.map((p, i) => {
+            const len = p.getTotalLength();
+            const dur = Math.max(0.06, len / (S.speeds.writing * em));
+            const step = { p, s: shadow[i], len, t0: t, t1: t + dur };
+            t += dur + S.speeds.penLift;
+            return step;
+          });
+          for (const st of plan) {
+            for (const el of [st.p, st.s]) {
+              el.style.strokeDasharray = `${st.len} ${st.len}`;
+              el.style.strokeDashoffset = st.len;
+            }
+          }
+          const start = performance.now();
+          function frame(now) {
+            const time = (now - start) / 1000;
+            for (const st of plan) {
+              const a = Math.min(1, Math.max(0, (time - st.t0) / (st.t1 - st.t0)));
+              const b = Math.min(1, Math.max(0, (time - S.shadow.delay - st.t0) / (st.t1 - st.t0)));
+              st.p.style.strokeDashoffset = st.len * (1 - a);
+              st.s.style.strokeDashoffset = st.len * (1 - b);
+            }
+            if (time < t + 0.5) requestAnimationFrame(frame);
+          }
+          requestAnimationFrame(frame);
+        }
+        document.querySelector('[data-draw-all]').addEventListener('click', () => {
+          document.querySelectorAll('.sample svg').forEach(draw);
+        });
+        const startsBtn = document.querySelector('[data-starts]');
+        startsBtn.addEventListener('click', () => {
+          const on = document.body.classList.toggle('show-starts');
+          startsBtn.setAttribute('aria-pressed', String(on));
+        });
+      })();
+    </script>
+  </body>
+</html>
