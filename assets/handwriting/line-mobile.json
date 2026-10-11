@@ -1,0 +1,83 @@
+{
+ "layout": "mobile",
+ "width": 400,
+ "height": 2473,
+ "strokePx": 2.2,
+ "totalLength": 7740.5,
+ "phrases": [
+  {
+   "text": "You plan",
+   "startFrac": 0.04427,
+   "endFrac": 0.1747,
+   "baseline": 300,
+   "capTop": 266.2,
+   "descBottom": 357.2
+  },
+  {
+   "text": "We design",
+   "startFrac": 0.28333,
+   "endFrac": 0.41192,
+   "baseline": 832.0,
+   "capTop": 798.2,
+   "descBottom": 889.2
+  },
+  {
+   "text": "We deliver",
+   "startFrac": 0.51905,
+   "endFrac": 0.64553,
+   "baseline": 1364.0,
+   "capTop": 1330.2,
+   "descBottom": 1421.2
+  },
+  {
+   "text": "So...",
+   "startFrac": 0.74388,
+   "endFrac": 0.77226,
+   "baseline": 1896.0,
+   "capTop": 1862.2,
+   "descBottom": 1953.2
+  },
+  {
+   "text": "what will",
+   "startFrac": 0.77226,
+   "endFrac": 0.89699,
+   "baseline": 2034.3,
+   "capTop": 2000.5,
+   "descBottom": 2091.5
+  },
+  {
+   "text": "it be?",
+   "startFrac": 0.89699,
+   "endFrac": 0.96071,
+   "baseline": 2172.6,
+   "capTop": 2138.8,
+   "descBottom": 2229.8
+  }
+ ],
+ "cards": [
+  {
+   "phrase": "You plan",
+   "kind": "plan",
+   "x": 40,
+   "y": 378,
+   "w": 300,
+   "h": 316
+  },
+  {
+   "phrase": "We design",
+   "kind": "bluebird",
+   "x": 40,
+   "y": 910.0,
+   "w": 300,
+   "h": 316
+  },
+  {
+   "phrase": "We deliver",
+   "kind": "everest",
+   "x": 40,
+   "y": 1442.0,
+   "w": 300,
+   "h": 316
+  }
+ ]
+}

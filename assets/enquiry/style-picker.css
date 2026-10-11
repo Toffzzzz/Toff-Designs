@@ -1,0 +1,57 @@
+/* Style picker for the guided enquiry. Uses the site's CSS variables when present. */
+.sp {
+  --sp-ink: var(--ink, #F1E3C6);
+  --sp-text: var(--text, #F6F0E4);
+  --sp-slate: var(--slate, #A7AFC2);
+  --sp-accent: var(--accent, #D8AC5F);
+  --sp-tint: var(--tint, #1A2541);
+  --sp-shadow: var(--line-shadow, rgba(216, 172, 95, 0.38));
+  --sp-radius: var(--radius, 12px);
+  font-family: var(--sans, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+}
+.sp-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 2vw, 20px); }
+.sp-option { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
+.sp-card {
+  position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;
+  padding: clamp(14px, 2.4vw, 22px) clamp(6px, 1.4vw, 14px) clamp(12px, 2vw, 18px);
+  background: transparent; border: 1px solid transparent; border-radius: calc(var(--sp-radius) + 4px);
+  color: var(--sp-text); font: inherit; text-align: center; cursor: pointer;
+  transition: background-color .35s ease, border-color .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
+  -webkit-tap-highlight-color: transparent;
+}
+.sp-card:hover { background: color-mix(in srgb, var(--sp-tint) 70%, transparent); }
+.sp-card:focus-visible { outline: 2px solid var(--sp-ink); outline-offset: 3px; }
+.sp-card[aria-checked="true"] { border-color: var(--sp-accent); background: var(--sp-tint); }
+.sp-card[aria-checked="true"]::after {               /* a small brass tick in the corner */
+  content: ""; position: absolute; top: 10px; right: 10px; width: 9px; height: 5px;
+  border-left: 1.5px solid var(--sp-accent); border-bottom: 1.5px solid var(--sp-accent); transform: rotate(-45deg);
+}
+.sp-icon {
+  width: clamp(56px, 16vw, 92px); height: clamp(56px, 16vw, 92px); display: block; overflow: visible;
+  stroke: var(--sp-ink); stroke-width: 3.2;
+  filter: drop-shadow(0 2px 0.8px var(--sp-shadow));    /* the same shadow as every line on the site */
+  transition: transform .45s cubic-bezier(.2,.7,.2,1);
+}
+.sp-icon-face { stroke-width: 26; }                  /* same visible weight as the others (its drawing is larger) */
+.sp-card[aria-checked="true"] .sp-icon { transform: translateY(-2px); }
+.sp-icon path { visibility: hidden; stroke-dasharray: 1 1.02; stroke-dashoffset: 1; }
+.sp-drawn .sp-icon path { visibility: visible; stroke-dashoffset: 0; }
+.sp-name { font-family: var(--serif, Georgia, "Times New Roman", serif); font-weight: 400; font-size: clamp(15px, 2.2vw, 20px); line-height: 1.15; color: var(--sp-text); margin-top: 4px; }
+.sp-desc { font-size: clamp(11px, 1.5vw, 13px); line-height: 1.35; color: var(--sp-slate); }
+.sp-view { font-size: 12px; letter-spacing: .02em; color: var(--sp-accent); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
+.sp-view:hover, .sp-view:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
+.sp-view:focus-visible { outline: 2px solid var(--sp-ink); outline-offset: 2px; }
+.sp-own { margin-top: 22px; display: flex; flex-direction: column; gap: 8px; }
+.sp-own[hidden], .sp-view[hidden] { display: none; }
+.sp-own-label { font-size: 14px; color: var(--sp-text); }
+.sp-optional { color: var(--sp-slate); }
+.sp-own-text::placeholder { color: color-mix(in srgb, var(--sp-slate) 80%, transparent); }
+.sp-own-text {
+  width: 100%; box-sizing: border-box; resize: vertical; min-height: 84px; padding: 12px 14px;
+  font: 16px/1.5 var(--sans, Inter, -apple-system, BlinkMacSystemFont, sans-serif); color: var(--sp-text);
+  background: color-mix(in srgb, var(--sp-tint) 60%, transparent); border: 1px solid color-mix(in srgb, var(--sp-slate) 40%, transparent); border-radius: var(--sp-radius);
+}
+.sp-own-text:focus { outline: none; border-color: var(--sp-accent); box-shadow: 0 0 0 1px var(--sp-accent); }
+.sp-visually-hidden { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+@media (max-width: 359px) { .sp-desc { display: none; } }
+@media (prefers-reduced-motion: reduce) { .sp-card, .sp-icon { transition: none; } }

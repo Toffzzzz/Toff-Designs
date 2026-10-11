@@ -1,0 +1,91 @@
+/* Opening page ("From sketch to site"). Colours use the site's CSS variables when present. */
+.opening {
+  --op-ink: var(--ink, #F1E3C6);
+  --op-text: var(--text, #F6F0E4);
+  --op-slate: var(--slate, #A7AFC2);
+  --op-accent: var(--accent, #D8AC5F);
+  --op-page: var(--bg, #0E1628);
+  --op-shadow: var(--line-shadow, rgba(216, 172, 95, 0.38));
+  --op-serif: var(--serif, Georgia, "Times New Roman", serif);
+  --op-sans: var(--sans, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
+  --op-line: 3.2px;
+  position: relative;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: clamp(72px, 11vh, 120px) 16px 0;
+  box-sizing: border-box;
+  background: var(--op-page);
+  overflow: hidden;
+}
+.op-text { text-align: center; max-width: 900px; }
+.op-eyebrow {
+  margin: 0 0 14px; font-family: var(--op-sans); font-size: 13px; letter-spacing: .14em;
+  text-transform: uppercase; color: var(--op-accent);
+}
+.op-title {
+  margin: 0; font-family: var(--op-serif); font-weight: 400; color: var(--op-text);
+  font-size: clamp(34px, 5.2vw, 64px); line-height: 1.08; letter-spacing: -0.01em;
+}
+.op-fade { opacity: 0; transform: translateY(8px); transition: opacity .9s ease, transform .9s ease; }
+.op-fade.op-in { opacity: 1; transform: none; }
+.op-fade.op-in.op-title { transition-delay: .12s; }
+
+.op-stage { position: relative; width: 100%; display: flex; justify-content: center; margin-top: clamp(28px, 5vh, 52px); }
+.op-variant { position: relative; }
+.op-desktop { width: min(860px, 84vw, calc((100svh - 400px) * 1.6)); aspect-ratio: 960 / 600; }
+.op-phone { display: none; width: min(250px, 62vw, calc((100svh - 380px) * 0.5)); aspect-ratio: 300 / 600; }
+@media (max-width: 699px) {
+  .op-desktop { display: none; }
+  .op-phone { display: block; }
+  .opening { --op-line: 2.6px; }
+}
+.op-variant svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+
+/* the sketch */
+.op-sketch { stroke: var(--op-ink); stroke-width: 2.2; filter: drop-shadow(0 2.5px 1.1px var(--op-shadow)); }
+.op-phone .op-sketch { stroke-width: 2.4; }
+.op-sketch [data-draw] { visibility: hidden; }      /* nothing shows until it's drawn */
+.op-sketch-button { transform-box: fill-box; transform-origin: center; }
+
+/* the finished site */
+.op-real {                        /* the client's finished website keeps its own light palette, whatever our page colours are */
+  --site-ink: #1F3A5F; --site-text: #14202E; --site-slate: #5B6472;
+  position: absolute; inset: 0; visibility: hidden; clip-path: circle(0% at 50% 50%); -webkit-clip-path: circle(0% at 50% 50%); }
+.op-real .r-window { fill: #FBFAF7; stroke: #D9DEE5; stroke-width: 1.5; }
+.op-real .r-rule { stroke: #E3E6EB; stroke-width: 1.5; }
+.op-real .r-dot1 { fill: #E4A79B; } .op-real .r-dot2 { fill: #E8CD8E; } .op-real .r-dot3 { fill: #A9C9A4; }
+.op-real .r-url { fill: #EEF0F3; }
+.op-real .r-urltext { font: 400 11px var(--op-sans); fill: var(--site-slate); }
+.op-real .r-ink { fill: var(--site-ink); }
+.op-real .r-brand { font: 500 15px var(--op-sans); fill: var(--site-text); }
+.op-real .r-nav { font: 400 14px var(--op-sans); fill: var(--site-slate); }
+.op-real .r-btntext { font: 500 14px var(--op-sans); fill: #FFFFFF; }
+.op-real .r-h1 { font: 400 40px var(--op-serif); fill: var(--site-text); letter-spacing: -0.01em; }
+.op-real .r-sub { font: 400 15px var(--op-sans); fill: var(--site-slate); }
+.op-real .r-tint { fill: #E8EDF3; }
+.op-real .r-sun { fill: #E3B565; }
+.op-real .r-hill { fill: #C9D5E2; }
+.op-real .r-hill-line { fill: none; stroke: var(--site-ink); stroke-width: 2; stroke-linejoin: round; stroke-linecap: round; }
+.op-real .r-card { fill: #EEF1F5; }
+.op-real .r-h3 { font: 400 20px var(--op-serif); fill: var(--site-text); }
+.op-real .r-lines { stroke: #C7CED8; stroke-width: 6; stroke-linecap: round; fill: none; }
+.op-real .r-lines-ink { stroke: var(--site-ink); stroke-width: 2.4; }
+.op-real .r-brand-sm { font-size: 12px; }
+.op-real .r-h1-sm { font-size: 26px; }
+.op-real .r-sub-sm { font-size: 12px; }
+.op-real .r-btntext-sm { font-size: 13px; }
+.op-real .r-h3-sm { font-size: 15px; }
+
+/* the line down into the handwriting (continues at the top centre of the next section) */
+.op-line { flex: 1 1 auto; min-height: clamp(48px, 8vh, 96px); width: var(--op-line); margin-top: clamp(18px, 3vh, 30px); position: relative; }
+.op-line-bar {
+  position: absolute; inset: 0; background: var(--op-ink); border-radius: var(--op-line) var(--op-line) 0 0;
+  transform: scaleY(0); transform-origin: top center; visibility: hidden;
+  box-shadow: 0 3.5px 1.6px var(--op-shadow);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .op-fade { transition: none; }
+}

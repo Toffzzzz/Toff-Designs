@@ -1,0 +1,60 @@
+/* Showcase cards beside the handwriting. Uses the site's CSS variables when present. */
+.hw-wrap { position: relative; width: 100%; }
+.sc-layer { position: absolute; inset: 0; pointer-events: none; }
+.sc-card {
+  --sc-ink: var(--ink, #F1E3C6);
+  --sc-text: var(--text, #F6F0E4);
+  --sc-slate: var(--slate, #A7AFC2);
+  --sc-tint: var(--tint, #1A2541);
+  --sc-shadow: var(--line-shadow, rgba(216, 172, 95, 0.38));
+  --sc-radius: var(--radius, 12px);
+  --sc-accent: var(--accent, #D8AC5F);
+  position: absolute; display: flex; flex-direction: column; gap: 12px; container-type: inline-size;
+  pointer-events: auto; text-decoration: none; color: inherit;
+  visibility: hidden; opacity: 0;
+  --sc-rise: 12px;
+  transform: translateY(var(--sc-rise));
+  border-radius: var(--sc-radius);
+  outline-offset: 6px;
+}
+.sc-pic {
+  position: relative; flex: 0 0 auto; aspect-ratio: 370 / 240; width: 100%;
+  background: none;                 /* seamless: the drawings sit straight on the page */
+}
+.sc-pic svg { position: absolute; inset: 0; width: 100%; height: 100%; display: block; overflow: visible; }
+.sc-ink { stroke: var(--sc-ink); stroke-width: 2.4; filter: drop-shadow(0 2.5px 1.1px var(--sc-shadow)); }
+.sc-face.sc-ink { stroke-width: 8.2; }
+.sc-pic .sc-face { overflow: hidden; }    /* the face line starts and ends inside its picture, never over the caption */
+.sc-ink [data-draw], .sc-face path { visibility: hidden; }
+.sc-cap { display: flex; flex-direction: column; gap: 4px; font-family: var(--sans, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); }
+.sc-index {
+  display: flex; align-items: center; gap: 10px; margin-bottom: 4px;
+  font-size: clamp(9.5px, 2.9cqw, 11px); letter-spacing: .18em; text-transform: uppercase; color: var(--sc-accent);
+}
+.sc-index::before { content: ""; width: 28px; height: 1px; background: var(--sc-accent); flex: 0 0 auto; }
+.sc-name { font-family: var(--serif, Georgia, "Times New Roman", serif); font-weight: 400; font-size: clamp(15px, 6.6cqw, 25px); color: var(--sc-text); line-height: 1.15; letter-spacing: -0.005em; }
+.sc-desc { font-size: clamp(11.5px, 4cqw, 15px); color: var(--sc-slate); line-height: 1.35; }
+.sc-go { margin-top: 6px; font-size: clamp(11.5px, 3.8cqw, 14px); letter-spacing: .02em; color: var(--sc-ink); }
+.sc-card-link { cursor: pointer; }
+.sc-card-link .sc-pic { transition: transform .45s cubic-bezier(.2,.7,.2,1); }
+.sc-card-link:hover .sc-pic { transform: translateY(-4px); }
+.sc-card-link:hover .sc-go, .sc-card-link:focus-visible .sc-go { text-decoration: underline; text-underline-offset: 3px; }
+.sc-card-link:focus-visible { outline: 2px solid var(--sc-ink); }
+.sc-nolink .sc-go { color: var(--sc-slate); }
+
+/* Everest: the AC unit, its room temperature, and a glow that turns from warm to cool as the room cools */
+.sc-ac { background: none; overflow: visible; }
+.sc-ac-glow {                        /* a soft warm glow with no edges that fades as the room cools */
+  position: absolute; left: -12%; right: -12%; top: -18%; bottom: -22%;
+  background: radial-gradient(closest-side, rgba(242, 150, 90, 0.42), rgba(242, 150, 90, 0.16) 55%, rgba(242, 150, 90, 0) 100%);
+  pointer-events: none;
+}
+.sc-ac-cool { background: radial-gradient(closest-side, rgba(130, 185, 240, 0.34), rgba(130, 185, 240, 0.12) 55%, rgba(130, 185, 240, 0) 100%); opacity: 0; }
+.sc-ac-unit { position: absolute; left: 9%; right: 9%; top: 11%; aspect-ratio: 1000 / 300; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35)); }
+.sc-ac-unit img { position: absolute; inset: 0; width: 100%; height: auto; display: block; }
+.sc-ac-open { opacity: 0; }
+.sc-ac-label { position: absolute; left: 0; right: 0; top: 52%; text-align: center; font: 500 clamp(7px, 2.8cqw, 11px) var(--sans, Inter, -apple-system, BlinkMacSystemFont, sans-serif); letter-spacing: .14em; text-transform: uppercase; color: var(--sc-slate); }
+.sc-ac-num-wrap { position: absolute; left: 0; right: 0; top: 60%; text-align: center; font: 600 clamp(24px, 14cqw, 54px)/1 var(--sans, Inter, -apple-system, BlinkMacSystemFont, sans-serif); color: rgb(242, 166, 90); letter-spacing: -0.02em; }
+.sc-ac-num-wrap sup { font-size: 0.42em; vertical-align: top; position: relative; top: 0.18em; margin-left: 2px; }
+
+@media (prefers-reduced-motion: reduce) { .sc-card-link .sc-pic { transition: none; } }

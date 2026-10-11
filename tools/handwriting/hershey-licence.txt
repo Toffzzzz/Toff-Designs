@@ -1,0 +1,31 @@
+USE RESTRICTION:
+	This distribution of the Hershey Fonts may be used by anyone for
+	any purpose, commercial or otherwise, providing that:
+		1. The following acknowledgements must be distributed with
+			the font data:
+			- The Hershey Fonts were originally created by Dr.
+				A. V. Hershey while working at the U. S.
+				National Bureau of Standards.
+			- The format of the Font data in this distribution
+				was originally created by
+					James Hurt
+					Cognition, Inc.
+					900 Technology Park Drive
+					Billerica, MA 01821
+					(mit-eddie!ci-dandelion!hurt)
+		2. The font data in this distribution may be converted into
+			any other format *EXCEPT* the format distributed by
+			the U.S. NTIS (which organization holds the rights
+			to the distribution and use of the font data in that
+			particular format). Not that anybody would really
+			*want* to use their format... each point is described
+			in eight bytes as "xxx yyy:", where xxx and yyy are
+			the coordinate values as ASCII numbers.
+
+*PLEASE* be reassured: The legal implications of NTIS' attempt to control
+a particular form of the Hershey Fonts *are* troubling. HOWEVER: We have
+been endlessly and repeatedly assured by NTIS that they do not care what
+we do with our version of the font data, they do not want to know about it,
+they understand that we are distributing this information all over the world,
+etc etc etc... but because it isn't in their *exact* distribution format, they
+just don't care!!! So go ahead and use the data with a clear conscience! (If
