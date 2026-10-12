@@ -37,6 +37,10 @@ While `showPlaceholders: true`, anything not filled in yet shows a clearly marke
 
 **Before showing the site to clients or launching:** set `showPlaceholders: false` (anything still missing is then hidden, with no gaps) or fill in every placeholder.
 
+### The AI second look (Sketch your homepage)
+
+When a visitor pauses while drawing, the sketch goes to the Cloudflare Worker `toff-sketch-ai` (kept outside the repo in `~/Documents/toff-studio-tools/optional-ai/`, with its own tests), which asks Claude Haiku to read it. The API key is only in the Worker's secret. Limits: 20 sketches a minute per IP address, and a $100 monthly spend limit at console.anthropic.com. **To switch it off:** delete `, ai: { endpoint: '…' }` from the `DrawSite.mount(…)` line in `index.html` (and in `assets/studio/site.html`) and push. Revoking the key at console.anthropic.com also stops every call; the site then quietly uses its own instant reading.
+
 ### Going live with the enquiry
 
 The enquiry and the "Plan with us" planner are in demo mode (`chatMode: 'demo'`): they send and store nothing and say so. To receive enquiries, set `chatMode: 'live'`, `formEndpoint` (your form service, e.g. Formspree) and `legal.privacyPolicyUrl`. It stays in demo mode until both the endpoint and the privacy policy are set. The site also needs the standard pages and checks in `~/.claude/CLAUDE.md` (privacy policy, terms, cookie policy, and so on) before launch.
@@ -55,6 +59,7 @@ The enquiry and the "Plan with us" planner are in demo mode (`chatMode: 'demo'`)
 | `assets/showcase/` | The pictures beside the phrases: plan notepad, Bluebird, Everest (delivered in round 02, updated in round 03; don't edit) |
 | `assets/enquiry/` | The style picker for the enquiry's "How should it look?" step, with the playground's "Your design" choice (delivered; don't edit) |
 | `assets/studio/` | Round 03's parts (delivered and tested; don't edit): top bar, Recent work, demos, playground, Sketch your homepage, logo in one line, How it works, About, planner, Sketch lens, pen-written heading and signature, the Lab's experiments, fonts, screenshots and example photos. `site.html` and `lab.html` are the previews; `base.css` is for the previews only |
+| `COMPLIANCE.md`, `privacy-policy-draft.md` | What the site sends and to whom, and the start of the privacy policy (not published) |
 | `assets/finale/finale-data.js` | Round 02's finale lines (no longer loaded; kept) |
 | `fonts/` | Round 02's Cormorant Garamond and Inter woff2 files (no longer loaded; the site now uses `assets/studio/fonts/`) |
 | `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `og-image.png` | Icons and the link-preview image (made by `tools/make-icons.py`) |

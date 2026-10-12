@@ -46,6 +46,7 @@ Run **every** item at the end of every round. When the owner reports a bug, add 
 
 - [ ] Recent work: Bluebird links to its live site; Everest says "Live site coming soon" with no link; Sketch / Site switch works; the concept studies are marked Concept.
 - [ ] The demos, the playground, Sketch your homepage, the logo in one line, How it works, the Sketch lens and the planner work by keyboard and touch; nothing in them sends data (the planner and the bookings are demos).
+- [ ] Sketch your homepage with the AI on: a box with MAP written in it becomes a map, the status ends "Checked by AI", the privacy line shows under the paper; with the Worker unreachable the instant reading stays and nothing breaks. The Worker refuses the 21st sketch in a minute (429). Run `node test-sketch-ai-worker.mjs`. *(Round 03 AI follow-up: Cloudflare's built-in rate limiter silently never blocked on the live Worker; always test the live limit, not just the local one.)*
 - [ ] The Lab: solid top bar, a way back, each effect stops off screen, low-powered devices get plain fallbacks, sound is off until turned on.
 
 ## What's included, Kind words

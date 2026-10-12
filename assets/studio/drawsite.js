@@ -138,7 +138,9 @@
     var btnExample = root.querySelector('.dr-example'), btnUndo = root.querySelector('.dr-undo'), btnClear = root.querySelector('.dr-clear');
     var ctx = canvas.getContext('2d'), strokes = [], current = null, dpr = 1, built = null, playing = false, lastShapes = [], lastUnread = [], seen = new Map(), evT = 0;
     var aiFn = o.recognise || (o.ai && o.ai.endpoint ? endpointRecogniser(o.ai) : null), aiDelay = (o.ai && o.ai.delay) || 2000, aiT = 0, ver = 0, aiEls = null, aiBusy = false;
-    var keyAi = root.querySelector('.dr-key-ai'); if (keyAi) keyAi.hidden = !aiFn;
+    var keyAi = root.querySelector('.dr-key-ai'), aiNote = root.querySelector('.dr-ai-privacy');
+    function showAi() { if (keyAi) keyAi.hidden = !aiFn; if (aiNote) aiNote.hidden = !aiFn; }   // the key item and the privacy line show only while the AI is on
+    showAi();
 
     // ---------- the paper ----------
     function sizePaper() {
@@ -439,7 +441,7 @@
     return { example: example, undo: undo, clear: clear, build: function () { update(false); return built; }, playing: function () { return playing; },
       result: function () { return built && built.elements.length ? { elements: built.elements, description: built.description, summary: built.summary, colours: built.colours } : null; },
       strokes: function () { return strokes; }, unread: function () { return lastUnread.length; },
-      setAI: function (fn, delay) { aiFn = fn || null; if (delay) aiDelay = delay; if (keyAi) keyAi.hidden = !aiFn; }, aiBusy: function () { return aiBusy; }, _classify: classify, _interpret: interpret };
+      setAI: function (fn, delay) { aiFn = fn || null; if (delay) aiDelay = delay; showAi(); }, aiBusy: function () { return aiBusy; }, _classify: classify, _interpret: interpret };
   }
 
   window.DrawSite = { mount: mount, classify: classify, interpret: interpret, describe: describe, endpoint: endpointRecogniser };

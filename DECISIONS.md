@@ -103,3 +103,16 @@ A dated log. One line per decision, with the reason where given. Never remove li
 - 2026-10-12: The footer keeps a small "© 2026 Toff Studio, London" line and the company details (hidden until set), since every public site needs business details.
 - 2026-10-12: lab.js takes the café photo's path as an option, so lab.html in the site root can load it (the preview is unchanged).
 - 2026-10-12: The six example photos in `assets/studio/playground/` show fictional businesses only; their source and licence weren't stated with the round files (CREDITS.md), so the owner should confirm them before launch.
+
+## 2026-10-12 — Round 03 AI follow-up (owner's decisions)
+
+- 2026-10-12: Sketch your homepage gets the AI second look: Claude Haiku through the Cloudflare Worker `toff-sketch-ai` (https://toff-sketch-ai.toffdesigns.workers.dev/read-sketch). The API key lives only in the Worker's secret. Only the sketch (pen lines as a picture, plus the playground's business kind and style) is sent; nothing else on the site sends data. A quiet line under the paper says so, shown only while the AI is on. Replaces Round 03's "the optional AI second look stays off".
+- 2026-10-12: Protecting the bill: Anthropic monthly spend limit $100 with an email alert (set by the owner); at most 20 sketches per 60 seconds per IP address, blocked before Anthropic is called (429), so the site falls back to its instant reading.
+- 2026-10-12: What's included: "Bespoke design, never a template" becomes "Designed from scratch for your business". Replaces Round 03's "keep it word for word"; the other five items stay word for word.
+- 2026-10-12: The privacy wording lives in `privacy-policy-draft.md` (not published) and `COMPLIANCE.md` (what the site sends, to whom, what is stored).
+
+## 2026-10-12 — Round 03 AI follow-up (made while building; owner to confirm)
+
+- 2026-10-12: Cloudflare's built-in rate limiter (`SKETCH_LIMIT`) never refused a request on the live Worker in testing (it does locally), so on the owner's choice an exact sliding-window counter (`SKETCH_COUNTER`, a Durable Object per IP) enforces the limit; the built-in one stays bound in case it starts working. If the counter can't answer, the sketch isn't sent (503) rather than risking the bill.
+- 2026-10-12: The privacy line under the paper is shown and hidden by Draw your site itself (`drawsite.js`), together with the "Write a word" key item, so it can never show without the AI on or be missing with it on.
+- 2026-10-12: Kind words keeps its two clearly marked placeholders (a quiet italic "Placeholder" note, "A short quote from … will go here.", "Client name, …") rather than hiding the section, until real quotes are set in `settings.js`; none is a made-up quote.

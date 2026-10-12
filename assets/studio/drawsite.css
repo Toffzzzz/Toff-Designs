@@ -32,6 +32,7 @@
 @media (hover: hover) { .dr-tools button:not(:disabled):hover { border-color: var(--accent, #D8AC5F); } }
 .dr-touch-tip { display: none; margin: 10px 0 0; color: var(--slate, #A7AFC2); font-size: 13px; }
 @media (hover: none) { .dr-touch-tip { display: block; } }
+.dr-ai-privacy { margin: 10px 0 0; color: var(--slate, #A7AFC2); font-size: 13px; }   /* shown only while the AI second look is on */
 
 /* the browser window with the picture of the homepage */
 .dr-window { border-radius: 12px; overflow: hidden; background: #0A101E; box-shadow: inset 0 0 0 1px var(--hairline, rgba(216, 172, 95, .22)); }
