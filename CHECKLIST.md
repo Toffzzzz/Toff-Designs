@@ -49,10 +49,20 @@ Run **every** item at the end of every round. When the owner reports a bug, add 
 - [ ] Sketch your homepage with the AI on: a box with MAP written in it becomes a map, the status ends "Checked by AI", the privacy line shows under the paper; with the Worker unreachable the instant reading stays and nothing breaks. The Worker refuses the 21st sketch in a minute (429). Run `node test-sketch-ai-worker.mjs`. *(Round 03 AI follow-up: Cloudflare's built-in rate limiter silently never blocked on the live Worker; always test the live limit, not just the local one.)*
 - [ ] The Lab: solid top bar, a way back, each effect stops off screen, low-powered devices get plain fallbacks, sound is off until turned on.
 
+## Round 04
+
+- [ ] AI assistants: each business and its chips answer; editing a taught fact changes the next answer; with the Worker on, the header says questions go to Anthropic and answers come from Claude (live test once: Café, "Do you have oat milk?" names "Milk and allergies"); with the Worker blocked it answers from the facts and says so, with no errors.
+- [ ] Try it: four tabs (arrow keys, Home, End); links to #playground, #draw-your-site, #one-line, #what-we-build and "Open in the playground" open the right tab first and never scroll to a hidden tool; no tool appears twice on the page.
+- [ ] Draw your site: blocks drag and tap in, headings keep their typed text exactly; nothing is built until "I'm done"; exactly one privacy line under the paper, shown only with the AI on.
+- [ ] The Worker: `node test-sketch-ai-worker.mjs` and `node test-sketch-counter.mjs` pass; after deploying, the 21st request in a minute to `/chat` gets 429 (send empty questions so Anthropic isn't called) and another website's Origin gets 403.
+- [ ] Unfinished details: with `showPlaceholders: false` no `data-unfinished` item, "Placeholder" note or empty Kind words shows; `?unfinished` shows them all; filling a value in settings.js shows it without `?unfinished`.
+- [ ] 404.html: every path is absolute (`/Toff-Designs/…` while there's no CNAME), `noindex`, and it renders fully at a made-up address two folders deep.
+- [ ] The Lab: the logo drawer's four sample logos load from the site root; "One line" in its top bar; the gold-line transition between the main site and the Lab (none with reduced motion).
+
 ## What's included, Kind words
 
 - [ ] Items and quotes fade up once when they come into view (600ms, 12px, no bounce) and never replay while on the page.
-- [ ] No prices anywhere on the site (the enquiry's budget ranges are the only amounts).
+- [ ] No studio prices anywhere on the site (the enquiry's budget ranges are the only amounts; the hidden price line in How it works stays hidden until the owner sets real prices). The made-up businesses in the opening drawing and the AI assistants demo may show their own prices (owner, Round 04).
 - [ ] Placeholders are clearly marked (a quiet italic "Placeholder" note) and none is a made-up quote, name or timeframe.
 - [ ] With `showPlaceholders: false`, every unfilled item is hidden with no gaps (a section with nothing filled in is hidden completely); each placeholder disappears as soon as its real value is set in settings.js.
 - [ ] **BEFORE LAUNCH: set `showPlaceholders` to `false` or fill in every placeholder.**

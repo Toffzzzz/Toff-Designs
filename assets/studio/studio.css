@@ -15,3 +15,32 @@
 .r3-intro--split { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(24px, 5vw, 80px); align-items: end; }
 .r3-intro--split .r3-h2 { margin: 0; }
 @media (max-width: 860px) { .r3-intro--split { grid-template-columns: 1fr; gap: 16px; } }
+
+/* ---- Round 04 polish ---- */
+/* no lonely last words: headings balance their lines, paragraphs avoid a single word on the last line */
+.r3-h2, .r3-section h3, .op-title { text-wrap: balance; }
+.r3-section p, .r3-section li, .ft p { text-wrap: pretty; }
+/* a skip link for keyboard users: hidden until it has focus */
+.skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; overflow: hidden; white-space: nowrap; }
+.skip { position: fixed; left: 12px; top: -60px; z-index: 2147483001; background: var(--accent, #D8AC5F); color: var(--bg, #0E1628); padding: 10px 16px; border-radius: 8px; font: 500 15px var(--sans); text-decoration: none; transition: top .15s ease; }
+.skip:focus { top: 12px; outline: 2px solid var(--text, #F1E3C6); outline-offset: 2px; }
+/* a fine, still paper grain over the whole page (it never moves) */
+body::after { content: ''; position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E"); }
+@media print { body::after { display: none; } }
+/* moving between the main site and the Lab: the new page is drawn in behind a thin gold line that sweeps across */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 480ms cubic-bezier(.22, 1, .36, 1) both vt-dim; }
+::view-transition-new(root) { animation: 760ms cubic-bezier(.22, 1, .36, 1) both vt-wipe; }
+::view-transition-group(vt-rule) { animation: 760ms cubic-bezier(.22, 1, .36, 1) both vt-sweep; }
+::view-transition-old(vt-rule), ::view-transition-new(vt-rule) { animation: none; }
+.vt-rule { position: fixed; left: -2px; top: 0; width: 2px; height: 100vh; background: var(--accent, #D8AC5F); view-transition-name: vt-rule; pointer-events: none; }
+@keyframes vt-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes vt-dim { to { opacity: .55; } }
+@keyframes vt-sweep { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 2px)); } }
+@media (prefers-reduced-motion: reduce) { @view-transition { navigation: none; } }
+
+/* Unfinished details (prices, timeframes, the email address, "placeholder" notes) stay hidden from visitors until they're
+   filled in: remove data-unfinished from an element once it's real. Add ?unfinished to the address to see them all. */
+html:not(.show-unfinished) [data-unfinished] { display: none !important; }
+.pr-terms { margin: 14px 0 0; max-width: 52ch; }

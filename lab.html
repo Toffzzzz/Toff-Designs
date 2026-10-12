@@ -27,7 +27,10 @@
     <link rel="stylesheet" href="assets/studio/finale.css" />
     <link rel="stylesheet" href="assets/studio/topbar.css" />
     <link rel="stylesheet" href="assets/studio/craft.css" />
+    <link rel="stylesheet" href="assets/studio/oneline.css" />
     <link rel="stylesheet" href="assets/studio/lab.css" />
+    <link rel="preload" href="assets/studio/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/studio/fonts/work-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin />
     <script src="settings.js"></script>
     <script>
       /* Colours from settings.js onto the page's CSS variables */
@@ -36,9 +39,12 @@
         for (var k in map) if (c[k]) document.documentElement.style.setProperty(map[k], c[k]);
       })();
     </script>
+    <!-- Unfinished details (data-unfinished) show while settings.js has showPlaceholders: true, or with ?unfinished in the address -->
+    <script>if ((window.TOFF_SETTINGS || {}).showPlaceholders !== false || /[?&]unfinished\b/.test(location.search)) document.documentElement.classList.add('show-unfinished');</script>
   </head>
   <body>
-    <a class="skip-link" href="#lab">Skip to main content</a>
+    <a class="skip" href="#lab">Skip to content</a>
+    <div class="vt-rule" aria-hidden="true"></div>
 <main id="lab">
 <section class="r3-section lab-intro" aria-labelledby="lab-title">
   <div class="r3-inner">
@@ -81,6 +87,48 @@
   </div>
 </section>
 
+<!-- Your logo, in one line. On the Lab page, after the specks. -->
+<section class="r3-section ol-section" id="one-line" aria-labelledby="ol-title">
+  <div class="r3-inner ol">
+    <div class="ol-text">
+      <h2 class="r3-h2" id="ol-title">Your logo, drawn in one continuous line</h2>
+      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser traces it as a single gold line and draws it, start to finish, without lifting the pen: logos as clean outlines, photos as shading. Nothing leaves your device.</p>
+      <div class="ol-controls">
+        <label class="ol-upload"><input type="file" class="ol-file" accept="image/*">Choose an image</label>
+        <form class="ol-initials"><label for="ol-initials-input">Or type your initials</label><input id="ol-initials-input" type="text" maxlength="3" autocomplete="off" placeholder="HB"><button type="submit">Draw</button></form>
+        <div class="ol-examples" role="group" aria-label="Or try an example"></div>
+        <label class="ol-detail-wrap">Style
+          <select class="ol-style" aria-label="Drawing style">
+            <option value="auto" selected>Automatic</option>
+            <option value="outline">Outline (best for logos)</option>
+            <option value="shading">Shading (best for photos)</option>
+          </select>
+        </label>
+        <label class="ol-detail-wrap">How detailed
+          <select class="ol-detail" aria-label="Level of detail">
+            <option value="900">Light</option>
+            <option value="1600" selected>Balanced</option>
+            <option value="2600">Rich</option>
+          </select>
+        </label>
+        <div class="ol-after">
+          <button type="button" class="ol-again" disabled>Draw it again</button>
+          <button type="button" class="ol-download" disabled>Download the drawing</button>
+        </div>
+        <p class="ol-status" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="ol-stage" data-brief="Your logo in one line">
+      <svg class="ol-svg" viewBox="0 0 400 400" role="img" aria-label="Your image drawn as one continuous gold line">
+        <path class="ol-shadow" d="" fill="none"/>
+        <path class="ol-path" d="" fill="none"/>
+        <circle class="ol-tip" r="3.2" cx="-10" cy="-10"/>
+      </svg>
+      <p class="ol-drop" aria-hidden="true">Drop an image here</p>
+    </div>
+  </div>
+</section>
+
 <section class="r3-section lab-exp mg-section" id="liquid-gold" aria-labelledby="mg-title">
   <div class="r3-inner lab-split">
     <div>
@@ -106,8 +154,8 @@
 <div class="ft-contact">
   <a class="ft-start" href="./#contact">Start a project <span aria-hidden="true">→</span></a>
   <a class="ft-back" href="./">Back to the main site</a>
-  <p class="ft-line" data-email>Email <span class="ft-ph">your address here</span> <span class="r3-placeholder-tag" data-placeholder>Placeholder</span></p>
-  <p class="ft-line" data-privacy>Privacy policy <span class="ft-ph">coming soon</span></p>
+  <p class="ft-line" data-email data-unfinished>Email <span class="ft-ph">your address here</span> <span class="r3-placeholder-tag" data-placeholder>Placeholder</span></p>
+  <p class="ft-line" data-privacy data-unfinished>Privacy policy <span class="ft-ph">coming soon</span></p>
   <p class="ft-line ft-legal" data-legal hidden></p>
 </div><!-- Craft line: live, honest numbers about this page. -->
 <p class="craft-line">This page loaded in <span data-craft="load">a moment</span> on your device and weighs <span data-craft="weight">very little</span>, with <span data-craft="external">no trackers</span>. It’s <span data-craft="time"></span> in London.</p>
@@ -124,11 +172,11 @@
     <script src="assets/studio/sound.js"></script>
     <script src="assets/studio/kinetic.js"></script>
     <script src="assets/studio/topbar.js"></script>
+    <script src="assets/studio/oneline.js"></script>
     <script src="assets/studio/lab.js"></script>
     <script src="site.js"></script>
     <script>
-      window.__lab = Lab.mount({ main: './', image: 'assets/studio/playground/playground-cafe.webp' });
-      document.body.insertBefore(document.querySelector('.skip-link'), document.body.firstChild);   // the skip link stays the first thing to tab to
+      window.__lab = Lab.mount({ main: './', image: 'assets/studio/playground/playground-cafe.webp', logoBase: 'assets/studio/lab-logos/' });
     </script>
   </body>
 </html>

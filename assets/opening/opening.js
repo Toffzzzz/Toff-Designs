@@ -33,6 +33,7 @@
     var o = {}, k; for (k in DEFAULTS) o[k] = DEFAULTS[k]; for (k in (options || {})) o[k] = options[k];
     var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     var st = { raf: 0, played: false, playing: false };
+    if (o.photo) [].slice.call(root.querySelectorAll('.r-photo')).forEach(function (im) { im.setAttribute('href', o.photo); });   // a real photo in the finished site (otherwise the drawn hills stay)
 
     function current() {   // the visible variant (desktop browser or phone)
       var vs = root.querySelectorAll('.op-variant');

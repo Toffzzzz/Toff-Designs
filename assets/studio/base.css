@@ -1,11 +1,11 @@
 /* Round 03 preview base: the same fonts and Midnight & Gold variables the site uses.
    (On the real site these already exist from Round 02; this file is only for the previews.) */
-@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin.woff") format("woff"); font-weight: 300 700; font-style: normal; font-display: swap; }
-@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-italic-latin.woff") format("woff"); font-weight: 300 700; font-style: italic; font-display: swap; }
-@font-face { font-family: "Inter"; src: url("fonts/inter-latin.woff") format("woff"); font-weight: 100 900; font-style: normal; font-display: swap; }   /* only for the example client sites */
-@font-face { font-family: "Work Sans"; src: url("fonts/work-sans-regular-latin.woff") format("woff"); font-weight: 300 599; font-style: normal; font-display: swap; }
-@font-face { font-family: "Work Sans"; src: url("fonts/work-sans-italic-latin.woff") format("woff"); font-weight: 300 599; font-style: italic; font-display: swap; }
-@font-face { font-family: "Work Sans"; src: url("fonts/work-sans-bold-latin.woff") format("woff"); font-weight: 600 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-latin.woff2") format("woff2"), url("fonts/cormorant-garamond-latin.woff") format("woff"); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("fonts/cormorant-garamond-italic-latin.woff2") format("woff2"), url("fonts/cormorant-garamond-italic-latin.woff") format("woff"); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("fonts/inter-latin.woff2") format("woff2"), url("fonts/inter-latin.woff") format("woff"); font-weight: 100 900; font-style: normal; font-display: swap; }   /* only for the example client sites */
+@font-face { font-family: "Work Sans"; src: url("fonts/work-sans-regular-latin.woff2") format("woff2"), url("fonts/work-sans-regular-latin.woff") format("woff"); font-weight: 300 599; font-style: normal; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("fonts/work-sans-italic-latin.woff2") format("woff2"), url("fonts/work-sans-italic-latin.woff") format("woff"); font-weight: 300 599; font-style: italic; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("fonts/work-sans-bold-latin.woff2") format("woff2"), url("fonts/work-sans-bold-latin.woff") format("woff"); font-weight: 600 900; font-style: normal; font-display: swap; }
 
 :root {
   --bg: #0E1628; --ink: #F1E3C6; --text: #F6F0E4; --slate: #A7AFC2; --accent: #D8AC5F; --tint: #1A2541;

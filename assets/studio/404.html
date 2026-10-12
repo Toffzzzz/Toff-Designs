@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Page not found, Toff Studio</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="studio.css">
+<link rel="stylesheet" href="topbar.css">
+<link rel="stylesheet" href="notfound.css">
+<link rel="preload" href="fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/work-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+<script>if (/[?&]unfinished\b/.test(location.search)) document.documentElement.classList.add('show-unfinished');</script>
+</head>
+<body>
+<a class="skip" href="#main">Skip to content</a>
+<div class="vt-rule" aria-hidden="true"></div>
+<main id="main" class="r3-section nf">
+  <div class="r3-inner nf-in">
+    <div class="nf-art" role="img" aria-label="A shop sign hanging from a nail, with Closed written on it">
+      <svg class="nf-sign" viewBox="0 0 320 260" aria-hidden="true">
+        <circle class="nf-draw" cx="160" cy="22" r="4" style="--len:26"/>
+        <path class="nf-draw" d="M160 26 L58 104" style="--len:129;--at:.15s"/>
+        <path class="nf-draw" d="M160 26 L262 104" style="--len:129;--at:.15s"/>
+        <rect class="nf-draw" x="38" y="102" width="244" height="132" rx="10" style="--len:740;--at:.45s"/>
+        <rect class="nf-draw" x="50" y="114" width="220" height="108" rx="6" style="--len:640;--at:.7s"/>
+      </svg>
+      <div class="nf-word" id="nf-word"></div>
+    </div>
+    <div>
+      <h1 class="r3-h2">This page is closed</h1>
+      <p class="r3-lede">There’s nothing at this address. It may have moved, or the link may have a small typo.</p>
+      <div class="nf-links"><a class="nf-home" href="site.html">Back to the main site</a><a href="lab.html">The Lab</a><a href="site.html#contact">Start a project</a></div>
+    </div>
+  </div>
+</main>
+<script src="inkwriter-data.js"></script>
+<script src="inkwriter.js"></script>
+<script src="topbar.js"></script>
+<script>
+  TopBar.mount({ solid: true, cta: 'site.html' + '#contact', links: [['Main site', 'site.html'], ['The Lab', 'lab.html']] });
+  setTimeout(function () { InkWriter.mount(document.getElementById('nf-word'), { phrase: 'closed', speed: 95, threshold: 0 }); }, 900);
+</script>
+</body>
+</html>

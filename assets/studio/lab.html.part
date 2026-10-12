@@ -8,6 +8,7 @@
 </section>
 {BUILDSELF}
 {PARTICLES}
+{ONELINE}
 <section class="r3-section lab-exp mg-section" id="liquid-gold" aria-labelledby="mg-title">
   <div class="r3-inner lab-split">
     <div>

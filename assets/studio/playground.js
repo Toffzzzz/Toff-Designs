@@ -29,7 +29,7 @@
     if (o.photos) MiniSite.photos = o.photos;
     var devices = root.querySelector('.pg-devices');
     var lapC = root.querySelector('.pg-laptop .dv-content'), phC = root.querySelector('.pg-phone .dv-content');
-    var state = { business: 'clinic', mood: 'calm', layout: 'split', name: '' };
+    var state = { business: o.business || 'cafe', mood: 'calm', layout: 'split', name: '' };
     try { var saved = JSON.parse(sessionStorage.getItem('toff-playground') || 'null'); if (saved && MiniSite.BUSINESSES[saved.business]) state = saved; } catch (e) {}
     var lap = MiniSite.render(lapC, state), ph = MiniSite.render(phC, state);
     Devices.fit(root.querySelector('.pg-laptop .dv-screen'), lapC, 1280);

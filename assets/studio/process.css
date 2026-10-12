@@ -19,3 +19,16 @@
   .pr-dot { left: -34px; top: 14px; }
 }
 @media (prefers-reduced-motion: reduce) { .pr-step > :not(.pr-dot) { transition: none; } }
+
+/* How it works sits on a cream "paper" page: a change of tone in the middle of the scroll, with a torn-paper edge */
+.pr-section { position: relative; background: #F1EADC; --text: #141C2E; --slate: #4C5468; --accent-ink: #8F6A2A; }
+.pr-section .r3-h2, .pr-section .pr-name { color: #141C2E; }
+.pr-section .r3-lede, .pr-section .pr-text { color: #4C5468; }
+.pr-section .r3-placeholder-tag { color: #5F6679; }
+.pr-section .pr-ink path { stroke: #9A7431; }
+.pr-section .pr-ink .pr-shadow { stroke: rgba(20, 28, 46, .14); }
+.pr-section .pr-ink circle { fill: #F1EADC; stroke: #9A7431; }
+.pr-section::before, .pr-section::after { content: ''; position: absolute; left: 0; right: 0; height: 12px; pointer-events: none;
+  background: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M0 12 L0 7 L9 5 L17 8 L26 4 L34 6 L45 3 L53 7 L61 5 L72 8 L80 4 L91 6 L99 2 L108 6 L118 5 L126 8 L137 4 L146 7 L155 3 L163 6 L174 5 L183 8 L191 4 L202 6 L211 3 L220 7 L229 5 L240 7 L240 12 Z' fill='%23F1EADC'/%3E%3C/svg%3E") repeat-x; background-size: 240px 12px; }
+.pr-section::before { top: -11px; }
+.pr-section::after { bottom: -11px; transform: scaleY(-1); }

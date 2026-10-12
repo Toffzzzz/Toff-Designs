@@ -14,7 +14,8 @@
       '<a class="tb-cta" href="' + (o.cta || '#contact') + '"><span class="tb-long">Start a project</span><span class="tb-short" aria-hidden="true">Enquire</span></a>' +
       '<button type="button" class="tb-menu" aria-expanded="false" aria-controls="tb-sheet">Menu</button></div>' +
       '<nav class="tb-sheet" id="tb-sheet" aria-label="Sections" hidden>' + links.map(function (l) { return '<a href="' + l[1] + '">' + l[0] + '</a>'; }).join('') + '</nav>';
-    document.body.insertBefore(bar, document.body.firstChild);
+    var skip = document.querySelector('body > .skip');           // a "Skip to content" link stays the very first thing to tab to
+    document.body.insertBefore(bar, skip ? skip.nextSibling : document.body.firstChild);
     if (!document.getElementById('top')) { var t = document.createElement('a'); t.id = 'top'; t.setAttribute('aria-hidden', 'true'); t.tabIndex = -1; t.className = 'tb-top'; document.body.insertBefore(t, bar); }
     var hero = o.hero && document.querySelector(o.hero);
     function sync() {

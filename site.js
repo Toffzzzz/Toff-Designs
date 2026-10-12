@@ -4,6 +4,9 @@
  *  - Fills in what comes from settings.js: studio name, the "How it works"
  *    timeframes, testimonials, reply time, email, privacy policy, footer extras
  *    (placeholders while showPlaceholders is true, hidden when it's false).
+ *    showPlaceholders is also the one switch for the details marked
+ *    data-unfinished (shown while true); ?unfinished in the address shows
+ *    everything. Once a detail is filled in, its data-unfinished goes.
  *  - Mounts the pre-built parts of the first screens (assets/): the opening page
  *    and the handwriting line with its showcase pictures.
  *  - In-page links (the top bar, the footer): they land just below the top bar
@@ -23,7 +26,8 @@
   var S = window.TOFF_SETTINGS || {};
   var doc = document;
   var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  var showPH = S.showPlaceholders !== false;
+  var showPH = S.showPlaceholders !== false || /[?&]unfinished\b/.test(location.search);   // ?unfinished: the owner checking what's still missing
+  if (showPH) doc.documentElement.classList.add('show-unfinished');   // the data-unfinished details follow the same switch
   var site = (window.TOFF_SITE = {});
 
   function $(sel, ctx) { return (ctx || doc).querySelector(sel); }
@@ -66,7 +70,7 @@
     var tf = (S.process && S.process.timeframes) || [];
     $$('[data-timeframe]').forEach(function (e) {
       var v = tf[+e.getAttribute('data-timeframe')];
-      if (filled(v)) { e.textContent = 'How long: ' + String(v).trim(); e.hidden = false; }
+      if (filled(v)) { e.textContent = 'How long: ' + String(v).trim(); e.hidden = false; e.removeAttribute('data-unfinished'); }
       else if (!showPH) e.hidden = true;
     });
 
@@ -103,13 +107,13 @@
     // Footer: email (the placeholder note stays until it's set)
     var em = $('[data-email]');
     if (em) {
-      if (filled(S.email)) { em.textContent = 'Email '; em.appendChild(link(S.email.trim(), 'mailto:' + S.email.trim())); }
+      if (filled(S.email)) { em.textContent = 'Email '; em.appendChild(link(S.email.trim(), 'mailto:' + S.email.trim())); em.removeAttribute('data-unfinished'); }
       else if (!showPH) em.hidden = true;
     }
 
     // Footer: privacy policy ("coming soon" until it exists), other legal pages, social links, company details
     var L = S.legal || {}, pv = $('[data-privacy]');
-    if (pv && filled(L.privacyPolicyUrl)) { pv.textContent = ''; pv.appendChild(link('Privacy policy', L.privacyPolicyUrl)); }
+    if (pv && filled(L.privacyPolicyUrl)) { pv.textContent = ''; pv.appendChild(link('Privacy policy', L.privacyPolicyUrl)); pv.removeAttribute('data-unfinished'); }
     var lg = $('[data-legal]');
     if (lg) {
       [['Terms', L.termsUrl], ['Cookie policy', L.cookiesUrl]].filter(function (x) { return filled(x[1]); })
@@ -186,7 +190,7 @@
 
   function mountEngines() {
     var op = doc.getElementById('opening');
-    if (op && window.Opening) site.opening = window.__op = Opening.mount(op, S.opening || {});
+    if (op && window.Opening) site.opening = window.__op = Opening.mount(op, merge(S.opening || {}, { photo: 'assets/studio/playground/playground-cafe.webp' }));   // a real photo in the drawn café
     if (!window.Handwriting || !doc.getElementById('hw')) return;
     Handwriting.mount(doc.getElementById('hw'), hwOpts).then(function (hw) {
       site.hw = window.__hw = hw;

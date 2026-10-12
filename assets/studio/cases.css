@@ -36,7 +36,7 @@
 .cs-phone { position: absolute; right: 0; bottom: 0; width: 23%; }
 .cs-flip .cs-devices { padding: 0 0 7% 13%; }
 .cs-flip .cs-phone { right: auto; left: 0; }
-.cs-mock-note { margin: 18px 0 0; color: var(--slate); font-size: 13px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+.cs-mock-note { margin: 18px 0 0; color: var(--slate); font-size: 14px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
 
 /* sketch layer */
 .cs-layer-sketch { container-type: inline-size; background: #F3EDE1; }

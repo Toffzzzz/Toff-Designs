@@ -11,8 +11,9 @@ window.TOFF_SETTINGS = {
   // Your email, e.g. 'hello@toffstudio.com'. Shown in the footer.
   email: '',
 
-  // Shows clearly marked placeholders for anything not filled in yet. Set to false before showing the site to clients or launching: anything still missing is then hidden.
-  showPlaceholders: true,
+  // The one switch for anything not filled in yet: true shows clearly marked placeholders and the unfinished details
+  // (data-unfinished); false hides both, with no gaps. Adding ?unfinished to the address always shows everything.
+  showPlaceholders: false,
 
   /* ---------- Live sites ----------
      Empty = no link: the Everest picture says "Live site coming soon" and the

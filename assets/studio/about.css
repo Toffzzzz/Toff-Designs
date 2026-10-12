@@ -4,5 +4,5 @@
 .ab-tag { margin-top: 4px; }
 .ab-body { max-width: 60ch; }
 .ab-body p { margin: 0 0 18px; color: var(--slate); font-size: clamp(16px, 1.25vw, 18px); line-height: 1.7; }
-.ab-body .ab-statement { font: 300 clamp(26px, 2.6vw, 36px)/1.2 var(--serif); color: var(--text); margin-bottom: 26px; }
+.ab-statement { font: 300 clamp(26px, 2.6vw, 36px)/1.2 var(--serif); color: var(--text); margin-bottom: 26px; }
 @media (max-width: 860px) { .ab { grid-template-columns: 1fr; gap: 20px; } }

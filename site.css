@@ -9,12 +9,12 @@
 /* ---------- Fonts (self-hosted, SIL Open Font License; see CREDITS.md) ----------
    Cormorant Garamond is the variable version (300–700), so the kinetic headings can thicken smoothly.
    Work Sans is the text font. Inter is only used inside the example client sites (minisite moods). */
-@font-face { font-family: "Cormorant Garamond"; src: url("assets/studio/fonts/cormorant-garamond-latin.woff") format("woff"); font-weight: 300 700; font-style: normal; font-display: swap; }
-@font-face { font-family: "Cormorant Garamond"; src: url("assets/studio/fonts/cormorant-garamond-italic-latin.woff") format("woff"); font-weight: 300 700; font-style: italic; font-display: swap; }
-@font-face { font-family: "Work Sans"; src: url("assets/studio/fonts/work-sans-regular-latin.woff") format("woff"); font-weight: 300 599; font-style: normal; font-display: swap; }
-@font-face { font-family: "Work Sans"; src: url("assets/studio/fonts/work-sans-italic-latin.woff") format("woff"); font-weight: 300 599; font-style: italic; font-display: swap; }
-@font-face { font-family: "Work Sans"; src: url("assets/studio/fonts/work-sans-bold-latin.woff") format("woff"); font-weight: 600 900; font-style: normal; font-display: swap; }
-@font-face { font-family: "Inter"; src: url("assets/studio/fonts/inter-latin.woff") format("woff"); font-weight: 100 900; font-style: normal; font-display: swap; }   /* only for the example client sites */
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/studio/fonts/cormorant-garamond-latin.woff2") format("woff2"), url("assets/studio/fonts/cormorant-garamond-latin.woff") format("woff"); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("assets/studio/fonts/cormorant-garamond-italic-latin.woff2") format("woff2"), url("assets/studio/fonts/cormorant-garamond-italic-latin.woff") format("woff"); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("assets/studio/fonts/work-sans-regular-latin.woff2") format("woff2"), url("assets/studio/fonts/work-sans-regular-latin.woff") format("woff"); font-weight: 300 599; font-style: normal; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("assets/studio/fonts/work-sans-italic-latin.woff2") format("woff2"), url("assets/studio/fonts/work-sans-italic-latin.woff") format("woff"); font-weight: 300 599; font-style: italic; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("assets/studio/fonts/work-sans-bold-latin.woff2") format("woff2"), url("assets/studio/fonts/work-sans-bold-latin.woff") format("woff"); font-weight: 600 900; font-style: normal; font-display: swap; }
+@font-face { font-family: "Inter"; src: url("assets/studio/fonts/inter-latin.woff2") format("woff2"), url("assets/studio/fonts/inter-latin.woff") format("woff"); font-weight: 100 900; font-style: normal; font-display: swap; }   /* only for the example client sites */
 
 /* ---------- Design values ---------- */
 :root {
@@ -49,10 +49,7 @@ body {
   -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
   overflow-x: clip;
 }
-/* paper grain: a faint, static texture over the page (made in code; nothing loaded from other sites) */
-body::after { content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 50; opacity: .07;
-  background-image: url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='180' height='180'><filter id='n'><feTurbulence type='fractalNoise' baseFrequency='.9' numOctaves='2' stitchTiles='stitch'/><feColorMatrix values='0 0 0 0 1  0 0 0 0 0.97  0 0 0 0 0.92  0 0 0 .35 0'/></filter><rect width='100%' height='100%' filter='url(%23n)'/></svg>");
-  transform: translateZ(0); }
+/* paper grain: Round 04's still grain in assets/studio/studio.css (body::after) */
 
 h1, h2, h3, p, ol, ul, dl, dd, figure, blockquote { margin: 0; }
 ol, ul { padding: 0; list-style: none; }
@@ -65,12 +62,7 @@ button, input, textarea { font: inherit; color: inherit; }
 main { display: block; }
 
 .visually-hidden { position: absolute !important; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; }
-.skip-link {
-  position: fixed; top: 10px; left: 12px; z-index: 80; padding: 10px 16px; border-radius: var(--radius);
-  background: var(--accent); color: var(--bg); font-weight: 500; text-decoration: none;
-  transform: translateY(-160%);
-}
-.skip-link:focus { transform: none; }
+/* The "Skip to content" link (.skip) is styled in assets/studio/studio.css */
 
 /* ---------- Actions ---------- */
 /* The one solid button: the enquiry's Continue / Send (the top bar has its own "Start a project") */
@@ -183,7 +175,7 @@ html.js-motion .reveal.is-in { opacity: 1; transform: none; }
 .eq-back:hover { color: var(--ink); }
 .eq-error { margin-top: 16px; color: var(--error); font-size: 14px; }
 .eq-error:empty { display: none; }
-.eq-demo { margin-top: 28px; font-size: 13px; color: var(--slate); }
+.eq-demo { margin-top: 28px; font-size: 14px; color: var(--slate); }
 
 .eq-thanks:focus { outline: none; }
 .eq-summary { margin-top: 32px; border-top: 1px solid var(--outline); }
@@ -193,7 +185,7 @@ html.js-motion .reveal.is-in { opacity: 1; transform: none; }
 .eq-notes { display: block; margin-top: 6px; color: var(--slate); font-style: italic; }
 .eq-reply { margin-top: 28px; color: var(--text); }
 .eq-reply .ph { margin-left: 4px; }
-.eq-sent-note { margin-top: 12px; font-size: 13px; color: var(--slate); }
+.eq-sent-note { margin-top: 12px; font-size: 14px; color: var(--slate); }
 @media (max-width: 479px) { .eq-row { grid-template-columns: 1fr; } }
 
 /* ---------- Footer: the only change of shade (as in assets/studio/site.html) ---------- */
@@ -206,7 +198,7 @@ html.js-motion .reveal.is-in { opacity: 1; transform: none; }
 .ft-line a { color: var(--ink); text-underline-offset: 4px; }
 .ft-ph { color: var(--ink); }
 .ft-legal { display: flex; flex-wrap: wrap; gap: 6px 22px; }
-.ft-bottom { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 22px; color: var(--slate); font-size: 13px; }
+.ft-bottom { display: flex; flex-wrap: wrap; gap: 6px 24px; margin-top: 22px; color: var(--slate); font-size: 14px; }
 .ft a:focus-visible, .ft button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
 @media (max-width: 640px) { .ft { padding-bottom: 96px; } }   /* room for the round planner button */
 

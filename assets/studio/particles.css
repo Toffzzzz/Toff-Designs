@@ -7,7 +7,7 @@
 .pt-stage.is-live .pt-fallback { display: none; }
 .pt-h-touch { display: none; }
 @media (hover: none) { .pt-h-touch { display: inline; } .pt-h-fine { display: none; } }
-.pt-hint { margin: 14px auto 0; color: var(--slate, #A7AFC2); font-size: 13.5px; max-width: 46ch; }
+.pt-hint { margin: 14px auto 0; color: var(--slate, #A7AFC2); font-size: 14.5px; max-width: 46ch; }
 
 /* Liquid gold monogram (sits under the About heading) */
 .ab-mono { position: relative; width: min(100%, 300px); aspect-ratio: 5 / 6; margin-top: 28px; }

@@ -20,8 +20,8 @@
     <link rel="icon" href="favicon.ico" sizes="48x48" />
     <link rel="icon" href="favicon.svg" type="image/svg+xml" />
     <link rel="apple-touch-icon" href="apple-touch-icon.png" />
-    <link rel="preload" href="assets/studio/fonts/cormorant-garamond-latin.woff" as="font" type="font/woff" crossorigin />
-    <link rel="preload" href="assets/studio/fonts/work-sans-regular-latin.woff" as="font" type="font/woff" crossorigin />
+    <link rel="preload" href="assets/studio/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="assets/studio/fonts/work-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="stylesheet" href="site.css" />
     <link rel="stylesheet" href="assets/studio/studio.css" />
     <link rel="stylesheet" href="assets/opening/opening.css" />
@@ -32,8 +32,11 @@
     <link rel="stylesheet" href="assets/studio/capabilities.css" />
     <link rel="stylesheet" href="assets/studio/playground.css" />
     <link rel="stylesheet" href="assets/studio/about.css" />
+    <link rel="stylesheet" href="assets/studio/aiassist.css" />
     <link rel="stylesheet" href="assets/studio/drawsite.css" />
     <link rel="stylesheet" href="assets/studio/oneline.css" />
+    <link rel="stylesheet" href="assets/studio/labteaser.css" />
+    <link rel="stylesheet" href="assets/studio/trytabs.css" />
     <link rel="stylesheet" href="assets/studio/craft.css" />
     <link rel="stylesheet" href="assets/studio/assistant.css" />
     <link rel="stylesheet" href="assets/studio/xray.css" />
@@ -53,17 +56,20 @@
         if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-motion');
       })();
     </script>
+    <!-- Unfinished details (data-unfinished) show while settings.js has showPlaceholders: true, or with ?unfinished in the address -->
+    <script>if ((window.TOFF_SETTINGS || {}).showPlaceholders !== false || /[?&]unfinished\b/.test(location.search)) document.documentElement.classList.add('show-unfinished');</script>
   </head>
   <body>
-    <a class="skip-link" href="#main">Skip to main content</a>
+    <a class="skip" href="#opening">Skip to content</a>
+    <div class="vt-rule" aria-hidden="true"></div>
     <!-- The top bar is added by assets/studio/topbar.js (TopBar.mount, at the bottom of this page). -->
 
     <main id="main" tabindex="-1">
 <!-- Opening page ("From sketch to site"). Paste inside <body>, before the handwriting section. -->
 <section class="opening" id="opening" aria-labelledby="opening-title" data-brief="The sketch-to-site opening">
   <div class="op-text">
-    <p class="op-eyebrow op-fade">A small web design studio in London. Every site starts as a pencil sketch.</p>
-    <h1 class="op-title op-fade" id="opening-title">We sketch it.<br>Then we build it.</h1>
+    <p class="op-eyebrow op-fade">A small web design studio in London. Every site starts as a pencil sketch, and can come with its own AI assistant.</p>
+    <h1 class="op-title op-fade" id="opening-title"><span class="op-ln"><span>We sketch it.</span></span> <span class="op-ln"><span>Then we <em>build</em> it.</span></span></h1>
   </div>
 
   <div class="op-stage">
@@ -98,25 +104,29 @@
           <rect x="360" y="22" width="240" height="22" rx="11" class="r-url"/>
           <text x="480" y="37" class="r-urltext" text-anchor="middle">yourbusiness.co.uk</text>
           <circle cx="92" cy="100" r="12" class="r-ink"/>
-          <text x="114" y="105" class="r-brand">Your brand</text>
-          <text x="560" y="105" class="r-nav">Services</text><text x="632" y="105" class="r-nav">About</text><text x="690" y="105" class="r-nav">Contact</text>
+          <text x="114" y="105" class="r-brand">Morrow Coffee</text>
+          <text x="560" y="105" class="r-nav">Menu</text><text x="625" y="105" class="r-nav">Visit</text><text x="684" y="105" class="r-nav">Our beans</text>
           <rect x="770" y="84" width="110" height="32" rx="8" class="r-ink"/>
-          <text x="825" y="105" class="r-btntext" text-anchor="middle">Book now</text>
-          <text x="80" y="192" class="r-h1">Beautifully made,</text>
-          <text x="80" y="236" class="r-h1">made for you.</text>
-          <text x="80" y="274" class="r-sub">A website as considered as your business,</text>
-          <text x="80" y="296" class="r-sub">designed and built to bring you customers.</text>
+          <text x="825" y="105" class="r-btntext" text-anchor="middle">Order</text>
+          <text x="80" y="192" class="r-h1">Slow mornings,</text>
+          <text x="80" y="236" class="r-h1">very good coffee.</text>
+          <text x="80" y="274" class="r-sub">Roasted down the road, with pastries</text>
+          <text x="80" y="296" class="r-sub">out of the oven before seven.</text>
           <rect x="80" y="330" width="150" height="44" rx="10" class="r-ink"/>
-          <text x="155" y="357" class="r-btntext" text-anchor="middle">Get started</text>
+          <text x="155" y="357" class="r-btntext" text-anchor="middle">See the menu</text>
           <rect x="500" y="150" width="380" height="240" rx="14" class="r-tint"/>
           <circle cx="800" cy="200" r="18" class="r-sun"/>
           <path d="M520 370 L620 270 L690 330 L760 250 L860 370 V376 H520 Z" class="r-hill"/>
           <path d="M520 370 L620 270 L690 330 L760 250 L860 370" class="r-hill-line"/>
+          <clipPath id="op-photo-d"><rect x="500" y="150" width="380" height="240" rx="14"/></clipPath>
+          <image class="r-photo" x="500" y="150" width="380" height="240" preserveAspectRatio="xMidYMid slice" clip-path="url(#op-photo-d)"/>
           <rect x="80" y="430" width="240" height="130" rx="12" class="r-card"/>
           <rect x="360" y="430" width="240" height="130" rx="12" class="r-card"/>
           <rect x="640" y="430" width="240" height="130" rx="12" class="r-card"/>
-          <text x="104" y="476" class="r-h3">Design</text><text x="384" y="476" class="r-h3">Build</text><text x="664" y="476" class="r-h3">Launch</text>
-          <path d="M104 504 H290 M104 526 H260 M384 504 H570 M384 526 H540 M664 504 H850 M664 526 H820" class="r-lines"/>
+          <text x="104" y="476" class="r-h3">Today’s menu</text><text x="384" y="476" class="r-h3">Find us</text><text x="664" y="476" class="r-h3">Opening hours</text>
+          <text x="104" y="506" class="r-sub">Flat white £3.40</text><text x="104" y="528" class="r-sub">Cardamom bun £3.20</text>
+          <text x="384" y="506" class="r-sub">14 Elm Row, Hackney</text><text x="384" y="528" class="r-sub">A short walk from the station</text>
+          <text x="664" y="506" class="r-sub">Weekdays 7.30am to 4pm</text><text x="664" y="528" class="r-sub">Weekends 8.30am to 4pm</text>
         </svg>
       </div>
     </div>
@@ -144,21 +154,23 @@
           <rect x="6" y="6" width="288" height="588" rx="40" class="r-window"/>
           <rect x="115" y="18" width="70" height="14" rx="7" class="r-ink"/>
           <circle cx="40" cy="64" r="9" class="r-ink"/>
-          <text x="56" y="69" class="r-brand r-brand-sm">Your brand</text>
+          <text x="56" y="69" class="r-brand r-brand-sm">Morrow Coffee</text>
           <path d="M232 56 H260 M232 64 H260 M232 72 H260" class="r-lines r-lines-ink"/>
-          <text x="34" y="128" class="r-h1 r-h1-sm">Beautifully made,</text>
-          <text x="34" y="158" class="r-h1 r-h1-sm">made for you.</text>
-          <text x="34" y="184" class="r-sub r-sub-sm">Designed to bring you customers.</text>
+          <text x="34" y="128" class="r-h1 r-h1-sm">Slow mornings,</text>
+          <text x="34" y="158" class="r-h1 r-h1-sm">very good coffee.</text>
+          <text x="34" y="184" class="r-sub r-sub-sm">Pastries out of the oven by seven.</text>
           <rect x="34" y="200" width="124" height="38" rx="10" class="r-ink"/>
-          <text x="96" y="224" class="r-btntext r-btntext-sm" text-anchor="middle">Get started</text>
+          <text x="96" y="224" class="r-btntext r-btntext-sm" text-anchor="middle">See the menu</text>
           <rect x="34" y="262" width="232" height="150" rx="14" class="r-tint"/>
           <circle cx="222" cy="294" r="12" class="r-sun"/>
           <path d="M46 398 L108 336 L148 370 L198 318 L254 398 V404 H46 Z" class="r-hill"/>
           <path d="M46 398 L108 336 L148 370 L198 318 L254 398" class="r-hill-line"/>
+          <clipPath id="op-photo-p"><rect x="34" y="262" width="232" height="150" rx="14"/></clipPath>
+          <image class="r-photo" x="34" y="262" width="232" height="150" preserveAspectRatio="xMidYMid slice" clip-path="url(#op-photo-p)"/>
           <rect x="34" y="430" width="232" height="64" rx="12" class="r-card"/>
           <rect x="34" y="506" width="232" height="64" rx="12" class="r-card"/>
-          <text x="52" y="458" class="r-h3 r-h3-sm">Design</text><text x="52" y="534" class="r-h3 r-h3-sm">Build</text>
-          <path d="M52 476 H220 M52 552 H220" class="r-lines"/>
+          <text x="52" y="458" class="r-h3 r-h3-sm">Today’s menu</text><text x="52" y="534" class="r-h3 r-h3-sm">Find us</text>
+          <text x="52" y="478" class="r-sub r-sub-sm">Flat white £3.40</text><text x="52" y="554" class="r-sub r-sub-sm">14 Elm Row, Hackney</text>
         </svg>
       </div>
     </div>
@@ -169,6 +181,54 @@
 
 <h2 class="visually-hidden">You plan. We design. We deliver. So... what will it be?</h2>
 <div class="hw-wrap" data-brief="The ink handwriting"><div id="hw"></div><div class="sc-layer" id="showcase"></div></div>
+<!-- AI assistants: the studio's AI offer, with a working demo. Paste straight after the handwriting and cards, before Recent work. -->
+<section class="r3-section aa-section" id="ai-assistants" aria-labelledby="aa-title" data-brief="AI assistants">
+  <div class="r3-inner">
+    <div class="r3-intro--split aa-intro">
+      <h2 class="r3-h2" id="aa-title">Your website can answer your customers for you</h2>
+      <p class="r3-lede">We build AI chat assistants fine-tuned to one business: your services, prices, opening hours and the way you talk to people. It answers at eleven at night, helps people book, and knows what it must never do. Try one for a made-up business below. Then change something it’s been taught, and ask again.</p>
+    </div>
+
+    <div class="aa-demo">
+      <div class="aa-biz" role="group" aria-label="Pick a business to try"></div>
+
+      <div class="aa-chat">
+        <div class="aa-head"><p class="aa-name"></p><p class="aa-mode"></p></div>
+        <ol class="aa-log" aria-live="polite" aria-label="Conversation"></ol>
+        <div class="aa-chips" role="group" aria-label="Questions you could ask"></div>
+        <form class="aa-form" autocomplete="off">
+          <label class="visually-hidden" for="aa-q">Ask the assistant a question</label>
+          <input id="aa-q" class="aa-input" type="text" maxlength="200" placeholder="Ask a question">
+          <button type="submit" class="aa-send">Ask</button>
+        </form>
+        <p class="aa-note">A demo for a made-up business. Please don’t type personal details.</p>
+      </div>
+
+      <aside class="aa-knows" aria-labelledby="aa-knows-title">
+        <h3 class="aa-knows-title" id="aa-knows-title">What it’s been taught</h3>
+        <p class="aa-knows-hint">Everything it says comes from here. Edit any line, then ask again.</p>
+        <div class="aa-facts"></div>
+      </aside>
+    </div>
+
+    <div class="aa-more">
+      <h3 class="aa-more-title">Other AI we build into websites</h3>
+      <ul class="aa-more-list">
+        <li>Booking assistants that find a free slot and book it</li>
+        <li>Instant quotes from a few simple questions</li>
+        <li>Search that understands whole questions</li>
+        <li>Menu, product and treatment finders that ask what you’re after</li>
+        <li>Enquiries summarised and sent to the right person</li>
+        <li>Answers in your customers’ own languages</li>
+        <li>Draft replies to reviews and emails, for you to check and send</li>
+        <li>Sketch to website, like the sketch tool on this page</li>
+      </ul>
+      <p class="aa-promise">Every assistant says it’s an AI, has firm limits on what it will talk about, and can hand over to a real person.</p>
+      <p class="aa-send-us">To build yours, we need what you’d tell a new member of staff: your menu or price list, opening hours, policies and the questions customers ask most. When something changes, tell us and we update it.</p>
+      <a class="aa-cta" href="#contact">Ask us about an assistant <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
 <!-- Selected work: two case panels and three concept studies. Paste after the handwriting section. -->
 <section class="r3-section cs-section" id="selected-work" aria-labelledby="cs-title">
   <div class="r3-inner">
@@ -246,14 +306,14 @@
             <i class="dv-island"></i>
           </div>
         </div>
-        <p class="cs-mock-note"><span class="r3-placeholder-tag">Placeholder</span> Concept screen until real screenshots are added</p>
+        <p class="cs-mock-note">A mock-up of the design, until the live site is ready</p>
       </div>
     </article>
 
     <!-- Concept studies, built with the same generator as the playground -->
     <div class="cc" aria-labelledby="cc-title">
       <h3 class="cc-title" id="cc-title">Concept studies</h3>
-      <p class="cc-lede">Designs we made to explore an idea, not client work. Open any of them in the playground and make it yours.</p>
+      <p class="cc-lede">Studies we designed for made-up businesses, to try out ideas. Open any of them in the playground and make it yours.</p>
       <div class="cc-grid">
         <figure class="cc-item" data-brief="Concept: Saltmarsh (restaurant, bold)" data-business="restaurant" data-mood="bold" data-layout="full">
           <div class="dv dv-laptop"><div class="dv-lid"><div class="dv-screen"><div class="dv-content" data-design="1280"></div></div></div><div class="dv-base"></div></div>
@@ -274,75 +334,24 @@
     </div>
   </div>
 </section>
-<!-- What we build: a drawer of small working demos. Paste after Selected work. -->
-<section class="r3-section cap-section" id="what-we-build" aria-labelledby="cap-title">
-  <div class="r3-inner">
-    <div class="r3-intro r3-intro--split">
-      <h2 class="r3-h2" id="cap-title">Things we can build into your site</h2>
-      <p class="r3-lede">These all work, so have a go: resize the screen, book a slot, ask the assistant something, change the colours.</p>
-    </div>
-
-    <div class="cap-grid">
-      <!-- 1. Responsive -->
-      <div class="cap-tile cap-resize" data-brief="The drag-to-resize demo">
-        <h3 class="cap-title">Works on any screen size</h3>
-        <p class="cap-text">Drag the gold handle, or tap a size below. The same site rearranges itself for a phone, a tablet or a laptop.</p>
-        <div class="cap-resize-stage">
-          <div class="cap-resize-frame">
-            <div class="cap-resize-site"></div>
-            <div class="cap-resize-handle" data-cursor="Drag" role="slider" tabindex="0" aria-label="Width of the example website" aria-valuemin="300" aria-valuemax="1100" aria-valuenow="1100"><span aria-hidden="true"></span></div>
-          </div>
-        </div>
-        <div class="cap-sizes" role="group" aria-label="Show the site at the size of a">
-          <button type="button" data-size="360">Phone</button><button type="button" data-size="768">Tablet</button><button type="button" data-size="1100" aria-pressed="true">Laptop</button>
-        </div>
-        <p class="cap-resize-readout" aria-hidden="true">Showing the <span class="cap-resize-device">laptop</span> layout<span class="cap-resize-px" hidden></span></p>
+<!-- Try it: the four hands-on tools in one section, one at a time. Paste after Recent work.
+     The four panels hold the playground, Draw your site, Your logo in one line and the features demos. -->
+<section class="tt-section" id="try-it" aria-labelledby="tt-title">
+  <div class="r3-section tt-head">
+    <div class="r3-inner">
+      <div class="r3-intro--split">
+        <h2 class="r3-h2" id="tt-title">Try it with your own business</h2>
+        <p class="r3-lede">Four things to play with. Nothing you do here is sent anywhere unless you choose to send it.</p>
       </div>
-
-      <!-- 2. Booking -->
-      <div class="cap-tile cap-booking" data-brief="The booking calendar">
-        <h3 class="cap-title">Online booking</h3>
-        <p class="cap-text">Pick a day, then a time. On a real site it can connect to your calendar, send reminders and take payment.</p>
-        <div class="cap-demo bk" aria-live="polite">
-          <div class="bk-step bk-days" role="group" aria-label="Choose a day"></div>
-          <div class="bk-step bk-times" role="group" aria-label="Choose a time" hidden></div>
-          <p class="bk-prompt">Tap a day to see the free times.</p>
-          <button type="button" class="bk-confirm" hidden></button>
-          <div class="bk-done" hidden>
-            <p class="bk-done-title">Booked.</p>
-            <p class="bk-done-text"></p>
-            <button type="button" class="bk-again">Book another</button>
-          </div>
-          <p class="cap-note">Demo: nothing is booked or sent.</p>
-        </div>
-      </div>
-
-      <!-- 3. Chat -->
-      <div class="cap-tile cap-chat" data-brief="The chat assistant demo">
-        <h3 class="cap-title">A chat helper that asks your questions</h3>
-        <p class="cap-text">You decide what it asks and in what order. It changes its next question depending on the answer.</p>
-        <div class="cap-demo ch">
-          <div class="ch-log" role="log" aria-live="polite" aria-label="Example conversation"></div>
-          <div class="ch-choices" role="group" aria-label="Your reply"></div>
-          <p class="cap-note">Demo for a fictional clinic: nothing is sent.</p>
-        </div>
-      </div>
-
-      <!-- 5. Colours -->
-      <div class="cap-tile cap-colours" data-brief="The colour moods demo">
-        <h3 class="cap-title">Your colours on every page</h3>
-        <p class="cap-text">Pick a different style and every button, heading and card changes with it.</p>
-        <div class="cap-colours-stage">
-          <div class="dv dv-phone cap-colours-phone" role="img" aria-label="An example café website on a phone">
-            <div class="dv-screen"><div class="dv-content"></div></div><i class="dv-island"></i>
-          </div>
-          <div class="cap-swatches" role="group" aria-label="Choose a mood"></div>
-        </div>
+      <div class="tt-tabs" role="tablist" aria-label="What to try">
+        <button type="button" role="tab" class="tt-tab" id="tt-tab-look" aria-controls="tt-look" data-tab="look">Pick a look</button>
+        <button type="button" role="tab" class="tt-tab" id="tt-tab-sketch" aria-controls="tt-sketch" data-tab="sketch">Sketch your homepage</button>
+        <button type="button" role="tab" class="tt-tab" id="tt-tab-logo" aria-controls="tt-logo" data-tab="logo">Your logo in one line</button>
+        <button type="button" role="tab" class="tt-tab" id="tt-tab-features" aria-controls="tt-features" data-tab="features">Booking and other features</button>
       </div>
     </div>
   </div>
-</section>
-<!-- Sketch your site: the playground. Paste after What we build. -->
+  <div class="tt-panel" role="tabpanel" id="tt-look" aria-labelledby="tt-tab-look" data-tab-panel="look"><!-- Sketch your site: the playground. Paste after What we build. -->
 <section class="r3-section pg-section" id="playground" aria-labelledby="pg-title">
   <div class="r3-inner">
     <h2 class="r3-h2" id="pg-title">Try a look for your business</h2>
@@ -383,38 +392,48 @@
     </div>
   </div>
 </section>
-<!-- Draw your site: sketch a homepage on paper and see a static picture of what it could look like. Paste after the playground. -->
+</div>
+  <div class="tt-panel" role="tabpanel" id="tt-sketch" aria-labelledby="tt-tab-sketch" data-tab-panel="sketch" hidden><!-- Sketch your homepage: drag blocks and sketch with the pen; press "I'm done" and it becomes a picture of a homepage. Paste after the playground. -->
 <section class="r3-section dr-section" id="draw-your-site" aria-labelledby="dr-title">
   <div class="r3-inner">
-    <h2 class="r3-h2" id="dr-title">Sketch your homepage and see how it could look</h2>
-    <p class="r3-lede">Draw on the paper the way you would on the back of a napkin. As you draw, a picture of that homepage builds up alongside it (below it on a phone), in the style you picked above. It’s a preview to scroll through, not a working site.</p>
-
-    <ul class="dr-key" aria-label="What to draw">
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="2" y="5" width="36" height="9" rx="2"/><circle cx="7" cy="9.5" r="2.3"/></svg><span><b>Wide box on top</b> menu bar</span></li>
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/><path d="M3 3 L37 25 M37 3 L3 25"/></svg><span><b>Box with an X</b> picture</span></li>
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><path d="M4 9 H36 M4 16 H30 M4 22 H24"/></svg><span><b>Lines</b> heading, then text</span></li>
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="8" y="8" width="24" height="12" rx="3"/></svg><span><b>Small box</b> button</span></li>
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/></svg><span><b>Big empty box</b> card</span></li>
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><circle cx="20" cy="14" r="9"/></svg><span><b>Circle</b> logo</span></li>
-      <li><svg viewBox="0 0 40 28" aria-hidden="true"><path d="M4 8 L12 20 L20 8 L28 20 L36 8"/></svg><span><b>Zig-zag</b> paragraph</span></li>
-      <li class="dr-key-ai" hidden><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/><path d="M10 18 V10 L14 15 L18 10 V18 M22 18 L25 10 L28 18 M23 15 H27"/></svg><span><b>Write a word</b> MAP, GALLERY, FORM…</span></li>
-    </ul>
+    <div class="r3-intro r3-intro--split">
+      <h2 class="r3-h2" id="dr-title">Sketch your homepage and see how it could look</h2>
+      <p class="r3-lede">Drag blocks onto the paper (a menu bar, headings and text you can type into, buttons, pictures) and sketch with the pen if you like. When you’re happy, press “I’m done” and it’s turned into a homepage you can scroll through, in the style you picked above. It’s a preview of the layout; we build the real thing.</p>
+    </div>
 
     <div class="dr">
       <div class="dr-col dr-col-paper">
         <p class="dr-label">Your sketch</p>
+        <div class="dr-palette">
+          <p class="dr-palette-hint" id="dr-palette-hint">Drag onto the paper, or tap to add:</p>
+          <div class="dr-palette-chips" role="group" aria-labelledby="dr-palette-hint"></div>
+        </div>
         <div class="dr-paper">
-          <canvas class="dr-canvas" role="img" aria-label="Paper to sketch your homepage on with a mouse, pen or finger. The top of the paper is the top of the page."></canvas>
+          <canvas class="dr-canvas" role="img" aria-label="Paper for your homepage sketch. Drag blocks onto it, or draw on it with a mouse, pen or finger. The top of the paper is the top of the page."></canvas>
+          <div class="dr-blocks"></div>
           <div class="dr-fold" aria-hidden="true"><span>Visitors see this much before scrolling</span></div>
-          <p class="dr-hint" aria-hidden="true"><span>Draw here</span><small>Top of the paper is the top of your page</small></p>
+          <p class="dr-hint" aria-hidden="true"><span>Drag blocks here, or draw</span><small>The top of the paper is the top of your page</small></p>
         </div>
         <div class="dr-tools">
+          <button type="button" class="dr-done" disabled>I’m done: build my site</button>
           <button type="button" class="dr-example">Draw one for me</button>
           <button type="button" class="dr-undo" disabled>Undo</button>
           <button type="button" class="dr-clear" disabled>Start again</button>
         </div>
+        <p class="dr-ai-privacy" hidden>When you press “I’m done”, your sketch and the words you typed on it are sent to Anthropic’s Claude to be read. They aren’t stored.</p>
+        <details class="dr-pen">
+          <summary>What can I draw with the pen?</summary>
+          <ul class="dr-key" aria-label="What pen marks become">
+            <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="2" y="5" width="36" height="9" rx="2"/><circle cx="7" cy="9.5" r="2.3"/></svg><span><b>Wide box on top</b> menu bar</span></li>
+            <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/><path d="M3 3 L37 25 M37 3 L3 25"/></svg><span><b>Box with an X</b> picture</span></li>
+            <li><svg viewBox="0 0 40 28" aria-hidden="true"><path d="M4 9 H36 M4 16 H30 M4 22 H24"/></svg><span><b>Lines</b> heading, then text</span></li>
+            <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="8" y="8" width="24" height="12" rx="3"/></svg><span><b>Small box</b> button</span></li>
+            <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/></svg><span><b>Big empty box</b> card</span></li>
+            <li><svg viewBox="0 0 40 28" aria-hidden="true"><circle cx="20" cy="14" r="9"/></svg><span><b>Circle</b> logo</span></li>
+            <li class="dr-key-ai" hidden><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/><path d="M10 18 V10 L14 15 L18 10 V18 M22 18 L25 10 L28 18 M23 15 H27"/></svg><span><b>Write a word</b> MAP, GALLERY, VIDEO…</span></li>
+          </ul>
+        </details>
         <p class="dr-touch-tip">Tip: to scroll the page, swipe outside the paper.</p>
-        <p class="dr-ai-privacy" hidden>When you pause, your sketch (just the pen lines) is sent to Anthropic’s Claude to be read. It isn’t stored.</p>
       </div>
       <div class="dr-col dr-col-preview" data-brief="Draw your site">
         <p class="dr-label">How it could look <span>(scroll inside the window)</span></p>
@@ -424,7 +443,8 @@
             <div class="dr-scroll" tabindex="0" role="region" aria-label="Picture of your homepage. Scroll to see all of it.">
               <div class="dr-pagewrap"><div class="dr-page"></div><div class="dr-foot" hidden></div></div>
             </div>
-            <p class="dr-empty">Your homepage appears here as you draw.<br><span>Not sure where to start? Press “Draw one for me”.</span></p>
+            <p class="dr-empty">Press “I’m done” and your homepage appears here.<br><span>Not sure where to start? Press “Draw one for me”.</span></p>
+            <p class="dr-building" role="status" hidden><b>Building your homepage</b><span></span></p>
             <p class="dr-more" aria-hidden="true" hidden>Scroll to see the rest <span>↓</span></p>
           </div>
         </div>
@@ -433,16 +453,24 @@
     </div>
   </div>
 </section>
-<!-- Your logo, in one line. Paste after Draw your site. -->
+</div>
+  <div class="tt-panel" role="tabpanel" id="tt-logo" aria-labelledby="tt-tab-logo" data-tab-panel="logo" hidden><!-- Your logo, in one line. Paste after Draw your site. -->
 <section class="r3-section ol-section" id="one-line" aria-labelledby="ol-title">
   <div class="r3-inner ol">
     <div class="ol-text">
       <h2 class="r3-h2" id="ol-title">Your logo, drawn in one continuous line</h2>
-      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser turns it into a single gold line and draws it, start to finish, without lifting the pen. Nothing leaves your device.</p>
+      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser traces it as a single gold line and draws it, start to finish, without lifting the pen: logos as clean outlines, photos as shading. Nothing leaves your device.</p>
       <div class="ol-controls">
         <label class="ol-upload"><input type="file" class="ol-file" accept="image/*">Choose an image</label>
         <form class="ol-initials"><label for="ol-initials-input">Or type your initials</label><input id="ol-initials-input" type="text" maxlength="3" autocomplete="off" placeholder="HB"><button type="submit">Draw</button></form>
         <div class="ol-examples" role="group" aria-label="Or try an example"></div>
+        <label class="ol-detail-wrap">Style
+          <select class="ol-style" aria-label="Drawing style">
+            <option value="auto" selected>Automatic</option>
+            <option value="outline">Outline (best for logos)</option>
+            <option value="shading">Shading (best for photos)</option>
+          </select>
+        </label>
         <label class="ol-detail-wrap">How detailed
           <select class="ol-detail" aria-label="Level of detail">
             <option value="900">Light</option>
@@ -467,20 +495,99 @@
     </div>
   </div>
 </section>
+</div>
+  <div class="tt-panel" role="tabpanel" id="tt-features" aria-labelledby="tt-tab-features" data-tab-panel="features" hidden><!-- What we build: a drawer of small working demos. Paste after Selected work. -->
+<section class="r3-section cap-section" id="what-we-build" aria-labelledby="cap-title">
+  <div class="r3-inner">
+    <div class="r3-intro r3-intro--split">
+      <h2 class="r3-h2" id="cap-title">Things we can build into your site</h2>
+      <p class="r3-lede">These all work, so have a go: resize the screen, book a slot, change the colours.</p>
+    </div>
+
+    <div class="cap-grid">
+      <!-- 1. Responsive -->
+      <div class="cap-tile cap-resize" data-brief="The drag-to-resize demo">
+        <h3 class="cap-title">Works on any screen size</h3>
+        <p class="cap-text">Drag the gold handle, or tap a size below. The same site rearranges itself for a phone, a tablet or a laptop.</p>
+        <div class="cap-resize-stage">
+          <div class="cap-resize-frame">
+            <div class="cap-resize-site"></div>
+            <div class="cap-resize-handle" data-cursor="Drag" role="slider" tabindex="0" aria-label="Width of the example website" aria-valuemin="300" aria-valuemax="1100" aria-valuenow="1100"><span aria-hidden="true"></span></div>
+          </div>
+        </div>
+        <div class="cap-sizes" role="group" aria-label="Show the site at the size of a">
+          <button type="button" data-size="360">Phone</button><button type="button" data-size="768">Tablet</button><button type="button" data-size="1100" aria-pressed="true">Laptop</button>
+        </div>
+        <p class="cap-resize-readout" aria-hidden="true">Showing the <span class="cap-resize-device">laptop</span> layout<span class="cap-resize-px" hidden></span></p>
+      </div>
+
+      <!-- 2. Booking -->
+      <div class="cap-tile cap-booking" data-brief="The booking calendar">
+        <h3 class="cap-title">Online booking</h3>
+        <p class="cap-text">Pick a day, then a time. On a real site it can connect to your calendar, send reminders and take payment.</p>
+        <div class="cap-demo bk" aria-live="polite">
+          <div class="bk-step bk-days" role="group" aria-label="Choose a day"></div>
+          <div class="bk-step bk-times" role="group" aria-label="Choose a time" hidden></div>
+          <p class="bk-prompt">Tap a day to see the free times.</p>
+          <button type="button" class="bk-confirm" hidden></button>
+          <div class="bk-done" hidden>
+            <p class="bk-done-title">Booked.</p>
+            <p class="bk-done-text"></p>
+            <button type="button" class="bk-again">Book another</button>
+          </div>
+          <p class="cap-note">Demo: nothing is booked or sent.</p>
+        </div>
+      </div>
+
+      <!-- 5. Colours -->
+      <div class="cap-tile cap-colours" data-brief="The colour moods demo">
+        <h3 class="cap-title">Your colours on every page</h3>
+        <p class="cap-text">Pick a different style and every button, heading and card changes with it.</p>
+        <div class="cap-colours-stage">
+          <div class="dv dv-phone cap-colours-phone" role="img" aria-label="An example café website on a phone">
+            <div class="dv-screen"><div class="dv-content"></div></div><i class="dv-island"></i>
+          </div>
+          <div class="cap-swatches" role="group" aria-label="Choose a mood"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+</div>
+</section>
+<!-- The Lab, pointed to from the main page. Paste after "Your logo, drawn in one continuous line". lab.html = the Lab page's address. -->
+<section class="r3-section lt-section" id="lab-teaser" aria-labelledby="lt-title" data-brief="The Lab">
+  <div class="r3-inner lt">
+    <a class="lt-pic" href="lab.html" tabindex="-1" aria-hidden="true"><img src="assets/studio/lab-teaser.webp" width="1200" height="815" loading="lazy" decoding="async" alt=""></a>
+    <div class="lt-text">
+      <h2 class="r3-h2" id="lt-title">There’s more in the Lab</h2>
+      <p class="r3-lede">The Lab is a separate page of experiments in what a browser can draw by itself. We keep them there so this page stays quick to load. Every one of them can go on your site.</p>
+      <ul class="lt-list">
+        <li><a href="lab.html#build-itself">A section that types out its own code</a></li>
+        <li><a href="lab.html#particles-band">Lettering made of a few thousand gold specks</a></li>
+        <li><a href="lab.html#one-line">Your logo in one line, with sample logos to try</a></li>
+        <li><a href="lab.html#liquid-gold">A letter cast in liquid gold that turns to face you</a></li>
+        <li><a href="lab.html#moving-ink">Ink you can stir with a finger</a></li>
+      </ul>
+      <a class="lt-go" href="lab.html">Open the Lab <span aria-hidden="true">→</span></a>
+    </div>
+  </div>
+</section>
 <!-- How it works: replaces the old "Process" section (no eyebrow, no 01–04 numbers). Paste where the Process section was. -->
 <section class="r3-section pr-section" id="how-it-works" aria-labelledby="pr-title" data-brief="How it works">
   <div class="r3-inner">
     <div class="r3-intro r3-intro--split">
       <h2 class="r3-h2" id="pr-title">How it works</h2>
-      <p class="r3-lede">You see your site on paper before any of it is built, and you deal with the same person from the first call to launch day.</p>
+      <div><p class="r3-lede">You see your site on paper before any of it is built, and you deal with the same person from the first call to launch day.</p>
+      <p class="pr-terms" data-unfinished><span class="r3-placeholder-tag" data-placeholder>To be added:</span> Websites from £…, usually live in … weeks. AI assistants from £… to set up, then £… a month.</p></div>
     </div>
     <div class="pr">
       <svg class="pr-ink" aria-hidden="true"></svg>
       <ol class="pr-steps">
-        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Discovery call</h3><p class="pr-text">We talk about your business, who your customers are and what the website needs to do for them.</p><p class="pr-time" data-timeframe="0"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
-        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Sketch</h3><p class="pr-text">We draw your site by hand first, so you can see it, and change it, before anything is built.</p><p class="pr-time" data-timeframe="1"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
-        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Build</h3><p class="pr-text">We build it from scratch and check it on real phones, tablets and laptops as we go.</p><p class="pr-time" data-timeframe="2"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
-        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Launch &amp; care</h3><p class="pr-text">We put it live, host it, and keep it up to date and working afterwards.</p><p class="pr-time" data-timeframe="3"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Discovery call</h3><p class="pr-text">We talk about your business, who your customers are and what the website needs to do for them.</p><p class="pr-time" data-timeframe="0" data-unfinished><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Sketch</h3><p class="pr-text">We draw your site by hand first, so you can see it, and change it, before anything is built.</p><p class="pr-time" data-timeframe="1" data-unfinished><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Build</h3><p class="pr-text">We build it from scratch and check it on real phones, tablets and laptops as we go.</p><p class="pr-time" data-timeframe="2" data-unfinished><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Launch &amp; care</h3><p class="pr-text">We put it live, host it, and keep it up to date and working afterwards.</p><p class="pr-time" data-timeframe="3" data-unfinished><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
       </ol>
     </div>
   </div>
@@ -518,10 +625,10 @@
   <div class="r3-inner ab" data-brief="The studio section">
     <div class="ab-head">
       <h2 class="r3-h2" id="ab-title">About the studio</h2>
-      <span class="r3-placeholder-tag ab-tag" data-placeholder>Placeholder text</span>
+      <span class="r3-placeholder-tag ab-tag" data-placeholder data-unfinished>Placeholder text</span>
+      <p class="ab-statement">One person, from the first sketch to launch day.</p>
     </div>
     <div class="ab-body">
-      <p class="ab-statement">One person, from the first sketch to launch day.</p>
       <p>Toff Studio is a small, independent web design studio in London. Every site starts as a sketch on paper and is then built from scratch for the business it belongs to, by the same person who drew it.</p>
       <p>You talk to the person designing and building your site the whole way through. After launch we host it, keep it up to date and fix anything that needs fixing.</p>
     </div>
@@ -631,8 +738,8 @@
 <div class="ft-contact">
   <a class="ft-start" href="#contact">Start a project <span aria-hidden="true">→</span></a>
   <button type="button" class="ft-plan">Plan it with our helper</button>
-  <p class="ft-line" data-email>Email <span class="ft-ph">your address here</span> <span class="r3-placeholder-tag" data-placeholder>Placeholder</span></p>
-  <p class="ft-line" data-privacy>Privacy policy <span class="ft-ph">coming soon</span></p>
+  <p class="ft-line" data-email data-unfinished>Email <span class="ft-ph">your address here</span> <span class="r3-placeholder-tag" data-placeholder>Placeholder</span></p>
+  <p class="ft-line" data-privacy data-unfinished>Privacy policy <span class="ft-ph">coming soon</span></p>
   <p class="ft-line ft-legal" data-legal hidden></p>
   <p class="ft-line" data-social hidden></p>
   <p class="ft-line"><a class="ft-lab" href="lab.html">The Lab</a>: experiments in what a browser can draw</p>
@@ -662,7 +769,6 @@
       </svg>
     </div>
     <div class="sc-cap">
-      <span class="sc-index">Your brief</span>
       <span class="sc-name">It starts with your plan</span>
       <span class="sc-desc">Tell us what your business needs. We take it from there.</span>
     </div>
@@ -684,9 +790,8 @@
       </svg>
     </div>
     <div class="sc-cap">
-      <span class="sc-index">Recent work</span>
       <span class="sc-name">Bluebird Wellness</span>
-      <span class="sc-desc">Doctor-led IV clinic, London</span>
+      <span class="sc-desc">A doctor-led IV clinic in London. We designed and built its site.</span>
       <span class="sc-go">View the live site&nbsp;&rarr;</span>
     </div>
   </a>
@@ -705,9 +810,8 @@
       <div class="sc-ac-num-wrap"><span class="sc-ac-num">32</span><sup>°C</sup></div>
     </div>
     <div class="sc-cap">
-      <span class="sc-index">Recent work</span>
       <span class="sc-name">Everest Climate Solutions</span>
-      <span class="sc-desc">Air conditioning installation</span>
+      <span class="sc-desc">Air conditioning, fitted across London. We designed and built its site.</span>
       <span class="sc-go">View the live site&nbsp;&rarr;</span>
     </div>
   </a>
@@ -788,6 +892,8 @@
     <script src="assets/studio/playground.js"></script>
     <script src="assets/studio/drawsite.js"></script>
     <script src="assets/studio/oneline.js"></script>
+    <script src="assets/studio/aiassist.js"></script>
+    <script src="assets/studio/trytabs.js"></script>
     <script src="assets/studio/snapshot.js"></script>
     <script src="assets/studio/brief.js"></script>
     <script src="assets/studio/assistant.js"></script>
@@ -800,28 +906,29 @@
     <!-- site.js: settings, the opening, the handwriting and its pictures, in-page links, fade-ups and the six-step enquiry -->
     <script src="site.js"></script>
     <script>
-      /* The Round 03 sections, mounted as at the bottom of assets/studio/site.html (paths adjusted; links and modes from settings.js) */
+      /* The Round 03 and 04 sections, mounted as at the bottom of assets/studio/site.html (paths adjusted; links and modes from settings.js) */
       var S = window.TOFF_SETTINGS || {}, LINKS = S.links || {}, STUDIO = 'assets/studio/';
       var PHOTOS = {}; ['clinic', 'cafe', 'salon', 'trades', 'restaurant', 'boutique'].forEach(function (k) { PHOTOS[k] = STUDIO + 'playground/playground-' + k + '.webp'; });
       MiniSite.photos = PHOTOS;
+      window.__tt = TryTabs.mount(document.getElementById('try-it'));   // first (site.js has just mounted the opening), so links into a tab open it
       window.__cases = Cases.mount(document.getElementById('selected-work'), { links: LINKS, sketches: { bluebird: STUDIO + 'cases/sketch-bluebird.webp', everest: STUDIO + 'cases/sketch-everest.webp' }, acImage: 'assets/showcase/ac-open.png', assetBase: STUDIO });
       window.__cap = Capabilities.mount(document.getElementById('what-we-build'));
       window.__pg = Playground.mount(document.getElementById('playground'), { photos: PHOTOS, contactSelector: '#contact' });
       window.__dr = DrawSite.mount(document.getElementById('draw-your-site'), { getStyle: function () { return __pg.state(); }, ai: { endpoint: 'https://toff-sketch-ai.toffdesigns.workers.dev/read-sketch' } });
-      window.__ol = OneLine.mount(document.getElementById('one-line'), { examples: [{ label: 'The Toff monogram', text: 'T' }, { label: 'A face (from Bluebird)', svg: '#sc-bluebird .sc-face' }, { label: 'An air conditioner (from Everest)', src: 'assets/showcase/ac-closed.png' }] });
+      window.__aa = AIAssist.mount(document.getElementById('ai-assistants'), { endpoint: 'https://toff-sketch-ai.toffdesigns.workers.dev/chat' });   // remove endpoint to answer from the facts on the page only
+      window.__ol = OneLine.mount(document.getElementById('one-line'), { examples: [{ label: 'The Toff monogram', text: 'T' }, { label: 'A face (from Bluebird)', svg: '#sc-bluebird .sc-face' }, { label: 'An air conditioner (from Everest)', src: 'assets/showcase/ac-open.png' }] });
       window.__iw = InkWriter.mount(document.getElementById('ct-write'), { phrase: 'finale-wide', narrow: 'finale-narrow', narrowBelow: 560, speed: 150 });
       window.__sig = InkWriter.mount(document.getElementById('ft-sign'), { phrase: 'signature', speed: 70, threshold: 0.9 });
       window.__kt = Kinetic.mount('.r3-h2');
       window.__pr = Process.mount(document.getElementById('how-it-works'));
-      window.__tb = TopBar.mount({ hero: '#opening', cta: '#contact', links: [['Work', '#selected-work'], ['What we build', '#what-we-build'], ['Try it', '#playground'], ['Draw it', '#draw-your-site'], ['How it works', '#how-it-works'], ['About', '#about'], ['Lab', 'lab.html']] });
-      document.body.insertBefore(document.querySelector('.skip-link'), document.body.firstChild);   // the skip link stays the first thing to tab to
+      window.__tb = TopBar.mount({ hero: '#opening', cta: '#contact', links: [['AI assistants', '#ai-assistants'], ['Work', '#selected-work'], ['Try it', '#try-it'], ['How it works', '#how-it-works'], ['The Lab', 'lab.html']] });
       document.querySelector('.ft-plan').addEventListener('click', function () { __as.open(); });
       Craft.fillFooter(document.querySelector('.ft'));
       window.__xr = XRay.mount({ placeIn: '.tb-inner', before: '.tb-cta' });
       __tb.placeLens(document.querySelector('.tb .xr-switch'));
       var BIZ = { 'Clinic': 'clinic', 'Café': 'cafe', 'Salon': 'salon', 'Trades': 'trades', 'Restaurant': 'restaurant', 'Shop': 'boutique' };
       var L = S.legal || {}, LIVE = S.chatMode === 'live' && !!S.formEndpoint && !!L.privacyPolicyUrl;   // the planner sends nothing until the enquiry can go live
-      window.__as = Assistant.mount({ mode: LIVE ? 'live' : 'demo', endpoint: LIVE ? S.formEndpoint : '', privacyUrl: L.privacyPolicyUrl || '', hideOver: ['#opening', '.ft'], onBusiness: function (b) { if (BIZ[b]) __pg.set({ business: BIZ[b] }); } });   // the playground follows what they told the planner
+      window.__as = Assistant.mount({ mode: LIVE ? 'live' : 'demo', endpoint: LIVE ? S.formEndpoint : '', privacyUrl: L.privacyPolicyUrl || '', hideOver: ['#opening', '.ft', '.aa-demo', '#contact', '.pg-controls', '.dr-paper'], onBusiness: function (b) { if (BIZ[b]) __pg.set({ business: BIZ[b] }); } });   // the playground follows what they told the planner
     </script>
   </body>
 </html>

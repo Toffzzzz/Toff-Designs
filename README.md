@@ -1,8 +1,12 @@
 # Toff Studio portfolio
 
-A deep midnight page with cream ink lines and gold details. It opens with a website sketched by hand that turns into the finished thing ("We sketch it. Then we build it."), then one ink line writes "You plan", "We design", "We deliver" and "So... what will it be?" beside pictures of the studio's work. Then: Recent work (Bluebird, Everest and three concept studies), Things we can build into your site (working demos), Try a look for your business (the playground), Sketch your homepage, Your logo drawn in one continuous line, How it works, What's included, Kind words, About the studio, and a six-step enquiry under a pen-written "Tell us what you need". A slim top bar has "Start a project" from the first screen; "Plan with us" is a demo planner in the corner.
+A deep midnight page with cream ink lines and gold details. It opens with a website sketched by hand that turns into the finished thing ("We sketch it. Then we build it."), then one ink line writes "You plan", "We design", "We deliver" and "So... what will it be?" beside pictures of the studio's work. Then (Round 04 order): **AI assistants** ("Your website can answer your customers for you": a chat demo for four made-up businesses, answered live by Claude through the Worker, whose taught facts visitors can edit, plus the other AI features the studio builds), Recent work (Bluebird, Everest and three concept studies), **Try it** (one section with four tabs: Pick a look, Sketch your homepage, Your logo in one line, Booking and other features), There's more in the Lab, How it works (on cream paper), What's included, Kind words, About the studio, and a six-step enquiry under a pen-written "Tell us what you need". A slim top bar (AI assistants, Work, Try it, How it works, The Lab) has "Start a project" from the first screen; "Plan with us" is a demo planner in the corner.
 
-The Lab (`lab.html`) holds the showpiece experiments, kept off the main page on purpose.
+The Lab (`lab.html`) holds the showpiece experiments, kept off the main page on purpose, and the logo drawer with four sample logos.
+
+Any address that doesn't exist shows **the 404 page** (`404.html`, "This page is closed"), e.g. https://toffzzzz.github.io/Toff-Designs/nothing-here. Its paths are absolute (`/Toff-Designs/…`); if the site moves to its own domain, change them to start with `/`.
+
+**The `?unfinished` switch:** details that aren't real yet (the "How long" notes, the price line in How it works, About's "Placeholder text" note, the footer's email and privacy lines) are marked `data-unfinished` and follow `showPlaceholders` in `settings.js` (now `false`, so they're hidden, as are the other placeholders, About and Kind words). Add `?unfinished` to the address (e.g. http://localhost:8000/?unfinished) to see everything that's still missing.
 
 Plain HTML, CSS and JavaScript, ready for GitHub Pages (https://toffzzzz.github.io/Toff-Designs/). No build step and no libraries.
 
@@ -37,9 +41,9 @@ While `showPlaceholders: true`, anything not filled in yet shows a clearly marke
 
 **Before showing the site to clients or launching:** set `showPlaceholders: false` (anything still missing is then hidden, with no gaps) or fill in every placeholder.
 
-### The AI second look (Sketch your homepage)
+### The AI features (Sketch your homepage, AI assistants)
 
-When a visitor pauses while drawing, the sketch goes to the Cloudflare Worker `toff-sketch-ai` (kept outside the repo in `~/Documents/toff-studio-tools/optional-ai/`, with its own tests), which asks Claude Haiku to read it. The API key is only in the Worker's secret. Limits: 20 sketches a minute per IP address, and a $100 monthly spend limit at console.anthropic.com. **To switch it off:** delete `, ai: { endpoint: '…' }` from the `DrawSite.mount(…)` line in `index.html` (and in `assets/studio/site.html`) and push. Revoking the key at console.anthropic.com also stops every call; the site then quietly uses its own instant reading.
+When a visitor presses "I'm done" in Sketch your homepage, the sketch (with the blocks they placed and the words they typed) goes to the Cloudflare Worker `toff-sketch-ai` (kept outside the repo in `~/Documents/toff-studio-tools/optional-ai/`, with its own tests), which asks Claude Haiku to read it. The API key is only in the Worker's secret. The AI assistants demo sends each question to the same Worker's `/chat` route. Limits: 20 requests a minute per IP address (sketches and questions together), at most 8 live answers per visit in the chat demo, and a $100 monthly spend limit at console.anthropic.com. **To switch the live chat off:** remove `endpoint: '…/chat'` from the `AIAssist.mount(…)` line in `index.html` and push; the demo then answers from its facts again. **To switch it off:** delete `, ai: { endpoint: '…' }` from the `DrawSite.mount(…)` line in `index.html` (and in `assets/studio/site.html`) and push. Revoking the key at console.anthropic.com also stops every call; both demos then quietly fall back to their own answers.
 
 ### Going live with the enquiry
 
@@ -50,7 +54,8 @@ The enquiry and the "Plan with us" planner are in demo mode (`chatMode: 'demo'`)
 | Path | What it is |
 |---|---|
 | `index.html` | The main page, in the order of `assets/studio/site.html`, with the real six-step enquiry, the footer, the templates the parts use, and the short script that mounts the Round 03 sections |
-| `lab.html` | The Lab: the showpiece experiments (from `assets/studio/lab.html`) |
+| `lab.html` | The Lab: the showpiece experiments and the logo drawer (from `assets/studio/lab.html`) |
+| `404.html` | The "This page is closed" page GitHub Pages shows for any missing address (from `assets/studio/404.html`; absolute paths) |
 | `site.css` | The main stylesheet: fonts (Work Sans, Cormorant Garamond, Inter for the example sites), colours (CSS variables), What's included, Kind words, the enquiry, the footer, and small "Not template-looking" corrections to the delivered parts |
 | `site.js` | Fills in settings, mounts the opening and the handwriting, in-page links, fade-ups, the enquiry; also fills the Lab's footer |
 | `settings.js` | Every adjustable value |
@@ -58,7 +63,7 @@ The enquiry and the "Plan with us" planner are in demo mode (`chatMode: 'demo'`)
 | `assets/handwriting/` | The handwriting engine and its line (`line-data.js` is generated; don't edit by hand) |
 | `assets/showcase/` | The pictures beside the phrases: plan notepad, Bluebird, Everest (delivered in round 02, updated in round 03; don't edit) |
 | `assets/enquiry/` | The style picker for the enquiry's "How should it look?" step, with the playground's "Your design" choice (delivered; don't edit) |
-| `assets/studio/` | Round 03's parts (delivered and tested; don't edit): top bar, Recent work, demos, playground, Sketch your homepage, logo in one line, How it works, About, planner, Sketch lens, pen-written heading and signature, the Lab's experiments, fonts, screenshots and example photos. `site.html` and `lab.html` are the previews; `base.css` is for the previews only |
+| `assets/studio/` | Round 03's and Round 04's parts (Round 04 added the AI assistants demo `aiassist.*`, the Try it tabs `trytabs.*`, the Lab teaser `labteaser.*` and `lab-teaser.webp`, the 404 styles `notfound.css`, the Lab's sample logos `lab-logos/` and woff2 fonts) (delivered and tested; don't edit): top bar, Recent work, demos, playground, Sketch your homepage, logo in one line, How it works, About, planner, Sketch lens, pen-written heading and signature, the Lab's experiments, fonts, screenshots and example photos. `site.html` and `lab.html` are the previews; `base.css` is for the previews only |
 | `COMPLIANCE.md`, `privacy-policy-draft.md` | What the site sends and to whom, and the start of the privacy policy (not published) |
 | `assets/finale/finale-data.js` | Round 02's finale lines (no longer loaded; kept) |
 | `fonts/` | Round 02's Cormorant Garamond and Inter woff2 files (no longer loaded; the site now uses `assets/studio/fonts/`) |

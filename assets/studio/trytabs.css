@@ -1,0 +1,11 @@
+/* Try it: four tools under one heading, shown one at a time */
+.tt-head { padding-bottom: 0; }
+.tt-tabs { display: flex; flex-wrap: wrap; gap: 8px; margin-top: clamp(26px, 3vw, 40px); padding-bottom: 2px; }
+.tt-tab { background: transparent; color: var(--text, #F6F0E4); border: 1px solid rgba(216, 172, 95, .32); border-radius: 8px; padding: 11px 18px; font: 500 15px var(--sans); cursor: pointer; }
+.tt-tab[aria-selected="true"] { background: var(--accent, #D8AC5F); border-color: var(--accent, #D8AC5F); color: #0E1628; }
+@media (hover: hover) { .tt-tab:hover:not([aria-selected="true"]) { border-color: var(--accent, #D8AC5F); } }
+.tt-tab:focus-visible { outline: 2px solid var(--text, #F6F0E4); outline-offset: 2px; }
+.tt-panel > .r3-section { padding-top: clamp(28px, 3.5vw, 44px); }
+.tt-panel .r3-h2 { font-size: clamp(24px, 2.4vw, 32px); margin-bottom: 10px; }   /* each tool keeps a small heading of its own under the tabs */
+.tt-panel[hidden] { display: none; }
+@media (max-width: 560px) { .tt-tabs { display: grid; grid-template-columns: 1fr 1fr; } .tt-tab { padding: 11px 10px; font-size: 14px; } }

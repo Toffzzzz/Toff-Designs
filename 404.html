@@ -1,0 +1,58 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>Page not found · Toff Studio</title>
+    <meta name="robots" content="noindex" />
+    <meta name="theme-color" content="#0E1628" />
+    <!-- GitHub Pages shows this page for any address that doesn't exist, at any depth, so every path here is absolute (the site lives under /Toff-Designs/ until it has its own domain) -->
+    <link rel="icon" href="/Toff-Designs/favicon.ico" sizes="48x48" />
+    <link rel="icon" href="/Toff-Designs/favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="/Toff-Designs/apple-touch-icon.png" />
+    <link rel="stylesheet" href="/Toff-Designs/site.css" />
+    <link rel="stylesheet" href="/Toff-Designs/assets/studio/studio.css" />
+    <link rel="stylesheet" href="/Toff-Designs/assets/studio/topbar.css" />
+    <link rel="stylesheet" href="/Toff-Designs/assets/studio/notfound.css" />
+    <link rel="preload" href="/Toff-Designs/assets/studio/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/Toff-Designs/assets/studio/fonts/work-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin />
+    <script src="/Toff-Designs/settings.js"></script>
+    <script>
+      /* Colours from settings.js onto the page's CSS variables */
+      (function () {
+        var c = (window.TOFF_SETTINGS || {}).colors || {}, map = { bg: '--bg', ink: '--ink', text: '--text', slate: '--slate', accent: '--accent', tint: '--tint', lineShadow: '--line-shadow', footer: '--bg-deep', error: '--error' };
+        for (var k in map) if (c[k]) document.documentElement.style.setProperty(map[k], c[k]);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip" href="#main">Skip to content</a>
+    <div class="vt-rule" aria-hidden="true"></div>
+<main id="main" class="r3-section nf">
+  <div class="r3-inner nf-in">
+    <div class="nf-art" role="img" aria-label="A shop sign hanging from a nail, with Closed written on it">
+      <svg class="nf-sign" viewBox="0 0 320 260" aria-hidden="true">
+        <circle class="nf-draw" cx="160" cy="22" r="4" style="--len:26"/>
+        <path class="nf-draw" d="M160 26 L58 104" style="--len:129;--at:.15s"/>
+        <path class="nf-draw" d="M160 26 L262 104" style="--len:129;--at:.15s"/>
+        <rect class="nf-draw" x="38" y="102" width="244" height="132" rx="10" style="--len:740;--at:.45s"/>
+        <rect class="nf-draw" x="50" y="114" width="220" height="108" rx="6" style="--len:640;--at:.7s"/>
+      </svg>
+      <div class="nf-word" id="nf-word"></div>
+    </div>
+    <div>
+      <h1 class="r3-h2">This page is closed</h1>
+      <p class="r3-lede">There’s nothing at this address. It may have moved, or the link may have a small typo.</p>
+      <div class="nf-links"><a class="nf-home" href="/Toff-Designs/">Back to the main site</a><a href="/Toff-Designs/lab.html">The Lab</a><a href="/Toff-Designs/#contact">Start a project</a></div>
+    </div>
+  </div>
+</main>
+    <script src="/Toff-Designs/assets/studio/inkwriter-data.js"></script>
+    <script src="/Toff-Designs/assets/studio/inkwriter.js"></script>
+    <script src="/Toff-Designs/assets/studio/topbar.js"></script>
+    <script>
+      TopBar.mount({ solid: true, cta: '/Toff-Designs/#contact', links: [['Main site', '/Toff-Designs/'], ['The Lab', '/Toff-Designs/lab.html']] });
+      setTimeout(function () { InkWriter.mount(document.getElementById('nf-word'), { phrase: 'closed', speed: 95, threshold: 0 }); }, 900);
+    </script>
+  </body>
+</html>

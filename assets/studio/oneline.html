@@ -3,11 +3,18 @@
   <div class="r3-inner ol">
     <div class="ol-text">
       <h2 class="r3-h2" id="ol-title">Your logo, drawn in one continuous line</h2>
-      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser turns it into a single gold line and draws it, start to finish, without lifting the pen. Nothing leaves your device.</p>
+      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser traces it as a single gold line and draws it, start to finish, without lifting the pen: logos as clean outlines, photos as shading. Nothing leaves your device.</p>
       <div class="ol-controls">
         <label class="ol-upload"><input type="file" class="ol-file" accept="image/*">Choose an image</label>
         <form class="ol-initials"><label for="ol-initials-input">Or type your initials</label><input id="ol-initials-input" type="text" maxlength="3" autocomplete="off" placeholder="HB"><button type="submit">Draw</button></form>
         <div class="ol-examples" role="group" aria-label="Or try an example"></div>
+        <label class="ol-detail-wrap">Style
+          <select class="ol-style" aria-label="Drawing style">
+            <option value="auto" selected>Automatic</option>
+            <option value="outline">Outline (best for logos)</option>
+            <option value="shading">Shading (best for photos)</option>
+          </select>
+        </label>
         <label class="ol-detail-wrap">How detailed
           <select class="ol-detail" aria-label="Level of detail">
             <option value="900">Light</option>

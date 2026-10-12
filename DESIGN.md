@@ -127,3 +127,25 @@ A reviewer listed the tells that make a site look template- or AI-made. Every ch
 9. **No decorative motion.** The typing dots in the chat demo and the planner are still instead of bouncing; the planner's pins drop in without overshooting. The Lab's code caret is steady (no blink). The one-line drawing's loading ring still turns, because it shows work in progress.
 10. **No fake window chrome.** No three-dot window bars on the studio's own panels (the Lab's code editor shows file tabs only). The opening's sketch of a browser keeps its dots, because it is a drawing of a browser.
 11. **Varied rhythm.** Split intros, a full-width handwriting moment, a narrow-left About, the What's included list beside its heading, and different section spacing (What's included sits closer to How it works).
+12. **Copy, Round 04.** No "X, not Y" lines: the concept studies' "Designs we made to explore an idea, not client work" becomes "Studies we designed for made-up businesses, to try out ideas"; the Everest mock-up's "Placeholder · Concept screen…" note becomes "A mock-up of the design, until the live site is ready"; the handwriting cards' captions say what each one is ("A doctor-led IV clinic in London. We designed and built its site."). "Bespoke design, never a template" is now "Designed from scratch for your business" (round 03 AI follow-up). The plain "not client work" / "not a working site" disclaimers from item 6 are replaced where Round 04 rewrote the line.
+
+## Round 04 design upgrade
+
+Based on research into recent Awwwards winners, then tightened after a critical review by a juror and a first-time customer. All of it is in the delivered files (`assets/studio/`, `assets/opening/`, `assets/showcase/`); the values below are as delivered.
+
+- **A large editorial headline.** The opening's "We sketch it. Then we build it." is set large (Cormorant Garamond, `clamp(46px, 7.2vw, 112px)`, line height .98), and each line rises out of its own slot (1.05s, `cubic-bezier(.22, 1, .36, 1)`, the second line .09s later), with **build** in gold italic. Reduced motion: shown in place.
+- **The café in the opening drawing.** The drawn site is now "Morrow Coffee" (a made-up café) with real text, and its picture is a real photo (`assets/studio/playground/playground-cafe.webp`, passed by `site.js` to `Opening.mount`).
+- **AI assistants** ("Your website can answer your customers for you"), a band in a deeper ink (`#0A101E`, the footer's midnight) straight after the handwriting: a chat demo for four made-up businesses whose taught facts the visitor can edit, and the other AI features the studio builds.
+- **How it works on cream paper** (`#F1EADC`, text `#141C2E`, quiet text `#4C5468`, gold ink `#8F6A2A`) with a torn-paper edge: the one change of tone in the middle of the scroll.
+- **A still paper grain**: a fine noise texture over the whole page at 5% opacity that never moves (`body::after` in `studio.css`; it replaces the round 02 grain in `site.css`). Hidden when printing.
+- **A gold-line page transition** between the main site and the Lab (CSS View Transitions): the old page dims, the new one is wiped in from the left behind a 2px gold line that sweeps across (760ms). Switched off for reduced motion; browsers without View Transitions simply change page.
+- **A skip link** ("Skip to content"), first in the tab order on every page, hidden until it has focus.
+- **The 404 page** ("This page is closed"): a shop sign drawn in line with "Closed" handwritten on it, and links back to the main site, the Lab and Start a project. `404.html` in the site root, with absolute `/Toff-Designs/` paths and `noindex`.
+- **The Lab teaser** ("There's more in the Lab"): a full-width band with real stills from the Lab, listing every experiment.
+- **A simpler menu**: AI assistants, Work, Try it, How it works, The Lab (was seven links).
+- **Balanced line breaks**: headings use `text-wrap: balance`, paragraphs `text-wrap: pretty`, so there are no lonely last words.
+- **The four tools grouped into the Try it tabs** ("Try it with your own business": Pick a look, Sketch your homepage, Your logo in one line, Booking and other features), one at a time. Proper tabs (arrow keys, Home, End); links into a tool open its tab first. The page went from about 18 laptop screens to 14.
+- **The handwriting cards** lose their small "Recent work" / "Your brief" labels; the caption says what each one is.
+- **A softer AC glow** on the Everest picture (the client's warm-to-cool glow, kept from round 02, now gentler).
+- **No studio caption under 14px** (the style picker's descriptions are at least 13px). On the real page this includes `site.css`'s enquiry demo note, its sent note and the footer's © line, raised from 13px to 14px.
+- **Unfinished details hidden**: the "How long" notes, the price line in How it works, About's "Placeholder text" note and the footer's email and privacy lines are marked `data-unfinished`. They follow `showPlaceholders` in `settings.js` (now `false`: hidden); `?unfinished` in the address shows them all.

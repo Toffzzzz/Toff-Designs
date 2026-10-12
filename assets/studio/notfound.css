@@ -1,0 +1,18 @@
+/* 404: "This page is closed", a shop sign drawn in gold ink */
+.nf { min-height: 100svh; display: grid; align-items: center; padding-top: 110px; }
+.nf-in { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 6vw, 96px); align-items: center; }
+.nf-art { position: relative; width: min(100%, 380px); margin: 0 auto; aspect-ratio: 320 / 260; }
+.nf-sign { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+.nf-sign path, .nf-sign rect, .nf-sign circle { fill: none; stroke: var(--accent, #D8AC5F); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+.nf-sign .nf-draw { stroke-dasharray: var(--len) var(--len); stroke-dashoffset: var(--len); animation: nf-draw .9s cubic-bezier(.22, 1, .36, 1) forwards; animation-delay: var(--at, 0s); }
+@keyframes nf-draw { to { stroke-dashoffset: 0; } }
+.nf-word { position: absolute; left: 25%; right: 25%; top: 53%; }
+.nf-word .iw-ink path { stroke: var(--text, #F1E3C6); stroke-width: 1.4; }
+.nf-word .iw-shadow path { stroke: rgba(0, 0, 0, .35); }
+.nf h1 { margin: 0 0 16px; }
+.nf-links { display: flex; flex-wrap: wrap; align-items: center; gap: 14px 22px; margin-top: 28px; }
+.nf-home { background: var(--accent, #D8AC5F); color: var(--bg, #0E1628); border-radius: 8px; padding: 13px 22px; font: 500 15px var(--sans); text-decoration: none; }
+.nf-links a:not(.nf-home) { color: var(--text, #F1E3C6); font-size: 15px; text-underline-offset: 4px; }
+.nf-links a:focus-visible { outline: 2px solid var(--text, #F1E3C6); outline-offset: 3px; }
+@media (max-width: 760px) { .nf-in { grid-template-columns: 1fr; } .nf-art { width: min(80%, 300px); } }
+@media (prefers-reduced-motion: reduce) { .nf-sign .nf-draw { animation: none; stroke-dashoffset: 0; } }

@@ -1,0 +1,14 @@
+/* The Lab, pointed to from the main page: a full-width band in a deeper ink, picture first */
+.lt-section { background: #0A101E; padding-top: clamp(64px, 9vw, 120px); padding-bottom: clamp(64px, 9vw, 120px); }
+.lt { display: grid; grid-template-columns: minmax(0, 7fr) minmax(0, 5fr); gap: clamp(28px, 5vw, 72px); align-items: center; }
+.lt-pic { display: block; border-radius: 8px; overflow: hidden; }
+.lt-pic img { display: block; width: 100%; height: auto; transition: transform .6s cubic-bezier(.22, 1, .36, 1); }
+.lt-pic:hover img { transform: scale(1.02); }
+.lt-list { list-style: none; margin: 22px 0 30px; padding: 0; display: grid; gap: 2px; }
+.lt-list a { display: block; padding: 9px 0; color: var(--ink, #F1E3C6); text-decoration: none; font: 400 clamp(19px, 1.6vw, 22px)/1.3 var(--serif); border-bottom: 1px solid rgba(216, 172, 95, .16); }
+.lt-list a:hover { color: var(--accent, #D8AC5F); }
+.lt-list a:focus-visible, .lt-go:focus-visible { outline: 2px solid var(--ink, #F1E3C6); outline-offset: 3px; }
+.lt-go { display: inline-block; background: var(--accent, #D8AC5F); color: var(--bg, #0E1628); border-radius: 8px; padding: 13px 22px; font: 500 15px var(--sans); text-decoration: none; }
+.lt-go:hover { background: #E4BD78; }
+@media (max-width: 860px) { .lt { grid-template-columns: 1fr; } .lt-text { order: -1; } }
+@media (prefers-reduced-motion: reduce) { .lt-pic img { transition: none; } }

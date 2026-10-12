@@ -198,7 +198,7 @@
     var api = {};
     api.resize = resize(root.querySelector('.cap-resize'));
     api.booking = booking(root.querySelector('.cap-booking'));
-    api.chat = chat(root.querySelector('.cap-chat'));
+    var chatTile = root.querySelector('.cap-chat'); api.chat = chatTile ? chat(chatTile) : null;   // the chat demo now lives in the AI assistants section
     var sp = root.querySelector('.cap-speed'); if (sp) speed(sp);
     api.colours = colours(root.querySelector('.cap-colours'));
     return api;

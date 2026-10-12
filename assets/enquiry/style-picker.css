@@ -39,7 +39,7 @@
 .sp-icon path { visibility: hidden; stroke-dasharray: 1 1.02; stroke-dashoffset: 1; }
 .sp-drawn .sp-icon path, .sp-icon-static path { visibility: visible; stroke-dashoffset: 0; }
 .sp-name { font-family: var(--serif, Georgia, "Times New Roman", serif); font-weight: 400; font-size: clamp(15px, 2.2vw, 20px); line-height: 1.15; color: var(--sp-text); margin-top: 4px; }
-.sp-desc { font-size: clamp(11px, 1.5vw, 13px); line-height: 1.35; color: var(--sp-slate); }
+.sp-desc { font-size: clamp(13px, 1.5vw, 14px); line-height: 1.35; color: var(--sp-slate); }
 .sp-view { font-size: 12px; letter-spacing: .02em; color: var(--sp-accent); text-decoration: none; padding: 4px 6px; border-radius: 6px; }
 .sp-view:hover, .sp-view:focus-visible { text-decoration: underline; text-underline-offset: 3px; }
 .sp-view:focus-visible { outline: 2px solid var(--sp-ink); outline-offset: 2px; }

@@ -27,7 +27,7 @@
 .sc-pic .sc-face { overflow: hidden; }    /* the face line starts and ends inside its picture, never over the caption */
 .sc-ink [data-draw], .sc-face path { visibility: hidden; }
 .sc-cap { display: flex; flex-direction: column; gap: 4px; font-family: var(--sans, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif); }
-.sc-index { margin-bottom: 4px; font: italic 400 clamp(13px, 3.6cqw, 16px)/1.2 var(--serif, Georgia, serif); color: var(--sc-accent); }
+.sc-index { margin-bottom: 4px; font: italic 400 clamp(15px, 3.6cqw, 17px)/1.2 var(--serif, Georgia, serif); color: var(--sc-accent); }
 .sc-name { font-family: var(--serif, Georgia, "Times New Roman", serif); font-weight: 400; font-size: clamp(15px, 6.6cqw, 25px); color: var(--sc-text); line-height: 1.15; letter-spacing: -0.005em; }
 .sc-desc { font-size: clamp(11.5px, 4cqw, 15px); color: var(--sc-slate); line-height: 1.35; }
 .sc-go { margin-top: 6px; font-size: clamp(11.5px, 3.8cqw, 14px); letter-spacing: .02em; color: var(--sc-ink); }
@@ -42,10 +42,10 @@
 .sc-ac { background: none; overflow: visible; }
 .sc-ac-glow {                        /* a soft warm glow with no edges that fades as the room cools */
   position: absolute; left: -12%; right: -12%; top: -18%; bottom: -22%;
-  background: radial-gradient(closest-side, rgba(242, 150, 90, 0.42), rgba(242, 150, 90, 0.16) 55%, rgba(242, 150, 90, 0) 100%);
+  background: radial-gradient(closest-side, rgba(242, 150, 90, 0.24), rgba(242, 150, 90, 0.08) 55%, rgba(242, 150, 90, 0) 100%);
   pointer-events: none;
 }
-.sc-ac-cool { background: radial-gradient(closest-side, rgba(130, 185, 240, 0.34), rgba(130, 185, 240, 0.12) 55%, rgba(130, 185, 240, 0) 100%); opacity: 0; }
+.sc-ac-cool { background: radial-gradient(closest-side, rgba(130, 185, 240, 0.2), rgba(130, 185, 240, 0.07) 55%, rgba(130, 185, 240, 0) 100%); opacity: 0; }
 .sc-ac-unit { position: absolute; left: 9%; right: 9%; top: 11%; aspect-ratio: 1000 / 300; filter: drop-shadow(0 8px 14px rgba(0, 0, 0, 0.35)); }
 .sc-ac-unit img { position: absolute; inset: 0; width: 100%; height: auto; display: block; }
 .sc-ac-open { opacity: 0; }
