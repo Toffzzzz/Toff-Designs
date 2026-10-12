@@ -401,6 +401,7 @@
           <button type="button" class="dr-clear" disabled>Start again</button>
         </div>
         <p class="dr-touch-tip">Tip: to scroll the page, swipe outside the paper.</p>
+        <p class="dr-ai-privacy" hidden>When you pause, your sketch (just the pen lines) is sent to Anthropic’s Claude to be read. It isn’t stored.</p>
       </div>
       <div class="dr-col dr-col-preview" data-brief="Draw your site">
         <p class="dr-label">How it could look <span>(scroll inside the window)</span></p>
@@ -672,7 +673,7 @@
   window.__cap = Capabilities.mount(document.getElementById('what-we-build'));
   window.__pg = Playground.mount(document.getElementById('playground'), { photos: PHOTOS, contactSelector: '#contact' });
   window.__picker = StylePicker.mount(document.getElementById('ct-picker'), { links: LINKS, onChange: function (v) { document.getElementById('ct-next').disabled = !v.style; } });
-  window.__dr = DrawSite.mount(document.getElementById('draw-your-site'), { getStyle: function () { return __pg.state(); } });
+  window.__dr = DrawSite.mount(document.getElementById('draw-your-site'), { getStyle: function () { return __pg.state(); }, ai: { endpoint: 'https://toff-sketch-ai.toffdesigns.workers.dev/read-sketch' } });
   window.__ol = OneLine.mount(document.getElementById('one-line'), { examples: [{ label: 'The Toff monogram', text: 'T' }, { label: 'A face (from Bluebird)', svg: '#sc-bluebird .sc-face' }, { label: 'An air conditioner (from Everest)', src: '../showcase/ac-closed.png' }] });
   window.__iw = InkWriter.mount(document.getElementById('ct-write'), { phrase: 'finale-wide', narrow: 'finale-narrow', narrowBelow: 560, speed: 150 });
   window.__sig = InkWriter.mount(document.getElementById('ft-sign'), { phrase: 'signature', speed: 70, threshold: 0.9 });

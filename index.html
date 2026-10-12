@@ -414,6 +414,7 @@
           <button type="button" class="dr-clear" disabled>Start again</button>
         </div>
         <p class="dr-touch-tip">Tip: to scroll the page, swipe outside the paper.</p>
+        <p class="dr-ai-privacy" hidden>When you pause, your sketch (just the pen lines) is sent to Anthropic’s Claude to be read. It isn’t stored.</p>
       </div>
       <div class="dr-col dr-col-preview" data-brief="Draw your site">
         <p class="dr-label">How it could look <span>(scroll inside the window)</span></p>
@@ -490,7 +491,7 @@
     <h2 class="r3-h2" id="included-title">What’s included</h2>
     <div>
       <ul class="incl-list">
-        <li class="incl-item reveal">Bespoke design, never a template</li>
+        <li class="incl-item reveal">Designed from scratch for your business</li>
         <li class="incl-item reveal">Built for phones first</li>
         <li class="incl-item reveal">Hosting and care</li>
         <li class="incl-item reveal">Privacy, cookie and legal pages</li>
@@ -806,7 +807,7 @@
       window.__cases = Cases.mount(document.getElementById('selected-work'), { links: LINKS, sketches: { bluebird: STUDIO + 'cases/sketch-bluebird.webp', everest: STUDIO + 'cases/sketch-everest.webp' }, acImage: 'assets/showcase/ac-open.png', assetBase: STUDIO });
       window.__cap = Capabilities.mount(document.getElementById('what-we-build'));
       window.__pg = Playground.mount(document.getElementById('playground'), { photos: PHOTOS, contactSelector: '#contact' });
-      window.__dr = DrawSite.mount(document.getElementById('draw-your-site'), { getStyle: function () { return __pg.state(); } });
+      window.__dr = DrawSite.mount(document.getElementById('draw-your-site'), { getStyle: function () { return __pg.state(); }, ai: { endpoint: 'https://toff-sketch-ai.toffdesigns.workers.dev/read-sketch' } });
       window.__ol = OneLine.mount(document.getElementById('one-line'), { examples: [{ label: 'The Toff monogram', text: 'T' }, { label: 'A face (from Bluebird)', svg: '#sc-bluebird .sc-face' }, { label: 'An air conditioner (from Everest)', src: 'assets/showcase/ac-closed.png' }] });
       window.__iw = InkWriter.mount(document.getElementById('ct-write'), { phrase: 'finale-wide', narrow: 'finale-narrow', narrowBelow: 560, speed: 150 });
       window.__sig = InkWriter.mount(document.getElementById('ft-sign'), { phrase: 'signature', speed: 70, threshold: 0.9 });
