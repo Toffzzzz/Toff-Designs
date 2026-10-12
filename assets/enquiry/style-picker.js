@@ -9,9 +9,11 @@
  *   <template id="style-picker">…</template>   (from style-picker.html, pasted once)
  *   var picker = StylePicker.mount(document.getElementById('step-style'), {
  *     links: { bluebird: 'https://…', everest: '' },      // empty: no "View site" link is shown
- *     onChange: function (v) { … }                         // v = { style: 'bluebird'|'everest'|'own'|null, notes: '' }
+ *     onChange: function (v) { … }                         // v = { style: 'bluebird'|'everest'|'own'|'design'|null, notes: '', design: {…}|null }
  *   });
- *   picker.value()  -> { style, notes }      picker.set('everest')      picker.focus()      picker.destroy()
+ *   picker.value()  -> { style, notes, design }   picker.set('everest')   picker.focus()   picker.destroy()
+ *   picker.setDesign(d)  adds (or updates) a fourth choice, "Your design", from the playground and selects it.
+ *   It also listens for the document event 'toff:design' (sent by the playground) unless listenForDesigns is false.
  */
 (function () {
   'use strict';
@@ -39,7 +41,8 @@
     var uid = 'sp-own-text-' + Math.random().toString(36).slice(2, 8);
     text.id = uid; root.querySelector('.sp-own-label').setAttribute('for', uid);
 
-    function current() { return { style: state.style, notes: state.style === 'own' ? state.notes.trim() : '' }; }   // notes only count for "Plan it yourself"
+    var design = null;
+    function current() { return { style: state.style, notes: state.style === 'own' ? state.notes.trim() : '', design: state.style === 'design' ? design : null }; }   // notes only count for "Plan it yourself"
     function emit() { if (o.onChange) o.onChange(current()); }
     function select(value, focus) {
       state.style = value;
@@ -52,17 +55,45 @@
       own.hidden = value !== 'own';
       emit();
     }
-    cards.forEach(function (c, i) {
-      c.tabIndex = i === 0 ? 0 : -1;
+    function bind(c) {
       c.addEventListener('click', function () { select(c.getAttribute('data-value'), false); });
       c.addEventListener('keydown', function (e) {
-        var k = e.key, n = cards.length, j = -1;
+        var i = cards.indexOf(c), k = e.key, n = cards.length, j = -1;
         if (k === 'ArrowRight' || k === 'ArrowDown') j = (i + 1) % n;
         else if (k === 'ArrowLeft' || k === 'ArrowUp') j = (i - 1 + n) % n;
         else if (k === 'Home') j = 0; else if (k === 'End') j = n - 1;
         if (j >= 0) { e.preventDefault(); select(cards[j].getAttribute('data-value'), true); }
       });
-    });
+    }
+    cards.forEach(function (c, i) { c.tabIndex = i === 0 ? 0 : -1; bind(c); });
+
+    // "Your design": a fourth choice that appears when the visitor sends a design from the playground
+    function esc(t) { return String(t).replace(/[&<>"]/g, function (ch) { return { '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[ch]; }); }
+    function setDesign(d) {
+      if (!d) return;
+      design = { business: d.business, mood: d.mood, layout: d.layout, name: d.name || '', summary: d.summary || '', colours: (d.colours || []).slice(0, 3) };
+      var opt = root.querySelector('.sp-option-design');
+      if (!opt) {
+        opt = document.createElement('div'); opt.className = 'sp-option sp-option-design';
+        opt.innerHTML = '<button type="button" class="sp-card" role="radio" aria-checked="false" data-value="design">' +
+          '<svg class="sp-icon sp-icon-static" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">' +
+            '<path d="M24 30 H96 Q100 30 100 34 V78 H20 V34 Q20 30 24 30 Z"/><path d="M10 86 H110 L104 92 H16 Z"/>' +
+            '<g class="sp-design-dots" stroke="none"></g></svg>' +
+          '<span class="sp-name">Your design</span><span class="sp-desc"></span></button>' +
+          '<a class="sp-view sp-edit" href="#playground">Edit in the playground</a>';
+        root.querySelector('.sp-options').appendChild(opt);
+        var card = opt.querySelector('.sp-card'); card.tabIndex = -1; cards.push(card); bind(card);
+      }
+      var dots = opt.querySelector('.sp-design-dots');
+      dots.innerHTML = design.colours.map(function (c, i) { return '<circle cx="' + (44 + i * 16) + '" cy="54" r="6" fill="' + esc(c) + '"/>'; }).join('');
+      var desc = design.summary || (design.business + ', ' + design.mood + ', ' + design.layout);
+      opt.querySelector('.sp-desc').textContent = desc.replace(/^[^(]*\(/, '').replace(/\)/, '');
+      opt.querySelector('.sp-card').setAttribute('aria-label', 'Your design from the playground: ' + desc);
+      select('design', false);
+    }
+    function onDesign(e) { setDesign(e.detail); }
+    if (o.listenForDesigns !== false) document.addEventListener('toff:design', onDesign);
+
     text.addEventListener('input', function () { state.notes = text.value; emit(); });
 
     // draw the icons once (each stroke in pen order, the three icons slightly overlapping)
@@ -101,10 +132,11 @@
 
     return {
       value: current,
+      setDesign: setDesign,
       set: function (v) { select(v, false); },
       focus: function () { (cards.filter(function (c) { return c.tabIndex === 0; })[0] || cards[0]).focus(); },
       play: draw,
-      destroy: function () { if (raf) cancelAnimationFrame(raf); if (io) io.disconnect(); root.remove(); }
+      destroy: function () { if (raf) cancelAnimationFrame(raf); if (io) io.disconnect(); document.removeEventListener('toff:design', onDesign); root.remove(); }
     };
   }
 

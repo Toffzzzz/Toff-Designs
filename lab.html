@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="en-GB">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <title>The Lab · Toff Studio</title>
+    <meta name="description" content="Experiments from Toff Studio in what a web browser can draw by itself: a section that writes itself, lettering made of gold specks, a letter cast in liquid gold and ink that moves." />
+    <meta name="theme-color" content="#0E1628" />
+    <link rel="canonical" href="https://toffzzzz.github.io/Toff-Designs/lab.html" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Toff Studio" />
+    <meta property="og:title" content="The Lab · Toff Studio" />
+    <meta property="og:description" content="Experiments in what a web browser can draw by itself, with no video and no images." />
+    <meta property="og:url" content="https://toffzzzz.github.io/Toff-Designs/lab.html" />
+    <meta property="og:image" content="https://toffzzzz.github.io/Toff-Designs/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Toff Studio: a gold T monogram on midnight blue" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="stylesheet" href="site.css" />
+    <link rel="stylesheet" href="assets/studio/studio.css" />
+    <link rel="stylesheet" href="assets/studio/buildself.css" />
+    <link rel="stylesheet" href="assets/studio/particles.css" />
+    <link rel="stylesheet" href="assets/studio/finale.css" />
+    <link rel="stylesheet" href="assets/studio/topbar.css" />
+    <link rel="stylesheet" href="assets/studio/craft.css" />
+    <link rel="stylesheet" href="assets/studio/lab.css" />
+    <script src="settings.js"></script>
+    <script>
+      /* Colours from settings.js onto the page's CSS variables */
+      (function () {
+        var c = (window.TOFF_SETTINGS || {}).colors || {}, map = { bg: '--bg', ink: '--ink', text: '--text', slate: '--slate', accent: '--accent', tint: '--tint', lineShadow: '--line-shadow', footer: '--bg-deep', error: '--error' };
+        for (var k in map) if (c[k]) document.documentElement.style.setProperty(map[k], c[k]);
+      })();
+    </script>
+  </head>
+  <body>
+    <a class="skip-link" href="#lab">Skip to main content</a>
+<main id="lab">
+<section class="r3-section lab-intro" aria-labelledby="lab-title">
+  <div class="r3-inner">
+    <h1 class="r3-h2" id="lab-title">The Lab</h1>
+    <p class="r3-lede">Experiments in what a web browser can draw by itself, with no video and no images. They aren’t on client sites unless you ask for one, but any of them could be. Sound is off unless you turn it on.</p>
+    <div class="lab-tools"><button type="button" class="snd-toggle" aria-pressed="false"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M4 9h3l5-4v14l-5-4H4z"/><path class="snd-wave" d="M16 9a4 4 0 0 1 0 6M18.5 6.5a7.5 7.5 0 0 1 0 11"/></svg>Sound effects <span class="snd-state">off</span></button><a class="lab-back" href="./">Back to the main site</a></div>
+  </div>
+</section>
+<!-- Watch it build itself. Paste after What we build. -->
+<section class="r3-section bs-section lab-exp" id="build-itself" aria-labelledby="bs-title">
+  <div class="r3-inner">
+    <h2 class="r3-h2" id="bs-title">Watch a section being written</h2>
+    <p class="r3-lede">This is real code being typed out. The preview changes as each line goes in: it starts as plain text, then takes on its look once the styling arrives. Your site is written the same way, by hand.</p>
+    <div class="bs" data-brief="Watch it build itself">
+      <div class="bs-editor">
+        <div class="bs-bar">
+          <div class="bs-tabs" role="tablist" aria-label="Files being written"><span class="bs-tab" role="tab" aria-selected="true">index.html</span><span class="bs-tab" role="tab" aria-selected="false">style.css</span></div>
+        </div>
+        <pre class="bs-code" aria-label="Code being typed"></pre>
+        <div class="bs-progress" aria-hidden="true"><i></i></div>
+      </div>
+      <div class="bs-side">
+        <div class="bs-preview" role="img" aria-label="The section being built: a café card with a photo, a heading and a button"></div>
+        <p class="bs-stage-note" aria-live="polite">Waiting to start</p>
+        <div class="bs-actions"><button type="button" class="bs-skip">Skip to the end</button><button type="button" class="bs-replay" hidden>Replay</button></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Lab: lettering made of gold specks. -->
+<section class="r3-section pt-section lab-exp" id="particles-band" aria-labelledby="pt-title">
+  <div class="r3-inner pt">
+    <h2 class="r3-h2" id="pt-title">Lettering made of gold specks</h2>
+    <p class="r3-lede">A few thousand points, each pulled towards its place in a shape and pushed away by your pointer. The physics runs on the processor; the drawing runs on the graphics chip.</p>
+    <div class="pt-stage" id="particles">
+      <p class="pt-fallback" aria-hidden="true">Toff Studio</p>
+    </div>
+    <p class="pt-hint">Every speck is drawn live. <span class="pt-h-fine">Run your pointer through them</span><span class="pt-h-touch">Drag a finger through them</span>, or tap to change the shape.</p>
+  </div>
+</section>
+
+<section class="r3-section lab-exp mg-section" id="liquid-gold" aria-labelledby="mg-title">
+  <div class="r3-inner lab-split">
+    <div>
+      <h2 class="r3-h2" id="mg-title">A letter cast in liquid gold</h2>
+      <p class="r3-lede">There is no 3D model here: the T is described as a shape in maths and drawn pixel by pixel by the graphics chip. It ripples slowly and turns to face your pointer.</p>
+    </div>
+    <div class="ab-mono lab-mono" id="monogram"></div>
+    <p class="lab-fallback">This one needs a faster device, so it’s switched off here.</p>
+  </div>
+</section>
+<section class="r3-section lab-exp ink-section" id="moving-ink" aria-labelledby="ink-title">
+  <div class="r3-inner">
+    <h2 class="r3-h2" id="ink-title">Ink that moves</h2>
+    <p class="r3-lede">A small fluid simulation. Move your pointer or a finger through it; the pen signs underneath.</p>
+    <div class="lab-ink" id="lab-ink"><div class="lab-ink-sign" id="lab-sign" role="img" aria-label="Toff, written in ink"></div></div>
+    <p class="lab-fallback">This one needs a faster device, so it’s switched off here.</p>
+  </div>
+</section>
+</main>
+
+
+<footer class="ft"><div class="r3-inner"><div class="ft-sign" id="ft-sign" role="img" aria-label="Signed, Toff"></div><p class="ft-mark" data-studio-name>Toff Studio</p>
+<div class="ft-contact">
+  <a class="ft-start" href="./#contact">Start a project <span aria-hidden="true">→</span></a>
+  <a class="ft-back" href="./">Back to the main site</a>
+  <p class="ft-line" data-email>Email <span class="ft-ph">your address here</span> <span class="r3-placeholder-tag" data-placeholder>Placeholder</span></p>
+  <p class="ft-line" data-privacy>Privacy policy <span class="ft-ph">coming soon</span></p>
+  <p class="ft-line ft-legal" data-legal hidden></p>
+</div><!-- Craft line: live, honest numbers about this page. -->
+<p class="craft-line">This page loaded in <span data-craft="load">a moment</span> on your device and weighs <span data-craft="weight">very little</span>, with <span data-craft="external">no trackers</span>. It’s <span data-craft="time"></span> in London.</p>
+<div class="ft-bottom"><p>&copy; <span data-year>2026</span> <span data-studio-name>Toff Studio</span>, <span data-location>London</span></p><p data-company hidden></p></div>
+</div></footer>
+    <!-- The Lab's experiments (assets/studio); site.js fills the footer from settings.js -->
+    <script src="assets/studio/craft.js"></script>
+    <script src="assets/studio/buildself.js"></script>
+    <script src="assets/studio/particles.js"></script>
+    <script src="assets/studio/monogram.js"></script>
+    <script src="assets/studio/fluid.js"></script>
+    <script src="assets/studio/inkwriter-data.js"></script>
+    <script src="assets/studio/inkwriter.js"></script>
+    <script src="assets/studio/sound.js"></script>
+    <script src="assets/studio/kinetic.js"></script>
+    <script src="assets/studio/topbar.js"></script>
+    <script src="assets/studio/lab.js"></script>
+    <script src="site.js"></script>
+    <script>
+      window.__lab = Lab.mount({ main: './', image: 'assets/studio/playground/playground-cafe.webp' });
+      document.body.insertBefore(document.querySelector('.skip-link'), document.body.firstChild);   // the skip link stays the first thing to tab to
+    </script>
+  </body>
+</html>

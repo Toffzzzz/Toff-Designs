@@ -1,0 +1,34 @@
+<!-- Your logo, in one line. Paste after Draw your site. -->
+<section class="r3-section ol-section" id="one-line" aria-labelledby="ol-title">
+  <div class="r3-inner ol">
+    <div class="ol-text">
+      <h2 class="r3-h2" id="ol-title">Your logo, drawn in one continuous line</h2>
+      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser turns it into a single gold line and draws it, start to finish, without lifting the pen. Nothing leaves your device.</p>
+      <div class="ol-controls">
+        <label class="ol-upload"><input type="file" class="ol-file" accept="image/*">Choose an image</label>
+        <form class="ol-initials"><label for="ol-initials-input">Or type your initials</label><input id="ol-initials-input" type="text" maxlength="3" autocomplete="off" placeholder="HB"><button type="submit">Draw</button></form>
+        <div class="ol-examples" role="group" aria-label="Or try an example"></div>
+        <label class="ol-detail-wrap">How detailed
+          <select class="ol-detail" aria-label="Level of detail">
+            <option value="900">Light</option>
+            <option value="1600" selected>Balanced</option>
+            <option value="2600">Rich</option>
+          </select>
+        </label>
+        <div class="ol-after">
+          <button type="button" class="ol-again" disabled>Draw it again</button>
+          <button type="button" class="ol-download" disabled>Download the drawing</button>
+        </div>
+        <p class="ol-status" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="ol-stage" data-brief="Your logo in one line">
+      <svg class="ol-svg" viewBox="0 0 400 400" role="img" aria-label="Your image drawn as one continuous gold line">
+        <path class="ol-shadow" d="" fill="none"/>
+        <path class="ol-path" d="" fill="none"/>
+        <circle class="ol-tip" r="3.2" cx="-10" cy="-10"/>
+      </svg>
+      <p class="ol-drop" aria-hidden="true">Drop an image here</p>
+    </div>
+  </div>
+</section>

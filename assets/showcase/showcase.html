@@ -1,6 +1,6 @@
 <!-- Showcase card templates. Paste once anywhere inside <body> (templates are not shown by themselves). -->
 <template id="sc-plan">
-  <div class="sc-card sc-card-plan">
+  <div class="sc-card sc-card-plan" data-brief="The plan notepad drawing">
     <div class="sc-pic">
       <svg class="sc-plan sc-ink" viewBox="0 0 370 240" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <rect data-draw="1" x="95" y="26" width="180" height="196" rx="10"/>
@@ -18,7 +18,7 @@
       </svg>
     </div>
     <div class="sc-cap">
-      <span class="sc-index">01 &mdash; Your brief</span>
+      <span class="sc-index">Your brief</span>
       <span class="sc-name">It starts with your plan</span>
       <span class="sc-desc">Tell us what your business needs. We take it from there.</span>
     </div>
@@ -26,7 +26,7 @@
 </template>
 
 <template id="sc-bluebird">
-  <a class="sc-card sc-card-link" aria-label="Bluebird Wellness, a doctor-led IV clinic in London: visit the live website (opens in a new tab)">
+  <a class="sc-card sc-card-link" data-brief="Bluebird’s line-drawn face" aria-label="Bluebird Wellness, a doctor-led IV clinic in London: visit the live website (opens in a new tab)">
     <div class="sc-pic">
       <svg class="sc-face sc-ink" viewBox="190 112 420 884" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
         <path id="bb-face-main" data-y="516" d="M320.0,124.0 C320.0,131.0 320.0,139.0 320.0,146.0 C320.0,147.3 319.3,148.9 320.0,150.0 C323.7,155.7 334.0,170.5 342.0,180.0 C352.7,192.7 373.6,213.8 384.0,226.0 C391.4,234.6 400.1,246.7 404.6,253.0 C407.1,256.5 409.3,260.2 411.2,264.0 C413.2,268.0 415.3,272.5 416.4,277.0 C417.9,282.8 419.0,293.7 420.0,299.0 C420.7,302.4 421.4,305.8 422.6,309.0 C423.8,312.3 425.5,316.0 427.2,319.0 C428.8,321.9 430.7,324.6 433.0,327.0 C436.0,330.1 441.0,334.4 445.0,337.4 C448.8,340.2 452.9,342.6 457.0,344.8 C463.0,348.0 472.9,353.1 481.0,356.8 C490.3,361.0 507.0,367.5 513.0,370.2 C514.5,370.9 515.8,371.9 517.0,373.0 C518.7,374.6 521.7,377.8 523.0,380.0 C524.1,381.8 524.8,383.9 525.0,386.0 C525.2,388.7 524.9,392.8 524.2,396.0 C523.5,399.1 522.2,402.1 520.8,405.0 C518.7,409.3 513.3,417.7 511.6,422.0 C510.5,424.8 510.1,428.0 510.6,431.0 C511.1,434.2 513.0,438.5 514.6,441.0 C515.9,443.1 518.6,444.4 520.0,446.0 C521.2,447.4 521.5,449.6 522.8,450.8 C524.1,452.0 526.7,452.5 527.8,453.4 C528.6,454.0 529.4,455.0 529.6,456.0 C530.0,457.8 530.1,462.0 530.0,464.0 C530.0,465.4 529.6,466.7 529.2,468.0 C528.3,470.8 525.3,478.6 524.6,481.0 C524.5,481.5 524.8,482.1 525.2,482.4 C526.9,483.9 532.8,487.7 535.0,490.0 C536.6,491.6 537.7,494.5 538.4,496.0 C538.8,496.9 539.0,498.0 539.0,499.0 C539.0,500.8 539.2,504.5 538.4,507.0 C537.6,509.5 534.7,512.0 534.0,514.0 C533.4,515.6 533.8,517.3 534.0,519.0 C534.3,521.2 534.7,524.4 535.6,527.0 C536.5,529.7 537.7,532.6 539.4,535.0 C543.0,540.2 553.6,552.3 557.2,558.0 C559.3,561.3 560.4,565.2 561.0,569.0 C561.6,573.0 561.5,578.2 561.0,582.0 C560.5,585.5 559.1,589.2 557.8,592.0 C556.6,594.6 554.9,596.9 553.0,599.0 C550.9,601.3 547.9,603.7 545.0,605.6 C542.0,607.6 538.5,609.4 535.0,610.8 C529.7,612.9 520.5,616.2 513.0,618.2 C504.2,620.6 489.3,623.6 482.0,625.0 C477.7,625.8 471.7,625.9 469.0,626.4 C467.9,626.6 466.8,627.2 466.0,628.0 C464.7,629.2 463.0,632.2 461.0,633.8 C458.8,635.6 455.4,636.7 453.0,638.6 C449.3,641.5 443.1,646.3 439.0,651.0 C434.2,656.4 427.5,666.0 424.2,671.0 C422.1,674.1 420.7,677.6 419.2,681.0 C417.3,685.5 414.5,692.2 412.6,698.0 C410.0,705.8 405.9,717.8 403.8,728.0 C399.0,751.8 388.7,815.7 383.6,841.0 C381.0,854.2 376.9,869.0 373.4,880.0 C370.5,889.2 366.4,898.8 362.8,907.0 C359.5,914.5 355.9,921.9 351.8,929.0 C346.4,938.3 335.4,955.5 330.4,963.0 C327.8,966.9 323.6,971.5 321.8,974.0 C320.9,975.2 319.8,976.5 319.8,978.0 C319.7,980.0 319.8,982.0 320.0,984.0"/>
@@ -40,7 +40,7 @@
       </svg>
     </div>
     <div class="sc-cap">
-      <span class="sc-index">02 &mdash; Selected work</span>
+      <span class="sc-index">Recent work</span>
       <span class="sc-name">Bluebird Wellness</span>
       <span class="sc-desc">Doctor-led IV clinic, London</span>
       <span class="sc-go">View the live site&nbsp;&rarr;</span>
@@ -49,7 +49,7 @@
 </template>
 
 <template id="sc-everest">
-  <a class="sc-card sc-card-link" aria-label="Everest Climate Solutions, air conditioning installation: visit the live website (opens in a new tab)">
+  <a class="sc-card sc-card-link" data-brief="Everest’s cooling animation" aria-label="Everest Climate Solutions, air conditioning installation: visit the live website (opens in a new tab)">
     <div class="sc-pic sc-ac">
       <div class="sc-ac-glow"></div>
       <div class="sc-ac-glow sc-ac-cool"></div>
@@ -61,7 +61,7 @@
       <div class="sc-ac-num-wrap"><span class="sc-ac-num">32</span><sup>°C</sup></div>
     </div>
     <div class="sc-cap">
-      <span class="sc-index">03 &mdash; Selected work</span>
+      <span class="sc-index">Recent work</span>
       <span class="sc-name">Everest Climate Solutions</span>
       <span class="sc-desc">Air conditioning installation</span>
       <span class="sc-go">View the live site&nbsp;&rarr;</span>

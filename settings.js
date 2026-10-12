@@ -40,9 +40,9 @@ window.TOFF_SETTINGS = {
     vat: '', // VAT number
   },
 
-  /* ---------- "How we work": how long each step takes ----------
-     One per step, in order: Discovery call, Sketch, Build, Launch & care.
-     e.g. ['30 minutes', 'About a week', '3–4 weeks', 'Ongoing']. Empty = placeholder (or hidden). */
+  /* ---------- "How it works": how long each step takes ----------
+     One per step, in order: Discovery call, Sketch, Build, Launch & care. Shown as "How long: …".
+     e.g. ['30 minutes', 'About a week', '3–4 weeks', 'Ongoing']. Empty = "How long: to be added" (or hidden). */
   process: {
     timeframes: ['', '', '', ''],
   },
@@ -75,7 +75,7 @@ window.TOFF_SETTINGS = {
     ink: '#F1E3C6', // cream: lines, links, outlines
     text: '#F6F0E4', // headings and body text
     slate: '#A7AFC2', // quiet text, placeholders
-    accent: '#D8AC5F', // gold: small labels, numbers, fine rules, the main button, selected states
+    accent: '#D8AC5F', // gold: fine rules, the main button, selected states, small italic notes
     tint: '#1A2541', // raised areas: a selected choice, an input
     lineShadow: 'rgba(216, 172, 95, 0.38)', // the gold under-shadow on every line
     footer: '#0A101E', // the footer's slightly deeper midnight
@@ -91,8 +91,7 @@ window.TOFF_SETTINGS = {
     lineDuration: 0.9, // how long the line takes to drop to the bottom of the screen, in seconds
   },
 
-  /* ---------- The handwriting line ("You plan" … "So... what will it be?")
-     and the finale's "Tell us what you need" (the same engine and settings) ---------- */
+  /* ---------- The handwriting line ("You plan" … "So... what will it be?") ---------- */
   handwriting: {
     color: '#F1E3C6', // the ink colour (keep the same as colors.ink)
     strokePx: { desktop: 3.2, mobile: 2.6 }, // line thickness on screen, in pixels
@@ -125,7 +124,7 @@ window.TOFF_SETTINGS = {
     drawSeconds: 1.1, // how long the three little icons take to draw themselves
   },
 
-  /* ---------- Gentle fade-up of headings and text in "How we work", "What's included" and "Kind words" ---------- */
+  /* ---------- Gentle fade-up of the items in "What's included" and the quotes in "Kind words" ---------- */
   reveal: {
     durationMs: 600, // how long each fade-up takes
     risePx: 12, // how far it rises into place

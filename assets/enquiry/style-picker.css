@@ -10,6 +10,8 @@
   font-family: var(--sans, Inter, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif);
 }
 .sp-options { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(8px, 2vw, 20px); }
+.sp-options:has(.sp-option-design) { grid-template-columns: repeat(4, minmax(0, 1fr)); }
+@media (max-width: 520px) { .sp-options:has(.sp-option-design) { grid-template-columns: repeat(2, minmax(0, 1fr)); } }
 .sp-option { display: flex; flex-direction: column; align-items: center; gap: 8px; min-width: 0; }
 .sp-card {
   position: relative; width: 100%; display: flex; flex-direction: column; align-items: center; gap: 6px;
@@ -19,7 +21,7 @@
   transition: background-color .35s ease, border-color .35s ease, transform .45s cubic-bezier(.2,.7,.2,1);
   -webkit-tap-highlight-color: transparent;
 }
-.sp-card:hover { background: color-mix(in srgb, var(--sp-tint) 70%, transparent); }
+@media (hover: hover) { .sp-card:hover { background: color-mix(in srgb, var(--sp-tint) 70%, transparent); } }
 .sp-card:focus-visible { outline: 2px solid var(--sp-ink); outline-offset: 3px; }
 .sp-card[aria-checked="true"] { border-color: var(--sp-accent); background: var(--sp-tint); }
 .sp-card[aria-checked="true"]::after {               /* a small brass tick in the corner */
@@ -35,7 +37,7 @@
 .sp-icon-face { stroke-width: 26; }                  /* same visible weight as the others (its drawing is larger) */
 .sp-card[aria-checked="true"] .sp-icon { transform: translateY(-2px); }
 .sp-icon path { visibility: hidden; stroke-dasharray: 1 1.02; stroke-dashoffset: 1; }
-.sp-drawn .sp-icon path { visibility: visible; stroke-dashoffset: 0; }
+.sp-drawn .sp-icon path, .sp-icon-static path { visibility: visible; stroke-dashoffset: 0; }
 .sp-name { font-family: var(--serif, Georgia, "Times New Roman", serif); font-weight: 400; font-size: clamp(15px, 2.2vw, 20px); line-height: 1.15; color: var(--sp-text); margin-top: 4px; }
 .sp-desc { font-size: clamp(11px, 1.5vw, 13px); line-height: 1.35; color: var(--sp-slate); }
 .sp-view { font-size: 12px; letter-spacing: .02em; color: var(--sp-accent); text-decoration: none; padding: 4px 6px; border-radius: 6px; }

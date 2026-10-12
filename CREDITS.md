@@ -2,6 +2,21 @@
 
 Everything below is licensed for commercial use on a website. Keep this file up to date whenever a font, library or image is added.
 
+## In use (Round 03)
+
+### Text fonts (self-hosted in `assets/studio/fonts/`, delivered with the round 03 files)
+
+- **Work Sans** (regular, italic and bold, Latin), the body font. Copyright 2019 The Work Sans Project Authors (github.com/weiweihuanghuang/Work-Sans), SIL Open Font License 1.1. Licence: `assets/studio/fonts/OFL-work-sans.txt`.
+- **Cormorant Garamond** (variable, weights 300–700, roman and italic, Latin), the headings. Copyright 2015 the Cormorant Project Authors, SIL Open Font License 1.1. Licence: `assets/studio/fonts/OFL-cormorant-garamond.txt`. (Replaces the round 02 woff2 files in `fonts/cormorant-garamond/`, which are kept.)
+- **Inter** (variable, Latin), only inside the example client sites in the demos. Copyright 2020 The Inter Project Authors, SIL Open Font License 1.1. Licence: `assets/studio/fonts/OFL-inter.txt`.
+
+### Images (in `assets/studio/`, delivered with the round 03 files)
+
+- `cases/bluebird-laptop.webp`, `cases/bluebird-phone.webp`: screenshots of the owner's Bluebird Wellness site.
+- `cases/sketch-bluebird.webp`, `cases/sketch-everest.webp`: the pencil sketches shown by the Sketch / Site switch.
+- `playground/playground-*.webp` (boutique, café, clinic, restaurant, salon, trades): example interiors for the fictional businesses in the playground, concept studies and demos. They stand for no real premises or people. **Source and licence not stated in the round 03 files: owner to confirm before launch.**
+- The pen-written enquiry heading and the footer signature (`inkwriter-data.js`): drawn from the public-domain Hershey cursive (acknowledgement below) by `make_phrases.py`.
+
 ## In use (Round 02)
 
 ### Handwriting and finale heading: Hershey cursive

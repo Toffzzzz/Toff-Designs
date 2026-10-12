@@ -1,0 +1,13 @@
+/* Ink finale: liquid gold behind a pen-written "Tell us what you need", and the footer signature */
+.ct-section { position: relative; overflow: hidden; }
+.ct-ink { position: absolute; left: 0; right: 0; top: 0; height: min(56vh, 460px); pointer-events: none; z-index: 0;
+  -webkit-mask-image: linear-gradient(to bottom, #000 40%, transparent 92%); mask-image: linear-gradient(to bottom, #000 40%, transparent 92%); }
+.fl-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ct-section > .r3-inner { position: relative; z-index: 1; }
+.ct-write { max-width: 780px; margin: 0 0 34px; }
+.iw-svg { display: block; width: 100%; height: auto; overflow: visible; }
+.iw-ink path { stroke: var(--ink, #F1E3C6); stroke-width: 1.1; }
+.iw-shadow path { stroke: var(--line-shadow, rgba(216, 172, 95, .38)); stroke-width: 1.55; transform: translate(0, 1.1px); }
+.ft-sign { width: 132px; margin: 0 0 18px; }
+.ft-sign .iw-ink path { stroke: var(--accent, #D8AC5F); stroke-width: 1.2; }
+.ft-sign .iw-shadow path { stroke: rgba(0, 0, 0, .35); }

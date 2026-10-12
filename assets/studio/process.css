@@ -1,0 +1,21 @@
+/* How it works: one hand-drawn line that visits each step (instead of numbered columns) */
+.pr { position: relative; margin-top: clamp(40px, 6vw, 80px); }
+.pr-ink { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; pointer-events: none; }
+.pr-ink path { fill: none; stroke: var(--accent, #D8AC5F); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.pr-ink .pr-shadow { stroke: var(--line-shadow, rgba(216, 172, 95, .38)); stroke-width: 1.2; }
+.pr-ink circle { fill: var(--bg, #0E1628); stroke: var(--accent, #D8AC5F); stroke-width: 1.6; }
+.pr-steps { list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: minmax(0, 1.15fr) minmax(0, .85fr) minmax(0, 1.2fr) minmax(0, .9fr);   /* uneven, like a hand-spaced page */ gap: clamp(20px, 3vw, 48px); position: relative; }
+.pr-step { position: relative; padding-top: 44px; }
+.pr-step:nth-child(2) { margin-top: 56px; } .pr-step:nth-child(3) { margin-top: 18px; } .pr-step:nth-child(4) { margin-top: 74px; }   /* the line wanders; so do the stops */
+.pr-dot { position: absolute; left: 6px; top: 6px; width: 1px; height: 1px; }
+.pr-name { margin: 0 0 10px; font: 400 clamp(24px, 2.2vw, 30px)/1.15 var(--serif, Georgia, serif); color: var(--text, #F6F0E4); }
+.pr-text { margin: 0 0 14px; color: var(--slate, #A7AFC2); font-size: 16px; line-height: 1.6; max-width: 30ch; }
+.pr-time { margin: 0; }
+.pr-step > :not(.pr-dot) { transition: opacity .6s ease, transform .6s ease; }
+.pr:not(.pr-drawn) .pr-step:not(.pr-reached) > :not(.pr-dot) { opacity: 0; transform: translateY(6px); }
+@media (max-width: 860px) {
+  .pr-steps { grid-template-columns: 1fr; gap: 34px; padding-left: 40px; }
+  .pr-step, .pr-step:nth-child(n) { margin-top: 0; padding-top: 0; }
+  .pr-dot { left: -34px; top: 14px; }
+}
+@media (prefers-reduced-motion: reduce) { .pr-step > :not(.pr-dot) { transition: none; } }

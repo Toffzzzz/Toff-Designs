@@ -1,0 +1,68 @@
+<!-- What we build: a drawer of small working demos. Paste after Selected work. -->
+<section class="r3-section cap-section" id="what-we-build" aria-labelledby="cap-title">
+  <div class="r3-inner">
+    <div class="r3-intro r3-intro--split">
+      <h2 class="r3-h2" id="cap-title">Things we can build into your site</h2>
+      <p class="r3-lede">These all work, so have a go: resize the screen, book a slot, ask the assistant something, change the colours.</p>
+    </div>
+
+    <div class="cap-grid">
+      <!-- 1. Responsive -->
+      <div class="cap-tile cap-resize" data-brief="The drag-to-resize demo">
+        <h3 class="cap-title">Works on any screen size</h3>
+        <p class="cap-text">Drag the gold handle, or tap a size below. The same site rearranges itself for a phone, a tablet or a laptop.</p>
+        <div class="cap-resize-stage">
+          <div class="cap-resize-frame">
+            <div class="cap-resize-site"></div>
+            <div class="cap-resize-handle" data-cursor="Drag" role="slider" tabindex="0" aria-label="Width of the example website" aria-valuemin="300" aria-valuemax="1100" aria-valuenow="1100"><span aria-hidden="true"></span></div>
+          </div>
+        </div>
+        <div class="cap-sizes" role="group" aria-label="Show the site at the size of a">
+          <button type="button" data-size="360">Phone</button><button type="button" data-size="768">Tablet</button><button type="button" data-size="1100" aria-pressed="true">Laptop</button>
+        </div>
+        <p class="cap-resize-readout" aria-hidden="true">Showing the <span class="cap-resize-device">laptop</span> layout<span class="cap-resize-px" hidden></span></p>
+      </div>
+
+      <!-- 2. Booking -->
+      <div class="cap-tile cap-booking" data-brief="The booking calendar">
+        <h3 class="cap-title">Online booking</h3>
+        <p class="cap-text">Pick a day, then a time. On a real site it can connect to your calendar, send reminders and take payment.</p>
+        <div class="cap-demo bk" aria-live="polite">
+          <div class="bk-step bk-days" role="group" aria-label="Choose a day"></div>
+          <div class="bk-step bk-times" role="group" aria-label="Choose a time" hidden></div>
+          <p class="bk-prompt">Tap a day to see the free times.</p>
+          <button type="button" class="bk-confirm" hidden></button>
+          <div class="bk-done" hidden>
+            <p class="bk-done-title">Booked.</p>
+            <p class="bk-done-text"></p>
+            <button type="button" class="bk-again">Book another</button>
+          </div>
+          <p class="cap-note">Demo: nothing is booked or sent.</p>
+        </div>
+      </div>
+
+      <!-- 3. Chat -->
+      <div class="cap-tile cap-chat" data-brief="The chat assistant demo">
+        <h3 class="cap-title">A chat helper that asks your questions</h3>
+        <p class="cap-text">You decide what it asks and in what order. It changes its next question depending on the answer.</p>
+        <div class="cap-demo ch">
+          <div class="ch-log" role="log" aria-live="polite" aria-label="Example conversation"></div>
+          <div class="ch-choices" role="group" aria-label="Your reply"></div>
+          <p class="cap-note">Demo for a fictional clinic: nothing is sent.</p>
+        </div>
+      </div>
+
+      <!-- 5. Colours -->
+      <div class="cap-tile cap-colours" data-brief="The colour moods demo">
+        <h3 class="cap-title">Your colours on every page</h3>
+        <p class="cap-text">Pick a different style and every button, heading and card changes with it.</p>
+        <div class="cap-colours-stage">
+          <div class="dv dv-phone cap-colours-phone" role="img" aria-label="An example café website on a phone">
+            <div class="dv-screen"><div class="dv-content"></div></div><i class="dv-island"></i>
+          </div>
+          <div class="cap-swatches" role="group" aria-label="Choose a mood"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

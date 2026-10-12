@@ -1,0 +1,38 @@
+/* Top bar */
+.tb-top { position: absolute; top: 0; left: 0; width: 1px; height: 1px; }
+.tb { position: fixed; top: 0; left: 0; right: 0; z-index: 64; pointer-events: none; font-family: var(--sans, Inter, sans-serif); }
+.tb-inner { box-sizing: border-box; max-width: 1240px; margin: 0 auto; height: 60px; padding: 0 clamp(16px, 4vw, 40px); display: flex; align-items: center; gap: 22px; }
+.tb::before { content: ""; position: absolute; inset: 0; background: #0E1628; border-bottom: 1px solid var(--hairline, rgba(216, 172, 95, .22)); opacity: 0; transform: translateY(-100%); transition: opacity .35s ease, transform .45s cubic-bezier(.2,.7,.2,1); }
+.tb-inner { position: relative; }
+.tb-mark { margin-right: auto; font: 400 21px/1 var(--serif, Georgia, serif); color: var(--text, #F6F0E4); text-decoration: none; transition: opacity .3s ease; }
+.tb-nav { display: flex; gap: 24px; transition: opacity .3s ease; }
+.tb-nav a { color: var(--slate, #A7AFC2); text-decoration: none; font-size: 14px; padding: 8px 0; border-bottom: 1px solid transparent; }
+.tb-nav a[aria-current] { color: var(--text, #F6F0E4); border-bottom-color: var(--accent, #D8AC5F); }
+.tb-cta { pointer-events: auto; display: inline-flex; align-items: center; min-height: 40px; padding: 0 18px; border-radius: 8px; background: var(--accent, #D8AC5F); color: var(--bg, #0E1628); font: 500 14px/1 var(--sans, Inter, sans-serif); text-decoration: none; box-shadow: 0 10px 24px -12px rgba(0, 0, 0, .7); }
+.tb[data-state="hero"] .tb-nav { opacity: 0; visibility: hidden; }
+.tb[data-state="hero"] .tb-mark { pointer-events: auto; }
+.tb[data-state="bar"] { pointer-events: auto; }
+.tb[data-state="bar"]::before { opacity: 1; transform: none; }
+.tb a:focus-visible { outline: 2px solid var(--ink, #F1E3C6); outline-offset: 3px; border-radius: 4px; }
+@media (hover: hover) { .tb-nav a:hover { color: var(--text, #F6F0E4); } .tb-cta:hover { filter: brightness(1.06); } }
+@media (max-width: 1100px) {                    /* tablets: tighter links, the lens as an icon */
+  .tb-nav { gap: 18px; } .tb-inner { gap: 18px; }
+  .tb .xr-switch.xr-inbar { width: 38px; padding: 0; justify-content: center; }
+  .tb .xr-switch.xr-inbar span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+}
+@media (max-width: 1000px) and (min-width: 801px) { .tb-mark { display: none; } .tb-nav { margin-right: auto; } }
+@media (max-width: 800px) { .tb-nav { display: none; } .tb-inner { height: 56px; } .tb-cta { min-height: 38px; padding: 0 15px; font-size: 13.5px; } }
+.tb-menu { display: none; pointer-events: auto; min-height: 38px; padding: 0 12px; border-radius: 8px; border: 1px solid rgba(216, 172, 95, .45); background: transparent; color: var(--text, #F6F0E4); font: 500 13.5px/1 var(--sans, sans-serif); cursor: pointer; }
+.tb-menu:focus-visible { outline: 2px solid var(--ink, #F1E3C6); outline-offset: 2px; }
+.tb-sheet { position: absolute; top: 100%; left: 0; right: 0; display: grid; padding: 8px 16px 16px; background: #0E1628; border-bottom: 1px solid var(--hairline, rgba(216, 172, 95, .22)); pointer-events: auto; }
+.tb-sheet[hidden] { display: none; }
+.tb-sheet a { color: var(--text, #F6F0E4); text-decoration: none; font: 400 22px/1.2 var(--serif, Georgia, serif); padding: 12px 0; border-bottom: 1px solid rgba(216, 172, 95, .12); }
+.tb.tb-open::before { opacity: 1; transform: none; }
+@media (max-width: 800px) { .tb-menu { display: inline-flex; align-items: center; } }
+.tb-short { display: none; }
+.tb-sheet .xr-switch { margin-top: 14px; width: auto !important; height: 44px; padding: 0 16px 0 13px !important; justify-self: start; }
+.tb-sheet .xr-switch span { position: static !important; width: auto !important; height: auto !important; overflow: visible !important; clip: auto !important; }
+@media (max-width: 480px) { .tb-inner { gap: 10px; } .tb-mark { font-size: 19px; } }
+@media (max-width: 360px) { .tb-long { display: none; } .tb-short { display: inline; } }
+@media (prefers-reduced-motion: reduce) { .tb::before, .tb-mark, .tb-nav { transition: none; } }
+html { scroll-padding-top: 72px; }

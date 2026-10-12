@@ -1,0 +1,111 @@
+/* Selected work: case panels and concept studies */
+.cs {
+  display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: clamp(32px, 6vw, 96px); align-items: center;
+  margin-top: clamp(64px, 9vw, 128px);
+}
+.cs-flip .cs-text { order: 2; }
+.cs-name { font: 300 clamp(32px, 3.6vw, 50px)/1.05 var(--serif); letter-spacing: -0.01em; margin: 0 0 10px; color: var(--text); }
+.cs-line { color: var(--slate); margin: 0 0 26px; max-width: 36ch; }
+.cs-built-title { font: 500 14px/1.3 var(--sans); color: var(--text); margin: 0 0 10px; }
+.cs-built { list-style: none; margin: 0 0 28px; padding: 0; display: grid; gap: 9px; }
+.cs-built li { position: relative; padding-left: 30px; color: var(--text); font-size: 15.5px; line-height: 1.5; }
+.cs-built li::before { content: ""; position: absolute; left: 0; top: .78em; width: 18px; height: 1px; background: var(--accent); }
+.cs-go {
+  color: var(--ink); text-decoration: none; font-size: 15px; letter-spacing: .01em;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 3px;
+  transition: background-size .4s cubic-bezier(.2,.7,.2,1);
+}
+.cs-go:hover { background-size: 40% 1px; }
+.cs-go[hidden], .cs-soon[hidden] { display: none; }
+.cs-soon { color: var(--slate); font-size: 15px; margin: 0; }
+
+.cs-stage { position: relative; }
+.cs-switch {
+  display: inline-flex; gap: 2px; padding: 3px; border-radius: 8px; margin: 0 0 18px auto;
+  background: var(--tint); box-shadow: inset 0 0 0 1px var(--hairline); position: relative; z-index: 3;
+}
+.cs-stage { display: flex; flex-direction: column; }
+.cs-switch-btn {
+  font: 500 13px/1 var(--sans); letter-spacing: .02em; color: var(--slate); background: transparent; border: 0; cursor: pointer;
+  padding: 9px 16px; border-radius: 8px; transition: background-color .3s ease, color .3s ease;
+}
+.cs-switch-btn[aria-pressed="true"] { background: var(--accent); color: var(--bg); }
+.cs-switch-btn:focus-visible { outline: 2px solid var(--ink); outline-offset: 2px; }
+.cs-devices { position: relative; padding: 0 13% 7% 0; }
+.cs-laptop { width: 100%; }
+.cs-phone { position: absolute; right: 0; bottom: 0; width: 23%; }
+.cs-flip .cs-devices { padding: 0 0 7% 13%; }
+.cs-flip .cs-phone { right: auto; left: 0; }
+.cs-mock-note { margin: 18px 0 0; color: var(--slate); font-size: 13px; display: flex; align-items: center; gap: 10px; flex-wrap: wrap; }
+
+/* sketch layer */
+.cs-layer-sketch { container-type: inline-size; background: #F3EDE1; }
+.cs-sketch-svg, .cs-sketch-img { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.cs-sketch-note, .cs-sketch-temp { position: absolute; margin: 0; font: italic 500 2.6cqw/1 var(--serif); color: #2A2722; transform: rotate(-4deg); white-space: nowrap; }
+.cs-sketch-temp { font-size: 4.2cqw; transform: rotate(-2deg); }
+.cs-sketch-tag { position: absolute; left: 3%; bottom: 4%; background: rgba(14, 22, 40, .85); }
+.cs-flip .cs-sketch-tag { left: auto; right: 3%; }
+
+/* Everest concept screen (design width 1280 / 390) */
+.evm { background: #F4F7FA; color: #0F2D52; font-family: Inter, -apple-system, sans-serif; }
+.evm-nav { display: flex; align-items: center; gap: 12px; padding: 22px 48px; font-size: 15px; }
+.evm-links { margin-left: auto; display: flex; gap: 32px; color: #4A6280; font-size: 14px; }
+.evm-btn { display: inline-block; background: #0F2D52; color: #fff; border-radius: 999px; padding: 13px 24px; font-size: 15px; font-weight: 500; }
+.evm-btn-sm { padding: 9px 18px; font-size: 13px; }
+.evm-btn-light { background: #fff; color: #0F2D52; }
+.evm-hero { text-align: center; padding: 70px 48px 90px; }
+.evm-eyebrow { margin: 0 0 14px; color: #4A6280; font-size: 15px; }
+.evm-hero h1 { margin: 0; font: 650 84px/1 Inter, sans-serif; letter-spacing: -0.04em; }
+.evm-unit { width: 64%; margin: 56px auto 10px; aspect-ratio: 1000 / 302; }
+.evm-unit img { width: 100%; height: auto; display: block; filter: drop-shadow(0 18px 24px rgba(15, 45, 82, .14)); }
+.evm-label { margin: 18px 0 0; letter-spacing: .14em; text-transform: uppercase; font-size: 13px; color: #4A6280; }
+.evm-temp { margin: 4px 0 26px; font: 650 96px/1 Inter, sans-serif; letter-spacing: -0.03em; color: #3B82C4; }
+.evm-temp sup { font-size: .4em; vertical-align: top; position: relative; top: .3em; }
+.evm-svc { display: grid; grid-template-columns: repeat(3, 1fr); gap: 20px; padding: 0 48px 80px; }
+.evm-svc div { background: #fff; border-radius: 18px; padding: 30px; display: grid; gap: 8px; box-shadow: 0 1px 0 rgba(15, 45, 82, .06); }
+.evm-svc b { font-size: 22px; letter-spacing: -0.01em; } .evm-svc span { color: #4A6280; font-size: 15px; }
+.evm-band { margin: 0 48px 70px; padding: 48px; border-radius: 22px; background: #0F2D52; color: #fff; display: flex; align-items: center; justify-content: space-between; }
+.evm-band b { font-size: 40px; letter-spacing: -0.03em; font-weight: 650; }
+.evm-foot { padding: 26px 48px 34px; color: #4A6280; font-size: 13px; border-top: 1px solid rgba(15, 45, 82, .1); }
+.evm-phone .evm-nav { padding: 16px 20px; font-size: 14px; }
+.evm-burger { margin-left: auto; width: 22px; height: 12px; border-top: 2px solid #0F2D52; border-bottom: 2px solid #0F2D52; }
+.evm-phone .evm-hero { padding: 36px 20px 50px; }
+.evm-phone .evm-hero h1 { font-size: 44px; }
+.evm-phone .evm-unit { width: 100%; margin-top: 34px; }
+.evm-phone .evm-temp { font-size: 64px; }
+.evm-phone .evm-svc { grid-template-columns: 1fr; padding: 0 20px 40px; gap: 12px; }
+.evm-phone .evm-svc div { padding: 20px; }
+.evm-phone .evm-band { margin: 0 20px 40px; padding: 28px 22px; flex-direction: column; align-items: flex-start; gap: 16px; }
+.evm-phone .evm-band b { font-size: 28px; }
+.evm-phone .evm-foot { padding: 18px 20px 24px; }
+
+/* concept studies */
+.cc { margin-top: clamp(80px, 11vw, 150px); padding-top: clamp(40px, 5vw, 64px); border-top: 1px solid var(--hairline); }
+.cc-title { font: 300 clamp(28px, 3vw, 40px)/1.1 var(--serif); margin: 0 0 10px; color: var(--text); }
+.cc-lede { color: var(--slate); margin: 0 0 40px; max-width: 54ch; }
+.cc-grid { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: clamp(20px, 3vw, 40px); }
+.cc-item { margin: 0; }
+.cc-item:first-child { grid-column: span 2; grid-row: span 2; }   /* one study large, two small: not three equal boxes */
+.cc-item .dv-laptop { margin-bottom: 22px; }
+.cc-item figcaption { display: flex; flex-wrap: wrap; align-items: baseline; gap: 6px 12px; }
+.cc-name { font: 400 24px/1.1 var(--serif); color: var(--text); }
+.cc-kind { color: var(--slate); font-size: 14px; }
+.cc-tag { margin-left: auto; }
+.cc-open {
+  flex-basis: 100%; text-align: left; padding: 6px 0 0; background: none; border: 0; cursor: pointer;
+  font: 400 14.5px/1.4 var(--sans); color: var(--ink); text-decoration: underline; text-underline-offset: 4px; text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent);
+}
+.cc-open:hover { text-decoration-color: currentColor; }
+
+@media (max-width: 900px) {
+  .cs { grid-template-columns: 1fr; gap: 36px; }
+  .cs-flip .cs-text { order: 0; }
+  .cs-stage { order: 2; }
+  .cc-grid { grid-template-columns: 1fr; gap: 48px; }
+  .cc-item:first-child { grid-column: auto; grid-row: auto; }
+  .cc-item { max-width: 560px; }
+}
+@media (max-width: 420px) {
+  .cs-devices, .cs-flip .cs-devices { padding-bottom: 9%; }
+  .cs-phone { width: 26%; }
+}

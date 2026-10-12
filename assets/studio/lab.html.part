@@ -1,0 +1,29 @@
+<main id="lab">
+<section class="r3-section lab-intro" aria-labelledby="lab-title">
+  <div class="r3-inner">
+    <h1 class="r3-h2" id="lab-title">The Lab</h1>
+    <p class="r3-lede">Experiments in what a web browser can draw by itself, with no video and no images. They aren’t on client sites unless you ask for one, but any of them could be. Sound is off unless you turn it on.</p>
+    <div class="lab-tools">{SOUND_BTN}<a class="lab-back" href="{MAIN}">Back to the main site</a></div>
+  </div>
+</section>
+{BUILDSELF}
+{PARTICLES}
+<section class="r3-section lab-exp mg-section" id="liquid-gold" aria-labelledby="mg-title">
+  <div class="r3-inner lab-split">
+    <div>
+      <h2 class="r3-h2" id="mg-title">A letter cast in liquid gold</h2>
+      <p class="r3-lede">There is no 3D model here: the T is described as a shape in maths and drawn pixel by pixel by the graphics chip. It ripples slowly and turns to face your pointer.</p>
+    </div>
+    <div class="ab-mono lab-mono" id="monogram"></div>
+    <p class="lab-fallback">This one needs a faster device, so it’s switched off here.</p>
+  </div>
+</section>
+<section class="r3-section lab-exp ink-section" id="moving-ink" aria-labelledby="ink-title">
+  <div class="r3-inner">
+    <h2 class="r3-h2" id="ink-title">Ink that moves</h2>
+    <p class="r3-lede">A small fluid simulation. Move your pointer or a finger through it; the pen signs underneath.</p>
+    <div class="lab-ink" id="lab-ink"><div class="lab-ink-sign" id="lab-sign" role="img" aria-label="Toff, written in ink"></div></div>
+    <p class="lab-fallback">This one needs a faster device, so it’s switched off here.</p>
+  </div>
+</section>
+</main>

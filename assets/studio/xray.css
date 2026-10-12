@@ -1,0 +1,62 @@
+/* Sketch lens: the pencil-on-paper twin of the page, seen through a gold lens */
+.xr-switch {
+  position: fixed; left: 18px; bottom: 18px; z-index: 69; display: inline-flex; align-items: center; gap: 8px; height: 44px; padding: 0 16px 0 13px;
+  border-radius: 8px; border: 1px solid rgba(216, 172, 95, .5); background: #111B30; color: var(--text, #F6F0E4);
+  font: 500 13.5px/1 var(--sans, Inter, sans-serif); cursor: pointer; box-shadow: 0 14px 30px -14px rgba(0, 0, 0, .8);
+  transition: transform .35s cubic-bezier(.2,.7,.2,1), opacity .3s ease, background-color .3s ease;
+}
+.xr-switch svg { width: 19px; height: 19px; fill: none; stroke: var(--accent, #D8AC5F); stroke-width: 1.7; stroke-linecap: round; }
+.xr-switch[aria-pressed="true"] { background: var(--accent, #D8AC5F); color: var(--bg, #0E1628); }
+.xr-switch[aria-pressed="true"] svg { stroke: var(--bg, #0E1628); }
+.xr-switch:focus-visible { outline: 2px solid var(--ink, #F1E3C6); outline-offset: 3px; }
+.xr-switch.xr-tucked { transform: translateY(90px); opacity: 0; pointer-events: none; }
+
+.xr-layer { position: fixed; inset: 0; z-index: 66; pointer-events: none; overflow: hidden; clip-path: circle(0 at 50% 50%); }
+.xr-layer[hidden], .xr-ring[hidden] { display: none; }
+.xr-doc {
+  position: absolute; left: 0; top: 0; transform-origin: 0 0; will-change: transform;
+  background-color: #F3EDE1;
+  background-image: linear-gradient(rgba(74, 123, 208, .11) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 123, 208, .11) 1px, transparent 1px);
+  background-size: 28px 28px;
+  min-height: 100%;
+}
+.xr-doc, .xr-doc * {
+  color: transparent !important; background-color: transparent !important; background-image: none !important; box-shadow: none !important; text-shadow: none !important;
+  filter: none !important; animation: none !important; transition: none !important; opacity: 1 !important; visibility: visible !important;
+  border-color: rgba(42, 39, 34, .7) !important; outline: none !important; caret-color: transparent !important;
+}
+.xr-doc { background-color: #F3EDE1 !important; background-image: linear-gradient(rgba(74, 123, 208, .11) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 123, 208, .11) 1px, transparent 1px) !important; }
+.xr-doc .xr-box { outline: 1.4px solid rgba(42, 39, 34, .75) !important; outline-offset: -1px; }
+.xr-doc .xr-img { outline: 1.4px solid rgba(42, 39, 34, .75) !important; object-position: -99999px 0 !important;
+  background-image: linear-gradient(to top right, transparent calc(50% - .7px), rgba(42, 39, 34, .55) 50%, transparent calc(50% + .7px)), linear-gradient(to bottom right, transparent calc(50% - .7px), rgba(42, 39, 34, .55) 50%, transparent calc(50% + .7px)) !important; }
+.xr-doc .xr-t {
+  -webkit-box-decoration-break: clone; box-decoration-break: clone;
+  background-image: linear-gradient(transparent 38%, rgba(42, 39, 34, .26) 38%, rgba(42, 39, 34, .26) 72%, transparent 72%) !important; border-radius: 2px;
+}
+.xr-doc .xr-big .xr-t, .xr-doc .xr-big.xr-t {
+  color: #2A2722 !important; background-image: none !important;   /* same font as the page, so the sketch wraps exactly like it */
+}
+.xr-doc svg, .xr-doc svg * { fill: none !important; stroke: #2A2722 !important; }
+.xr-doc svg text { fill: #2A2722 !important; stroke: none !important; }
+.xr-doc path, .xr-doc line, .xr-doc polyline { stroke-dasharray: none !important; stroke-dashoffset: 0 !important; }   /* the plan shows every line, drawn or not */
+.xr-doc input::placeholder, .xr-doc textarea::placeholder { color: transparent !important; }
+.xr-ring {
+  position: fixed; left: 0; top: 0; z-index: 67; pointer-events: none; border-radius: 50%;
+  box-shadow: 0 0 0 2px var(--accent, #D8AC5F), 0 0 0 7px rgba(216, 172, 95, .14), 0 24px 60px -10px rgba(0, 0, 0, .7), inset 0 0 30px rgba(42, 39, 34, .25);
+}
+.xr-tip { position: fixed; left: 18px; bottom: 72px; z-index: 69; max-width: min(320px, calc(100vw - 36px)); margin: 0; padding: 10px 14px; border-radius: 12px; background: #111B30; color: var(--text, #F6F0E4); font: 400 13.5px/1.45 var(--sans, sans-serif); box-shadow: 0 0 0 1px rgba(216, 172, 95, .35); }
+.xr-tip[hidden] { display: none; }
+.xr-switch.xr-inbar { position: static; height: 38px; padding: 0 13px 0 11px; border-radius: 8px; background: transparent; border-color: rgba(216, 172, 95, .45); box-shadow: none; pointer-events: auto; font-size: 13.5px; transition: none; }
+.xr-switch.xr-inbar[aria-pressed="true"] { background: var(--accent, #D8AC5F); }
+.xr-tip.xr-tip-top { top: 70px; bottom: auto; left: auto; right: 18px; }
+@media (max-width: 640px) {
+  .xr-switch { left: 12px; bottom: 12px; width: 52px; height: 52px; padding: 0; justify-content: center; }
+  .xr-switch span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .xr-switch.xr-labelled { width: auto; padding: 0 16px 0 13px; }
+  .xr-switch.xr-labelled span { position: static; width: auto; height: auto; overflow: visible; clip: auto; }
+  .xr-tip { left: 12px; bottom: 74px; }
+  .xr-switch.xr-inbar { width: 38px; height: 38px; padding: 0; }
+  .xr-switch.xr-inbar span { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; }
+  .xr-tip.xr-tip-top { top: 64px; left: 12px; right: 12px; }
+}
+@media (prefers-reduced-motion: reduce) { .xr-switch { transition: none; } }

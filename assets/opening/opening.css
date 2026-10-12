@@ -20,9 +20,10 @@
   overflow: hidden;
 }
 .op-text { text-align: center; max-width: 900px; }
-.op-eyebrow {
-  margin: 0 0 14px; font-family: var(--op-sans); font-size: 13px; letter-spacing: .14em;
-  text-transform: uppercase; color: var(--op-accent);
+.op-text { display: flex; flex-direction: column; }
+.op-eyebrow {                      /* a plain supporting line under the headline (not a capitals label above it) */
+  order: 2; margin: 18px auto 0; max-width: 34ch; font-family: var(--op-sans); font-size: clamp(16px, 1.3vw, 18px); line-height: 1.5;
+  color: var(--slate, #A7AFC2);
 }
 .op-title {
   margin: 0; font-family: var(--op-serif); font-weight: 400; color: var(--op-text);

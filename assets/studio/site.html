@@ -1,0 +1,690 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Toff Studio (Round 03 preview)</title>
+<link rel="icon" href="data:,">
+<link rel="stylesheet" href="base.css">
+<link rel="stylesheet" href="studio.css">
+<link rel="stylesheet" href="../opening/opening.css">
+<link rel="stylesheet" href="../showcase/showcase.css">
+<link rel="stylesheet" href="minisite.css">
+<link rel="stylesheet" href="devices.css">
+<link rel="stylesheet" href="cases.css">
+<link rel="stylesheet" href="capabilities.css">
+<link rel="stylesheet" href="playground.css">
+<link rel="stylesheet" href="about.css">
+<link rel="stylesheet" href="drawsite.css">
+<link rel="stylesheet" href="oneline.css">
+<link rel="stylesheet" href="craft.css">
+<link rel="stylesheet" href="assistant.css">
+<link rel="stylesheet" href="xray.css">
+<link rel="stylesheet" href="finale.css">
+<link rel="stylesheet" href="topbar.css">
+<link rel="stylesheet" href="process.css">
+<link rel="stylesheet" href="../enquiry/style-picker.css">
+<style>
+  .ct { max-width: 760px; }
+  .ct-step { font: italic 400 18px/1.2 var(--serif); color: var(--accent); margin: 0 0 8px; }
+  .ct-q { font: 300 clamp(28px, 3vw, 40px)/1.1 var(--serif); margin: 0 0 8px; }
+  .ct-hint { color: var(--slate); margin: 0 0 26px; }
+  .ct-actions { display: flex; align-items: center; gap: 14px; flex-wrap: wrap; margin-top: 28px; }
+  .ct-pick { color: var(--slate); font-size: 13.5px; }
+  .ct-next:not(:disabled) + .ct-pick { visibility: hidden; }
+  .ct-next { background: var(--accent); color: var(--bg); border: 0; border-radius: 8px; padding: 13px 22px; font: 500 15px var(--sans); cursor: pointer; }
+  .ct-next:disabled { opacity: .4; cursor: default; }
+  .ft { background: #0A101E; border-top: 1px solid var(--hairline); padding: 56px 16px 64px; }
+  .ft-mark { font: 400 26px/1 var(--serif); margin: 0 0 16px; }
+  .ft-contact { display: grid; gap: 10px; justify-items: start; margin: 0 0 26px; }
+  .ft-start { color: var(--accent); font: 400 24px/1.2 var(--serif); text-decoration: none; }
+  .ft-plan, .ft-back, .ft-lab { background: none; border: 0; padding: 0; color: var(--ink); font: 500 14px var(--sans); text-decoration: underline; text-underline-offset: 4px; cursor: pointer; }
+  .ft-line { margin: 0; color: var(--slate); font-size: 14px; }
+  .ft-ph { color: var(--ink); }
+  .ft a:focus-visible, .ft button:focus-visible { outline: 2px solid var(--ink); outline-offset: 3px; }
+  @media (max-width: 640px) { .ft { padding-bottom: 96px; } }   /* room for the round planner button */
+</style>
+</head>
+<body>
+<!-- Opening page ("From sketch to site"). Paste inside <body>, before the handwriting section. -->
+<section class="opening" id="opening" aria-labelledby="opening-title" data-brief="The sketch-to-site opening">
+  <div class="op-text">
+    <p class="op-eyebrow op-fade">A small web design studio in London. Every site starts as a pencil sketch.</p>
+    <h1 class="op-title op-fade" id="opening-title">We sketch it.<br>Then we build it.</h1>
+  </div>
+
+  <div class="op-stage">
+    <!-- Laptop/desktop: a browser window -->
+    <div class="op-variant op-desktop" role="img" aria-label="A sketch of a website being drawn, which then turns into the finished, full-colour website">
+      <svg class="op-sketch" viewBox="0 0 960 600" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect data-draw="1" x="8" y="8" width="944" height="584" rx="18"/>
+        <path data-draw="2" d="M8 58 H952"/>
+        <circle data-draw="3" cx="40" cy="33" r="6"/><circle data-draw="4" cx="62" cy="33" r="6"/><circle data-draw="5" cx="84" cy="33" r="6"/>
+        <rect data-draw="6" x="360" y="22" width="240" height="22" rx="11"/>
+        <circle data-draw="7" cx="92" cy="100" r="12"/>
+        <path data-draw="8" d="M560 100 H600"/><path data-draw="9" d="M625 100 H665"/><path data-draw="10" d="M690 100 H730"/>
+        <rect data-draw="11" x="770" y="84" width="110" height="32" rx="8"/>
+        <path data-draw="12" d="M80 180 H420"/><path data-draw="13" d="M80 222 H360"/>
+        <path data-draw="14" d="M80 268 H380"/><path data-draw="15" d="M80 292 H330"/>
+        <g class="op-sketch-button"><rect data-draw="16" x="80" y="330" width="150" height="44" rx="10"/></g>
+        <rect data-draw="17" x="500" y="150" width="380" height="240" rx="14"/>
+        <circle data-draw="18" cx="800" cy="200" r="18"/>
+        <path data-draw="19" d="M520 370 L620 270 L690 330 L760 250 L860 370"/>
+        <rect data-draw="20" x="80" y="430" width="240" height="130" rx="12"/>
+        <rect data-draw="21" x="360" y="430" width="240" height="130" rx="12"/>
+        <rect data-draw="22" x="640" y="430" width="240" height="130" rx="12"/>
+        <path data-draw="23" d="M104 470 H220 M104 500 H290 M104 522 H260"/>
+        <path data-draw="24" d="M384 470 H500 M384 500 H570 M384 522 H540"/>
+        <path data-draw="25" d="M664 470 H780 M664 500 H850 M664 522 H820"/>
+      </svg>
+      <div class="op-real" data-origin="16.1% 58.7%">
+        <svg viewBox="0 0 960 600" aria-hidden="true">
+          <rect x="8" y="8" width="944" height="584" rx="18" class="r-window"/>
+          <path d="M8 58 H952" class="r-rule"/>
+          <circle cx="40" cy="33" r="6" class="r-dot1"/><circle cx="62" cy="33" r="6" class="r-dot2"/><circle cx="84" cy="33" r="6" class="r-dot3"/>
+          <rect x="360" y="22" width="240" height="22" rx="11" class="r-url"/>
+          <text x="480" y="37" class="r-urltext" text-anchor="middle">yourbusiness.co.uk</text>
+          <circle cx="92" cy="100" r="12" class="r-ink"/>
+          <text x="114" y="105" class="r-brand">Your brand</text>
+          <text x="560" y="105" class="r-nav">Services</text><text x="632" y="105" class="r-nav">About</text><text x="690" y="105" class="r-nav">Contact</text>
+          <rect x="770" y="84" width="110" height="32" rx="8" class="r-ink"/>
+          <text x="825" y="105" class="r-btntext" text-anchor="middle">Book now</text>
+          <text x="80" y="192" class="r-h1">Beautifully made,</text>
+          <text x="80" y="236" class="r-h1">made for you.</text>
+          <text x="80" y="274" class="r-sub">A website as considered as your business,</text>
+          <text x="80" y="296" class="r-sub">designed and built to bring you customers.</text>
+          <rect x="80" y="330" width="150" height="44" rx="10" class="r-ink"/>
+          <text x="155" y="357" class="r-btntext" text-anchor="middle">Get started</text>
+          <rect x="500" y="150" width="380" height="240" rx="14" class="r-tint"/>
+          <circle cx="800" cy="200" r="18" class="r-sun"/>
+          <path d="M520 370 L620 270 L690 330 L760 250 L860 370 V376 H520 Z" class="r-hill"/>
+          <path d="M520 370 L620 270 L690 330 L760 250 L860 370" class="r-hill-line"/>
+          <rect x="80" y="430" width="240" height="130" rx="12" class="r-card"/>
+          <rect x="360" y="430" width="240" height="130" rx="12" class="r-card"/>
+          <rect x="640" y="430" width="240" height="130" rx="12" class="r-card"/>
+          <text x="104" y="476" class="r-h3">Design</text><text x="384" y="476" class="r-h3">Build</text><text x="664" y="476" class="r-h3">Launch</text>
+          <path d="M104 504 H290 M104 526 H260 M384 504 H570 M384 526 H540 M664 504 H850 M664 526 H820" class="r-lines"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Phones: a phone -->
+    <div class="op-variant op-phone" role="img" aria-label="A sketch of a website on a phone being drawn, which then turns into the finished, full-colour website">
+      <svg class="op-sketch" viewBox="0 0 300 600" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect data-draw="1" x="6" y="6" width="288" height="588" rx="40"/>
+        <rect data-draw="2" x="115" y="18" width="70" height="14" rx="7"/>
+        <circle data-draw="3" cx="40" cy="64" r="9"/>
+        <path data-draw="4" d="M232 56 H260 M232 64 H260 M232 72 H260"/>
+        <path data-draw="5" d="M34 120 H236"/><path data-draw="6" d="M34 150 H200"/>
+        <path data-draw="7" d="M34 180 H230"/>
+        <g class="op-sketch-button"><rect data-draw="8" x="34" y="200" width="124" height="38" rx="10"/></g>
+        <rect data-draw="9" x="34" y="262" width="232" height="150" rx="14"/>
+        <circle data-draw="10" cx="222" cy="294" r="12"/>
+        <path data-draw="11" d="M46 398 L108 336 L148 370 L198 318 L254 398"/>
+        <rect data-draw="12" x="34" y="430" width="232" height="64" rx="12"/>
+        <rect data-draw="13" x="34" y="506" width="232" height="64" rx="12"/>
+        <path data-draw="14" d="M52 456 H150 M52 474 H220"/>
+        <path data-draw="15" d="M52 532 H150 M52 550 H220"/>
+      </svg>
+      <div class="op-real" data-origin="32% 36.5%">
+        <svg viewBox="0 0 300 600" aria-hidden="true">
+          <rect x="6" y="6" width="288" height="588" rx="40" class="r-window"/>
+          <rect x="115" y="18" width="70" height="14" rx="7" class="r-ink"/>
+          <circle cx="40" cy="64" r="9" class="r-ink"/>
+          <text x="56" y="69" class="r-brand r-brand-sm">Your brand</text>
+          <path d="M232 56 H260 M232 64 H260 M232 72 H260" class="r-lines r-lines-ink"/>
+          <text x="34" y="128" class="r-h1 r-h1-sm">Beautifully made,</text>
+          <text x="34" y="158" class="r-h1 r-h1-sm">made for you.</text>
+          <text x="34" y="184" class="r-sub r-sub-sm">Designed to bring you customers.</text>
+          <rect x="34" y="200" width="124" height="38" rx="10" class="r-ink"/>
+          <text x="96" y="224" class="r-btntext r-btntext-sm" text-anchor="middle">Get started</text>
+          <rect x="34" y="262" width="232" height="150" rx="14" class="r-tint"/>
+          <circle cx="222" cy="294" r="12" class="r-sun"/>
+          <path d="M46 398 L108 336 L148 370 L198 318 L254 398 V404 H46 Z" class="r-hill"/>
+          <path d="M46 398 L108 336 L148 370 L198 318 L254 398" class="r-hill-line"/>
+          <rect x="34" y="430" width="232" height="64" rx="12" class="r-card"/>
+          <rect x="34" y="506" width="232" height="64" rx="12" class="r-card"/>
+          <text x="52" y="458" class="r-h3 r-h3-sm">Design</text><text x="52" y="534" class="r-h3 r-h3-sm">Build</text>
+          <path d="M52 476 H220 M52 552 H220" class="r-lines"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="op-line" aria-hidden="true"><div class="op-line-bar"></div></div>
+</section>
+
+<h2 class="visually-hidden">You plan. We design. We deliver. So... what will it be?</h2>
+<div class="hw-wrap" data-brief="The ink handwriting"><div id="hw"></div><div class="sc-layer" id="showcase"></div></div>
+<!-- Selected work: two case panels and three concept studies. Paste after the handwriting section. -->
+<section class="r3-section cs-section" id="selected-work" aria-labelledby="cs-title">
+  <div class="r3-inner">
+    <div class="r3-intro r3-intro--split">
+      <h2 class="r3-h2" id="cs-title">Recent work</h2>
+      <p class="r3-lede">Two projects so far. Both began as a pencil sketch, so each laptop can flip between the sketch and the finished site.</p>
+    </div>
+
+    <!-- Bluebird Wellness -->
+    <article class="cs" id="case-bluebird" data-case="bluebird" data-brief="Bluebird Wellness case study" aria-labelledby="cs-bb-name">
+      <div class="cs-text">
+        <h3 class="cs-name" id="cs-bb-name">Bluebird Wellness</h3>
+        <p class="cs-line">A doctor-led IV clinic in west London, in clinic or at your door.</p>
+        <p class="cs-built-title">What we built</p>
+        <ul class="cs-built">
+          <li>A scroll story where one ink line draws each treatment</li>
+          <li>Sixteen treatment pages, each with prices and ingredients</li>
+          <li>An ingredients glossary and six plain-English research guides</li>
+          <li>A booking preview and a guided chat that asks the right questions</li>
+          <li>Privacy, cookie, complaints and accessibility pages</li>
+        </ul>
+        <a class="cs-go" data-link="bluebird" href="https://toffzzzz.github.io/bluebird-wellness/" target="_blank" rel="noopener noreferrer">Visit the live site<span class="visually-hidden"> (Bluebird Wellness, opens in a new tab)</span></a>
+      </div>
+      <div class="cs-stage dv-tilt">
+        <div class="cs-switch" role="group" aria-label="Show the laptop screen as">
+          <button type="button" class="cs-switch-btn" data-view="sketch" aria-pressed="false">Sketch</button>
+          <button type="button" class="cs-switch-btn" data-view="site" aria-pressed="true">Site</button>
+        </div>
+        <div class="cs-devices dv-tilt-inner" role="img" aria-label="The Bluebird Wellness website on a laptop and a phone">
+          <div class="dv dv-laptop cs-laptop">
+            <div class="dv-lid"><div class="dv-screen">
+              <div class="dv-layer cs-layer-site"><div class="dv-content" data-design="960"><img data-src="cases/bluebird-laptop.webp" alt="" width="960" height="4933" loading="lazy" decoding="async"></div></div>
+              <div class="dv-layer cs-layer-sketch" data-off data-sketch="bluebird"></div>
+            </div></div>
+            <div class="dv-base"></div>
+          </div>
+          <div class="dv dv-phone cs-phone">
+            <div class="dv-screen"><div class="dv-content" data-design="390"><img data-src="cases/bluebird-phone.webp" alt="" width="390" height="5200" loading="lazy" decoding="async"></div></div>
+            <i class="dv-island"></i>
+          </div>
+        </div>
+      </div>
+    </article>
+
+    <!-- Everest Climate Solutions -->
+    <article class="cs cs-flip" id="case-everest" data-case="everest" data-brief="Everest Climate Solutions case study" aria-labelledby="cs-ev-name">
+      <div class="cs-text">
+        <h3 class="cs-name" id="cs-ev-name">Everest Climate Solutions</h3>
+        <p class="cs-line">Air conditioning, designed and fitted across London.</p>
+        <p class="cs-built-title">What we built</p>
+        <ul class="cs-built">
+          <li>A product-launch style home page in blue and soft white</li>
+          <li>An air-conditioning unit that opens as the room cools from 32° to 26°</li>
+          <li>A hand-drawn wind line that sweeps across the page</li>
+          <li>Clear services, quotes and contact on every screen</li>
+        </ul>
+        <a class="cs-go" data-link="everest" target="_blank" rel="noopener noreferrer">Visit the live site<span class="visually-hidden"> (Everest Climate Solutions, opens in a new tab)</span></a>
+        <p class="cs-soon" hidden>Live site coming soon</p>
+      </div>
+      <div class="cs-stage dv-tilt">
+        <div class="cs-switch" role="group" aria-label="Show the laptop screen as">
+          <button type="button" class="cs-switch-btn" data-view="sketch" aria-pressed="false">Sketch</button>
+          <button type="button" class="cs-switch-btn" data-view="site" aria-pressed="true">Site</button>
+        </div>
+        <div class="cs-devices dv-tilt-inner" role="img" aria-label="The Everest Climate Solutions website on a laptop and a phone">
+          <div class="dv dv-laptop cs-laptop">
+            <div class="dv-lid"><div class="dv-screen">
+              <div class="dv-layer cs-layer-site"><div class="dv-content" data-design="1280" data-mock="everest-desktop"></div></div>
+              <div class="dv-layer cs-layer-sketch" data-off data-sketch="everest"></div>
+            </div></div>
+            <div class="dv-base"></div>
+          </div>
+          <div class="dv dv-phone cs-phone">
+            <div class="dv-screen"><div class="dv-content" data-design="390" data-mock="everest-phone"></div></div>
+            <i class="dv-island"></i>
+          </div>
+        </div>
+        <p class="cs-mock-note"><span class="r3-placeholder-tag">Placeholder</span> Concept screen until real screenshots are added</p>
+      </div>
+    </article>
+
+    <!-- Concept studies, built with the same generator as the playground -->
+    <div class="cc" aria-labelledby="cc-title">
+      <h3 class="cc-title" id="cc-title">Concept studies</h3>
+      <p class="cc-lede">Designs we made to explore an idea, not client work. Open any of them in the playground and make it yours.</p>
+      <div class="cc-grid">
+        <figure class="cc-item" data-brief="Concept: Saltmarsh (restaurant, bold)" data-business="restaurant" data-mood="bold" data-layout="full">
+          <div class="dv dv-laptop"><div class="dv-lid"><div class="dv-screen"><div class="dv-content" data-design="1280"></div></div></div><div class="dv-base"></div></div>
+          <figcaption><span class="cc-name">Saltmarsh</span><span class="cc-kind">Restaurant · bold</span><span class="r3-placeholder-tag cc-tag">Concept</span>
+            <button type="button" class="cc-open">Open in the playground</button></figcaption>
+        </figure>
+        <figure class="cc-item" data-brief="Concept: Atelier Wren (salon, classic)" data-business="salon" data-mood="classic" data-layout="story">
+          <div class="dv dv-laptop"><div class="dv-lid"><div class="dv-screen"><div class="dv-content" data-design="1280"></div></div></div><div class="dv-base"></div></div>
+          <figcaption><span class="cc-name">Atelier Wren</span><span class="cc-kind">Hair studio · classic</span><span class="r3-placeholder-tag cc-tag">Concept</span>
+            <button type="button" class="cc-open">Open in the playground</button></figcaption>
+        </figure>
+        <figure class="cc-item" data-brief="Concept: Hollis &amp; Pine (boutique, fresh)" data-business="boutique" data-mood="fresh" data-layout="split">
+          <div class="dv dv-laptop"><div class="dv-lid"><div class="dv-screen"><div class="dv-content" data-design="1280"></div></div></div><div class="dv-base"></div></div>
+          <figcaption><span class="cc-name">Hollis &amp; Pine</span><span class="cc-kind">Boutique · fresh</span><span class="r3-placeholder-tag cc-tag">Concept</span>
+            <button type="button" class="cc-open">Open in the playground</button></figcaption>
+        </figure>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- What we build: a drawer of small working demos. Paste after Selected work. -->
+<section class="r3-section cap-section" id="what-we-build" aria-labelledby="cap-title">
+  <div class="r3-inner">
+    <div class="r3-intro r3-intro--split">
+      <h2 class="r3-h2" id="cap-title">Things we can build into your site</h2>
+      <p class="r3-lede">These all work, so have a go: resize the screen, book a slot, ask the assistant something, change the colours.</p>
+    </div>
+
+    <div class="cap-grid">
+      <!-- 1. Responsive -->
+      <div class="cap-tile cap-resize" data-brief="The drag-to-resize demo">
+        <h3 class="cap-title">Works on any screen size</h3>
+        <p class="cap-text">Drag the gold handle, or tap a size below. The same site rearranges itself for a phone, a tablet or a laptop.</p>
+        <div class="cap-resize-stage">
+          <div class="cap-resize-frame">
+            <div class="cap-resize-site"></div>
+            <div class="cap-resize-handle" data-cursor="Drag" role="slider" tabindex="0" aria-label="Width of the example website" aria-valuemin="300" aria-valuemax="1100" aria-valuenow="1100"><span aria-hidden="true"></span></div>
+          </div>
+        </div>
+        <div class="cap-sizes" role="group" aria-label="Show the site at the size of a">
+          <button type="button" data-size="360">Phone</button><button type="button" data-size="768">Tablet</button><button type="button" data-size="1100" aria-pressed="true">Laptop</button>
+        </div>
+        <p class="cap-resize-readout" aria-hidden="true">Showing the <span class="cap-resize-device">laptop</span> layout<span class="cap-resize-px" hidden></span></p>
+      </div>
+
+      <!-- 2. Booking -->
+      <div class="cap-tile cap-booking" data-brief="The booking calendar">
+        <h3 class="cap-title">Online booking</h3>
+        <p class="cap-text">Pick a day, then a time. On a real site it can connect to your calendar, send reminders and take payment.</p>
+        <div class="cap-demo bk" aria-live="polite">
+          <div class="bk-step bk-days" role="group" aria-label="Choose a day"></div>
+          <div class="bk-step bk-times" role="group" aria-label="Choose a time" hidden></div>
+          <p class="bk-prompt">Tap a day to see the free times.</p>
+          <button type="button" class="bk-confirm" hidden></button>
+          <div class="bk-done" hidden>
+            <p class="bk-done-title">Booked.</p>
+            <p class="bk-done-text"></p>
+            <button type="button" class="bk-again">Book another</button>
+          </div>
+          <p class="cap-note">Demo: nothing is booked or sent.</p>
+        </div>
+      </div>
+
+      <!-- 3. Chat -->
+      <div class="cap-tile cap-chat" data-brief="The chat assistant demo">
+        <h3 class="cap-title">A chat helper that asks your questions</h3>
+        <p class="cap-text">You decide what it asks and in what order. It changes its next question depending on the answer.</p>
+        <div class="cap-demo ch">
+          <div class="ch-log" role="log" aria-live="polite" aria-label="Example conversation"></div>
+          <div class="ch-choices" role="group" aria-label="Your reply"></div>
+          <p class="cap-note">Demo for a fictional clinic: nothing is sent.</p>
+        </div>
+      </div>
+
+      <!-- 5. Colours -->
+      <div class="cap-tile cap-colours" data-brief="The colour moods demo">
+        <h3 class="cap-title">Your colours on every page</h3>
+        <p class="cap-text">Pick a different style and every button, heading and card changes with it.</p>
+        <div class="cap-colours-stage">
+          <div class="dv dv-phone cap-colours-phone" role="img" aria-label="An example café website on a phone">
+            <div class="dv-screen"><div class="dv-content"></div></div><i class="dv-island"></i>
+          </div>
+          <div class="cap-swatches" role="group" aria-label="Choose a mood"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Sketch your site: the playground. Paste after What we build. -->
+<section class="r3-section pg-section" id="playground" aria-labelledby="pg-title">
+  <div class="r3-inner">
+    <h2 class="r3-h2" id="pg-title">Try a look for your business</h2>
+    <p class="r3-lede">Choose your kind of business, a style and a layout, and a site takes shape on the laptop and phone. If you like where it’s going, send it to us and we’ll start from there.</p>
+
+    <div class="pg">
+      <div class="pg-preview dv-tilt" data-brief="playground">
+        <div class="pg-devices dv-tilt-inner" role="img" aria-label="Your website preview on a laptop and a phone">
+          <div class="dv dv-laptop pg-laptop"><div class="dv-lid"><div class="dv-screen"><div class="dv-content" data-design="1280"></div></div></div><div class="dv-base"></div></div>
+          <div class="dv dv-phone pg-phone"><div class="dv-screen"><div class="dv-content" data-design="390"></div></div><i class="dv-island"></i></div>
+        </div>
+        <p class="pg-status" aria-live="polite"></p>
+      </div>
+
+      <form class="pg-controls" aria-label="Design options">
+        <fieldset class="pg-field">
+          <legend class="pg-legend">Your business</legend>
+          <div class="pg-chips" data-key="business"></div>
+        </fieldset>
+        <fieldset class="pg-field">
+          <legend class="pg-legend">Mood</legend>
+          <div class="pg-chips pg-moods" data-key="mood"></div>
+        </fieldset>
+        <fieldset class="pg-field">
+          <legend class="pg-legend">Layout</legend>
+          <div class="pg-chips pg-layouts" data-key="layout"></div>
+        </fieldset>
+        <div class="pg-field">
+          <label class="pg-legend" for="pg-name">Your business name <span class="pg-optional">(optional)</span></label>
+          <input class="pg-name" id="pg-name" type="text" maxlength="32" autocomplete="organization" placeholder="Type it and watch">
+        </div>
+        <div class="pg-actions">
+          <button type="button" class="pg-send">Send this to Toff</button>
+          <button type="button" class="pg-shuffle">Surprise me</button>
+        </div>
+        <p class="pg-sent" aria-live="polite"></p>
+      </form>
+    </div>
+  </div>
+</section>
+<!-- Draw your site: sketch a homepage on paper and see a static picture of what it could look like. Paste after the playground. -->
+<section class="r3-section dr-section" id="draw-your-site" aria-labelledby="dr-title">
+  <div class="r3-inner">
+    <h2 class="r3-h2" id="dr-title">Sketch your homepage and see how it could look</h2>
+    <p class="r3-lede">Draw on the paper the way you would on the back of a napkin. As you draw, a picture of that homepage builds up alongside it (below it on a phone), in the style you picked above. It’s a preview to scroll through, not a working site.</p>
+
+    <ul class="dr-key" aria-label="What to draw">
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="2" y="5" width="36" height="9" rx="2"/><circle cx="7" cy="9.5" r="2.3"/></svg><span><b>Wide box on top</b> menu bar</span></li>
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/><path d="M3 3 L37 25 M37 3 L3 25"/></svg><span><b>Box with an X</b> picture</span></li>
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><path d="M4 9 H36 M4 16 H30 M4 22 H24"/></svg><span><b>Lines</b> heading, then text</span></li>
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="8" y="8" width="24" height="12" rx="3"/></svg><span><b>Small box</b> button</span></li>
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/></svg><span><b>Big empty box</b> card</span></li>
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><circle cx="20" cy="14" r="9"/></svg><span><b>Circle</b> logo</span></li>
+      <li><svg viewBox="0 0 40 28" aria-hidden="true"><path d="M4 8 L12 20 L20 8 L28 20 L36 8"/></svg><span><b>Zig-zag</b> paragraph</span></li>
+      <li class="dr-key-ai" hidden><svg viewBox="0 0 40 28" aria-hidden="true"><rect x="3" y="3" width="34" height="22" rx="2"/><path d="M10 18 V10 L14 15 L18 10 V18 M22 18 L25 10 L28 18 M23 15 H27"/></svg><span><b>Write a word</b> MAP, GALLERY, FORM…</span></li>
+    </ul>
+
+    <div class="dr">
+      <div class="dr-col dr-col-paper">
+        <p class="dr-label">Your sketch</p>
+        <div class="dr-paper">
+          <canvas class="dr-canvas" role="img" aria-label="Paper to sketch your homepage on with a mouse, pen or finger. The top of the paper is the top of the page."></canvas>
+          <div class="dr-fold" aria-hidden="true"><span>Visitors see this much before scrolling</span></div>
+          <p class="dr-hint" aria-hidden="true"><span>Draw here</span><small>Top of the paper is the top of your page</small></p>
+        </div>
+        <div class="dr-tools">
+          <button type="button" class="dr-example">Draw one for me</button>
+          <button type="button" class="dr-undo" disabled>Undo</button>
+          <button type="button" class="dr-clear" disabled>Start again</button>
+        </div>
+        <p class="dr-touch-tip">Tip: to scroll the page, swipe outside the paper.</p>
+      </div>
+      <div class="dr-col dr-col-preview" data-brief="Draw your site">
+        <p class="dr-label">How it could look <span>(scroll inside the window)</span></p>
+        <div class="dr-window">
+          <div class="dr-bar" aria-hidden="true"><span class="dr-url">yourbusiness.co.uk</span></div>
+          <div class="dr-screen">
+            <div class="dr-scroll" tabindex="0" role="region" aria-label="Picture of your homepage. Scroll to see all of it.">
+              <div class="dr-pagewrap"><div class="dr-page"></div><div class="dr-foot" hidden></div></div>
+            </div>
+            <p class="dr-empty">Your homepage appears here as you draw.<br><span>Not sure where to start? Press “Draw one for me”.</span></p>
+            <p class="dr-more" aria-hidden="true" hidden>Scroll to see the rest <span>↓</span></p>
+          </div>
+        </div>
+        <p class="dr-status" aria-live="polite"></p>
+      </div>
+    </div>
+  </div>
+</section>
+<!-- Your logo, in one line. Paste after Draw your site. -->
+<section class="r3-section ol-section" id="one-line" aria-labelledby="ol-title">
+  <div class="r3-inner ol">
+    <div class="ol-text">
+      <h2 class="r3-h2" id="ol-title">Your logo, drawn in one continuous line</h2>
+      <p class="r3-lede">Drop in your logo or a photo of your place. Your browser turns it into a single gold line and draws it, start to finish, without lifting the pen. Nothing leaves your device.</p>
+      <div class="ol-controls">
+        <label class="ol-upload"><input type="file" class="ol-file" accept="image/*">Choose an image</label>
+        <form class="ol-initials"><label for="ol-initials-input">Or type your initials</label><input id="ol-initials-input" type="text" maxlength="3" autocomplete="off" placeholder="HB"><button type="submit">Draw</button></form>
+        <div class="ol-examples" role="group" aria-label="Or try an example"></div>
+        <label class="ol-detail-wrap">How detailed
+          <select class="ol-detail" aria-label="Level of detail">
+            <option value="900">Light</option>
+            <option value="1600" selected>Balanced</option>
+            <option value="2600">Rich</option>
+          </select>
+        </label>
+        <div class="ol-after">
+          <button type="button" class="ol-again" disabled>Draw it again</button>
+          <button type="button" class="ol-download" disabled>Download the drawing</button>
+        </div>
+        <p class="ol-status" aria-live="polite"></p>
+      </div>
+    </div>
+    <div class="ol-stage" data-brief="Your logo in one line">
+      <svg class="ol-svg" viewBox="0 0 400 400" role="img" aria-label="Your image drawn as one continuous gold line">
+        <path class="ol-shadow" d="" fill="none"/>
+        <path class="ol-path" d="" fill="none"/>
+        <circle class="ol-tip" r="3.2" cx="-10" cy="-10"/>
+      </svg>
+      <p class="ol-drop" aria-hidden="true">Drop an image here</p>
+    </div>
+  </div>
+</section>
+<!-- How it works: replaces the old "Process" section (no eyebrow, no 01–04 numbers). Paste where the Process section was. -->
+<section class="r3-section pr-section" id="how-it-works" aria-labelledby="pr-title" data-brief="How it works">
+  <div class="r3-inner">
+    <div class="r3-intro r3-intro--split">
+      <h2 class="r3-h2" id="pr-title">How it works</h2>
+      <p class="r3-lede">You see your site on paper before any of it is built, and you deal with the same person from the first call to launch day.</p>
+    </div>
+    <div class="pr">
+      <svg class="pr-ink" aria-hidden="true"></svg>
+      <ol class="pr-steps">
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Discovery call</h3><p class="pr-text">We talk about your business, who your customers are and what the website needs to do for them.</p><p class="pr-time"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Sketch</h3><p class="pr-text">We draw your site by hand first, so you can see it, and change it, before anything is built.</p><p class="pr-time"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Build</h3><p class="pr-text">We build it from scratch and check it on real phones, tablets and laptops as we go.</p><p class="pr-time"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+        <li class="pr-step"><span class="pr-dot"></span><h3 class="pr-name">Launch &amp; care</h3><p class="pr-text">We put it live, host it, and keep it up to date and working afterwards.</p><p class="pr-time"><span class="r3-placeholder-tag" data-placeholder>How long: to be added</span></p></li>
+      </ol>
+    </div>
+  </div>
+</section>
+<!-- About the studio (placeholder text until the real story is written). Paste after the process / included sections. -->
+<section class="r3-section ab-section" id="about" aria-labelledby="ab-title">
+  <div class="r3-inner ab" data-brief="The studio section">
+    <div class="ab-head">
+      <h2 class="r3-h2" id="ab-title">About the studio</h2>
+      <span class="r3-placeholder-tag ab-tag" data-placeholder>Placeholder text</span>
+    </div>
+    <div class="ab-body">
+      <p class="ab-statement">One person, from the first sketch to launch day.</p>
+      <p>Toff Studio is a small, independent web design studio in London. Every site starts as a sketch on paper and is then built from scratch for the business it belongs to, by the same person who drew it.</p>
+      <p>You talk to the person designing and building your site the whole way through. After launch we host it, keep it up to date and fix anything that needs fixing.</p>
+    </div>
+  </div>
+</section>
+<section class="r3-section ct-section" id="contact" aria-labelledby="ct-title" data-brief="The enquiry">
+  <div class="r3-inner ct">
+    <h2 class="visually-hidden" id="ct-title">Tell us what you need</h2>
+    <div class="ct-write" id="ct-write"></div>
+    <h3 class="ct-q" id="ct-q3">How should it look?</h3>
+    <p class="ct-hint">Pick one of our sites as a starting point, or tell us your own idea.</p>
+    <div id="ct-picker"></div>
+    <div class="ct-actions"><button type="button" class="ct-next" id="ct-next" disabled aria-describedby="ct-pick">Continue</button><span class="ct-pick" id="ct-pick">Pick one to continue</span></div>
+  </div>
+</section>
+<footer class="ft"><div class="r3-inner"><div class="ft-sign" id="ft-sign" role="img" aria-label="Signed, Toff"></div><p class="ft-mark">Toff Studio</p>
+<div class="ft-contact">
+  <a class="ft-start" href="#contact">Start a project <span aria-hidden="true">→</span></a>
+  <button type="button" class="ft-plan">Plan it with our helper</button>
+  <p class="ft-line">Email <span class="ft-ph">your address here</span> <span class="r3-placeholder-tag" data-placeholder>Placeholder</span></p>
+  <p class="ft-line">Privacy policy <span class="ft-ph">coming soon</span></p>
+  <p class="ft-line"><a class="ft-lab" href="lab.html">The Lab</a>: experiments in what a browser can draw</p>
+</div><!-- Craft line: live, honest numbers about this page. Paste inside the footer. -->
+<p class="craft-line">This page loaded in <span data-craft="load">a moment</span> on your device and weighs <span data-craft="weight">very little</span>, with <span data-craft="external">no trackers</span>. It’s <span data-craft="time"></span> in London.</p>
+</div></footer>
+<!-- Showcase card templates. Paste once anywhere inside <body> (templates are not shown by themselves). -->
+<template id="sc-plan">
+  <div class="sc-card sc-card-plan" data-brief="The plan notepad drawing">
+    <div class="sc-pic">
+      <svg class="sc-plan sc-ink" viewBox="0 0 370 240" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect data-draw="1" x="95" y="26" width="180" height="196" rx="10"/>
+        <path data-draw="2" d="M130 18 V34 M170 18 V34 M210 18 V34 M250 18 V34"/>
+        <path data-draw="3" d="M122 64 H236"/>
+        <rect data-draw="4" x="122" y="88" width="18" height="18" rx="4"/>
+        <path data-draw="5" d="M126 97 L131 102 L141 88"/>
+        <path data-draw="6" d="M152 97 H246"/>
+        <rect data-draw="7" x="122" y="128" width="18" height="18" rx="4"/>
+        <path data-draw="8" d="M126 137 L131 142 L141 128"/>
+        <path data-draw="9" d="M152 137 H232"/>
+        <rect data-draw="10" x="122" y="168" width="18" height="18" rx="4"/>
+        <path data-draw="11" d="M126 177 L131 182 L141 168"/>
+        <path data-draw="12" d="M152 177 H240"/>
+      </svg>
+    </div>
+    <div class="sc-cap">
+      <span class="sc-index">Your brief</span>
+      <span class="sc-name">It starts with your plan</span>
+      <span class="sc-desc">Tell us what your business needs. We take it from there.</span>
+    </div>
+  </div>
+</template>
+
+<template id="sc-bluebird">
+  <a class="sc-card sc-card-link" data-brief="Bluebird’s line-drawn face" aria-label="Bluebird Wellness, a doctor-led IV clinic in London: visit the live website (opens in a new tab)">
+    <div class="sc-pic">
+      <svg class="sc-face sc-ink" viewBox="190 112 420 884" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path id="bb-face-main" data-y="516" d="M320.0,124.0 C320.0,131.0 320.0,139.0 320.0,146.0 C320.0,147.3 319.3,148.9 320.0,150.0 C323.7,155.7 334.0,170.5 342.0,180.0 C352.7,192.7 373.6,213.8 384.0,226.0 C391.4,234.6 400.1,246.7 404.6,253.0 C407.1,256.5 409.3,260.2 411.2,264.0 C413.2,268.0 415.3,272.5 416.4,277.0 C417.9,282.8 419.0,293.7 420.0,299.0 C420.7,302.4 421.4,305.8 422.6,309.0 C423.8,312.3 425.5,316.0 427.2,319.0 C428.8,321.9 430.7,324.6 433.0,327.0 C436.0,330.1 441.0,334.4 445.0,337.4 C448.8,340.2 452.9,342.6 457.0,344.8 C463.0,348.0 472.9,353.1 481.0,356.8 C490.3,361.0 507.0,367.5 513.0,370.2 C514.5,370.9 515.8,371.9 517.0,373.0 C518.7,374.6 521.7,377.8 523.0,380.0 C524.1,381.8 524.8,383.9 525.0,386.0 C525.2,388.7 524.9,392.8 524.2,396.0 C523.5,399.1 522.2,402.1 520.8,405.0 C518.7,409.3 513.3,417.7 511.6,422.0 C510.5,424.8 510.1,428.0 510.6,431.0 C511.1,434.2 513.0,438.5 514.6,441.0 C515.9,443.1 518.6,444.4 520.0,446.0 C521.2,447.4 521.5,449.6 522.8,450.8 C524.1,452.0 526.7,452.5 527.8,453.4 C528.6,454.0 529.4,455.0 529.6,456.0 C530.0,457.8 530.1,462.0 530.0,464.0 C530.0,465.4 529.6,466.7 529.2,468.0 C528.3,470.8 525.3,478.6 524.6,481.0 C524.5,481.5 524.8,482.1 525.2,482.4 C526.9,483.9 532.8,487.7 535.0,490.0 C536.6,491.6 537.7,494.5 538.4,496.0 C538.8,496.9 539.0,498.0 539.0,499.0 C539.0,500.8 539.2,504.5 538.4,507.0 C537.6,509.5 534.7,512.0 534.0,514.0 C533.4,515.6 533.8,517.3 534.0,519.0 C534.3,521.2 534.7,524.4 535.6,527.0 C536.5,529.7 537.7,532.6 539.4,535.0 C543.0,540.2 553.6,552.3 557.2,558.0 C559.3,561.3 560.4,565.2 561.0,569.0 C561.6,573.0 561.5,578.2 561.0,582.0 C560.5,585.5 559.1,589.2 557.8,592.0 C556.6,594.6 554.9,596.9 553.0,599.0 C550.9,601.3 547.9,603.7 545.0,605.6 C542.0,607.6 538.5,609.4 535.0,610.8 C529.7,612.9 520.5,616.2 513.0,618.2 C504.2,620.6 489.3,623.6 482.0,625.0 C477.7,625.8 471.7,625.9 469.0,626.4 C467.9,626.6 466.8,627.2 466.0,628.0 C464.7,629.2 463.0,632.2 461.0,633.8 C458.8,635.6 455.4,636.7 453.0,638.6 C449.3,641.5 443.1,646.3 439.0,651.0 C434.2,656.4 427.5,666.0 424.2,671.0 C422.1,674.1 420.7,677.6 419.2,681.0 C417.3,685.5 414.5,692.2 412.6,698.0 C410.0,705.8 405.9,717.8 403.8,728.0 C399.0,751.8 388.7,815.7 383.6,841.0 C381.0,854.2 376.9,869.0 373.4,880.0 C370.5,889.2 366.4,898.8 362.8,907.0 C359.5,914.5 355.9,921.9 351.8,929.0 C346.4,938.3 335.4,955.5 330.4,963.0 C327.8,966.9 323.6,971.5 321.8,974.0 C320.9,975.2 319.8,976.5 319.8,978.0 C319.7,980.0 319.8,982.0 320.0,984.0"/>
+        <path id="bb-face-eyebrow" data-y="302" d="M278.0,344.0 C280.0,341.5 285.8,333.8 290.0,329.0 C294.8,323.5 301.2,316.3 307.0,311.0 C312.6,305.9 318.8,300.6 325.0,297.0 C330.9,293.6 338.3,291.4 344.0,289.6 C348.9,288.0 353.9,286.7 359.0,286.0 C364.3,285.2 372.3,285.0 376.0,285.0 C377.7,285.0 379.3,285.9 381.0,286.0 C383.2,286.2 387.7,286.0 389.0,286.0"/>
+        <path id="bb-face-eye" data-y="366" d="M320.0,365.0 C326.2,365.0 348.2,364.5 357.0,365.0 C362.4,365.3 367.6,367.7 373.0,368.0 C379.0,368.3 389.7,367.2 393.0,367.0"/>
+        <path id="bb-face-nostril" data-y="416" d="M468.0,425.0 C468.8,425.3 471.2,426.9 473.0,427.0 C475.0,427.2 478.1,427.4 480.0,426.0 C483.0,423.9 488.2,417.2 491.0,414.4 C492.9,412.6 495.0,410.6 497.0,409.4 C498.8,408.3 501.7,407.5 503.0,407.4 C503.9,407.4 504.8,408.6 505.0,409.0 C505.2,409.4 504.2,409.8 504.0,410.0"/>
+        <path id="bb-face-lip-1" data-y="471" d="M458.0,495.0 C460.7,494.8 469.2,496.3 474.0,494.0 C479.3,491.5 485.0,485.1 490.0,480.0 C495.2,474.8 500.7,466.9 505.0,462.5 C508.3,459.2 512.7,455.5 516.0,453.8 C518.7,452.4 522.7,452.0 525.0,452.5 C527.2,453.0 529.2,456.2 530.0,457.0"/>
+        <path id="bb-face-lip-2" data-y="487" d="M466.0,496.5 C468.3,496.2 475.4,496.1 480.0,495.0 C485.0,493.8 490.7,491.5 496.0,489.5 C501.4,487.4 508.1,484.1 512.5,482.5 C515.7,481.3 519.8,480.2 522.5,480.0 C524.7,479.8 527.9,480.8 529.0,481.0"/>
+        <path id="bb-face-lip-3" data-y="512" d="M503.0,511.0 C504.7,511.2 509.7,511.9 513.0,512.0 C518.0,512.2 529.7,512.0 533.0,512.0"/>
+        <path id="bb-face-jaw" data-y="625" d="M293.0,609.0 C297.0,610.9 312.0,618.2 317.0,620.4 C318.9,621.3 320.9,622.0 323.0,622.4 C327.3,623.3 336.3,625.1 343.0,626.0 C349.8,626.9 358.0,627.7 364.0,628.0 C369.0,628.3 375.7,627.8 379.0,628.0 C380.7,628.1 382.3,629.0 384.0,629.0 C392.5,629.2 418.2,629.3 430.0,629.0 C438.4,628.8 449.5,627.3 455.0,627.0 C457.7,626.8 461.5,626.8 463.0,627.0 C463.5,627.1 463.8,627.8 464.0,628.0"/>
+      </svg>
+    </div>
+    <div class="sc-cap">
+      <span class="sc-index">Recent work</span>
+      <span class="sc-name">Bluebird Wellness</span>
+      <span class="sc-desc">Doctor-led IV clinic, London</span>
+      <span class="sc-go">View the live site&nbsp;&rarr;</span>
+    </div>
+  </a>
+</template>
+
+<template id="sc-everest">
+  <a class="sc-card sc-card-link" data-brief="Everest’s cooling animation" aria-label="Everest Climate Solutions, air conditioning installation: visit the live website (opens in a new tab)">
+    <div class="sc-pic sc-ac">
+      <div class="sc-ac-glow"></div>
+      <div class="sc-ac-glow sc-ac-cool"></div>
+      <div class="sc-ac-unit">
+        <img class="sc-ac-closed" data-src="ac-closed.png" alt="" width="1000" height="300">
+        <img class="sc-ac-open" data-src="ac-open.png" alt="" width="1000" height="302">
+      </div>
+      <div class="sc-ac-label">Room temperature</div>
+      <div class="sc-ac-num-wrap"><span class="sc-ac-num">32</span><sup>°C</sup></div>
+    </div>
+    <div class="sc-cap">
+      <span class="sc-index">Recent work</span>
+      <span class="sc-name">Everest Climate Solutions</span>
+      <span class="sc-desc">Air conditioning installation</span>
+      <span class="sc-go">View the live site&nbsp;&rarr;</span>
+    </div>
+  </a>
+</template>
+
+<!-- Style picker for the guided enquiry ("How should it look?").
+     Paste once inside <body> (a <template> is not shown by itself). StylePicker.mount() clones it into the enquiry step.
+     Three choices: Bluebird's style, Everest's style, or plan it yourself. -->
+<template id="style-picker">
+  <div class="sp">
+    <div class="sp-options" role="radiogroup" aria-label="How should your website look?">
+      <div class="sp-option">
+        <button type="button" class="sp-card" role="radio" aria-checked="false" data-value="bluebird">
+          <svg class="sp-icon sp-icon-face" viewBox="-52 82 944 944" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path pathLength="1" d="M320.0,124.0 C320.0,131.0 320.0,139.0 320.0,146.0 C320.0,147.3 319.3,148.9 320.0,150.0 C323.7,155.7 334.0,170.5 342.0,180.0 C352.7,192.7 373.6,213.8 384.0,226.0 C391.4,234.6 400.1,246.7 404.6,253.0 C407.1,256.5 409.3,260.2 411.2,264.0 C413.2,268.0 415.3,272.5 416.4,277.0 C417.9,282.8 419.0,293.7 420.0,299.0 C420.7,302.4 421.4,305.8 422.6,309.0 C423.8,312.3 425.5,316.0 427.2,319.0 C428.8,321.9 430.7,324.6 433.0,327.0 C436.0,330.1 441.0,334.4 445.0,337.4 C448.8,340.2 452.9,342.6 457.0,344.8 C463.0,348.0 472.9,353.1 481.0,356.8 C490.3,361.0 507.0,367.5 513.0,370.2 C514.5,370.9 515.8,371.9 517.0,373.0 C518.7,374.6 521.7,377.8 523.0,380.0 C524.1,381.8 524.8,383.9 525.0,386.0 C525.2,388.7 524.9,392.8 524.2,396.0 C523.5,399.1 522.2,402.1 520.8,405.0 C518.7,409.3 513.3,417.7 511.6,422.0 C510.5,424.8 510.1,428.0 510.6,431.0 C511.1,434.2 513.0,438.5 514.6,441.0 C515.9,443.1 518.6,444.4 520.0,446.0 C521.2,447.4 521.5,449.6 522.8,450.8 C524.1,452.0 526.7,452.5 527.8,453.4 C528.6,454.0 529.4,455.0 529.6,456.0 C530.0,457.8 530.1,462.0 530.0,464.0 C530.0,465.4 529.6,466.7 529.2,468.0 C528.3,470.8 525.3,478.6 524.6,481.0 C524.5,481.5 524.8,482.1 525.2,482.4 C526.9,483.9 532.8,487.7 535.0,490.0 C536.6,491.6 537.7,494.5 538.4,496.0 C538.8,496.9 539.0,498.0 539.0,499.0 C539.0,500.8 539.2,504.5 538.4,507.0 C537.6,509.5 534.7,512.0 534.0,514.0 C533.4,515.6 533.8,517.3 534.0,519.0 C534.3,521.2 534.7,524.4 535.6,527.0 C536.5,529.7 537.7,532.6 539.4,535.0 C543.0,540.2 553.6,552.3 557.2,558.0 C559.3,561.3 560.4,565.2 561.0,569.0 C561.6,573.0 561.5,578.2 561.0,582.0 C560.5,585.5 559.1,589.2 557.8,592.0 C556.6,594.6 554.9,596.9 553.0,599.0 C550.9,601.3 547.9,603.7 545.0,605.6 C542.0,607.6 538.5,609.4 535.0,610.8 C529.7,612.9 520.5,616.2 513.0,618.2 C504.2,620.6 489.3,623.6 482.0,625.0 C477.7,625.8 471.7,625.9 469.0,626.4 C467.9,626.6 466.8,627.2 466.0,628.0 C464.7,629.2 463.0,632.2 461.0,633.8 C458.8,635.6 455.4,636.7 453.0,638.6 C449.3,641.5 443.1,646.3 439.0,651.0 C434.2,656.4 427.5,666.0 424.2,671.0 C422.1,674.1 420.7,677.6 419.2,681.0 C417.3,685.5 414.5,692.2 412.6,698.0 C410.0,705.8 405.9,717.8 403.8,728.0 C399.0,751.8 388.7,815.7 383.6,841.0 C381.0,854.2 376.9,869.0 373.4,880.0 C370.5,889.2 366.4,898.8 362.8,907.0 C359.5,914.5 355.9,921.9 351.8,929.0 C346.4,938.3 335.4,955.5 330.4,963.0 C327.8,966.9 323.6,971.5 321.8,974.0 C320.9,975.2 319.8,976.5 319.8,978.0 C319.7,980.0 319.8,982.0 320.0,984.0"/>
+            <path pathLength="1" d="M278.0,344.0 C280.0,341.5 285.8,333.8 290.0,329.0 C294.8,323.5 301.2,316.3 307.0,311.0 C312.6,305.9 318.8,300.6 325.0,297.0 C330.9,293.6 338.3,291.4 344.0,289.6 C348.9,288.0 353.9,286.7 359.0,286.0 C364.3,285.2 372.3,285.0 376.0,285.0 C377.7,285.0 379.3,285.9 381.0,286.0 C383.2,286.2 387.7,286.0 389.0,286.0"/>
+            <path pathLength="1" d="M320.0,365.0 C326.2,365.0 348.2,364.5 357.0,365.0 C362.4,365.3 367.6,367.7 373.0,368.0 C379.0,368.3 389.7,367.2 393.0,367.0"/>
+            <path pathLength="1" d="M468.0,425.0 C468.8,425.3 471.2,426.9 473.0,427.0 C475.0,427.2 478.1,427.4 480.0,426.0 C483.0,423.9 488.2,417.2 491.0,414.4 C492.9,412.6 495.0,410.6 497.0,409.4 C498.8,408.3 501.7,407.5 503.0,407.4 C503.9,407.4 504.8,408.6 505.0,409.0 C505.2,409.4 504.2,409.8 504.0,410.0"/>
+            <path pathLength="1" d="M458.0,495.0 C460.7,494.8 469.2,496.3 474.0,494.0 C479.3,491.5 485.0,485.1 490.0,480.0 C495.2,474.8 500.7,466.9 505.0,462.5 C508.3,459.2 512.7,455.5 516.0,453.8 C518.7,452.4 522.7,452.0 525.0,452.5 C527.2,453.0 529.2,456.2 530.0,457.0"/>
+            <path pathLength="1" d="M466.0,496.5 C468.3,496.2 475.4,496.1 480.0,495.0 C485.0,493.8 490.7,491.5 496.0,489.5 C501.4,487.4 508.1,484.1 512.5,482.5 C515.7,481.3 519.8,480.2 522.5,480.0 C524.7,479.8 527.9,480.8 529.0,481.0"/>
+            <path pathLength="1" d="M503.0,511.0 C504.7,511.2 509.7,511.9 513.0,512.0 C518.0,512.2 529.7,512.0 533.0,512.0"/>
+            <path pathLength="1" d="M293.0,609.0 C297.0,610.9 312.0,618.2 317.0,620.4 C318.9,621.3 320.9,622.0 323.0,622.4 C327.3,623.3 336.3,625.1 343.0,626.0 C349.8,626.9 358.0,627.7 364.0,628.0 C369.0,628.3 375.7,627.8 379.0,628.0 C380.7,628.1 382.3,629.0 384.0,629.0 C392.5,629.2 418.2,629.3 430.0,629.0 C438.4,628.8 449.5,627.3 455.0,627.0 C457.7,626.8 461.5,626.8 463.0,627.0 C463.5,627.1 463.8,627.8 464.0,628.0"/>
+          </svg>
+          <span class="sp-name">Like Bluebird</span>
+          <span class="sp-desc">Calm, soft, line-drawn</span>
+        </button>
+        <a class="sp-view" data-link="bluebird" target="_blank" rel="noopener noreferrer" hidden>View site<span class="sp-visually-hidden"> (Bluebird Wellness, opens in a new tab)</span>&nbsp;&#8599;</a>
+      </div>
+      <div class="sp-option">
+        <button type="button" class="sp-card" role="radio" aria-checked="false" data-value="everest">
+          <svg class="sp-icon" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path pathLength="1" d="M20 34 H100 Q110 34 110 44 V64 Q110 72 102 72 H18 Q10 72 10 64 V44 Q10 34 20 34 Z"/>
+            <path pathLength="1" d="M20 62 H100"/>
+            <path pathLength="1" d="M92 44 H100"/>
+            <path pathLength="1" d="M32 84 Q38 79 44 84 T56 84"/>
+            <path pathLength="1" d="M52 94 Q58 89 64 94 T76 94"/>
+            <path pathLength="1" d="M66 84 Q72 79 78 84 T90 84"/>
+          </svg>
+          <span class="sp-name">Like Everest</span>
+          <span class="sp-desc">Bright, clean, practical</span>
+        </button>
+        <a class="sp-view" data-link="everest" target="_blank" rel="noopener noreferrer" hidden>View site<span class="sp-visually-hidden"> (Everest Climate Solutions, opens in a new tab)</span>&nbsp;&#8599;</a>
+      </div>
+      <div class="sp-option">
+        <button type="button" class="sp-card" role="radio" aria-checked="false" data-value="own">
+          <svg class="sp-icon" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path pathLength="1" d="M30 22 H80 Q86 22 86 28 V96 Q86 102 80 102 H30 Q24 102 24 96 V28 Q24 22 30 22 Z"/>
+            <path pathLength="1" d="M38 16 V28 M52 16 V28 M66 16 V28"/>
+            <path pathLength="1" d="M36 46 H70"/>
+            <path pathLength="1" d="M36 60 H62"/>
+            <path pathLength="1" d="M36 76 Q41 70 46 76 T56 76"/>
+            <path pathLength="1" d="M74 92 L104 44 L112 49 L82 97 Z"/>
+            <path pathLength="1" d="M74 92 L72 102 L82 97"/>
+          </svg>
+          <span class="sp-name">Plan it yourself</span>
+          <span class="sp-desc">Tell us your own idea</span>
+        </button>
+      </div>
+    </div>
+    <div class="sp-own" hidden>
+      <label class="sp-own-label" for="sp-own-text">Describe the look you have in mind <span class="sp-optional">(optional)</span></label>
+      <textarea class="sp-own-text" id="sp-own-text" rows="3" maxlength="600" placeholder="For example: calm and minimal, warm colours, or a site you love"></textarea>
+    </div>
+  </div>
+</template>
+
+<script src="../opening/opening.js"></script>
+<script src="../handwriting/line-data.js"></script>
+<script src="../handwriting/handwriting.js"></script>
+<script src="../showcase/showcase.js"></script>
+<script src="../enquiry/style-picker.js"></script>
+<script src="minisite.js"></script>
+<script src="devices.js"></script>
+<script src="craft.js"></script>
+<script src="cases.js"></script>
+<script src="capabilities.js"></script>
+<script src="playground.js"></script>
+<script src="drawsite.js"></script>
+<script src="oneline.js"></script>
+<script src="snapshot.js"></script>
+<script src="brief.js"></script>
+<script src="assistant.js"></script>
+<script src="xray.js"></script>
+<script src="inkwriter-data.js"></script>
+<script src="inkwriter.js"></script>
+<script src="kinetic.js"></script>
+<script src="topbar.js"></script>
+<script src="process.js"></script>
+<script>
+  var PHOTOS = {}; ['clinic','cafe','salon','trades','restaurant','boutique'].forEach(function (k) { PHOTOS[k] = 'playground/playground-' + k + '.webp'; });
+  MiniSite.photos = PHOTOS;
+  window.__op = Opening.mount(document.getElementById('opening'));
+  Handwriting.mount(document.getElementById('hw'), { basePath: '', introOnLoad: false }).then(function (hw) {
+    window.__hw = hw;
+    window.__sc = Showcase.mount(document.getElementById('showcase'), hw, { assetBase: '../showcase/', links: LINKS });
+  });
+  var LINKS = { bluebird: 'https://toffzzzz.github.io/bluebird-wellness/', everest: '' };
+  window.__cases = Cases.mount(document.getElementById('selected-work'), { links: LINKS, sketches: { bluebird: 'cases/sketch-bluebird.webp', everest: 'cases/sketch-everest.webp' }, acImage: '../showcase/ac-open.png', assetBase: '' });
+  window.__cap = Capabilities.mount(document.getElementById('what-we-build'));
+  window.__pg = Playground.mount(document.getElementById('playground'), { photos: PHOTOS, contactSelector: '#contact' });
+  window.__picker = StylePicker.mount(document.getElementById('ct-picker'), { links: LINKS, onChange: function (v) { document.getElementById('ct-next').disabled = !v.style; } });
+  window.__dr = DrawSite.mount(document.getElementById('draw-your-site'), { getStyle: function () { return __pg.state(); } });
+  window.__ol = OneLine.mount(document.getElementById('one-line'), { examples: [{ label: 'The Toff monogram', text: 'T' }, { label: 'A face (from Bluebird)', svg: '#sc-bluebird .sc-face' }, { label: 'An air conditioner (from Everest)', src: '../showcase/ac-closed.png' }] });
+  window.__iw = InkWriter.mount(document.getElementById('ct-write'), { phrase: 'finale-wide', narrow: 'finale-narrow', narrowBelow: 560, speed: 150 });
+  window.__sig = InkWriter.mount(document.getElementById('ft-sign'), { phrase: 'signature', speed: 70, threshold: 0.9 });
+  window.__kt = Kinetic.mount('.r3-h2');
+  window.__pr = Process.mount(document.getElementById('how-it-works'));
+  window.__tb = TopBar.mount({ hero: '#opening', cta: '#contact', links: [['Work', '#selected-work'], ['What we build', '#what-we-build'], ['Try it', '#playground'], ['Draw it', '#draw-your-site'], ['How it works', '#how-it-works'], ['About', '#about'], ['Lab', 'lab.html']] });
+  document.querySelector('.ft-plan').addEventListener('click', function () { __as.open(); });
+  Craft.fillFooter(document.querySelector('.ft'));
+  window.__xr = XRay.mount({ placeIn: '.tb-inner', before: '.tb-cta' });
+  __tb.placeLens(document.querySelector('.tb .xr-switch'));
+  var BIZ = { 'Clinic': 'clinic', 'Café': 'cafe', 'Salon': 'salon', 'Trades': 'trades', 'Restaurant': 'restaurant', 'Shop': 'boutique' };
+  window.__as = Assistant.mount({ mode: 'demo', hideOver: ['#opening', '.ft'], onBusiness: function (b) { if (BIZ[b]) __pg.set({ business: BIZ[b] }); } });   // the playground follows what they told the planner
+</script>
+</body>
+</html>

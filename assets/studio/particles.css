@@ -1,0 +1,30 @@
+/* Gold particles interlude */
+.pt-section { padding-top: clamp(24px, 4vw, 56px); padding-bottom: clamp(24px, 4vw, 56px); }
+.pt { text-align: center; }
+.pt-stage { position: relative; height: clamp(240px, 26vw, 360px); touch-action: pan-y; cursor: crosshair; -webkit-tap-highlight-color: transparent; }
+.pt-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.pt-fallback { position: absolute; inset: 0; margin: 0; display: grid; place-items: center; font: 400 clamp(56px, 11vw, 150px)/1 var(--serif, "Cormorant Garamond", serif); color: var(--accent, #D8AC5F); }
+.pt-stage.is-live .pt-fallback { display: none; }
+.pt-h-touch { display: none; }
+@media (hover: none) { .pt-h-touch { display: inline; } .pt-h-fine { display: none; } }
+.pt-hint { margin: 14px auto 0; color: var(--slate, #A7AFC2); font-size: 13.5px; max-width: 46ch; }
+
+/* Liquid gold monogram (sits under the About heading) */
+.ab-mono { position: relative; width: min(100%, 300px); aspect-ratio: 5 / 6; margin-top: 28px; }
+.mg-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.ab-mono:not(.is-live) { display: none; }
+@media (max-width: 860px) { .ab-mono { width: 200px; margin: 8px auto 0; } }
+
+/* Kinetic type: each word stays together while its letters change weight */
+.kt-w { display: inline-block; white-space: nowrap; }
+.kt-l { display: inline-block; text-align: center; }
+
+/* Sound switch in the footer */
+.snd-toggle { display: inline-flex; align-items: center; gap: 8px; margin: 0 0 18px; background: transparent; color: var(--slate, #A7AFC2); border: 1px solid var(--hairline, rgba(216, 172, 95, .22)); border-radius: 8px; padding: 8px 14px; font: 500 13px/1 var(--sans, Inter, sans-serif); cursor: pointer; }
+.snd-toggle svg { width: 16px; height: 16px; }
+.snd-toggle .snd-wave { opacity: 0; transition: opacity .2s; }
+.snd-toggle[aria-pressed="true"] { color: var(--ink, #F1E3C6); border-color: var(--accent, #D8AC5F); }
+.snd-toggle[aria-pressed="true"] .snd-wave { opacity: 1; }
+.snd-toggle .snd-state { color: var(--ink, #F1E3C6); }
+.snd-toggle:focus-visible { outline: 2px solid var(--ink, #F1E3C6); outline-offset: 2px; }
+@media (hover: hover) { .snd-toggle:hover { color: var(--ink, #F1E3C6); } }
