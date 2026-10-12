@@ -7,154 +7,127 @@ window.TOFF_SETTINGS = {
   /* ---------- Studio ---------- */
   studioName: 'Toff Studio',
   copyrightYear: 2026,
-  // Shown in the footer once filled in, e.g. 'hello@toffstudio.com'. Empty = hidden.
+  location: 'London',
+  // Your email, e.g. 'hello@toffstudio.com'. Shown in the footer.
   email: '',
 
-  /* ---------- Colours ---------- */
-  colors: {
-    background: '#F7F5F0', // warm off-white page
-    ink: '#1F3A5F', // the line, the studio mark, headings
-    text: '#1F3A5F', // body text
-    muted: '#5A6472', // captions and small print (5.6:1 on the background)
-    shadow: '#7D838C', // the soft grey copy under every drawn line
-    focus: '#1F3A5F', // keyboard focus ring
+  // Shows clearly marked placeholders for anything not filled in yet. Set to false before showing the site to clients or launching: anything still missing is then hidden.
+  showPlaceholders: true,
+
+  /* ---------- Live sites ----------
+     Empty = no link: the Everest picture says "Live site coming soon" and the
+     enquiry's style picker shows no "View site" link for it. */
+  links: {
+    bluebird: 'https://toffzzzz.github.io/bluebird-wellness/',
+    everest: '', // add the Everest Climate Solutions live address here once it's online
   },
 
-  /* ---------- The line ---------- */
-  stroke: {
-    width: 2.6, // px, the same everywhere (round ends and joins)
+  /* ---------- Footer extras (each one appears only once it's filled in) ---------- */
+  // Social links, e.g. [{ label: 'Instagram', url: 'https://instagram.com/…' }]
+  social: [],
+  // Legal pages. They stay hidden until each page exists; the enquiry can only go
+  // live once privacyPolicyUrl is set.
+  legal: {
+    privacyPolicyUrl: '',
+    termsUrl: '',
+    cookiesUrl: '',
   },
-  shadow: {
-    offsetX: 0, // px
-    offsetY: 2.5, // px below the line
-    blur: 1.1, // px
-    opacity: 0.32, // 0–1
-    delay: 0.09, // seconds the shadow trails behind the line as it draws
+  // Company details, e.g. { name: 'Toff Studio Ltd', number: '01234567', address: '…', vat: '' }
+  company: {
+    name: '',
+    number: '', // company registration number
+    address: '', // registered office address
+    vat: '', // VAT number
   },
 
-  /* ---------- Section 1: the four phrases ----------
-     font: any id from paths/fonts/index.js (see fonts-preview.html).
-     size: relative size (1 = the standard phrase size).
-     letterSpacing: extra space between letters, in em. */
-  phrases: [
-    { text: 'You plan', font: 'EMSAllure', size: 1.25, letterSpacing: 0 },
-    { text: 'WE DESIGN', font: 'HersheySans1', size: 0.95, letterSpacing: 0.22 },
-    { text: 'We deliver', font: 'HersheySerifMedItalicSingle', size: 0.95, letterSpacing: 0 },
-    { text: 'So... what will it be?', font: 'EMSNeato', size: 1.0, letterSpacing: 0 },
+  /* ---------- "How we work": how long each step takes ----------
+     One per step, in order: Discovery call, Sketch, Build, Launch & care.
+     e.g. ['30 minutes', 'About a week', '3–4 weeks', 'Ongoing']. Empty = placeholder (or hidden). */
+  process: {
+    timeframes: ['', '', '', ''],
+  },
+
+  /* ---------- "Kind words": one real testimonial per project ----------
+     Paste the client's own words into quote, their name into name, and their
+     business into business. Never invent one. Empty = placeholder (or hidden).
+     project is only used for the placeholder's wording. */
+  testimonials: [
+    { project: 'Bluebird Wellness', quote: '', name: '', business: 'Bluebird Wellness' },
+    { project: 'Everest Climate Solutions', quote: '', name: '', business: 'Everest Climate Solutions' },
   ],
 
-  /* ---------- Drawing speeds ---------- */
-  speeds: {
-    writing: 8, // letters: em of pen travel per second
-    line: 0.95, // joining lines: screen heights per second
-    drawing: 0.5, // style drawings (the face): screen heights per second
-    details: 0.9, // small strokes of a drawing (eye, lips…): screen heights per second
-    penLift: 0.035, // pause between strokes, seconds
-    wordGap: 0.14, // pause between words, seconds
-    // Laptops: scroll distance (in screen heights) per second of drawing,
-    // for joining lines that run sideways
-    scrollPerSecond: 0.16,
-    // Laptops: each phrase is written while it moves from this far down the
-    // screen to that far down (fractions of the screen height)
-    phraseScroll: [0.66, 0.3],
-    // Laptops: where on the screen the pen draws, as a fraction of the screen
-    // height from the top (0.62 = a little below the middle)
-    penHeight: 0.62,
-    // Laptops: the fastest the pen may catch up when you scroll quickly,
-    // as a multiple of its natural speed
-    maxCatchUp: 1.8,
+  /* ---------- The enquiry ---------- */
+  contact: {
+    // Shown after "We'll reply within", e.g. 'two working days'. Empty = placeholder (or hidden).
+    replyTime: '',
+  },
+  // 'demo' sends and stores nothing. 'live' sends the answers to formEndpoint, and
+  // only switches on once legal.privacyPolicyUrl and formEndpoint are both set.
+  chatMode: 'demo',
+  // Live mode only: your form service address, e.g. 'https://formspree.io/f/xxxxxxx'
+  formEndpoint: '',
+
+  /* ---------- Colours (Midnight & Gold) ----------
+     Written onto the page as CSS variables when it loads. If you change ink or
+     lineShadow, change handwriting.color and handwriting.shadow.color to match. */
+  colors: {
+    bg: '#0E1628', // midnight page
+    ink: '#F1E3C6', // cream: lines, links, outlines
+    text: '#F6F0E4', // headings and body text
+    slate: '#A7AFC2', // quiet text, placeholders
+    accent: '#D8AC5F', // gold: small labels, numbers, fine rules, the main button, selected states
+    tint: '#1A2541', // raised areas: a selected choice, an input
+    lineShadow: 'rgba(216, 172, 95, 0.38)', // the gold under-shadow on every line
+    footer: '#0A101E', // the footer's slightly deeper midnight
+    error: '#F2A7A0', // form messages when something is missing
   },
 
-  /* ---------- Sections ----------
-     The opening always comes first and the finale last. This list is the
-     order of the style sections in between; each one also needs show: true. */
-  sectionOrder: ['bluebird', 'everest', 'style3', 'style4'],
-
-  styles: {
-    bluebird: {
-      show: true,
-      kind: 'lineart', // a single-stroke SVG drawing, like assets/face-line.svg
-      artwork: 'assets/face-line.svg',
-      title: 'Bluebird Wellness',
-      subtitle: 'Doctor-led IV clinic, London',
-      url: 'https://toffzzzz.github.io/bluebird-wellness/',
-      linkText: 'View the live site →',
-    },
-    everest: {
-      show: true,
-      kind: 'everest-ac', // the air-conditioning animation copied from the Everest site
-      title: 'Everest Climate Solutions',
-      subtitle: 'Air conditioning installation',
-      url: '', // add the live site URL here; the link stays hidden until then
-      linkText: 'View the live site →',
-    },
-    style3: {
-      show: false,
-      kind: 'lineart',
-      artwork: 'assets/styles/placeholder-style.svg',
-      title: 'Style three',
-      subtitle: 'Short description',
-      url: '',
-      linkText: 'View the live site →',
-    },
-    style4: {
-      show: false,
-      kind: 'lineart',
-      artwork: 'assets/styles/placeholder-style.svg',
-      title: 'Style four',
-      subtitle: 'Short description',
-      url: '',
-      linkText: 'View the live site →',
-    },
+  /* ---------- The opening page ("From sketch to site") ---------- */
+  opening: {
+    sketchSeconds: 2.3, // the whole sketch draws itself in about this many seconds
+    overlap: 0.45, // each stroke starts when the previous one is this far from finishing (0 = one after another)
+    pressAt: 0.25, // pause before the sketched button is pressed, in seconds
+    revealDuration: 1.25, // how long the colour takes to spread from the button, in seconds
+    lineDuration: 0.9, // how long the line takes to drop to the bottom of the screen, in seconds
   },
 
-  /* ---------- Everest air-conditioning animation ----------
-     Copied from the Everest site's coolScene.js SETTINGS. */
-  everest: {
-    temperature: { from: 32, to: 18 }, // the original counts 32 → 18°C
-    flap: { half: 27, open: 22, crossfade: 0.03 }, // as in the original
-    colors: {
-      warmBackground: '#FBE3D0', // hazy peach (original)
-      neutralBackground: '#F8F4F1', // passed through halfway (original)
-      coolBackground: '#F7F5F0', // original: #F6F9FD; here the page background so the room cools back into the page
-      warmNumber: '#B4532A', // terracotta (original)
-      coolNumber: '#0F2E5A', // Everest Deep Blue (original)
-      label: '#4B607D', // Everest Slate, "Room temperature" (original)
-    },
-    // The original's phases, as fractions of its pinned scroll. Only the
-    // parts belonging to the AC animation are used (intro, cooling, "Just right").
-    phases: { introEnd: 0.06, coolingEnd: 0.85, justRightEnd: 0.88 },
-    duration: 7, // phones: seconds for the whole animation
-    scrollLength: 0.6, // laptops: screen heights of scrolling for the whole animation
+  /* ---------- The handwriting line ("You plan" … "So... what will it be?")
+     and the finale's "Tell us what you need" (the same engine and settings) ---------- */
+  handwriting: {
+    color: '#F1E3C6', // the ink colour (keep the same as colors.ink)
+    strokePx: { desktop: 3.2, mobile: 2.6 }, // line thickness on screen, in pixels
+    // the gold under-shadow: colour, how far below the line (px), how much wider than the line (px),
+    // blur (px; keep 0, blurring long lines costs smoothness) and how far it trails the pen (seconds)
+    shadow: { color: 'rgba(216,172,95,0.30)', offsetPx: 3.5, extraWidthPx: 1.2, blurPx: 0, lag: 0.22 },
+    writeStart: 0.86, // laptops: a phrase starts writing when it is this far down the screen (0 = top, 1 = bottom)
+    writeEnd: 0.56, // laptops: …and has finished by the time it is this far down
+    tailTip: 0.62, // laptops: where on screen the pen sits while the last line runs down
+    ease: 0.12, // laptops: how closely the pen follows the scroll, in seconds (smaller = tighter)
+    maxSpeedPx: 3400, // laptops: the pen never draws faster than this many pixels of line per second
+    autoSpeedPx: 820, // parts that draw themselves (coming back to the page, jumps): pen speed in pixels per second
+    phoneSpeedPx: 620, // phones: pen speed in pixels per second
+    phoneTrigger: 0.82, // phones: a part starts writing when it reaches this far down the screen
+    breakpoint: 700, // screens narrower than this many pixels use the phone layout
+    jumpScreens: 1.2, // a scroll bigger than this many screen heights at once counts as a jump
+    settleMs: 450, // wait this long after loading for the browser to restore the scroll position
+    minLinkScroll: 0.38, // laptops: each joining line gets at least this share of the scroll between phrases
+    introOnLoad: false, // false: the first phrase writes as you scroll to it (the opening page sits above it)
+    entryTip: 0.7, // laptops: where on screen the pen sits while the line runs in from the top
   },
 
-  /* ---------- Finale ---------- */
-  finale: {
-    heading: 'Tell us what you need',
-    font: null, // null = the same font as phrase 4
-    size: 1.0,
-    pinLength: 2.2, // laptops: screen heights the finale stays pinned while it plays
-    rowScale: 0.42, // how small the row of previews gets at the top
-    durations: { slideIn: 1.6, rowUp: 1.2, chatRise: 0.9 }, // seconds
+  /* ---------- The pictures beside the phrases ---------- */
+  showcase: {
+    ease: 0.28, // how gently a picture follows its phrase, in seconds
   },
 
-  /* ---------- Chat box ---------- */
-  chat: {
-    mode: 'demo', // 'demo' (sends nothing) or 'live'
-    // Live mode only: your form service endpoint, e.g. 'https://formspree.io/f/xxxxxxx'
-    formEndpoint: '',
-    // Live mode is only allowed once this is set (a page on your site)
-    privacyPolicyUrl: '',
-    placeholder: 'A website for my clinic, with online booking…',
-    sendLabel: 'Send',
-    thanks: "Thanks! We'll be in touch soon.",
-    demoNote: "Demo: please don't enter personal details yet",
-    privacyNote: 'We only use what you write here to reply to you.',
-    consentLabel: 'I agree to {studio} using my message to reply to me.', // {studio} = studioName,
+  /* ---------- The enquiry's style picker ---------- */
+  stylePicker: {
+    drawSeconds: 1.1, // how long the three little icons take to draw themselves
   },
 
-  /* ---------- Breakpoints ---------- */
-  breakpoints: {
-    phone: 767, // px and below: phone layout, animations play by themselves
+  /* ---------- Gentle fade-up of headings and text in "How we work", "What's included" and "Kind words" ---------- */
+  reveal: {
+    durationMs: 600, // how long each fade-up takes
+    risePx: 12, // how far it rises into place
   },
 };

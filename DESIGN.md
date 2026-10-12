@@ -1,92 +1,106 @@
 # Toff Studio portfolio: design values
 
-The exact values used by the site. **Keep this file and `settings.js` in sync:** whenever a value changes in one, update the other. (`styles.css` holds fallbacks for the colour, stroke and shadow values; script.js overwrites them from settings.js at load.)
+The exact values used by the site (Round 02: Midnight & Gold). **Keep this file and `settings.js` in sync:** whenever a value changes in one, update the other. The colours are defined on `:root` in `site.css` and overwritten from `settings.js` (`colors`) when the page loads. Round 01's values (light page, navy ink) are in git history and on the `backup-before-round-02` branch.
 
 ## Colours
 
-| Name | Value | Where it's used | settings.js |
-|---|---|---|---|
-| Page | `#F7F5F0` | Page background, textarea background, the Everest room's final colour | `colors.background` |
-| Ink | `#1F3A5F` | The line, studio mark, headings, links, Send button | `colors.ink` |
-| Text | `#1F3A5F` | Body text | `colors.text` |
-| Muted | `#5A6472` | Captions' subtitles, privacy note, scroll cue, placeholder (5.5:1 on Page) | `colors.muted` |
-| Shadow | `#7D838C` | The grey copy under every drawn line | `colors.shadow` |
-| Focus | `#1F3A5F` | Keyboard focus ring | `colors.focus` |
-| Chat box | `#FFFEFB` | Chat box surface (styles.css) | — |
-| Error | `#9C2B1F` | Chat form error message (styles.css) | — |
+| Name | CSS variable | Value | Where it's used | settings.js |
+|---|---|---|---|---|
+| Midnight | `--bg` | `#0E1628` | The whole page, the header, the phone menu | `colors.bg` |
+| Cream ink | `--ink` | `#F1E3C6` | Every drawn line, links, outlines, the quotes, footer text | `colors.ink` |
+| Text | `--text` | `#F6F0E4` | Headings and body text | `colors.text` |
+| Slate | `--slate` | `#A7AFC2` | Quiet text, descriptions, placeholders, fine outlines (40%) | `colors.slate` |
+| Gold | `--accent` | `#D8AC5F` | Small labels, numerals, fine rules, the one solid button, selected states, "Placeholder" tags | `colors.accent` |
+| Tint | `--tint` | `#1A2541` | Raised areas: inputs, choice buttons, a selected picker card | `colors.tint` |
+| Gold under-shadow | `--line-shadow` | `rgba(216, 172, 95, 0.38)` | The shadow under every line (opening sketch, showcase drawings, picker icons) | `colors.lineShadow` |
+| Deep midnight | `--bg-deep` | `#0A101E` | The footer (the only change of shade), with a fine gold rule above it | `colors.footer` |
+| Error | `--error` | `#F2A7A0` | Enquiry messages when something is missing | `colors.error` |
 
-Everest animation colours (copied from the Everest site; used only in that section and its preview):
+**The handwriting colour lives in `settings.js`** (`handwriting.color` `#F1E3C6` and `handwriting.shadow.color` `rgba(216,172,95,0.30)`), because the handwriting engine takes its colours as options rather than from CSS. It is used by the handwriting line, the finale's "Tell us what you need" and the "So... what will it be?" reprise. **If you change `--ink` or `--line-shadow`, change these two to match.**
 
-| Name | Value | Where it's used | settings.js |
-|---|---|---|---|
-| Heat peach | `#FBE3D0` | The room at the start of the AC animation | `everest.colors.warmBackground` |
-| Near-neutral | `#F8F4F1` | Passed through halfway while cooling | `everest.colors.neutralBackground` |
-| Cool | `#F7F5F0` | The room at the end (original: `#F6F9FD`; changed to the page colour) | `everest.colors.coolBackground` |
-| Terracotta | `#B4532A` | The number at 32°C | `everest.colors.warmNumber` |
-| Everest Deep Blue | `#0F2E5A` | The number at 18°C, the preview's temperature | `everest.colors.coolNumber` |
-| Everest Slate | `#4B607D` | "Room temperature" / "Just right" label, preview's "Just right" | `everest.colors.label` |
+The opening's finished website (`assets/opening/opening.css`, `.op-real`) keeps its own light colours on purpose: it's a client's site. The Everest picture keeps its warm-to-cool glow and its number colours (orange `rgb(242,166,90)` → icy blue `rgb(169,205,240)`) from `assets/showcase/`.
+
+### Contrast (WCAG AA; measured from the rendered page by the site checks)
+
+| Text | On | Ratio |
+|---|---|---|
+| Text `#F6F0E4` | Midnight | 15.9 : 1 |
+| Text | Tint | 13.4 : 1 |
+| Cream ink `#F1E3C6` | Midnight | 14.2 : 1 |
+| Cream ink | Deep midnight (footer) | 15.0 : 1 |
+| Cream ink | Tint | 12.0 : 1 |
+| Slate `#A7AFC2` | Midnight | 8.2 : 1 |
+| Slate | Tint | 6.9 : 1 |
+| Slate | Deep midnight | 8.6 : 1 |
+| Slate at 85% (input placeholder text) | Tint | 5.4 : 1 |
+| Gold `#D8AC5F` | Midnight | 8.6 : 1 |
+| Gold | Deep midnight | 9.0 : 1 |
+| Gold | Tint | 7.2 : 1 |
+| Midnight text | Gold (the button) | 8.6 : 1 |
+| Error `#F2A7A0` | Midnight | 9.3 : 1 |
+| Error | Tint | 7.8 : 1 |
+| Everest number, warm `rgb(242,166,90)` | Midnight | 8.9 : 1 |
+| Everest number, cool `rgb(169,205,240)` | Midnight | 10.9 : 1 |
 
 ## Typography
 
-| Text | Font | Size | settings.js |
-|---|---|---|---|
-| Phrase 1 "You plan" | EMS Allure (single line) | 1.25 × phrase size | `phrases[0]` |
-| Phrase 2 "WE DESIGN" | Hershey Sans 1-stroke, letter spacing 0.22em | 0.95 × | `phrases[1]` |
-| Phrase 3 "We deliver" | Hershey Serif Medium Italic, single-line version (doubled strokes removed) | 0.95 × | `phrases[2]` |
-| Phrase 4 "So... what will it be?" | EMS Neato (single line) | 1.0 × | `phrases[3]` |
-| Finale "Tell us what you need" | Same as phrase 4 (EMS Neato) | finale size 1.0 | `finale.font`, `finale.size` |
-| Body, captions, chat box | Inter 400 / 500 / 600 (self-hosted) | 17px body (16px phones) | — |
-| Style titles | Inter 600 | clamp(26px, 2.4vw, 34px), −0.025em | — |
-| Everest number | Inter 600, tabular figures | clamp(80px, min(13vw, 20svh), 180px), −0.045em | — |
+Self-hosted in `fonts/` (SIL Open Font License, see CREDITS.md).
 
-Phrase size ("1 ×"): laptops clamp(58px, 7.2vw, 124px) per em; phones min(17vw, 84px), always shrunk to fit the screen. Phrase 4 wraps onto two lines on phones. Finale heading: laptops clamp(46px, 5.2vw, 92px); phones min(13vw, 58px).
-
-## The line
-
-| Value | Setting | settings.js |
+| Text | Font | Size |
 |---|---|---|
-| Stroke width | 2.6px everywhere, round caps and joins | `stroke.width` |
-| Shadow offset | 0px across, 2.5px down | `shadow.offsetX`, `shadow.offsetY` |
-| Shadow blur | 1.1px | `shadow.blur` |
-| Shadow opacity | 0.32 | `shadow.opacity` |
-| Shadow delay | 0.09s behind the line while it draws (catches up when the pen stops) | `shadow.delay` |
+| Display (phone menu links) | Cormorant Garamond 300 | clamp(40px, 6vw, 84px), line-height 1.05 |
+| Opening headline "We sketch it. Then we build it." | Cormorant Garamond 400 (from `opening.css`, as delivered) | clamp(34px, 5.2vw, 64px) |
+| Section headings | Cormorant Garamond 300 | clamp(30px, 3.6vw, 48px), line-height 1.1 |
+| Quotes ("Kind words") | Cormorant Garamond 300, cream | clamp(28px, 3.4vw, 44px) |
+| Process numerals 01–04 | Cormorant Garamond 300, gold, lining figures | clamp(52px, 5vw, 72px) |
+| Enquiry questions | Cormorant Garamond 400 | clamp(28px, 4vw, 40px) |
+| Body | Inter 400 | 17px, line-height 1.6 |
+| Small labels | Inter 500, uppercase, letter-spacing .18em, gold | 11.5px |
+| "Placeholder" tag | Inter 500, uppercase, letter-spacing .18em, gold | 11px |
+| Buttons | Inter 500 | 15px (header button 14px) |
+| Handwriting, finale heading | Hershey cursive (single line), built into `assets/handwriting/line-data.js` and `assets/finale/finale-data.js` | Laptop: 5.6 (phrases 1–3), 4.2 (phrase 4 and "Tell us what you need"), 3.6 (reprise) font units per unit on a 1440-wide drawing. Phone: 2.6 (handwriting), 2.3 ("Tell us what you need"), 2.0 (reprise) on a 400-wide drawing |
 
-## Spacing scale
+Cormorant Garamond is never bold. Text columns are no wider than about 60 characters (`--measure`).
 
-4, 8, 12, 16, 24, 32, 48, 64, 96px (`--space-*` in styles.css). Page gutter: clamp(20px, 6vw, 96px). Content width: 1200px. Corner radius: 24px for boxes (chat box), pills for buttons and the studio mark.
+## Lines
 
-## Animation speeds (settings.js `speeds`, `everest`, `finale`)
-
-| What | Value |
+| Value | Setting |
 |---|---|
-| Writing letters | 8 em of pen travel per second |
-| Joining lines | 0.95 screen heights per second |
-| Style drawings (the face) | 0.5 screen heights per second |
-| Small strokes of a drawing | 0.9 screen heights per second |
-| Pause between strokes / words | 0.035s / 0.14s |
-| Laptops: scroll per second of sideways drawing | 0.16 screen heights |
-| Laptops: where the pen draws | 0.62 of the screen height from the top |
-| Laptops: each phrase is written while it moves from | 66% to 30% down the screen |
-| Laptops: fastest catch-up | 1.8 × natural speed |
-| Everest AC animation | 7s on phones; 0.6 screen heights of scrolling on laptops |
-| Everest internal phases (original) | intro 0–0.06, cooling 0.06–0.85, "Just right" 0.85–0.88 |
-| Everest flap | half open at 27°C, open at 22°C, crossfade 0.03 |
-| Finale | previews slide in 1.6s, row up 1.2s, chat box rises 0.9s |
-| Finale pin (laptops only) | 2.2 screen heights |
-| Finale row final size | 0.42 of its big size |
-| Captions | fade and rise 14px over 900ms, once |
+| Handwriting and finale stroke: 3.2px laptops, 2.6px phones, round ends and joins | `handwriting.strokePx` |
+| Gold under-shadow: 3.5px below, 1.2px wider, no blur, trails the pen by 0.22s | `handwriting.shadow` |
+| Opening sketch, showcase drawings, picker icons: their own stroke widths with `drop-shadow(0 2.5px 1.1px var(--line-shadow))` (as delivered) | `assets/*/…css` |
+| Undrawn strokes are hidden (`visibility: hidden`), never a zero-length dash | — |
+
+## Layout and spacing
+
+- Page gutter: clamp(20px, 6vw, 96px). Content width: 1200px. The handwriting, showcase and finale heading run full width.
+- Space between sections: 144px on laptops, 88px on phones (`--section-space`).
+- Header: 64px tall (58px on phones), the page colour, no border or shadow; hides when scrolling down, returns when scrolling up. Header links land 40px below it.
+- Corner radius: 12px everywhere (`--radius`): buttons, inputs, choices, focus rings on cards. The style picker's cards are 16px (its own stylesheet).
+- One solid button style (gold, midnight text, 12px radius, at least 48px tall): "Start a project", the enquiry's Continue and Send. Every other action is a text link with an arrow.
+
+## Motion (settings.js)
+
+| What | Value | Setting |
+|---|---|---|
+| Opening sketch | 2.3s, strokes overlapping 0.45; press after 0.25s; colour spreads over 1.25s; line drops in 0.9s | `opening` |
+| Laptops: a phrase writes while it moves from 86% to 56% down the screen | | `handwriting.writeStart`, `writeEnd` |
+| Laptops: pen follows the scroll within 0.12s, never faster than 3400px/s | | `handwriting.ease`, `maxSpeedPx` |
+| Self-drawing parts (coming back, jumps): 820px/s; phones: 620px/s, starting 82% down the screen | | `handwriting.autoSpeedPx`, `phoneSpeedPx`, `phoneTrigger` |
+| A scroll of more than 1.2 screens at once is a jump (what you land on draws itself) | | `handwriting.jumpScreens` |
+| Pictures follow their phrase within 0.28s | | `showcase.ease` |
+| Picker icons draw in 1.1s, once | | `stylePicker.drawSeconds` |
+| Fade-ups in How we work, What's included, Kind words: 600ms, 12px rise, once | | `reveal` |
 
 ## Breakpoints
 
-- **Phones:** 767px wide and below (`breakpoints.phone`). Phone layout; animations play by themselves; no pin.
-- **Touch tablets** (no hover, coarse pointer): laptop layout, but animations play by themselves and the finale doesn't pin.
-- **Laptops/desktops:** above 767px with a mouse or trackpad: scroll-driven; the finale pins.
+- **Phones:** narrower than 700px (`handwriting.breakpoint`): phone layouts of the opening and the line, pictures under their phrases, Menu link instead of the header links, parts play by themselves.
+- **Laptops/desktops:** 700px and wider: scroll-driven. Process steps: 2 × 2 from 700 to 1023px, four in a row from 1024px.
 
 ## Motion rules
 
-- Laptops: everything is driven by scrolling at a smooth, natural speed, never rushed (never faster than 1.8 × natural), starting only when that part is on screen.
-- Phones: each part plays by itself when it comes into view, at natural speed.
-- Nothing ever reverses or replays when scrolling back up. Coming back from another page reloads it at the top.
-- Only the finale pins (laptops only).
-- The page always opens at the very top.
-- Reduced motion: every section shown finished, no animation, no pin, no smooth scrolling.
+- Laptops: driven by scrolling at a natural speed, starting only when on screen. Phones: each part plays by itself when it comes into view.
+- Never reverses, replays, snaps back or freezes half-way while on the page; once something starts drawing, it finishes.
+- Coming back (Back/Forward with or without bfcache, Safari's late scroll restore): you stay where you were, what's on screen plays again, what's above plays as you scroll back up. Jumping down plays what you land on.
+- No pinning anywhere. The page opens at the top on a fresh visit (header links don't add a #fragment to the address).
+- Reduced motion: everything shown finished, no animation.

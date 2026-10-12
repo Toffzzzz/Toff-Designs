@@ -22,8 +22,10 @@ class Handler(http.server.SimpleHTTPRequestHandler):
     protocol_version = 'HTTP/1.1'
 
     def end_headers(self):
-        # Always fetch fresh copies while previewing
-        self.send_header('Cache-Control', 'no-store')
+        # Always check for fresh copies while previewing. 'no-cache' (not 'no-store'),
+        # so Back/Forward can still restore the page from memory (bfcache) as it
+        # will on GitHub Pages.
+        self.send_header('Cache-Control', 'no-cache')
         super().end_headers()
 
     def log_message(self, *args):

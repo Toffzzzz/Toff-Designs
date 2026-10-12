@@ -1,8 +1,8 @@
 # Toff Studio portfolio
 
-One continuous ink line runs down the whole page, like a pen that never lifts. It writes four phrases, draws the studio's website styles (Bluebird Wellness, Everest Climate Solutions), and finishes by writing "Tell us what you need" above a chat box.
+A deep midnight page with cream ink lines and gold details. It opens with a website sketched by hand that turns into the finished thing ("We sketch it. Then we build it."), then one ink line writes "You plan", "We design", "We deliver" and "So... what will it be?" beside pictures of the studio's work. Three short sections follow (How we work, What's included, Kind words), and the page ends with the line writing "Tell us what you need" above a six-step guided enquiry.
 
-Plain HTML, CSS and JavaScript, ready for GitHub Pages. No build step.
+Plain HTML, CSS and JavaScript, ready for GitHub Pages (https://toffzzzz.github.io/Toff-Designs/). No build step and no libraries.
 
 ## Preview it
 
@@ -10,99 +10,83 @@ Plain HTML, CSS and JavaScript, ready for GitHub Pages. No build step.
 python3 tools/serve.py 8000
 ```
 
-Then open http://localhost:8000. Phones on the same Wi-Fi can open `http://<your Mac's Wi-Fi address>:8000` (find it with `ipconfig getifaddr en0`). `python3 -m http.server 8000` also works, but its short connection queue sometimes drops files when a browser asks for several at once.
+Then open http://localhost:8000. Phones on the same Wi-Fi can open `http://<your Mac's Wi-Fi address>:8000` (find it with `ipconfig getifaddr en0`).
+
+The pre-built parts each have a preview: http://localhost:8000/assets/handwriting/preview.html (opening, handwriting and pictures) and http://localhost:8000/assets/enquiry/preview.html (the style picker). These previews stay on your Mac; they aren't published.
 
 ## Change things
 
-Everything adjustable is in **`settings.js`**: studio name, email, colours, stroke width, shadow, the font and size of each phrase, drawing speeds, section order, which styles are shown, links, Everest temperatures and colours, finale timings, and the chat box mode. Each value has a comment. After changing one, update DESIGN.md to match.
+Everything adjustable is in **`settings.js`**, each value with a comment: studio name, email, location, links, social links, legal pages, company details, process timeframes, testimonials, reply time, the enquiry's mode, colours, and the timings of the opening, handwriting, pictures, picker icons and fade-ups. After changing a value, update DESIGN.md to match.
 
-To choose different handwriting, open **http://localhost:8000/fonts-preview.html**: every phrase in every single-line font, labelled with the id to paste into `settings.js`. "Draw them all" replays the pen order.
+### Filling in the placeholders
+
+While `showPlaceholders: true`, anything not filled in yet shows a clearly marked placeholder. Fill these in `settings.js`:
+
+| What | Where in settings.js | Example |
+|---|---|---|
+| Testimonials | `testimonials` → the Bluebird entry and the Everest entry: `quote`, `name` (and `business`) | `quote: 'Our clients love the new site.', name: 'Dr Jane Smith'` |
+| Process timeframes | `process.timeframes`: four entries, in order (Discovery call, Sketch, Build, Launch & care) | `['30 minutes', 'About a week', '3–4 weeks', 'Ongoing']` |
+| Reply time | `contact.replyTime` | `'two working days'` (shows "We'll reply within two working days.") |
+| Your email | `email` | `'hello@toffstudio.com'` |
+| Company details | `company`: `name`, `number`, `address`, `vat` (each appears only once set) | `name: 'Toff Studio Ltd'` |
+| Legal pages | `legal`: `privacyPolicyUrl`, `termsUrl`, `cookiesUrl` (each link appears only once set) | `'privacy.html'` |
+| Everest's live site | `links.everest` | `'https://…'` (replaces "Live site coming soon") |
+
+**Before showing the site to clients or launching:** set `showPlaceholders: false` (anything still missing is then hidden, with no gaps) or fill in every placeholder.
+
+### Going live with the enquiry
+
+The enquiry is in demo mode (`chatMode: 'demo'`): it sends and stores nothing and says so. To receive enquiries, set `chatMode: 'live'`, `formEndpoint` (your form service, e.g. Formspree) and `legal.privacyPolicyUrl`. It stays in demo mode until both the endpoint and the privacy policy are set. The site also needs the standard pages and checks in `~/.claude/CLAUDE.md` (privacy policy, terms, cookie policy, and so on) before launch.
 
 ## Files
 
 | Path | What it is |
 |---|---|
-| `index.html` | The page, plus templates for the style sections and finale previews |
-| `styles.css` | All styles (the Everest part is copied from the Everest site, see below) |
+| `index.html` | The page: header, opening, handwriting and pictures, How we work, What's included, Kind words, the finale and enquiry, footer, and the templates the parts use |
+| `site.css` | The main stylesheet: fonts, colours (CSS variables), type, header, sections, enquiry, footer |
+| `site.js` | Puts the page together: fills in settings, mounts the parts, header, phone menu, fade-ups, the enquiry |
 | `settings.js` | Every adjustable value |
-| `script.js` | The continuous line: layout, timeline, the pen clock, finale, chat box |
-| `js/handwriting.js` | Lays out text in a single-line font as pen strokes |
-| `js/everest-ac.js` | The Everest air-conditioning animation (copied, see below) |
-| `paths/fonts/` | Generated stroke data for each single-line font (one file per font) |
-| `tools/build-fonts.mjs` | Rebuilds `paths/fonts/` from `tools/svg-fonts/` (`node tools/build-fonts.mjs`) |
-| `tools/svg-fonts/` | The original Hershey and EMS SVG fonts and their licence |
+| `assets/opening/` | The opening page "From sketch to site" (delivered in round 02; don't edit) |
+| `assets/handwriting/` | The handwriting engine and its line (`line-data.js` is generated; don't edit by hand) |
+| `assets/showcase/` | The pictures beside the phrases: plan notepad, Bluebird, Everest (delivered in round 02; don't edit) |
+| `assets/enquiry/` | The style picker for the enquiry's "How should it look?" step (delivered in round 02; don't edit) |
+| `assets/finale/finale-data.js` | The finale's "So... what will it be?" and "Tell us what you need" lines (generated; don't edit by hand) |
+| `fonts/` | Cormorant Garamond and Inter, self-hosted, with their licences |
+| `favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `og-image.png` | Icons and the link-preview image (made by `tools/make-icons.py`) |
+| `tools/handwriting/build_line.py` | Rebuilds the handwriting line. Positions are in `LAYOUTS` at the top; run `python3 build_line.py` in that folder (needs numpy), check it prints no WARNING, then copy `line-data.js` and `line-*.svg/json` into `assets/handwriting/` |
+| `tools/handwriting/build_finale.py` | Rebuilds the finale lines into `assets/finale/finale-data.js` (`python3 build_finale.py` in that folder; needs numpy) |
+| `tools/handwriting/jhf.py`, `cursive.jhf`, `hershey-licence.txt` | The Hershey cursive font and its acknowledgement |
+| `tools/make-icons.py` | Remakes the icons and the preview image (needs fonttools, pillow and playwright) |
 | `tools/serve.py` | Local preview server |
-| `assets/face-line.svg` | The Bluebird face, single pen strokes (used exactly as supplied) |
-| `assets/everest/` | AC unit images copied from the Everest project |
-| `assets/styles/placeholder-style.svg` | Placeholder drawing for the extra style slots |
-| `assets/fonts/inter/` | Inter, self-hosted |
-| `vendor/` | GSAP 3.15.0 and Lenis 1.3.26 (local copies) |
-| `fonts-preview.html` | Every phrase in every single-line font |
 | `CLAUDE.md`, `DESIGN.md`, `DECISIONS.md`, `CHECKLIST.md`, `CREDITS.md` | Instructions, design values, decision log, quality checks, licences |
 | `rounds/` | Each round's full prompt |
 
-## How the line works
+## How it fits together
 
-`script.js` lays everything out on one timeline in "pen-seconds": every letter stroke, joining line, drawing stroke, the Everest animation and the finale steps, each at a natural speed from `settings.js`. A single pen clock moves along it:
+1. **Opening** (`Opening.mount`): plays once when the page opens; its last line drops to the bottom centre of the screen.
+2. **Handwriting** (`Handwriting.mount`): the line carries on from exactly that point and writes the four phrases. Laptops: each phrase writes while it passes the middle of the screen. Phones: each part writes itself when reached.
+3. **Showcase** (`Showcase.mount`): each picture's progress *is* its phrase's writing progress, so it eases in step with it. Positions come from the line data, so the line never crosses a picture.
+4. **How we work, What's included, Kind words**: headings and text fade up once as they come into view.
+5. **Finale**: "So... what will it be?" is shown already written; a second copy of the handwriting engine writes "Tell us what you need" and runs a short tail down into the enquiry.
+6. **Enquiry**: six steps, one at a time; step 3 is the style picker (`StylePicker.mount`).
 
-- **Laptops/desktops:** scrolling sets where the clock should be. Each part is placed on the scroll so it draws while it's on screen; the clock follows smoothly and never runs faster than `speeds.maxCatchUp` × natural speed.
-- **Phones and touch tablets:** each part plays by itself, at natural speed, once it comes into view.
-- **Never backwards:** the clock only moves forward, so nothing un-draws when scrolling up. If someone scrolls very fast, parts already scrolled off the top are completed at once.
-- **Reduced motion:** everything is drawn finished; no smooth scrolling and no pin.
+All of them follow the same motion rules: never backwards, no pinning, Back/bfcache/late scroll restore handled, reduced motion shows everything finished.
 
-Each section has two SVG layers the size of the section: the grey shadow (offset, blurred and trailing the pen by `shadow.delay`) and the ink. Joining lines leave each section's bottom edge exactly where the next section's line begins, so the line is unbroken. Only the finale pins (CSS `position: sticky`, laptops only).
+## No longer used (kept in the project, not loaded)
 
-## Everest Climate Solutions: what was copied and what changed
+Round 01's implementation, replaced in round 02:
 
-Source folder: `~/Downloads/everest-climate-solutions` (read only; nothing there was changed).
-
-**Copied unchanged**
-
-| From (Everest) | To (here) |
+| Path | What it was |
 |---|---|
-| `public/images/ac-closed.png`, `ac-closed.webp` | `assets/everest/` |
-| `public/images/ac-half.png`, `ac-half.webp` | `assets/everest/` |
-| `public/images/ac-open.png`, `ac-open.webp` | `assets/everest/` |
-| `node_modules/gsap/dist/gsap.min.js` (3.15.0) | `vendor/gsap-3.15.0.min.js` |
-| `node_modules/lenis/dist/lenis.min.js`, `lenis.css` (1.3.26) | `vendor/lenis-1.3.26.min.js`, `vendor/lenis-1.3.26.css` |
-
-**Copied and adapted**
-
-| From (Everest) | To (here) | What changed |
-|---|---|---|
-| `index.html`: the cool scene's AC unit (three stacked `<picture>`s) and temperature readout; the overview's `.unit-final` and `.readout-small` | `index.html` templates `#tpl-everest` and `#tpl-preview-everest` | Classes prefixed `ev-` to avoid clashes; image paths point to `assets/everest/`; the logo, service cards, dots and overview text are not copied. |
-| `src/scripts/coolScene.js` | `js/everest-ac.js` | Kept: phases, `seg`/`fade`/`move` helpers, power2 easing, colour blending (warm → neutral → cool), flap crossfades at 27°C/22°C, whole-degree countdown, label swap, the unit and readout fading in and rising 24px. Changed: a plain script reading `settings.js` (`everest`) instead of an ES module with its own SETTINGS; driven by this page's pen clock as `render(progress)` (0 → 1 = the original's 0 → 0.88) instead of its own pinned ScrollTrigger; never reverses; the background is set on `.ev-room` (a soft-edged band behind the section) instead of the pinned stage; card deck, snapping, logo, overview move and debug readout removed. |
-| `src/styles/cool-scene.css` | `styles.css` ("Everest" section) | Same unit size, drop shadow, readout sizes, letter-spacing, tabular figures and "°C" placement. Changed: `ev-` prefixes; the unit width is also limited to its column (`100%`); the room background lives on `.ev-room`. |
-| `src/styles/tokens.css` values | `settings.js` (`everest.colors`) and `styles.css` | Deep Blue `#0F2E5A`, Slate `#4B607D` and Inter. The room's final colour is this page's `#F7F5F0` instead of Everest's `#F6F9FD`. |
-
-The brief describes the countdown as 32 → 26°C, but the Everest code counts 32 → 18°C, so 18°C is kept. To end at a different temperature, change `everest.temperature.to` in `settings.js` (the flap opens fully at 22°C, so keep `to` below that, or move `everest.flap.open` too).
-
-The Everest live-site link is hidden: the Everest folder is a git repository with no GitHub remote, so there's no live URL yet. Add it as `styles.everest.url` in `settings.js` and the link appears.
-
-## Switching on an extra style slot (Section 4)
-
-Two slots, `style3` and `style4`, are ready and switched off. To switch one on:
-
-1. **Artwork:** make a single-stroke SVG in the same format as `assets/face-line.svg` and save it in `assets/styles/` (for example `assets/styles/my-client.svg`):
-   - one path whose `id` ends in `-main`: the continuous line, entering at the top centre and leaving at the bottom centre, drawn top to bottom;
-   - every other path draws left to right and has `data-y` (the height at which it starts drawing, in the SVG's own units).
-   Until you have one, the slots use `assets/styles/placeholder-style.svg`.
-2. **settings.js** → `styles.style3` (or `style4`): set `show: true`, `artwork: 'assets/styles/my-client.svg'`, `title`, `subtitle`, and `url` (leave `url: ''` to hide the link).
-3. Optional: reorder `sectionOrder` to change where it appears.
-
-Nothing else needs touching: the section, its caption, its place in the line and its finale preview are built automatically. When `show` is `false`, the slot isn't shown and the line flows straight from the section before it to the finale.
-
-## The chat box
-
-- **Demo (default, `chat.mode: 'demo'`):** pressing Send shows "Thanks! We'll be in touch soon." and sends nothing anywhere. A note asks visitors not to enter personal details yet.
-- **Live (`chat.mode: 'live'`):** sends the message to your form service (e.g. Formspree) at `chat.formEndpoint`. Live mode stays off (the box behaves as the demo) until both `chat.formEndpoint` and `chat.privacyPolicyUrl` are set.
-
-Before going live, the site also needs the standard legal pages and checks listed in `~/.claude/CLAUDE.md` (privacy policy, terms, cookie policy, and so on).
-
-## Rebuilding the font data
-
-Only needed if you add or change files in `tools/svg-fonts/`:
-
-```
-node tools/build-fonts.mjs
-```
+| `script.js` | Round 01's line, timeline, pen clock, finale and chat box |
+| `styles.css` | Round 01's stylesheet |
+| `js/handwriting.js` | Round 01's single-line font layout code (the old EMS/Hershey phrase drawing) |
+| `js/everest-ac.js` | Round 01's Everest air-conditioning section |
+| `paths/fonts/` | Round 01's stroke data for the EMS and Hershey single-line fonts |
+| `tools/build-fonts.mjs`, `tools/svg-fonts/` | Rebuilt `paths/fonts/` |
+| `fonts-preview.html` | Every round 01 phrase in every single-line font |
+| `vendor/` | GSAP 3.15.0 and Lenis 1.3.26 (no libraries are loaded now) |
+| `assets/face-line.svg` | The Bluebird face as Round 01's separate style section (the same drawing is now inside the Bluebird picture) |
+| `assets/everest/` | The AC images for Round 01's Everest section (kept; the pictures now use `assets/showcase/ac-*.png`) |
+| `assets/styles/placeholder-style.svg` | Round 01's extra style slots |
+| `assets/fonts/inter/` | Round 01's variable Inter (now `fonts/inter/`) |

@@ -2,177 +2,515 @@
 <html lang="en-GB">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Toff Studio · Websites, planned with you, designed and delivered</title>
-    <meta name="description" content="Toff Studio designs and builds websites. You plan, we design, we deliver." />
-    <meta name="theme-color" content="#F7F5F0" />
-    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%23F7F5F0'/%3E%3Cpath d='M7 21c4-9 7-12 9-10s-3 9 1 9 6-8 8-11' fill='none' stroke='%231F3A5F' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E" />
-    <link rel="preload" href="assets/fonts/inter/inter-latin-variable.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="stylesheet" href="vendor/lenis-1.3.26.css" />
-    <link rel="stylesheet" href="styles.css" />
-    <!-- Hides the not-yet-drawn parts before the scripts start (never with reduced motion) -->
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover, interactive-widget=resizes-content" />
+    <title>Toff Studio · Bespoke websites, sketched by hand</title>
+    <meta name="description" content="Toff Studio, London. Bespoke websites, sketched by hand and built to last. We sketch it. Then we build it." />
+    <meta name="theme-color" content="#0E1628" />
+    <link rel="canonical" href="https://toffzzzz.github.io/Toff-Designs/" />
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="Toff Studio" />
+    <meta property="og:title" content="Toff Studio · Bespoke websites, sketched by hand" />
+    <meta property="og:description" content="Bespoke websites, sketched by hand and built to last." />
+    <meta property="og:url" content="https://toffzzzz.github.io/Toff-Designs/" />
+    <meta property="og:image" content="https://toffzzzz.github.io/Toff-Designs/og-image.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="Toff Studio: a gold T monogram on midnight blue" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <link rel="icon" href="favicon.ico" sizes="48x48" />
+    <link rel="icon" href="favicon.svg" type="image/svg+xml" />
+    <link rel="apple-touch-icon" href="apple-touch-icon.png" />
+    <link rel="preload" href="fonts/cormorant-garamond/cormorant-garamond-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="fonts/inter/inter-400.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="stylesheet" href="site.css" />
+    <link rel="stylesheet" href="assets/opening/opening.css" />
+    <link rel="stylesheet" href="assets/showcase/showcase.css" />
+    <link rel="stylesheet" href="assets/enquiry/style-picker.css" />
+    <script src="settings.js"></script>
     <script>
-      if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-motion');
+      /* Colours from settings.js onto the page's CSS variables; hide the fade-ups until they play (never with reduced motion) */
+      (function () {
+        var c = (window.TOFF_SETTINGS || {}).colors || {}, map = { bg: '--bg', ink: '--ink', text: '--text', slate: '--slate', accent: '--accent', tint: '--tint', lineShadow: '--line-shadow', footer: '--bg-deep', error: '--error' };
+        for (var k in map) if (c[k]) document.documentElement.style.setProperty(map[k], c[k]);
+        var r = (window.TOFF_SETTINGS || {}).reveal || {};
+        if (r.durationMs != null) document.documentElement.style.setProperty('--reveal-ms', r.durationMs + 'ms');
+        if (r.risePx != null) document.documentElement.style.setProperty('--reveal-rise', r.risePx + 'px');
+        if (!window.matchMedia('(prefers-reduced-motion: reduce)').matches) document.documentElement.classList.add('js-motion');
+      })();
     </script>
   </head>
   <body>
-    <a class="skip-link" href="#message" data-skip-to-chat>Skip to the message box</a>
+    <a class="skip-link" href="#main">Skip to main content</a>
 
-    <!-- Studio name mark, always visible -->
-    <a class="studio-mark" href="#top" data-studio-name>Toff Studio</a>
+    <!-- ============ HEADER: hides when scrolling down, returns when scrolling up ============ -->
+    <header class="site-header" data-header>
+      <div class="hd-inner">
+        <a class="hd-mark" href="#main" data-jump data-studio-name>Toff Studio</a>
+        <nav class="hd-nav" aria-label="Main">
+          <a class="hd-link" href="#work" data-jump>Work</a>
+          <a class="hd-link" href="#process" data-jump>Process</a>
+          <a class="hd-link" href="#contact" data-jump>Contact</a>
+          <a class="btn-gold btn-small" href="#contact" data-jump>Start a project</a>
+        </nav>
+        <button class="hd-menu-btn" type="button" aria-expanded="false" aria-controls="menu" data-menu-open>Menu</button>
+      </div>
+    </header>
 
-    <main id="top">
-      <!-- ============ SECTION 1: THE HANDWRITING OPENING ============
-           The phrases are drawn as pen strokes into this section's ink layer
-           (script.js). The heading below carries them as real text. -->
-      <section class="opening" data-section="opening" aria-labelledby="opening-title">
-        <h1 id="opening-title" class="visually-hidden" data-opening-title>You plan. We design. We deliver. So… what will it be?</h1>
-        <p class="scroll-cue" data-scroll-cue aria-hidden="true">
-          <span>Scroll</span>
-        </p>
+    <!-- Phones: a calm full-screen menu -->
+    <div class="menu" id="menu" role="dialog" aria-modal="true" aria-label="Menu" hidden data-menu>
+      <div class="menu-top">
+        <span class="hd-mark" aria-hidden="true" data-studio-name>Toff Studio</span>
+        <button class="hd-menu-btn" type="button" data-menu-close>Close</button>
+      </div>
+      <nav class="menu-links" aria-label="Main">
+        <a class="menu-link display" href="#work" data-jump>Work</a>
+        <a class="menu-link display" href="#process" data-jump>Process</a>
+        <a class="menu-link display" href="#contact" data-jump>Contact</a>
+        <a class="btn-gold menu-cta" href="#contact" data-jump>Start a project</a>
+      </nav>
+    </div>
+
+    <main id="main" tabindex="-1">
+<!-- Opening page ("From sketch to site"). Paste inside <body>, before the handwriting section. -->
+<section class="opening" id="opening" aria-labelledby="opening-title">
+  <div class="op-text">
+    <p class="op-eyebrow op-fade">Toff Studio &middot; Bespoke web design</p>
+    <h1 class="op-title op-fade" id="opening-title">We sketch it.<br>Then we build it.</h1>
+  </div>
+
+  <div class="op-stage">
+    <!-- Laptop/desktop: a browser window -->
+    <div class="op-variant op-desktop" role="img" aria-label="A sketch of a website being drawn, which then turns into the finished, full-colour website">
+      <svg class="op-sketch" viewBox="0 0 960 600" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect data-draw="1" x="8" y="8" width="944" height="584" rx="18"/>
+        <path data-draw="2" d="M8 58 H952"/>
+        <circle data-draw="3" cx="40" cy="33" r="6"/><circle data-draw="4" cx="62" cy="33" r="6"/><circle data-draw="5" cx="84" cy="33" r="6"/>
+        <rect data-draw="6" x="360" y="22" width="240" height="22" rx="11"/>
+        <circle data-draw="7" cx="92" cy="100" r="12"/>
+        <path data-draw="8" d="M560 100 H600"/><path data-draw="9" d="M625 100 H665"/><path data-draw="10" d="M690 100 H730"/>
+        <rect data-draw="11" x="770" y="84" width="110" height="32" rx="8"/>
+        <path data-draw="12" d="M80 180 H420"/><path data-draw="13" d="M80 222 H360"/>
+        <path data-draw="14" d="M80 268 H380"/><path data-draw="15" d="M80 292 H330"/>
+        <g class="op-sketch-button"><rect data-draw="16" x="80" y="330" width="150" height="44" rx="10"/></g>
+        <rect data-draw="17" x="500" y="150" width="380" height="240" rx="14"/>
+        <circle data-draw="18" cx="800" cy="200" r="18"/>
+        <path data-draw="19" d="M520 370 L620 270 L690 330 L760 250 L860 370"/>
+        <rect data-draw="20" x="80" y="430" width="240" height="130" rx="12"/>
+        <rect data-draw="21" x="360" y="430" width="240" height="130" rx="12"/>
+        <rect data-draw="22" x="640" y="430" width="240" height="130" rx="12"/>
+        <path data-draw="23" d="M104 470 H220 M104 500 H290 M104 522 H260"/>
+        <path data-draw="24" d="M384 470 H500 M384 500 H570 M384 522 H540"/>
+        <path data-draw="25" d="M664 470 H780 M664 500 H850 M664 522 H820"/>
+      </svg>
+      <div class="op-real" data-origin="16.1% 58.7%">
+        <svg viewBox="0 0 960 600" aria-hidden="true">
+          <rect x="8" y="8" width="944" height="584" rx="18" class="r-window"/>
+          <path d="M8 58 H952" class="r-rule"/>
+          <circle cx="40" cy="33" r="6" class="r-dot1"/><circle cx="62" cy="33" r="6" class="r-dot2"/><circle cx="84" cy="33" r="6" class="r-dot3"/>
+          <rect x="360" y="22" width="240" height="22" rx="11" class="r-url"/>
+          <text x="480" y="37" class="r-urltext" text-anchor="middle">yourbusiness.co.uk</text>
+          <circle cx="92" cy="100" r="12" class="r-ink"/>
+          <text x="114" y="105" class="r-brand">Your brand</text>
+          <text x="560" y="105" class="r-nav">Services</text><text x="632" y="105" class="r-nav">About</text><text x="690" y="105" class="r-nav">Contact</text>
+          <rect x="770" y="84" width="110" height="32" rx="8" class="r-ink"/>
+          <text x="825" y="105" class="r-btntext" text-anchor="middle">Book now</text>
+          <text x="80" y="192" class="r-h1">Beautifully made,</text>
+          <text x="80" y="236" class="r-h1">made for you.</text>
+          <text x="80" y="274" class="r-sub">A website as considered as your business,</text>
+          <text x="80" y="296" class="r-sub">designed and built to bring you customers.</text>
+          <rect x="80" y="330" width="150" height="44" rx="10" class="r-ink"/>
+          <text x="155" y="357" class="r-btntext" text-anchor="middle">Get started</text>
+          <rect x="500" y="150" width="380" height="240" rx="14" class="r-tint"/>
+          <circle cx="800" cy="200" r="18" class="r-sun"/>
+          <path d="M520 370 L620 270 L690 330 L760 250 L860 370 V376 H520 Z" class="r-hill"/>
+          <path d="M520 370 L620 270 L690 330 L760 250 L860 370" class="r-hill-line"/>
+          <rect x="80" y="430" width="240" height="130" rx="12" class="r-card"/>
+          <rect x="360" y="430" width="240" height="130" rx="12" class="r-card"/>
+          <rect x="640" y="430" width="240" height="130" rx="12" class="r-card"/>
+          <text x="104" y="476" class="r-h3">Design</text><text x="384" y="476" class="r-h3">Build</text><text x="664" y="476" class="r-h3">Launch</text>
+          <path d="M104 504 H290 M104 526 H260 M384 504 H570 M384 526 H540 M664 504 H850 M664 526 H820" class="r-lines"/>
+        </svg>
+      </div>
+    </div>
+
+    <!-- Phones: a phone -->
+    <div class="op-variant op-phone" role="img" aria-label="A sketch of a website on a phone being drawn, which then turns into the finished, full-colour website">
+      <svg class="op-sketch" viewBox="0 0 300 600" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect data-draw="1" x="6" y="6" width="288" height="588" rx="40"/>
+        <rect data-draw="2" x="115" y="18" width="70" height="14" rx="7"/>
+        <circle data-draw="3" cx="40" cy="64" r="9"/>
+        <path data-draw="4" d="M232 56 H260 M232 64 H260 M232 72 H260"/>
+        <path data-draw="5" d="M34 120 H236"/><path data-draw="6" d="M34 150 H200"/>
+        <path data-draw="7" d="M34 180 H230"/>
+        <g class="op-sketch-button"><rect data-draw="8" x="34" y="200" width="124" height="38" rx="10"/></g>
+        <rect data-draw="9" x="34" y="262" width="232" height="150" rx="14"/>
+        <circle data-draw="10" cx="222" cy="294" r="12"/>
+        <path data-draw="11" d="M46 398 L108 336 L148 370 L198 318 L254 398"/>
+        <rect data-draw="12" x="34" y="430" width="232" height="64" rx="12"/>
+        <rect data-draw="13" x="34" y="506" width="232" height="64" rx="12"/>
+        <path data-draw="14" d="M52 456 H150 M52 474 H220"/>
+        <path data-draw="15" d="M52 532 H150 M52 550 H220"/>
+      </svg>
+      <div class="op-real" data-origin="32% 36.5%">
+        <svg viewBox="0 0 300 600" aria-hidden="true">
+          <rect x="6" y="6" width="288" height="588" rx="40" class="r-window"/>
+          <rect x="115" y="18" width="70" height="14" rx="7" class="r-ink"/>
+          <circle cx="40" cy="64" r="9" class="r-ink"/>
+          <text x="56" y="69" class="r-brand r-brand-sm">Your brand</text>
+          <path d="M232 56 H260 M232 64 H260 M232 72 H260" class="r-lines r-lines-ink"/>
+          <text x="34" y="128" class="r-h1 r-h1-sm">Beautifully made,</text>
+          <text x="34" y="158" class="r-h1 r-h1-sm">made for you.</text>
+          <text x="34" y="184" class="r-sub r-sub-sm">Designed to bring you customers.</text>
+          <rect x="34" y="200" width="124" height="38" rx="10" class="r-ink"/>
+          <text x="96" y="224" class="r-btntext r-btntext-sm" text-anchor="middle">Get started</text>
+          <rect x="34" y="262" width="232" height="150" rx="14" class="r-tint"/>
+          <circle cx="222" cy="294" r="12" class="r-sun"/>
+          <path d="M46 398 L108 336 L148 370 L198 318 L254 398 V404 H46 Z" class="r-hill"/>
+          <path d="M46 398 L108 336 L148 370 L198 318 L254 398" class="r-hill-line"/>
+          <rect x="34" y="430" width="232" height="64" rx="12" class="r-card"/>
+          <rect x="34" y="506" width="232" height="64" rx="12" class="r-card"/>
+          <text x="52" y="458" class="r-h3 r-h3-sm">Design</text><text x="52" y="534" class="r-h3 r-h3-sm">Build</text>
+          <path d="M52 476 H220 M52 552 H220" class="r-lines"/>
+        </svg>
+      </div>
+    </div>
+  </div>
+
+  <div class="op-line" aria-hidden="true"><div class="op-line-bar"></div></div>
+</section>
+
+      <!-- ============ HANDWRITING + SHOWCASE ============ -->
+      <h2 class="visually-hidden">You plan. We design. We deliver. So... what will it be?</h2>
+      <div class="hw-wrap" id="work"><div id="hw"></div><div class="sc-layer" id="showcase"></div></div>
+
+      <!-- ============ HOW WE WORK ============ -->
+      <section class="section" id="process" aria-labelledby="process-title">
+        <div class="container">
+          <div class="section-head">
+            <p class="label reveal" data-land>Process</p>
+            <h2 class="section-title reveal" id="process-title">Four quiet steps.</h2>
+          </div>
+          <ol class="steps">
+            <li class="step reveal">
+              <span class="step-num" aria-hidden="true">01</span>
+              <h3 class="step-title">Discovery call</h3>
+              <p class="step-text">We learn your business, your customers and what success looks like.</p>
+              <p class="step-time" data-timeframe="0"></p>
+            </li>
+            <li class="step reveal">
+              <span class="step-num" aria-hidden="true">02</span>
+              <h3 class="step-title">Sketch</h3>
+              <p class="step-text">We draw your site by hand first, so you see it before it's built.</p>
+              <p class="step-time" data-timeframe="1"></p>
+            </li>
+            <li class="step reveal">
+              <span class="step-num" aria-hidden="true">03</span>
+              <h3 class="step-title">Build</h3>
+              <p class="step-text">Bespoke, fast, beautiful on every phone, tested line by line.</p>
+              <p class="step-time" data-timeframe="2"></p>
+            </li>
+            <li class="step reveal">
+              <span class="step-num" aria-hidden="true">04</span>
+              <h3 class="step-title">Launch &amp; care</h3>
+              <p class="step-text">We launch it, host it and keep it looking its best.</p>
+              <p class="step-time" data-timeframe="3"></p>
+            </li>
+          </ol>
+        </div>
       </section>
 
-      <!-- ============ SECTIONS 2–4: STYLES ============
-           Built from the templates below, in the order and with the content
-           set in settings.js (sectionOrder and styles). -->
-      <div data-styles></div>
-
-      <!-- ============ SECTION 5: FINALE ============ -->
-      <section class="finale" data-section="finale" aria-labelledby="finale-title">
-        <div class="finale-stage" data-stage>
-          <div class="finale-row-slot" data-row-slot>
-            <ul class="finale-row" data-row aria-label="Website styles shown above"></ul>
+      <!-- ============ WHAT'S INCLUDED ============ -->
+      <section class="section" id="included" aria-labelledby="included-title">
+        <div class="container">
+          <div class="section-head">
+            <p class="label reveal" data-land>Included</p>
+            <h2 class="section-title reveal" id="included-title">What's included.</h2>
           </div>
-          <div class="finale-heading-slot" data-heading-slot>
-            <h2 id="finale-title" class="visually-hidden" data-finale-title>Tell us what you need</h2>
-          </div>
+          <ul class="incl-list">
+            <li class="incl-item reveal">Bespoke design, never a template</li>
+            <li class="incl-item reveal">Built for phones first</li>
+            <li class="incl-item reveal">Hosting and care</li>
+            <li class="incl-item reveal">Privacy, cookie and legal pages</li>
+            <li class="incl-item reveal">Search-engine basics</li>
+            <li class="incl-item reveal">Your own domain and email set up</li>
+          </ul>
+          <p class="incl-note reveal">
+            <span>Every project is quoted personally after a short call.</span>
+            <a class="arrow-link" href="#contact" data-jump>Start a project <span aria-hidden="true">&rarr;</span></a>
+          </p>
+        </div>
+      </section>
 
-          <form class="chat" data-chat novalidate>
-            <label for="message" class="visually-hidden" data-message-label>Tell us what you need</label>
-            <textarea id="message" name="message" rows="4" required data-message></textarea>
-            <div class="chat-bar">
-              <label class="consent">
-                <input type="checkbox" name="consent" required data-consent />
-                <span data-consent-label>I agree to Toff Studio using my message to reply to me.</span>
-              </label>
-              <button type="submit" class="send" data-send>Send</button>
+      <!-- ============ KIND WORDS (filled from settings.js testimonials) ============ -->
+      <section class="section" id="testimonials" aria-labelledby="testimonials-title" data-testimonials-section>
+        <div class="container">
+          <div class="section-head">
+            <h2 class="label reveal" id="testimonials-title" data-land>Kind words</h2>
+          </div>
+          <div class="quotes" data-quotes></div>
+        </div>
+      </section>
+
+      <!-- ============ FINALE: "Tell us what you need" and the guided enquiry ============ -->
+      <section class="finale" id="contact" aria-labelledby="contact-title">
+        <h2 class="visually-hidden" id="contact-title">So... what will it be? Tell us what you need.</h2>
+        <!-- "So... what will it be?" already written, and the ink line that writes "Tell us what you need" -->
+        <div class="fin-heading" aria-hidden="true">
+          <div class="fin-reprise" data-reprise></div>
+          <div id="fin-line"></div>
+        </div>
+
+        <div class="enquiry" id="enquiry">
+          <form class="eq" data-enquiry novalidate>
+            <div class="eq-progress" aria-hidden="true"><i data-progress></i></div>
+            <p class="label eq-count" id="eq-count" data-count>Step 1 of 6</p>
+
+            <!-- 1 -->
+            <div class="eq-step" data-step="1" role="group" aria-labelledby="eq-count eq-q1" tabindex="-1">
+              <h3 class="eq-q" id="eq-q1"><label for="eq-business">What does your business do?</label></h3>
+              <p class="eq-hint">A sentence or two is plenty.</p>
+              <input class="eq-input" id="eq-business" name="business" type="text" maxlength="240" autocomplete="off" placeholder="For example: a bakery in Hackney" />
             </div>
-            <p class="chat-note">
-              <span data-privacy-note></span>
-              <a data-privacy-link hidden>Privacy policy</a>
-            </p>
-            <p class="chat-demo" data-demo-note hidden></p>
-            <p class="chat-status" role="status" aria-live="polite" data-status></p>
+
+            <!-- 2 -->
+            <div class="eq-step" data-step="2" role="group" aria-labelledby="eq-count eq-q2" tabindex="-1" hidden>
+              <h3 class="eq-q" id="eq-q2">What do you need?</h3>
+              <div class="eq-choices" role="radiogroup" aria-labelledby="eq-q2">
+                <label class="eq-choice"><input type="radio" name="need" value="A new website" /><span>A new website</span></label>
+                <label class="eq-choice"><input type="radio" name="need" value="A redesign" /><span>A redesign</span></label>
+                <label class="eq-choice"><input type="radio" name="need" value="Website and ongoing care" /><span>Website and ongoing care</span></label>
+                <label class="eq-choice"><input type="radio" name="need" value="Something else" /><span>Something else</span></label>
+              </div>
+            </div>
+
+            <!-- 3: the style picker (assets/enquiry) is mounted here -->
+            <div class="eq-step" data-step="3" role="group" aria-labelledby="eq-count eq-q3" tabindex="-1" hidden>
+              <h3 class="eq-q" id="eq-q3">How should it look?</h3>
+              <p class="eq-hint">Pick one of our sites as a starting point, or tell us your own idea.</p>
+              <div data-picker></div>
+            </div>
+
+            <!-- 4 -->
+            <div class="eq-step" data-step="4" role="group" aria-labelledby="eq-count eq-q4" tabindex="-1" hidden>
+              <h3 class="eq-q" id="eq-q4">When would you like it?</h3>
+              <div class="eq-choices" role="radiogroup" aria-labelledby="eq-q4">
+                <label class="eq-choice"><input type="radio" name="timing" value="As soon as possible" /><span>As soon as possible</span></label>
+                <label class="eq-choice"><input type="radio" name="timing" value="In 1–3 months" /><span>In 1–3 months</span></label>
+                <label class="eq-choice"><input type="radio" name="timing" value="Just exploring" /><span>Just exploring</span></label>
+              </div>
+            </div>
+
+            <!-- 5 -->
+            <div class="eq-step" data-step="5" role="group" aria-labelledby="eq-count eq-q5" tabindex="-1" hidden>
+              <h3 class="eq-q" id="eq-q5">Budget range</h3>
+              <div class="eq-choices" role="radiogroup" aria-labelledby="eq-q5">
+                <label class="eq-choice"><input type="radio" name="budget" value="£1,000–£2,000" /><span>£1,000–£2,000</span></label>
+                <label class="eq-choice"><input type="radio" name="budget" value="£2,000–£4,000" /><span>£2,000–£4,000</span></label>
+                <label class="eq-choice"><input type="radio" name="budget" value="£4,000+" /><span>£4,000+</span></label>
+                <label class="eq-choice"><input type="radio" name="budget" value="Not sure yet" /><span>Not sure yet</span></label>
+              </div>
+            </div>
+
+            <!-- 6 -->
+            <div class="eq-step" data-step="6" role="group" aria-labelledby="eq-count eq-q6" tabindex="-1" hidden>
+              <h3 class="eq-q" id="eq-q6">How can we reach you?</h3>
+              <div class="eq-field">
+                <label for="eq-name">Your name</label>
+                <input class="eq-input" id="eq-name" name="name" type="text" autocomplete="name" maxlength="120" />
+              </div>
+              <div class="eq-field">
+                <label for="eq-email">Email</label>
+                <input class="eq-input" id="eq-email" name="email" type="email" autocomplete="email" inputmode="email" maxlength="200" />
+              </div>
+              <div class="eq-field">
+                <label for="eq-phone">Phone <span class="eq-optional">(optional)</span></label>
+                <input class="eq-input" id="eq-phone" name="phone" type="tel" autocomplete="tel" inputmode="tel" maxlength="40" />
+              </div>
+              <label class="eq-consent">
+                <input type="checkbox" name="consent" id="eq-consent" />
+                <span><span data-consent-text>I agree to Toff Studio using these details to reply to my enquiry.</span> <a data-privacy-link target="_blank" rel="noopener" hidden>Privacy policy</a></span>
+              </label>
+            </div>
+
+            <p class="eq-error" role="alert" data-error></p>
+            <div class="eq-actions">
+              <button class="btn-gold" type="submit" data-next disabled>Continue <span aria-hidden="true">&rarr;</span></button>
+              <button class="eq-back" type="button" data-back hidden><span aria-hidden="true">&larr;</span> Back</button>
+            </div>
+            <p class="eq-demo" data-demo-note hidden>Preview: please don't enter personal details yet.</p>
           </form>
+
+          <!-- Thank you -->
+          <div class="eq-thanks" data-thanks tabindex="-1" aria-labelledby="eq-thanks-title" role="region" hidden>
+            <div class="eq-progress" aria-hidden="true"><i style="width: 100%"></i></div>
+            <h3 class="eq-q" id="eq-thanks-title">Thank you. We'll be in touch personally.</h3>
+            <dl class="eq-summary" data-summary></dl>
+            <p class="eq-reply" data-reply>We'll reply within <span data-reply-time></span></p>
+            <p class="eq-sent-note" data-sent-note hidden>This was a preview: nothing has been sent.</p>
+          </div>
         </div>
       </section>
     </main>
 
+    <!-- ============ FOOTER ============ -->
     <footer class="site-footer">
-      <p class="footer-name" data-studio-name>Toff Studio</p>
-      <a class="footer-email" data-email hidden></a>
-      <p class="footer-copy">© <span data-year>2026</span> <span data-studio-name>Toff Studio</span></p>
+      <div class="ft-inner">
+        <div class="ft-brand">
+          <p class="ft-name" data-studio-name>Toff Studio</p>
+          <p class="ft-line">Bespoke websites, sketched by hand and built to last.</p>
+        </div>
+        <div class="ft-col">
+          <p data-email></p>
+          <p class="ft-quiet" data-location>London</p>
+          <ul class="ft-col" data-social hidden></ul>
+        </div>
+        <ul class="ft-col" data-legal aria-label="Legal" hidden></ul>
+        <div class="ft-bottom">
+          <p>&copy; <span data-year>2026</span> <span data-studio-name>Toff Studio</span></p>
+          <p data-company hidden></p>
+        </div>
+      </div>
     </footer>
 
     <!-- ============ TEMPLATES ============ -->
+<!-- Showcase card templates. Paste once anywhere inside <body> (templates are not shown by themselves). -->
+<template id="sc-plan">
+  <div class="sc-card sc-card-plan">
+    <div class="sc-pic">
+      <svg class="sc-plan sc-ink" viewBox="0 0 370 240" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect data-draw="1" x="95" y="26" width="180" height="196" rx="10"/>
+        <path data-draw="2" d="M130 18 V34 M170 18 V34 M210 18 V34 M250 18 V34"/>
+        <path data-draw="3" d="M122 64 H236"/>
+        <rect data-draw="4" x="122" y="88" width="18" height="18" rx="4"/>
+        <path data-draw="5" d="M126 97 L131 102 L141 88"/>
+        <path data-draw="6" d="M152 97 H246"/>
+        <rect data-draw="7" x="122" y="128" width="18" height="18" rx="4"/>
+        <path data-draw="8" d="M126 137 L131 142 L141 128"/>
+        <path data-draw="9" d="M152 137 H232"/>
+        <rect data-draw="10" x="122" y="168" width="18" height="18" rx="4"/>
+        <path data-draw="11" d="M126 177 L131 182 L141 168"/>
+        <path data-draw="12" d="M152 177 H240"/>
+      </svg>
+    </div>
+    <div class="sc-cap">
+      <span class="sc-index">01 &mdash; Your brief</span>
+      <span class="sc-name">It starts with your plan</span>
+      <span class="sc-desc">Tell us what your business needs. We take it from there.</span>
+    </div>
+  </div>
+</template>
 
-    <!-- A style shown as a single-stroke drawing (kind: 'lineart') -->
-    <template id="tpl-lineart">
-      <section class="style" data-section>
-        <div class="style-inner">
-          <div class="style-caption" data-caption>
-            <h2 class="style-title" data-title></h2>
-            <p class="style-subtitle" data-subtitle></p>
-            <a class="style-link" data-link target="_blank" rel="noopener"></a>
-          </div>
-          <!-- Reserves the drawing's space; the drawing itself is in the ink layer -->
-          <div class="style-art lineart-art" data-art></div>
-        </div>
-      </section>
-    </template>
+<template id="sc-bluebird">
+  <a class="sc-card sc-card-link" aria-label="Bluebird Wellness, a doctor-led IV clinic in London: visit the live website (opens in a new tab)">
+    <div class="sc-pic">
+      <svg class="sc-face sc-ink" viewBox="190 112 420 884" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <path id="bb-face-main" data-y="516" d="M320.0,124.0 C320.0,131.0 320.0,139.0 320.0,146.0 C320.0,147.3 319.3,148.9 320.0,150.0 C323.7,155.7 334.0,170.5 342.0,180.0 C352.7,192.7 373.6,213.8 384.0,226.0 C391.4,234.6 400.1,246.7 404.6,253.0 C407.1,256.5 409.3,260.2 411.2,264.0 C413.2,268.0 415.3,272.5 416.4,277.0 C417.9,282.8 419.0,293.7 420.0,299.0 C420.7,302.4 421.4,305.8 422.6,309.0 C423.8,312.3 425.5,316.0 427.2,319.0 C428.8,321.9 430.7,324.6 433.0,327.0 C436.0,330.1 441.0,334.4 445.0,337.4 C448.8,340.2 452.9,342.6 457.0,344.8 C463.0,348.0 472.9,353.1 481.0,356.8 C490.3,361.0 507.0,367.5 513.0,370.2 C514.5,370.9 515.8,371.9 517.0,373.0 C518.7,374.6 521.7,377.8 523.0,380.0 C524.1,381.8 524.8,383.9 525.0,386.0 C525.2,388.7 524.9,392.8 524.2,396.0 C523.5,399.1 522.2,402.1 520.8,405.0 C518.7,409.3 513.3,417.7 511.6,422.0 C510.5,424.8 510.1,428.0 510.6,431.0 C511.1,434.2 513.0,438.5 514.6,441.0 C515.9,443.1 518.6,444.4 520.0,446.0 C521.2,447.4 521.5,449.6 522.8,450.8 C524.1,452.0 526.7,452.5 527.8,453.4 C528.6,454.0 529.4,455.0 529.6,456.0 C530.0,457.8 530.1,462.0 530.0,464.0 C530.0,465.4 529.6,466.7 529.2,468.0 C528.3,470.8 525.3,478.6 524.6,481.0 C524.5,481.5 524.8,482.1 525.2,482.4 C526.9,483.9 532.8,487.7 535.0,490.0 C536.6,491.6 537.7,494.5 538.4,496.0 C538.8,496.9 539.0,498.0 539.0,499.0 C539.0,500.8 539.2,504.5 538.4,507.0 C537.6,509.5 534.7,512.0 534.0,514.0 C533.4,515.6 533.8,517.3 534.0,519.0 C534.3,521.2 534.7,524.4 535.6,527.0 C536.5,529.7 537.7,532.6 539.4,535.0 C543.0,540.2 553.6,552.3 557.2,558.0 C559.3,561.3 560.4,565.2 561.0,569.0 C561.6,573.0 561.5,578.2 561.0,582.0 C560.5,585.5 559.1,589.2 557.8,592.0 C556.6,594.6 554.9,596.9 553.0,599.0 C550.9,601.3 547.9,603.7 545.0,605.6 C542.0,607.6 538.5,609.4 535.0,610.8 C529.7,612.9 520.5,616.2 513.0,618.2 C504.2,620.6 489.3,623.6 482.0,625.0 C477.7,625.8 471.7,625.9 469.0,626.4 C467.9,626.6 466.8,627.2 466.0,628.0 C464.7,629.2 463.0,632.2 461.0,633.8 C458.8,635.6 455.4,636.7 453.0,638.6 C449.3,641.5 443.1,646.3 439.0,651.0 C434.2,656.4 427.5,666.0 424.2,671.0 C422.1,674.1 420.7,677.6 419.2,681.0 C417.3,685.5 414.5,692.2 412.6,698.0 C410.0,705.8 405.9,717.8 403.8,728.0 C399.0,751.8 388.7,815.7 383.6,841.0 C381.0,854.2 376.9,869.0 373.4,880.0 C370.5,889.2 366.4,898.8 362.8,907.0 C359.5,914.5 355.9,921.9 351.8,929.0 C346.4,938.3 335.4,955.5 330.4,963.0 C327.8,966.9 323.6,971.5 321.8,974.0 C320.9,975.2 319.8,976.5 319.8,978.0 C319.7,980.0 319.8,982.0 320.0,984.0"/>
+        <path id="bb-face-eyebrow" data-y="302" d="M278.0,344.0 C280.0,341.5 285.8,333.8 290.0,329.0 C294.8,323.5 301.2,316.3 307.0,311.0 C312.6,305.9 318.8,300.6 325.0,297.0 C330.9,293.6 338.3,291.4 344.0,289.6 C348.9,288.0 353.9,286.7 359.0,286.0 C364.3,285.2 372.3,285.0 376.0,285.0 C377.7,285.0 379.3,285.9 381.0,286.0 C383.2,286.2 387.7,286.0 389.0,286.0"/>
+        <path id="bb-face-eye" data-y="366" d="M320.0,365.0 C326.2,365.0 348.2,364.5 357.0,365.0 C362.4,365.3 367.6,367.7 373.0,368.0 C379.0,368.3 389.7,367.2 393.0,367.0"/>
+        <path id="bb-face-nostril" data-y="416" d="M468.0,425.0 C468.8,425.3 471.2,426.9 473.0,427.0 C475.0,427.2 478.1,427.4 480.0,426.0 C483.0,423.9 488.2,417.2 491.0,414.4 C492.9,412.6 495.0,410.6 497.0,409.4 C498.8,408.3 501.7,407.5 503.0,407.4 C503.9,407.4 504.8,408.6 505.0,409.0 C505.2,409.4 504.2,409.8 504.0,410.0"/>
+        <path id="bb-face-lip-1" data-y="471" d="M458.0,495.0 C460.7,494.8 469.2,496.3 474.0,494.0 C479.3,491.5 485.0,485.1 490.0,480.0 C495.2,474.8 500.7,466.9 505.0,462.5 C508.3,459.2 512.7,455.5 516.0,453.8 C518.7,452.4 522.7,452.0 525.0,452.5 C527.2,453.0 529.2,456.2 530.0,457.0"/>
+        <path id="bb-face-lip-2" data-y="487" d="M466.0,496.5 C468.3,496.2 475.4,496.1 480.0,495.0 C485.0,493.8 490.7,491.5 496.0,489.5 C501.4,487.4 508.1,484.1 512.5,482.5 C515.7,481.3 519.8,480.2 522.5,480.0 C524.7,479.8 527.9,480.8 529.0,481.0"/>
+        <path id="bb-face-lip-3" data-y="512" d="M503.0,511.0 C504.7,511.2 509.7,511.9 513.0,512.0 C518.0,512.2 529.7,512.0 533.0,512.0"/>
+        <path id="bb-face-jaw" data-y="625" d="M293.0,609.0 C297.0,610.9 312.0,618.2 317.0,620.4 C318.9,621.3 320.9,622.0 323.0,622.4 C327.3,623.3 336.3,625.1 343.0,626.0 C349.8,626.9 358.0,627.7 364.0,628.0 C369.0,628.3 375.7,627.8 379.0,628.0 C380.7,628.1 382.3,629.0 384.0,629.0 C392.5,629.2 418.2,629.3 430.0,629.0 C438.4,628.8 449.5,627.3 455.0,627.0 C457.7,626.8 461.5,626.8 463.0,627.0 C463.5,627.1 463.8,627.8 464.0,628.0"/>
+      </svg>
+    </div>
+    <div class="sc-cap">
+      <span class="sc-index">02 &mdash; Selected work</span>
+      <span class="sc-name">Bluebird Wellness</span>
+      <span class="sc-desc">Doctor-led IV clinic, London</span>
+      <span class="sc-go">View the live site&nbsp;&rarr;</span>
+    </div>
+  </a>
+</template>
 
-    <!-- The Everest Climate Solutions air-conditioning animation (kind: 'everest-ac').
-         Markup copied from the Everest site's index.html (the unit and the
-         temperature readout of the cool scene), with classes prefixed "ev-". -->
-    <template id="tpl-everest">
-      <section class="style style--everest" data-section>
-        <!-- The room's colour, animated from warm peach back to the page colour -->
-        <div class="ev-room" data-ev-room aria-hidden="true"></div>
-        <div class="style-inner">
-          <div class="style-caption" data-caption>
-            <h2 class="style-title" data-title></h2>
-            <p class="style-subtitle" data-subtitle></p>
-            <a class="style-link" data-link target="_blank" rel="noopener"></a>
-          </div>
-          <div class="style-art ev-scene" data-art data-ev-scene>
-            <div class="ev-column">
-              <!--
-                The AC unit. The three images are 1441x452, pixel-aligned and stacked
-                exactly on top of each other; the timeline crossfades
-                closed → half open → open as the room cools.
-              -->
-              <div class="ev-unit" data-unit>
-                <picture class="ev-unit-img" data-unit-closed>
-                  <source srcset="assets/everest/ac-closed.webp" type="image/webp" />
-                  <img src="assets/everest/ac-closed.png" width="1441" height="452" alt="A white wall-mounted air conditioning unit" />
-                </picture>
-                <picture class="ev-unit-img ev-unit-img--later" data-unit-half>
-                  <source srcset="assets/everest/ac-half.webp" type="image/webp" />
-                  <img src="assets/everest/ac-half.png" width="1441" height="452" alt="" />
-                </picture>
-                <picture class="ev-unit-img ev-unit-img--later" data-unit-open>
-                  <source srcset="assets/everest/ac-open.webp" type="image/webp" />
-                  <img src="assets/everest/ac-open.png" width="1441" height="452" alt="" />
-                </picture>
-              </div>
+<template id="sc-everest">
+  <a class="sc-card sc-card-link" aria-label="Everest Climate Solutions, air conditioning installation: visit the live website (opens in a new tab)">
+    <div class="sc-pic sc-ac">
+      <div class="sc-ac-glow"></div>
+      <div class="sc-ac-glow sc-ac-cool"></div>
+      <div class="sc-ac-unit">
+        <img class="sc-ac-closed" data-src="ac-closed.png" alt="" width="1000" height="300">
+        <img class="sc-ac-open" data-src="ac-open.png" alt="" width="1000" height="302">
+      </div>
+      <div class="sc-ac-label">Room temperature</div>
+      <div class="sc-ac-num-wrap"><span class="sc-ac-num">32</span><sup>°C</sup></div>
+    </div>
+    <div class="sc-cap">
+      <span class="sc-index">03 &mdash; Selected work</span>
+      <span class="sc-name">Everest Climate Solutions</span>
+      <span class="sc-desc">Air conditioning installation</span>
+      <span class="sc-go">View the live site&nbsp;&rarr;</span>
+    </div>
+  </a>
+</template>
+<!-- Style picker for the guided enquiry ("How should it look?").
+     Paste once inside <body> (a <template> is not shown by itself). StylePicker.mount() clones it into the enquiry step.
+     Three choices: Bluebird's style, Everest's style, or plan it yourself. -->
+<template id="style-picker">
+  <div class="sp">
+    <div class="sp-options" role="radiogroup" aria-label="How should your website look?">
+      <div class="sp-option">
+        <button type="button" class="sp-card" role="radio" aria-checked="false" data-value="bluebird">
+          <svg class="sp-icon sp-icon-face" viewBox="-52 82 944 944" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path pathLength="1" d="M320.0,124.0 C320.0,131.0 320.0,139.0 320.0,146.0 C320.0,147.3 319.3,148.9 320.0,150.0 C323.7,155.7 334.0,170.5 342.0,180.0 C352.7,192.7 373.6,213.8 384.0,226.0 C391.4,234.6 400.1,246.7 404.6,253.0 C407.1,256.5 409.3,260.2 411.2,264.0 C413.2,268.0 415.3,272.5 416.4,277.0 C417.9,282.8 419.0,293.7 420.0,299.0 C420.7,302.4 421.4,305.8 422.6,309.0 C423.8,312.3 425.5,316.0 427.2,319.0 C428.8,321.9 430.7,324.6 433.0,327.0 C436.0,330.1 441.0,334.4 445.0,337.4 C448.8,340.2 452.9,342.6 457.0,344.8 C463.0,348.0 472.9,353.1 481.0,356.8 C490.3,361.0 507.0,367.5 513.0,370.2 C514.5,370.9 515.8,371.9 517.0,373.0 C518.7,374.6 521.7,377.8 523.0,380.0 C524.1,381.8 524.8,383.9 525.0,386.0 C525.2,388.7 524.9,392.8 524.2,396.0 C523.5,399.1 522.2,402.1 520.8,405.0 C518.7,409.3 513.3,417.7 511.6,422.0 C510.5,424.8 510.1,428.0 510.6,431.0 C511.1,434.2 513.0,438.5 514.6,441.0 C515.9,443.1 518.6,444.4 520.0,446.0 C521.2,447.4 521.5,449.6 522.8,450.8 C524.1,452.0 526.7,452.5 527.8,453.4 C528.6,454.0 529.4,455.0 529.6,456.0 C530.0,457.8 530.1,462.0 530.0,464.0 C530.0,465.4 529.6,466.7 529.2,468.0 C528.3,470.8 525.3,478.6 524.6,481.0 C524.5,481.5 524.8,482.1 525.2,482.4 C526.9,483.9 532.8,487.7 535.0,490.0 C536.6,491.6 537.7,494.5 538.4,496.0 C538.8,496.9 539.0,498.0 539.0,499.0 C539.0,500.8 539.2,504.5 538.4,507.0 C537.6,509.5 534.7,512.0 534.0,514.0 C533.4,515.6 533.8,517.3 534.0,519.0 C534.3,521.2 534.7,524.4 535.6,527.0 C536.5,529.7 537.7,532.6 539.4,535.0 C543.0,540.2 553.6,552.3 557.2,558.0 C559.3,561.3 560.4,565.2 561.0,569.0 C561.6,573.0 561.5,578.2 561.0,582.0 C560.5,585.5 559.1,589.2 557.8,592.0 C556.6,594.6 554.9,596.9 553.0,599.0 C550.9,601.3 547.9,603.7 545.0,605.6 C542.0,607.6 538.5,609.4 535.0,610.8 C529.7,612.9 520.5,616.2 513.0,618.2 C504.2,620.6 489.3,623.6 482.0,625.0 C477.7,625.8 471.7,625.9 469.0,626.4 C467.9,626.6 466.8,627.2 466.0,628.0 C464.7,629.2 463.0,632.2 461.0,633.8 C458.8,635.6 455.4,636.7 453.0,638.6 C449.3,641.5 443.1,646.3 439.0,651.0 C434.2,656.4 427.5,666.0 424.2,671.0 C422.1,674.1 420.7,677.6 419.2,681.0 C417.3,685.5 414.5,692.2 412.6,698.0 C410.0,705.8 405.9,717.8 403.8,728.0 C399.0,751.8 388.7,815.7 383.6,841.0 C381.0,854.2 376.9,869.0 373.4,880.0 C370.5,889.2 366.4,898.8 362.8,907.0 C359.5,914.5 355.9,921.9 351.8,929.0 C346.4,938.3 335.4,955.5 330.4,963.0 C327.8,966.9 323.6,971.5 321.8,974.0 C320.9,975.2 319.8,976.5 319.8,978.0 C319.7,980.0 319.8,982.0 320.0,984.0"/>
+            <path pathLength="1" d="M278.0,344.0 C280.0,341.5 285.8,333.8 290.0,329.0 C294.8,323.5 301.2,316.3 307.0,311.0 C312.6,305.9 318.8,300.6 325.0,297.0 C330.9,293.6 338.3,291.4 344.0,289.6 C348.9,288.0 353.9,286.7 359.0,286.0 C364.3,285.2 372.3,285.0 376.0,285.0 C377.7,285.0 379.3,285.9 381.0,286.0 C383.2,286.2 387.7,286.0 389.0,286.0"/>
+            <path pathLength="1" d="M320.0,365.0 C326.2,365.0 348.2,364.5 357.0,365.0 C362.4,365.3 367.6,367.7 373.0,368.0 C379.0,368.3 389.7,367.2 393.0,367.0"/>
+            <path pathLength="1" d="M468.0,425.0 C468.8,425.3 471.2,426.9 473.0,427.0 C475.0,427.2 478.1,427.4 480.0,426.0 C483.0,423.9 488.2,417.2 491.0,414.4 C492.9,412.6 495.0,410.6 497.0,409.4 C498.8,408.3 501.7,407.5 503.0,407.4 C503.9,407.4 504.8,408.6 505.0,409.0 C505.2,409.4 504.2,409.8 504.0,410.0"/>
+            <path pathLength="1" d="M458.0,495.0 C460.7,494.8 469.2,496.3 474.0,494.0 C479.3,491.5 485.0,485.1 490.0,480.0 C495.2,474.8 500.7,466.9 505.0,462.5 C508.3,459.2 512.7,455.5 516.0,453.8 C518.7,452.4 522.7,452.0 525.0,452.5 C527.2,453.0 529.2,456.2 530.0,457.0"/>
+            <path pathLength="1" d="M466.0,496.5 C468.3,496.2 475.4,496.1 480.0,495.0 C485.0,493.8 490.7,491.5 496.0,489.5 C501.4,487.4 508.1,484.1 512.5,482.5 C515.7,481.3 519.8,480.2 522.5,480.0 C524.7,479.8 527.9,480.8 529.0,481.0"/>
+            <path pathLength="1" d="M503.0,511.0 C504.7,511.2 509.7,511.9 513.0,512.0 C518.0,512.2 529.7,512.0 533.0,512.0"/>
+            <path pathLength="1" d="M293.0,609.0 C297.0,610.9 312.0,618.2 317.0,620.4 C318.9,621.3 320.9,622.0 323.0,622.4 C327.3,623.3 336.3,625.1 343.0,626.0 C349.8,626.9 358.0,627.7 364.0,628.0 C369.0,628.3 375.7,627.8 379.0,628.0 C380.7,628.1 382.3,629.0 384.0,629.0 C392.5,629.2 418.2,629.3 430.0,629.0 C438.4,628.8 449.5,627.3 455.0,627.0 C457.7,626.8 461.5,626.8 463.0,627.0 C463.5,627.1 463.8,627.8 464.0,628.0"/>
+          </svg>
+          <span class="sp-name">Like Bluebird</span>
+          <span class="sp-desc">Calm, soft, line-drawn</span>
+        </button>
+        <a class="sp-view" data-link="bluebird" target="_blank" rel="noopener noreferrer" hidden>View site<span class="sp-visually-hidden"> (Bluebird Wellness, opens in a new tab)</span>&nbsp;&#8599;</a>
+      </div>
+      <div class="sp-option">
+        <button type="button" class="sp-card" role="radio" aria-checked="false" data-value="everest">
+          <svg class="sp-icon" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path pathLength="1" d="M20 34 H100 Q110 34 110 44 V64 Q110 72 102 72 H18 Q10 72 10 64 V44 Q10 34 20 34 Z"/>
+            <path pathLength="1" d="M20 62 H100"/>
+            <path pathLength="1" d="M92 44 H100"/>
+            <path pathLength="1" d="M32 84 Q38 79 44 84 T56 84"/>
+            <path pathLength="1" d="M52 94 Q58 89 64 94 T76 94"/>
+            <path pathLength="1" d="M66 84 Q72 79 78 84 T90 84"/>
+          </svg>
+          <span class="sp-name">Like Everest</span>
+          <span class="sp-desc">Bright, clean, practical</span>
+        </button>
+        <a class="sp-view" data-link="everest" target="_blank" rel="noopener noreferrer" hidden>View site<span class="sp-visually-hidden"> (Everest Climate Solutions, opens in a new tab)</span>&nbsp;&#8599;</a>
+      </div>
+      <div class="sp-option">
+        <button type="button" class="sp-card" role="radio" aria-checked="false" data-value="own">
+          <svg class="sp-icon" viewBox="0 0 120 120" fill="none" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <path pathLength="1" d="M30 22 H80 Q86 22 86 28 V96 Q86 102 80 102 H30 Q24 102 24 96 V28 Q24 22 30 22 Z"/>
+            <path pathLength="1" d="M38 16 V28 M52 16 V28 M66 16 V28"/>
+            <path pathLength="1" d="M36 46 H70"/>
+            <path pathLength="1" d="M36 60 H62"/>
+            <path pathLength="1" d="M36 76 Q41 70 46 76 T56 76"/>
+            <path pathLength="1" d="M74 92 L104 44 L112 49 L82 97 Z"/>
+            <path pathLength="1" d="M74 92 L72 102 L82 97"/>
+          </svg>
+          <span class="sp-name">Plan it yourself</span>
+          <span class="sp-desc">Tell us your own idea</span>
+        </button>
+      </div>
+    </div>
+    <div class="sp-own" hidden>
+      <label class="sp-own-label" for="sp-own-text">Describe the look you have in mind <span class="sp-optional">(optional)</span></label>
+      <textarea class="sp-own-text" id="sp-own-text" rows="3" maxlength="600" placeholder="For example: calm and minimal, warm colours, or a site you love"></textarea>
+    </div>
+  </div>
+</template>
 
-              <!-- The room temperature, counted down by the timeline. Decorative:
-                   hidden from screen readers. -->
-              <div class="ev-readout" data-readout aria-hidden="true">
-                <p class="ev-readout-label">
-                  <span data-label-hot>Room temperature</span>
-                  <span data-label-cool>Just right</span>
-                </p>
-                <p class="ev-readout-temp" data-temp-colour>
-                  <span data-temp>32</span><span class="ev-readout-unit">°C</span>
-                </p>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
-    </template>
-
-    <!-- Finale previews -->
-    <template id="tpl-preview-lineart">
-      <li class="preview preview--lineart" data-preview>
-        <svg class="preview-art" aria-hidden="true" focusable="false"></svg>
-        <span class="visually-hidden" data-preview-label></span>
-      </li>
-    </template>
-    <template id="tpl-preview-everest">
-      <li class="preview preview--everest" data-preview>
-        <!-- The finished state: the open unit and the final temperature (as in the
-             Everest overview's "18°C · Just right") -->
-        <div class="ev-unit-final">
-          <picture>
-            <source srcset="assets/everest/ac-open.webp" type="image/webp" />
-            <img src="assets/everest/ac-open.png" width="1441" height="452" alt="" />
-          </picture>
-        </div>
-        <p class="ev-readout-small" aria-hidden="true">
-          <span class="ev-readout-small-temp" data-temp-final>18°C</span> · Just right
-        </p>
-        <span class="visually-hidden" data-preview-label></span>
-      </li>
-    </template>
-
-    <!-- Scripts: settings first, then libraries (local copies), then the site -->
-    <script src="settings.js"></script>
-    <script src="vendor/gsap-3.15.0.min.js"></script>
-    <script src="vendor/lenis-1.3.26.min.js"></script>
-    <script src="js/handwriting.js"></script>
-    <script src="js/everest-ac.js"></script>
-    <script src="script.js"></script>
+    <!-- ============ SCRIPTS (no libraries, nothing from other sites) ============ -->
+    <script src="assets/opening/opening.js"></script>
+    <script src="assets/handwriting/line-data.js"></script>
+    <script src="assets/handwriting/handwriting.js"></script>
+    <script src="assets/showcase/showcase.js"></script>
+    <script src="assets/finale/finale-data.js"></script>
+    <script src="assets/enquiry/style-picker.js"></script>
+    <script src="site.js"></script>
   </body>
 </html>

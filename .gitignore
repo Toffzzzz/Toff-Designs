@@ -11,3 +11,11 @@ node_modules/
 
 # Local tooling output
 .tmp/
+
+# Python caches
+__pycache__/
+
+# Delivered previews (kept locally for testing, not published)
+assets/handwriting/preview.html
+assets/handwriting/other.html
+assets/enquiry/preview.html
