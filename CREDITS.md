@@ -1,6 +1,80 @@
 # Credits and licences
 
-Everything below is licensed for commercial use on a website. Keep this file up to date whenever a font, library or image is added.
+Everything below is licensed for commercial use on a website. Keep this file up to date whenever a font, library or image is added. The licence texts sit beside the files they cover.
+
+## In use (Round 05)
+
+### The studio's fonts (self-hosted in `assets/studio/fonts/`)
+
+| Font | Used for | Copyright and licence | Licence file |
+|---|---|---|---|
+| **Cormorant Garamond** (variable, 300 to 700, roman and italic, Latin) | Display type on the studio's pages | Copyright 2015 the Cormorant Project Authors (github.com/CatharsisFonts/Cormorant). SIL Open Font License 1.1 | `assets/studio/fonts/OFL-cormorant-garamond.txt` |
+| **Work Sans** (variable regular and italic, and bold, Latin) | Text, buttons and labels on the studio's pages | Copyright 2019 The Work Sans Project Authors (github.com/weiweihuanghuang/Work-Sans). SIL Open Font License 1.1 | `assets/studio/fonts/OFL-work-sans.txt` |
+| **Inter** (variable, Latin) | Only inside drawn example sites: the websites SiteKit draws in Design yours, and the Everest mock-up on its case study | Copyright 2020 The Inter Project Authors (github.com/rsms/inter). SIL Open Font License 1.1 | `assets/studio/fonts/OFL-inter.txt` |
+| **Cormorant Garamond 400** (round 02's woff2, `fonts/cormorant-garamond/`) | The Lab's Letters with weight (the letters' outlines) | As above. SIL Open Font License 1.1 | `fonts/cormorant-garamond/OFL.txt` |
+
+### The concept sites' fonts (self-hosted in each `work/<slug>/fonts/`)
+
+All from the @fontsource npm packages, version 5.3.0, as woff2 Latin subsets. All SIL Open Font License 1.1; none has a Reserved Font Name.
+
+| Site | Font | Copyright | Package | Licence file |
+|---|---|---|---|---|
+| Saltmarsh | **Fraunces** (variable, with its SOFT and WONK axes) | Copyright 2020 The Fraunces Project Authors (github.com/undercasetype/Fraunces; Undercase Type: Phaedra Charles, Flavia Zimbardi) | @fontsource-variable/fraunces 5.3.0. `fraunces-latin-wght400-600-normal.woff2` is a modified subset (weights 400 to 600) made with fontTools varLib.instancer, which the OFL allows | `work/saltmarsh/fonts/OFL-Fraunces.txt` |
+| Saltmarsh | **Schibsted Grotesk** (variable) | Copyright 2023 The Schibsted-Grotesk Project Authors (github.com/schibsted/schibsted-grotesk) | @fontsource-variable/schibsted-grotesk 5.3.0 | `work/saltmarsh/fonts/OFL-Schibsted-Grotesk.txt` |
+| Morrow Coffee | **Young Serif** (400) | Copyright 2023 The Young Serif Project Authors (github.com/noirblancrouge/YoungSerif) | @fontsource/young-serif 5.3.0 | `work/morrow/fonts/OFL-young-serif.txt` |
+| Morrow Coffee | **Figtree** (variable) | Copyright 2022 The Figtree Project Authors (github.com/erikdkennedy/figtree) | @fontsource-variable/figtree 5.3.0 | `work/morrow/fonts/OFL-figtree.txt` |
+| Atelier Wren | **Bodoni Moda** (variable, optical sizes, roman and italic) | Copyright 2020 The Bodoni Moda Project Authors (github.com/indestructible-type/Bodoni; indestructible type*) | @fontsource-variable/bodoni-moda 5.3.0 | `work/atelier-wren/fonts/OFL-BodoniModa.txt` |
+| Atelier Wren | **Hanken Grotesk** (variable) | Copyright 2021 The Hanken Grotesk Project Authors (github.com/marcologous/hanken-grotesk; Hanken Design Co.) | @fontsource-variable/hanken-grotesk 5.3.0 | `work/atelier-wren/fonts/OFL-HankenGrotesk.txt` |
+| Hollis & Pine | **Albert Sans** (variable) | Copyright 2021 The Albert Sans Project Authors (github.com/usted/Albert-Sans) | @fontsource-variable/albert-sans 5.3.0 | `work/hollis-and-pine/fonts/OFL-albert-sans.txt` |
+| Hart & Sons | **Archivo** (variable weight and width) | Copyright 2020 The Archivo Project Authors (github.com/Omnibus-Type/Archivo) | @fontsource-variable/archivo 5.3.0 | `work/hart-and-sons/fonts/OFL-Archivo.txt` |
+
+The Linden Clinic demo page uses the visitor's system fonts.
+
+### The pen: Hershey cursive
+
+The pen's lines (the two clients' names, "Tell us what you need", the footer signature) and the Lab's Ink that moves are drawn from the public-domain Hershey **cursive** single-line font (`tools/handwriting/cursive.jhf`), through `tools/handwriting/build_line.py` (into `assets/handwriting/line-data.js`), `assets/studio/inkwriter-data.js` and `assets/lab/pieces/ink/cursive-data.js`. The acknowledgement must stay with the font data (it is in `tools/handwriting/hershey-licence.txt`, at the top of `cursive-data.js`, and in full under Round 02 below): "The Hershey Fonts were originally created by Dr. A. V. Hershey while working at the U. S. National Bureau of Standards. The format of the Font data in this distribution was originally created by James Hurt, Cognition, Inc."
+
+### Libraries (self-hosted in `vendor/`)
+
+| Library | Version | Licence | Files | Used by |
+|---|---|---|---|---|
+| **three.js** | r186 (npm `three` 0.186.1) | MIT, "Copyright © 2010-2026 three.js authors" (`vendor/three/LICENSE`) | `three.core.js`, `three.module.js`, `three.webgpu.js`, `three.tsl.js`, minified with esbuild 0.28.2 (no bundling; the `@license` comments kept); addons `controls/OrbitControls.js`, `environments/RoomEnvironment.js`, `geometries/RoundedBoxGeometry.js` | Hollis & Pine's vase; the Lab's Shape a vase and A million specks |
+| **Rapier 2D** | @dimforge/rapier2d-compat 0.19.3 (WebAssembly inlined) | Apache License 2.0, "Copyright 2020 Dimforge EURL" (`vendor/rapier/rapier2d/LICENSE`, taken from the rapier.js repository at tag v0.19.3, because the npm package ships none) | `rapier.mjs`, as published | The Lab's Letters with weight |
+| **Rapier 3D** | @dimforge/rapier3d-compat 0.19.3 | Apache License 2.0, as above (`vendor/rapier/rapier3d/LICENSE`) | `rapier.mjs`, as published | Not loaded by any page (vendored, kept) |
+| **axe-core** | 4.14.0 | Mozilla Public License 2.0, Copyright (c) 2015 - 2026 Deque Systems, Inc. (`tests/vendor/axe-core-LICENSE.txt`) | `tests/vendor/axe.min.js` | The test suite only; never loaded by a page |
+
+GSAP 3.15.0 and Lenis 1.3.26 are still in `vendor/` from Round 01 and are not loaded (see below).
+
+### Algorithms written for this site, after published methods
+
+The Lab's Your initials in liquid gold (`assets/lab/pieces/gold.js`) implements, from the published papers: Stefan Gustavson's anti-aliased edge-distance estimate, the 8SSEDT signed distance transform (Danielsson; Leymarie and Levine) and B-spline bicubic texture sampling (GPU Gems 2, chapter 20). No code was copied.
+
+### Pictures
+
+**Real work (the owner's clients; never AI-made):**
+
+- `assets/studio/cases/bluebird-laptop.webp`, `bluebird-phone.webp`: screenshots of the owner's Bluebird Wellness site.
+- `work/bluebird/img/bb-*.webp`: crops of screenshots of the live Bluebird site (its own line drawings).
+- `assets/home/captures/hero/bluebird-*.webp`, `assets/home/captures/films/bluebird-*`: screenshots and a scroll capture of the live Bluebird site (https://toffzzzz.github.io/bluebird-wellness/), made by `tools/capture/`.
+- `assets/home/captures/hero/everest-*.webp`, `assets/home/captures/films/everest-*`: screenshots and a scroll capture of the Everest Climate Solutions site, from its local finished build (`~/Downloads/everest-climate-solutions/dist`), read-only.
+- `assets/everest/ac-closed`, `ac-half`, `ac-open` (`.webp`): the air conditioner pictures from the Everest project, used by the cooling scene on its case study.
+- `assets/studio/cases/sketch-bluebird.webp`, `sketch-everest.webp` (and the copies `work/bluebird/img/sketch-bluebird-*.webp`, `work/everest/img/sketch-everest-*.webp`): the pencil sketches shown on the case studies, supplied with the round 03 files. They look generated (photos of a notebook): owner to confirm (DECISIONS.md).
+- `assets/face-line.svg`: the Bluebird face drawing, supplied by the owner (round 01).
+
+**Made for this site:**
+
+- The hero's still sketches (`assets/home/captures/hero/*-sketch*.webp`): each screenshot drawn by the site's own sketch shader.
+- The concept sites' screenshots and previews (`assets/home/captures/hero/`, `assets/home/captures/concepts/`), the Lab's stills (`assets/lab/stills/`), the Lab band still (`assets/home/captures/lab-band*.webp`) and the making-of captures (`assets/lab/pieces/making/`): captures of this repo's own pages, made by `tools/capture/`.
+- Link-preview images (`og-image.png`, `work/*/img/og.jpg`, `work/saltmarsh/img/saltmarsh-share.jpg`, `work/hart-and-sons/img/share.png`), icons (`favicon.svg`, `favicon.ico`, `apple-touch-icon.png`, `work/*/img/icon.svg`) and Morrow's `rule.svg`: made for this site.
+- Every illustration on the concept sites (Hart & Sons' copper pipework, the maps, Morrow's cup and hand-drawn accents, Atelier Wren's swatches, Hollis & Pine's product drawings, Saltmarsh's room plan): drawn in code (SVG, canvas, WebGL).
+- The Lab's sample logos (`assets/studio/lab-logos/`): made for this site (round 04 files).
+
+**Stand-ins for made-up businesses only:**
+
+- `assets/studio/playground/playground-*.webp` (boutique, café, clinic, restaurant, salon, trades), and the copies in `work/saltmarsh/img/` (restaurant, also as AVIF), `work/morrow/img/` (café, with 640 and 960 versions), `work/atelier-wren/img/` (salon) and `work/hollis-and-pine/img/` (boutique, with a 640 version). Example interiors for the made-up businesses, supplied with the round 03 files; they stand for no real premises or people. They look AI-generated. **Source and licence not stated with the round 03 files: owner to confirm before launch**, and replace them through IMAGE-PROMPTS.md.
+
+## Earlier records (Rounds 01 to 04, unchanged)
+
 
 ## In use (Round 03)
 

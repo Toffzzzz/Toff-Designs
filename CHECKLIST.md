@@ -1,5 +1,139 @@
 # Quality checklist
 
+Run **every** item at the end of every round. When the owner reports a bug, add a check here that would have caught it, and a test for it in tests/ where a test can catch it.
+
+How each item is checked is written at the end of its line:
+
+- **suite name** (for example *pages*): the test suite in `tests/`, run with `python3 tests/run_all.py` (every suite) or `python3 tests/run_all.py --suite pages` (one). It starts its own server and blocks or mocks the Worker.
+- **Lighthouse**: `npx lighthouse` against `python3 tools/serve.py <port> --gzip`, one page at a time, desktop and mobile.
+- **screenshots**: viewport frames taken while scrolling, at 390, 820, 1024 and 1440px (and a quick pass at 320 and 2560), tiled into contact sheets in scratch/ and looked at.
+- **by hand**: a person (or the lead) tries it.
+
+## Pages
+
+- [ ] Every page (home, Lab, 404, both case studies, all five concept sites with their inner pages, the Linden Clinic page) loads at 390 and 1440 with no console errors, no failed requests and no responses of 400 or above, icons included. *pages*
+- [ ] Nothing is requested from other websites (fonts, scripts, models and images are self-hosted). *pages*
+- [ ] No sideways scrolling at 320 and 390px. *pages*
+- [ ] One h1 per page; a title, a description and link-preview tags (og:title, og:description, og:image) on every page. *pages*
+- [ ] Every internal link resolves; external links that open a new tab carry rel="noopener". *pages*
+- [ ] The old addresses land on the nearest new part: the home page's #main, #opening, #ai-assistants, #selected-work, #try-it, #playground, #draw-your-site, #one-line, #what-we-build, #lab-teaser, #how-it-works, #included, #testimonials, #about, #contact and #enquiry, and the Lab's #build-itself, #particles-band, #one-line, #liquid-gold and #moving-ink. *pages*
+- [ ] The 404 page works at a made-up address under /Toff-Designs/ and at the root of a domain (it works out its base from the address), and reads well as plain text if its styles fail. *pages*
+- [ ] The home page is at most 12 laptop screens (1440×900) long with Kind words and About hidden. *pages*
+- [ ] Canonical links, JSON-LD and sitemap.xml come from `siteUrl` in settings.js. *pages*
+- [ ] Every page looks deliberate at 320, 390, 820, 1024, 1440 and 2560px: nothing overlapping, cut off or hidden behind the top bar or the concierge button; generous space; calm and premium; gold used sparingly. *screenshots*
+
+## Motion
+
+- [ ] Laptops: scroll-driven parts start only on screen and only ever move forward; scrolling down and back up reverses nothing. *motion*
+- [ ] Phones: each part plays by itself when reached, and once started always finishes. *motion*
+- [ ] Nothing is pinned: nothing but the top bar and the concierge button is fixed or sticky while its section scrolls past. *motion*
+- [ ] A fresh visit opens at the top; in-page links add no #fragment. *motion*
+- [ ] Back with and without bfcache (Playwright's default --disable-back-forward-cache removed, channel "chromium", go_back with wait_until "commit", and pageshow's persisted confirmed): you stay in place, what's on screen plays again, what's above plays as you scroll back up. Safari's late scroll restore is waited for (handwriting.settleMs). *motion*
+- [ ] Jumping down (a section link, a scrollbar drag) plays what you land on. *motion*
+- [ ] Reduced motion shows everything finished, with no animation, on every page including the concept sites and the Lab (a still with Play). *motion*
+- [ ] Pixel checks find no ink outside what has been drawn (the pen, the drop line, the process line). *motion*
+- [ ] Automatic motion stops for good when the visitor takes over; nothing advances by itself; anything that moves by itself for more than five seconds has a pause control. *lab*, *hero*, by hand
+- [ ] Motion looks natural, never rushed, at every width, in the two screen recordings (laptop and phone). *screenshots*
+
+## Hero
+
+- [ ] Painting increases the revealed area and never decreases it. *hero*
+- [ ] If the visitor doesn't paint, it finishes by itself (after hero.idleMs, in about hero.autoPaintMs); on phones it plays by itself and a tap finishes it. *hero*
+- [ ] "Another site →" swaps in the next site without errors, and the caption says which site it is and whether it's a client's site or a concept. *hero*
+- [ ] With WebGL switched off, the still sketch turns into the finished screenshot. *hero*
+- [ ] Reduced motion (and Save-Data) shows the finished site. *hero*
+- [ ] The still sketch is requested with fetchpriority="high", and the stage reserves its size (no layout shift). *hero*
+- [ ] The stage is role="img" with a label naming the site, takes no keys, and "Build it" finishes it from the keyboard. *hero*
+- [ ] The home page requests nothing from vendor/three, vendor/rapier or assets/lab. *hero*
+- [ ] The sketch reads as a hand drawing (no mush in small text, no double outlines) for every site in the list. *screenshots*
+
+## AI
+
+- [ ] With the Worker blocked, every AI feature (the AI demo, the concierge, Design yours' Describe and Sketch) answers from the page and says so, with no errors. *ai*
+- [ ] With a mocked stream, a tool call changes the site in the frame and shows its confirmation card. *ai*
+- [ ] The message API ignores other origins and unknown actions, and checks every argument. *ai*
+- [ ] The concierge never sends a name, email address or phone number to the Worker (every request inspected). *ai*
+- [ ] The brief downloads. *ai*
+- [ ] Design yours works in all three ways (Pick, Sketch, Describe), and Describe falls back offline. *ai*
+- [ ] Live answers stop after ai.maxLiveAnswers (8) per visit, for each of the AI demo, the concierge and Describe. *ai*
+- [ ] Every AI part shows its notice: it's an AI, questions go to Anthropic and aren't stored, please don't type personal details. *ai*, *screenshots*
+- [ ] The Worker's own tests pass: `node test-round-05-routes.mjs`, `node test-sketch-ai-worker.mjs` and `node test-sketch-counter.mjs` in ~/Documents/toff-studio-tools/optional-ai/. *by hand*
+- [ ] After every Worker deploy: /chat and /read-sketch answer (one small request each, with Origin https://toffzzzz.github.io); each new route answers once; Origin https://example.com gets 403; the 21st request in a minute gets 429 (send requests that fail validation, so nothing is spent). Never print the key. *by hand*
+- [ ] The clinic never gives medical advice (it offers to book, NHS 111 or 999) and never asks for personal details. *ai*, by hand once live
+
+## Concepts
+
+- [ ] Each concept site's features work end to end, by mouse, keyboard and touch (Saltmarsh: booking, menu filters, private dining, vouchers; Morrow: build your drink, order ahead, open now, loyalty card; Atelier Wren: lookbook, before-and-after, booking with the patch-test rule, gift card; Hollis & Pine: shop filters, product page, basket, checkout preview; Hart & Sons: instant quote, postcode check, book a visit). *concepts*
+- [ ] The concept ribbon is on every page, in the page flow, reachable by keyboard, and hidden with ?embed. *concepts*
+- [ ] No reviews, testimonials, ratings, awards, accreditations, guarantees or "years in business". *concepts*
+- [ ] Every phone number is in the drama range (020 7946 0000 to 0999) or one of 999, 111 and 0800 111 999. *concepts*
+- [ ] Every concept page carries `<meta name="robots" content="noindex">`. *concepts*
+- [ ] The facts the AI demo uses (hours, prices, rules) are exactly the same on the concept sites and in assets/studio/aiassist.js. *ai*, *concepts*
+- [ ] Each site has its own art direction, none uses the studio's devices, and its signature moment runs only while on screen. *screenshots*
+
+## Lab
+
+- [ ] Every piece opens, runs, pauses and is disposed of; after visiting all eight, no WebGL contexts are left beyond the current one. *lab*
+- [ ] lab.html#<id> opens straight to that piece, and the old anchors land on theirs. *lab*
+- [ ] With hardwareConcurrency at 2, each piece opens as a still with Play. *lab*
+- [ ] The index shows each title, its one line and its still; arrow keys move between pieces and Escape goes back. *lab*
+- [ ] Sound stays off until turned on. *lab*
+- [ ] Every piece works by touch, and by keyboard where that makes sense, and has a text description for screen readers. *lab*, *a11y*
+
+## Accessibility
+
+- [ ] axe finds no serious or critical issues on any page, at 390 and 1440. *a11y*
+- [ ] The keyboard reaches every control in a sensible order, with a visible focus ring; dialogs and the phone menu trap focus, close with Escape and return focus. *a11y*
+- [ ] Computed contrast passes WCAG 2.2 AA for every piece of text (4.5 : 1, large text 3 : 1). *a11y*
+- [ ] Tap targets are at least 44px on phones. *a11y*
+- [ ] Every image has alt text (decorative ones empty alt), and every canvas a text alternative. *a11y*
+- [ ] Lighthouse accessibility is 100 on every page. *Lighthouse*
+
+## Copy
+
+- [ ] No em dashes in visible text. *copy*
+- [ ] No stock words (bespoke, seamless, elevate, effortless, world-class, supercharge, unlock, delve, crafted). *copy*
+- [ ] No uppercase text with letter-spacing on the studio's pages. *copy*
+- [ ] No full stops at the end of headings; headings in sentence case. *copy*
+- [ ] No labels above headings, no 01/02/03 numbering, no equal card grids or stat rows on the studio's pages, no slogans, no glows, blur or gradient text, no fake window chrome, no decorative motion. *screenshots* (the ai-tells-auditor review)
+- [ ] UK English, plain and specific; proper quotes and apostrophes; a non-breaking space before units (32 °C). *copy*, *screenshots*
+
+## Performance
+
+- [ ] The median frame is under 17.5 ms and the 95th percentile under 25 ms while the hero paints and the case films play (headed browser on the Mac, real graphics chip; skipped with TOFF_CI). *performance*
+- [ ] The home page before any interaction is at most 900 KB on a laptop and 700 KB on a phone (compressed), with at most 150 KB of JavaScript. *performance*
+- [ ] Each concept site is under 400 KB before interaction. *performance*
+- [ ] Lighthouse: performance at least 95 on desktop and 90 on mobile; accessibility and best practices 100; SEO 100 (on the concept sites apart from the indexing check, which noindex fails on purpose); largest contentful paint under 2 s on desktop and 2.5 s on mobile; layout shift under 0.02. Home page, every concept site and the Lab. *Lighthouse*
+- [ ] Each case film is under 2.5 MB and loads only when near; each concept preview is under 600 KB and loads on first hover. *performance*
+
+## Safety and content
+
+- [ ] Nothing on the site claims anything about the studio that isn't true: no testimonials, reviews, ratings, client names, prices, timeframes, awards, accreditations, statistics or results. *by hand*
+- [ ] No studio prices anywhere; the enquiry's budget ranges are the only amounts; the hidden price line in How we work stays hidden. *copy*, by hand
+- [ ] No AI-made pictures of the owner, Bluebird or Everest; the case studies use only real screenshots and captures. *by hand*
+- [ ] Kind words and About stay hidden until real; showPlaceholders, data-unfinished and ?unfinished work as before. *pages*
+- [ ] Every form and enquiry stays in demo mode until chatMode is 'live' and formEndpoint and legal.privacyPolicyUrl are both set; the concierge's contact step is never sent to the AI. *ai*
+- [ ] The concept sites store nothing beyond sessionStorage and send nothing. *concepts*
+- [ ] The Everest link says "Live site coming soon" while links.everest is empty. *pages*
+- [ ] The Anthropic API key appears in no file, command, log or message (the guard hook blocks it). *by hand*
+- [ ] Every font, library and image is in CREDITS.md with its licence and version. *by hand*
+- [ ] DESIGN.md matches settings.js and tokens.css; DECISIONS.md has a line for every decision made this round. *by hand*
+- [ ] COMPLIANCE.md and privacy-policy-draft.md describe every AI route and what it sends. *by hand*
+
+## Release
+
+- [ ] `python3 tests/run_all.py` passes every suite on the branch, and again on main after the merge. *all suites*
+- [ ] The GitHub Actions run (.github/workflows/checks.yml, TOFF_CI=1) passes on the pushed branch. *by hand* (gh run list)
+- [ ] git status is clean; files were added by name (never "git add ."); no zips, scratch, handover or test output committed. *by hand*
+- [ ] Nothing that was in assets/ before the round was deleted or moved (compare with the backup-before-round-NN branch). *by hand*
+- [ ] main is pushed only after the owner has replied "ship it" (.claude/ship-approved, then deleted). *by hand*
+- [ ] After going live: the home page, the Lab, one concept site and a made-up address (the 404 page) load on https://toffzzzz.github.io/Toff-Designs/ with no errors. *by hand*
+- [ ] **Before launch:** the legal pages, a real email address, the privacy policy, company details and the enquiry going live, as listed in COMPLIANCE.md. *by hand*
+
+# Retired in Round 05
+
+The checks below are the Round 01 to 04 checklist, kept unchanged for the record. They test parts Round 05 retired (the opening, the four phrases, the showcase pictures, the Try it tabs, the six-step enquiry, the Sketch lens, round 04's top bar); the scripts they name stay in /tmp/toff-tests and test retired parts.
+
 Run **every** item at the end of every round. When the owner reports a bug, add a check here that would have caught it. Preview with `python3 tools/serve.py 8000`, then test at **390, 820, 1024 and 1440px** wide (and 1920px for the line joins), screenshotting key moments of each section and looking at them. The automated checks (kept outside the repo, in /tmp/toff-tests/tools) cover most of these: `check-round-03.py`, `check-round-03-features.py` and `check-sketch-ai.py` on `assets/studio/site.html` **and** on `index.html`, `check-style-picker.py` on `assets/enquiry/`, `check-round-02.py` on `assets/handwriting/`, and `node test-sketch-ai-worker.mjs` in ~/Documents/toff-studio-tools/optional-ai/.
 
 ## Whole page
