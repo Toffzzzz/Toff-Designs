@@ -1,0 +1,26 @@
+{
+ "layout": "bluebird-mobile",
+ "width": 400,
+ "height": 198,
+ "strokePx": 2.2,
+ "totalLength": 1962.7,
+ "phrases": [
+  {
+   "text": "Bluebird",
+   "startFrac": 0.0,
+   "endFrac": 0.46964,
+   "baseline": 52,
+   "capTop": 20.8,
+   "descBottom": 104.8
+  },
+  {
+   "text": "Wellness",
+   "startFrac": 0.46964,
+   "endFrac": 0.9044,
+   "baseline": 132.0,
+   "capTop": 100.8,
+   "descBottom": 184.8
+  }
+ ],
+ "cards": []
+}

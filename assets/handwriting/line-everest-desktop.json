@@ -1,0 +1,35 @@
+{
+ "layout": "everest-desktop",
+ "width": 1312,
+ "height": 254,
+ "strokePx": 3.2,
+ "totalLength": 3319.6,
+ "phrases": [
+  {
+   "text": "Everest Climate",
+   "startFrac": 0.0,
+   "endFrac": 0.56109,
+   "baseline": 52,
+   "capTop": 10.4,
+   "descBottom": 122.4
+  },
+  {
+   "text": "Solutions",
+   "startFrac": 0.56109,
+   "endFrac": 0.9091,
+   "baseline": 162.0,
+   "capTop": 120.4,
+   "descBottom": 232.4
+  }
+ ],
+ "cards": [
+  {
+   "phrase": "Everest Climate",
+   "kind": "film",
+   "x": 0,
+   "y": 12,
+   "w": 640,
+   "h": 620
+  }
+ ]
+}

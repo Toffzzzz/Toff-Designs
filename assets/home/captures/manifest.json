@@ -1,0 +1,266 @@
+{
+ "about": "The pictures and moving pictures the home page shows (Round 05). Phase 4 replaces the interim files with real captures; paths are relative to the site root. The first hero entry is also written into index.html (the stage's <picture>), so change both together.",
+ "hero": [
+  {
+   "id": "bluebird",
+   "name": "Bluebird Wellness",
+   "kind": "client",
+   "caption": "Bluebird Wellness, a client’s site",
+   "laptop": {
+    "site": "assets/home/captures/interim/bluebird-laptop.webp",
+    "sketch": "assets/home/captures/interim/bluebird-laptop-sketch-1968.webp",
+    "sketchSrcset": "assets/home/captures/interim/bluebird-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/bluebird-laptop-sketch-1968.webp 1968w",
+    "w": 960,
+    "h": 400
+   },
+   "phone": {
+    "site": "assets/home/captures/interim/bluebird-phone.webp",
+    "sketch": "assets/home/captures/interim/bluebird-phone-sketch-716.webp",
+    "sketchSrcset": "assets/home/captures/interim/bluebird-phone-sketch-358.webp 358w, assets/home/captures/interim/bluebird-phone-sketch-716.webp 716w",
+    "w": 390,
+    "h": 512
+   }
+  },
+  {
+   "id": "atelier-wren",
+   "name": "Atelier Wren",
+   "kind": "concept",
+   "caption": "Atelier Wren, a concept site",
+   "laptop": {
+    "site": "assets/home/captures/interim/atelier-wren-laptop.webp",
+    "sketch": "assets/home/captures/interim/atelier-wren-laptop-sketch-1968.webp",
+    "sketchSrcset": "assets/home/captures/interim/atelier-wren-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/atelier-wren-laptop-sketch-1968.webp 1968w",
+    "w": 2160,
+    "h": 900
+   },
+   "phone": {
+    "site": "assets/home/captures/interim/atelier-wren-phone.webp",
+    "sketch": "assets/home/captures/interim/atelier-wren-phone-sketch-716.webp",
+    "sketchSrcset": "assets/home/captures/interim/atelier-wren-phone-sketch-358.webp 358w, assets/home/captures/interim/atelier-wren-phone-sketch-716.webp 716w",
+    "w": 780,
+    "h": 1024
+   }
+  },
+  {
+   "id": "saltmarsh",
+   "name": "Saltmarsh",
+   "kind": "concept",
+   "caption": "Saltmarsh, a concept site",
+   "laptop": {
+    "site": "assets/home/captures/interim/saltmarsh-laptop.webp",
+    "sketch": "assets/home/captures/interim/saltmarsh-laptop-sketch-1968.webp",
+    "sketchSrcset": "assets/home/captures/interim/saltmarsh-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/saltmarsh-laptop-sketch-1968.webp 1968w",
+    "w": 2160,
+    "h": 900
+   },
+   "phone": {
+    "site": "assets/home/captures/interim/saltmarsh-phone.webp",
+    "sketch": "assets/home/captures/interim/saltmarsh-phone-sketch-716.webp",
+    "sketchSrcset": "assets/home/captures/interim/saltmarsh-phone-sketch-358.webp 358w, assets/home/captures/interim/saltmarsh-phone-sketch-716.webp 716w",
+    "w": 780,
+    "h": 1024
+   }
+  },
+  {
+   "id": "morrow",
+   "name": "Morrow Coffee",
+   "kind": "concept",
+   "caption": "Morrow Coffee, a concept site",
+   "laptop": {
+    "site": "assets/home/captures/interim/morrow-laptop.webp",
+    "sketch": "assets/home/captures/interim/morrow-laptop-sketch-1968.webp",
+    "sketchSrcset": "assets/home/captures/interim/morrow-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/morrow-laptop-sketch-1968.webp 1968w",
+    "w": 2160,
+    "h": 900
+   },
+   "phone": {
+    "site": "assets/home/captures/interim/morrow-phone.webp",
+    "sketch": "assets/home/captures/interim/morrow-phone-sketch-716.webp",
+    "sketchSrcset": "assets/home/captures/interim/morrow-phone-sketch-358.webp 358w, assets/home/captures/interim/morrow-phone-sketch-716.webp 716w",
+    "w": 780,
+    "h": 1024
+   }
+  },
+  {
+   "id": "hollis-and-pine",
+   "name": "Hollis & Pine",
+   "kind": "concept",
+   "caption": "Hollis & Pine, a concept site",
+   "laptop": {
+    "site": "assets/home/captures/interim/hollis-and-pine-laptop.webp",
+    "sketch": "assets/home/captures/interim/hollis-and-pine-laptop-sketch-1968.webp",
+    "sketchSrcset": "assets/home/captures/interim/hollis-and-pine-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/hollis-and-pine-laptop-sketch-1968.webp 1968w",
+    "w": 2160,
+    "h": 900
+   },
+   "phone": {
+    "site": "assets/home/captures/interim/hollis-and-pine-phone.webp",
+    "sketch": "assets/home/captures/interim/hollis-and-pine-phone-sketch-716.webp",
+    "sketchSrcset": "assets/home/captures/interim/hollis-and-pine-phone-sketch-358.webp 358w, assets/home/captures/interim/hollis-and-pine-phone-sketch-716.webp 716w",
+    "w": 780,
+    "h": 1024
+   }
+  },
+  {
+   "id": "hart-and-sons",
+   "name": "Hart & Sons Plumbing",
+   "kind": "concept",
+   "caption": "Hart & Sons Plumbing, a concept site",
+   "laptop": {
+    "site": "assets/home/captures/interim/hart-and-sons-laptop.webp",
+    "sketch": "assets/home/captures/interim/hart-and-sons-laptop-sketch-1968.webp",
+    "sketchSrcset": "assets/home/captures/interim/hart-and-sons-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/hart-and-sons-laptop-sketch-1968.webp 1968w",
+    "w": 2160,
+    "h": 900
+   },
+   "phone": {
+    "site": "assets/home/captures/interim/hart-and-sons-phone.webp",
+    "sketch": "assets/home/captures/interim/hart-and-sons-phone-sketch-716.webp",
+    "sketchSrcset": "assets/home/captures/interim/hart-and-sons-phone-sketch-358.webp 358w, assets/home/captures/interim/hart-and-sons-phone-sketch-716.webp 716w",
+    "w": 780,
+    "h": 1024
+   }
+  }
+ ],
+ "films": {
+  "about": "Each device plays a frame sequence: frames is a pattern with {i} (1-based, zero-padded to pad digits), count frames, w x h pixels. count 0 (or no frames) uses the fallback.",
+  "bluebird": {
+   "laptop": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "w": 1440,
+    "h": 900,
+    "poster": ""
+   },
+   "phone": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "w": 390,
+    "h": 844,
+    "poster": ""
+   },
+   "fallback": {
+    "type": "scroll",
+    "laptop": {
+     "src": "assets/studio/cases/bluebird-laptop.webp",
+     "w": 960,
+     "h": 4933,
+     "endY": 560
+    },
+    "phone": {
+     "src": "assets/studio/cases/bluebird-phone.webp",
+     "w": 390,
+     "h": 5200,
+     "endY": 900
+    },
+    "about": "Until frames exist: the real site scrolls inside each screen from its top to endY (pixels in the picture) as the film plays."
+   }
+  },
+  "everest": {
+   "laptop": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "w": 1440,
+    "h": 900,
+    "poster": ""
+   },
+   "phone": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "w": 390,
+    "h": 844,
+    "poster": ""
+   },
+   "fallback": {
+    "type": "everest-mock",
+    "closed": "assets/showcase/ac-closed.png",
+    "open": "assets/showcase/ac-open.png",
+    "from": 32,
+    "to": 26,
+    "about": "Until frames exist: the mock-up of the design, with the air conditioner opening as the room cools from 32 to 26 °C."
+   }
+  }
+ },
+ "concepts": {
+  "about": "One per concept site, in the list's order. still: a first-screen picture (720x450). preview: an optional short frame sequence of the site's signature moment, played on hover or focus on laptops.",
+  "saltmarsh": {
+   "still": {
+    "src": "assets/home/captures/interim/saltmarsh-still.webp",
+    "w": 720,
+    "h": 450
+   },
+   "preview": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "fps": 24,
+    "w": 720,
+    "h": 450
+   }
+  },
+  "morrow": {
+   "still": {
+    "src": "assets/home/captures/interim/morrow-still.webp",
+    "w": 720,
+    "h": 450
+   },
+   "preview": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "fps": 24,
+    "w": 720,
+    "h": 450
+   }
+  },
+  "atelier-wren": {
+   "still": {
+    "src": "assets/home/captures/interim/atelier-wren-still.webp",
+    "w": 720,
+    "h": 450
+   },
+   "preview": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "fps": 24,
+    "w": 720,
+    "h": 450
+   }
+  },
+  "hollis-and-pine": {
+   "still": {
+    "src": "assets/home/captures/interim/hollis-and-pine-still.webp",
+    "w": 720,
+    "h": 450
+   },
+   "preview": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "fps": 24,
+    "w": 720,
+    "h": 450
+   }
+  },
+  "hart-and-sons": {
+   "still": {
+    "src": "assets/home/captures/interim/hart-and-sons-still.webp",
+    "w": 720,
+    "h": 450
+   },
+   "preview": {
+    "frames": "",
+    "pad": 3,
+    "count": 0,
+    "fps": 24,
+    "w": 720,
+    "h": 450
+   }
+  }
+ }
+}

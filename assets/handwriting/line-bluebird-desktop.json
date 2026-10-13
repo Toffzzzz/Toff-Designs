@@ -1,0 +1,35 @@
+{
+ "layout": "bluebird-desktop",
+ "width": 1312,
+ "height": 370,
+ "strokePx": 3.2,
+ "totalLength": 3406.3,
+ "phrases": [
+  {
+   "text": "Bluebird",
+   "startFrac": 0.2064,
+   "endFrac": 0.57001,
+   "baseline": 168,
+   "capTop": 126.4,
+   "descBottom": 238.4
+  },
+  {
+   "text": "Wellness",
+   "startFrac": 0.57001,
+   "endFrac": 0.90633,
+   "baseline": 278.0,
+   "capTop": 236.4,
+   "descBottom": 348.4
+  }
+ ],
+ "cards": [
+  {
+   "phrase": "Bluebird",
+   "kind": "film",
+   "x": 672,
+   "y": 90,
+   "w": 640,
+   "h": 620
+  }
+ ]
+}

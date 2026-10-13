@@ -26,6 +26,7 @@
 
   var DEFAULTS = {
     basePath: '',
+    data: null,                   // { desktop: {svg, meta}, mobile: {svg, meta} } (default: window.HANDWRITING_DATA)
     breakpoint: 700,              // below this width: phone layout, each part writes itself
     color: '#F1E3C6',                    // cream ink (Midnight & Gold palette)
     strokePx: { desktop: 3.2, mobile: 2.6 },
@@ -62,6 +63,7 @@
 
   // ------------------------------------------------------------------ fresh visits open at the top
   (function openAtTop() {
+    if (window.__toffOpenedAtTop) return;   // round 05: boot.js / motion.js already did this (and this script may load after the visitor has scrolled)
     var t = navType();
     if ((t === 'navigate' || t === 'reload') && !location.hash) {
       if ('scrollRestoration' in history) history.scrollRestoration = 'manual';
@@ -87,7 +89,8 @@
     function svgTop() { return st.svg.getBoundingClientRect().top + window.scrollY; }
 
     function load(name) {
-      var bundled = window.HANDWRITING_DATA && window.HANDWRITING_DATA[name];
+      var src = o.data || window.HANDWRITING_DATA;   // round 05: options.data = { desktop, mobile } lets a page mount several lines
+      var bundled = src && src[name];
       // bundled data (line-data.js) renders straight away, before the page's load event,
       // so the page has its full height when the browser restores the scroll position
       var got = bundled ? Promise.resolve([bundled.svg, JSON.stringify(bundled.meta)])

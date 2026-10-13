@@ -14,53 +14,81 @@ FONT = load('cursive.jhf')
 
 # ---------------------------------------------------------------- layout
 LAYOUTS = {
-    'desktop': {
-        'width': 1440,
-        'band': 700,          # vertical space for each phrase + its showcase card
-        'top': 520,           # baseline of the first phrase
-        'entry_x': 720,       # the line enters at the top centre (continuing from the opening page)
-        'word_space': 0.42,   # gap between words, as a fraction of the font's space width
+    # Round 05: the pen writes the names of the work on the home page ("Recent work"), one name per case,
+    # each across two lines with a pen lift between them. Each case has its own layout (and its own
+    # mount of the handwriting engine), so the line never has to run past the text and pictures
+    # between the two cases. Laptop layouts are 1312 units wide (the page's content width at 1440px,
+    # columns 112 units apart); phone layouts are 400 units wide. Cards are the case films the line
+    # must keep clear of (the check below warns if it doesn't).
+    'bluebird-desktop': {
+        'width': 1312,
+        'band': 500,
+        'top': 168,           # baseline of "Bluebird"
+        'entry_x': 656,       # the line arrives at the top centre (continuing the line that drops from the hero)
+        'word_space': 0.42,
         'lines': [            # (text, scale, align, x) ; align: left/right/center
-            ('You plan',               5.6, 'left',   150),
-            ('We design',              5.6, 'right', 1290),
-            ('We deliver',             5.6, 'left',   150),
-            ('So... what will it be?', 4.2, 'center', 720),
+            ('Bluebird', 3.2, 'left', 10),
+            ('Wellness', 3.2, 'left', 10),
         ],
-        # showcase cards beside phrases, on the opposite side: (phrase, kind, x, top-offset-from-baseline, w, h)
-        'cards': [
-            ('You plan',   'plan',     950, -262, 370, 360),
-            ('We design',  'bluebird', 120, -262, 370, 360),
-            ('We deliver', 'everest',  950, -262, 370, 360),
-        ],
-        'tail': 420,          # how far the line continues down after the last phrase
-        'exit_x': 720,        # where the line leaves at the bottom (centre)
+        'tight': [1],         # a pen lift between the two lines (same name)
+        'tight_gap': 0.22,
+        # the film, columns 7 to 12: (phrase, kind, x, top-offset-from-baseline, w, h)
+        'cards': [('Bluebird', 'film', 672, -78, 640, 620)],
+        'tail': 92,           # the pen glides off to the right after the last letter
+        'exit_x': 560,
         'stroke': 3.2,
     },
-    'mobile': {
+    'bluebird-mobile': {
         'width': 400,
-        'band': 532,
-        'top': 300,
-        'entry_x': 200,
+        'band': 400,
+        'top': 52,
+        'entry_x': None,      # phones: the name sits under the chapter's heading, so the pen starts at the B
         'word_space': 0.42,
         'lines': [
-            ('You plan',   2.6, 'left', 40),
-            ('We design',  2.6, 'left', 40),
-            ('We deliver', 2.6, 'left', 40),
-            ('So...',      2.6, 'left', 40),
-            ('what will',  2.6, 'left', 40),
-            ('it be?',     2.6, 'left', 40),
+            ('Bluebird', 2.4, 'left', 6),
+            ('Wellness', 2.4, 'left', 6),
         ],
-        'cards': [            # under each phrase; the line runs down the right-hand lane past them
-            ('You plan',   'plan',     40, 78, 300, 316),
-            ('We design',  'bluebird', 40, 78, 300, 316),
-            ('We deliver', 'everest',  40, 78, 300, 316),
-        ],
-        'lane_x': 380,
-        'tail': 300,
-        'exit_x': 200,
+        'tight': [1],
+        'tight_gap': 0.2,
+        'cards': [],
+        'tail': 66,
+        'exit_x': 380,
         'stroke': 2.2,
-        'tight': [4, 5],      # these lines follow the previous one closely (same sentence)
-        'tight_gap': 0.26,
+    },
+    'everest-desktop': {
+        'width': 1312,
+        'band': 500,
+        'top': 52,            # baseline of "Everest Climate"
+        'entry_x': None,      # a new stroke after the pen lift: it starts at the E
+        'word_space': 0.42,
+        'lines': [
+            ('Everest Climate', 3.2, 'left', 676),
+            ('Solutions', 3.2, 'left', 676),
+        ],
+        'tight': [1],
+        'tight_gap': 0.22,
+        # the film, columns 1 to 6
+        'cards': [('Everest Climate', 'film', 0, -40, 640, 620)],
+        'tail': 92,
+        'exit_x': 1250,
+        'stroke': 3.2,
+    },
+    'everest-mobile': {
+        'width': 400,
+        'band': 400,
+        'top': 46,
+        'entry_x': None,
+        'word_space': 0.42,
+        'lines': [
+            ('Everest Climate', 2.04, 'left', 6),
+            ('Solutions', 2.04, 'left', 6),
+        ],
+        'tight': [1],
+        'tight_gap': 0.2,
+        'cards': [],
+        'tail': 58,
+        'exit_x': 380,
+        'stroke': 2.2,
     },
 }
 

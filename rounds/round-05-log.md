@@ -62,3 +62,10 @@ Next: Phase 2 (foundations). The shader, vendoring and serve.py --gzip were star
 - Home page chapters committed: Design yours (67/67 harness, 21/21 index), AI chapter (60/60 harness, 32/32 index), concierge (all suites pass). Builder HOME (index.html, hero, work, concepts) still working.
 - Lab pieces committed: ink, weight, oneline (102/103 then fixed check, 17/17). Gold and specks in progress.
 - Open: "Download your brief" uses a gold solid button; the gold solid is reserved for "Start a project" (fix in Phase 9).
+
+## Interruption (2026-10-13)
+
+- Every running builder stopped at once on the account's session usage limit (HTTP 429, "resets 6pm"). Work in progress stayed on disk (index.html, assets/home/ hero, films, concepts, home.css/js, case.css/js, lab.html, assets/lab/lab.js/css, pieces sketch, gold, specks, making, tools/capture/, handwriting outputs). No worktrees left behind.
+- All five concept sites committed. Lighthouse: Hart & Sons, Morrow and Hollis & Pine meet every budget; Saltmarsh desktop P83 (TBT 375 ms) and mobile LCP 2.71 s, Atelier Wren mobile LCP 2.55 s: being fixed.
+- The owner replied "finish"; all eight builders resumed where they stopped.
+- Open: re-run python3 tools/capture/making_of.py --round 05 at the end (round 05 was captured mid-rebuild).

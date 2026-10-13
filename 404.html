@@ -1,58 +1,96 @@
 <!doctype html>
-<html lang="en-GB">
+<html lang="en-GB" data-base="/" data-page="404">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
-    <title>Page not found · Toff Studio</title>
+    <title>This page is closed · Toff Studio</title>
+    <meta name="description" content="There’s nothing at this address on the Toff Studio site. It may have moved, or the link may have a small typo." />
     <meta name="robots" content="noindex" />
     <meta name="theme-color" content="#0E1628" />
-    <!-- GitHub Pages shows this page for any address that doesn't exist, at any depth, so every path here is absolute (the site lives under /Toff-Designs/ until it has its own domain) -->
-    <link rel="icon" href="/Toff-Designs/favicon.ico" sizes="48x48" />
-    <link rel="icon" href="/Toff-Designs/favicon.svg" type="image/svg+xml" />
-    <link rel="apple-touch-icon" href="/Toff-Designs/apple-touch-icon.png" />
-    <link rel="stylesheet" href="/Toff-Designs/site.css" />
-    <link rel="stylesheet" href="/Toff-Designs/assets/studio/studio.css" />
-    <link rel="stylesheet" href="/Toff-Designs/assets/studio/topbar.css" />
-    <link rel="stylesheet" href="/Toff-Designs/assets/studio/notfound.css" />
-    <link rel="preload" href="/Toff-Designs/assets/studio/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preload" href="/Toff-Designs/assets/studio/fonts/work-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin />
-    <script src="/Toff-Designs/settings.js"></script>
+    <!-- This page is served at whatever address was asked for (any depth), so relative paths can't work.
+         The base is worked out here from location.pathname: /Toff-Designs/ while the site lives on GitHub Pages
+         under that name, / at the root of a domain. Everything else is loaded from that base; if it fails,
+         the page still reads well as plain text. -->
     <script>
-      /* Colours from settings.js onto the page's CSS variables */
       (function () {
-        var c = (window.TOFF_SETTINGS || {}).colors || {}, map = { bg: '--bg', ink: '--ink', text: '--text', slate: '--slate', accent: '--accent', tint: '--tint', lineShadow: '--line-shadow', footer: '--bg-deep', error: '--error' };
-        for (var k in map) if (c[k]) document.documentElement.style.setProperty(map[k], c[k]);
+        var base = /^\/Toff-Designs(\/|$)/.test(location.pathname) ? '/Toff-Designs/' : '/';
+        var d = document, root = d.documentElement;
+        root.setAttribute('data-base', base);
+        window.__base404 = base;
+        function link(rel, href, extra) { var l = d.createElement('link'); l.rel = rel; l.href = base + href; for (var k in extra || {}) l.setAttribute(k, extra[k]); d.head.appendChild(l); return l; }
+        link('icon', 'favicon.ico', { sizes: '48x48' });
+        link('icon', 'favicon.svg', { type: 'image/svg+xml' });
+        link('apple-touch-icon', 'apple-touch-icon.png');
+        link('preload', 'assets/studio/fonts/cormorant-garamond-latin.woff2', { as: 'font', type: 'font/woff2', crossorigin: '' });
+        link('preload', 'assets/studio/fonts/work-sans-regular-latin.woff2', { as: 'font', type: 'font/woff2', crossorigin: '' });
+        var css = ['assets/shared/tokens.css', 'assets/shared/shell.css'].map(function (h) { return link('stylesheet', h); });
+        window.__css404 = Promise.all(css.map(function (l) { return new Promise(function (r) { l.onload = l.onerror = r; }); }));
+        // settings.js, then boot.js (in order)
+        ['settings.js', 'assets/shared/boot.js'].forEach(function (src) { var s = d.createElement('script'); s.src = base + src; s.async = false; d.head.appendChild(s); });
       })();
     </script>
+    <style>
+      /* The page's own look, kept here so it never depends on a stylesheet loading */
+      .nf { min-height: 100svh; display: grid; align-items: center; padding: calc(var(--bar-h, 64px) + 48px) 0 64px; }
+      .nf-in { width: min(100% - 32px, 1120px); margin: 0 auto; display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 6fr); gap: clamp(28px, 6vw, 96px); align-items: center; }
+      .nf-art { position: relative; width: min(100%, 380px); margin: 0 auto; aspect-ratio: 320 / 260; }
+      .nf-sign { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; }
+      .nf-sign path, .nf-sign rect, .nf-sign circle { fill: none; stroke: var(--gold, #D8AC5F); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; }
+      html.js-motion .nf-sign .nf-draw { stroke-dasharray: var(--len) var(--len); stroke-dashoffset: var(--len); animation: nf-draw .9s cubic-bezier(.22, 1, .36, 1) forwards; animation-delay: var(--at, 0s); }
+      @keyframes nf-draw { to { stroke-dashoffset: 0; } }
+      .nf-word { position: absolute; left: 25%; right: 25%; top: 53%; aspect-ratio: 83.9 / 29; }
+      .nf-word svg { display: block; width: 100%; height: auto; overflow: visible; }
+      .nf-word .iw-ink path { stroke: var(--text, #F6F0E4); stroke-width: 1.4; }
+      .nf-word .iw-shadow path { stroke: rgba(0, 0, 0, .35); stroke-width: 1.6; transform: translate(0, 1px); }
+      .nf h1 { margin: 0 0 16px; font: 300 var(--fs-display-l, 56px)/1 var(--serif, Georgia, serif); }
+      .nf p { margin: 0; max-width: 40ch; color: var(--slate, #A7AFC2); font: 400 var(--fs-lede, 18px)/1.5 var(--sans, sans-serif); }
+      .nf-links { display: flex; flex-wrap: wrap; align-items: center; gap: 8px 28px; margin: 28px 0 0; padding: 0; list-style: none; }
+      .nf-links a:not(.btn-gold) { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink, #F1E3C6); font: 500 15px/1.2 var(--sans, sans-serif); text-underline-offset: 0.25em; }
+      @media (max-width: 760px) { .nf-in { grid-template-columns: 1fr; } .nf-art { width: min(80%, 300px); } }
+      @media (prefers-reduced-motion: reduce) { .nf-sign .nf-draw { animation: none !important; stroke-dashoffset: 0 !important; } }
+    </style>
   </head>
   <body>
-    <a class="skip" href="#main">Skip to content</a>
-    <div class="vt-rule" aria-hidden="true"></div>
-<main id="main" class="r3-section nf">
-  <div class="r3-inner nf-in">
-    <div class="nf-art" role="img" aria-label="A shop sign hanging from a nail, with Closed written on it">
-      <svg class="nf-sign" viewBox="0 0 320 260" aria-hidden="true">
-        <circle class="nf-draw" cx="160" cy="22" r="4" style="--len:26"/>
-        <path class="nf-draw" d="M160 26 L58 104" style="--len:129;--at:.15s"/>
-        <path class="nf-draw" d="M160 26 L262 104" style="--len:129;--at:.15s"/>
-        <rect class="nf-draw" x="38" y="102" width="244" height="132" rx="10" style="--len:740;--at:.45s"/>
-        <rect class="nf-draw" x="50" y="114" width="220" height="108" rx="6" style="--len:640;--at:.7s"/>
-      </svg>
-      <div class="nf-word" id="nf-word"></div>
-    </div>
-    <div>
-      <h1 class="r3-h2">This page is closed</h1>
-      <p class="r3-lede">There’s nothing at this address. It may have moved, or the link may have a small typo.</p>
-      <div class="nf-links"><a class="nf-home" href="/Toff-Designs/">Back to the main site</a><a href="/Toff-Designs/lab.html">The Lab</a><a href="/Toff-Designs/#contact">Start a project</a></div>
-    </div>
-  </div>
-</main>
-    <script src="/Toff-Designs/assets/studio/inkwriter-data.js"></script>
-    <script src="/Toff-Designs/assets/studio/inkwriter.js"></script>
-    <script src="/Toff-Designs/assets/studio/topbar.js"></script>
+    <main id="main" class="nf">
+      <div class="nf-in">
+        <div class="nf-art" role="img" aria-label="A shop sign hanging from a nail, with Closed written on it">
+          <svg class="nf-sign" viewBox="0 0 320 260" aria-hidden="true" focusable="false">
+            <circle class="nf-draw" cx="160" cy="22" r="4" style="--len:26"/>
+            <path class="nf-draw" d="M160 26 L58 104" style="--len:129;--at:.15s"/>
+            <path class="nf-draw" d="M160 26 L262 104" style="--len:129;--at:.15s"/>
+            <rect class="nf-draw" x="38" y="102" width="244" height="132" rx="10" style="--len:740;--at:.45s"/>
+            <rect class="nf-draw" x="50" y="114" width="220" height="108" rx="6" style="--len:640;--at:.7s"/>
+          </svg>
+          <div class="nf-word" id="nf-word"></div>
+        </div>
+        <div>
+          <h1>This page is closed</h1>
+          <p>There’s nothing at this address. It may have moved, or the link may have a small typo.</p>
+          <ul class="nf-links">
+            <li><a class="btn-gold" data-href="" href="/Toff-Designs/">Back to the main site</a></li>
+            <li><a data-href="lab.html" href="/Toff-Designs/lab.html">The Lab</a></li>
+            <li><a data-href="index.html#contact" href="/Toff-Designs/#contact">Start a project</a></li>
+          </ul>
+        </div>
+      </div>
+    </main>
+    <footer data-shell-footer></footer>
     <script>
-      TopBar.mount({ solid: true, cta: '/Toff-Designs/#contact', links: [['Main site', '/Toff-Designs/'], ['The Lab', '/Toff-Designs/lab.html']] });
-      setTimeout(function () { InkWriter.mount(document.getElementById('nf-word'), { phrase: 'closed', speed: 95, threshold: 0 }); }, 900);
+      /* The links, from the same base */
+      (function () { var b = window.__base404 || '/'; [].forEach.call(document.querySelectorAll('a[data-href]'), function (a) { a.href = b + a.getAttribute('data-href'); }); })();
+    </script>
+    <script type="module">
+      const base = window.__base404 || '/';
+      await window.__css404;
+      await new Promise((r) => { const t0 = performance.now(); (function w() { if (window.TOFF_SETTINGS || performance.now() - t0 > 2000) r(); else setTimeout(w, 20); })(); });
+      const { mount } = await import(base + 'assets/shared/shell.js');
+      mount({ jumpLinks: false });
+      const load = (src) => new Promise((res, rej) => { const s = document.createElement('script'); s.src = base + src; s.onload = res; s.onerror = rej; document.head.append(s); });
+      try {
+        await load('assets/studio/inkwriter-data.js');
+        await load('assets/studio/inkwriter.js');
+        setTimeout(() => window.InkWriter.mount(document.getElementById('nf-word'), { phrase: 'closed', speed: 95, threshold: 0 }), matchMedia('(prefers-reduced-motion: reduce)').matches ? 0 : 900);
+      } catch (e) { /* the sign stays without its word */ }
     </script>
   </body>
 </html>

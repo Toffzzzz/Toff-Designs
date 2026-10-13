@@ -1,0 +1,26 @@
+{
+ "layout": "everest-mobile",
+ "width": 400,
+ "height": 184,
+ "strokePx": 2.2,
+ "totalLength": 2090.9,
+ "phrases": [
+  {
+   "text": "Everest Climate",
+   "startFrac": 0.0,
+   "endFrac": 0.55957,
+   "baseline": 46,
+   "capTop": 19.5,
+   "descBottom": 90.9
+  },
+  {
+   "text": "Solutions",
+   "startFrac": 0.55957,
+   "endFrac": 0.90745,
+   "baseline": 126.0,
+   "capTop": 99.5,
+   "descBottom": 170.9
+  }
+ ],
+ "cards": []
+}

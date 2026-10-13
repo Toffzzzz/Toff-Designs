@@ -181,3 +181,7 @@ A dated log. One line per decision, with the reason where given. Never remove li
 - 2026-10-13: The concierge is one component in two places: inline under "Tell us what you need", and as a panel (docked on the right from 1024px, a full-height sheet below). The floating "Plan with us" button never shows on phones on the home page, because content fills the width; "Start a project" in the top bar is always there instead.
 - 2026-10-13: The concierge removes emails, phone numbers and stated names from anything sent to the Worker, as a second line of defence, and tells the visitor it did.
 - 2026-10-13: The AI demo keeps each business's conversation and frame while switching; the Linden Clinic page is a small calm booking page in system fonts (noindex).
+- 2026-10-13: The line that drops from the hero stage into Recent work is the pen's cream ink with the gold under-shadow, as the old opening's line was ("as the opening's line does now"), so it reads as becoming the pen.
+- 2026-10-13: "Other AI we build" is tightened from eight items to six: "Booking assistants" (the demo now shows it) and "Sketch to website" (Design yours shows it) are dropped.
+- 2026-10-13: The pen writes "Bluebird / Wellness" and "Everest Climate / Solutions" on two lines at every width, through four LAYOUTS in build_line.py (bluebird and everest, desktop and mobile). The old line-desktop/mobile files stay in place, unloaded.
+- 2026-10-13: handwriting.js gained a `data` option (so a page can mount two lines) and skips its fresh-visit scroll-to-top when boot.js already did it.
