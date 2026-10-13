@@ -22,6 +22,14 @@
 <script>(function(d){if(/[?&]embed(=|&|$)/.test(location.search))d.classList.add('is-embed');if(!matchMedia('(prefers-reduced-motion: reduce)').matches){d.classList.add('js-motion');setTimeout(function(){if(!window.__toffMotion)d.classList.remove('js-motion')},4000)}})(document.documentElement)</script>
 <link rel="preload" href="fonts/bodoni-moda-latin-opsz-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/hanken-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+<!-- the whole module graph up front, so no import waits on another (it was three requests deep) -->
+<link rel="modulepreload" href="js/wren.js">
+<link rel="modulepreload" href="../../assets/shared/motion.js">
+<link rel="modulepreload" href="../../assets/shared/embed-api.js">
+<link rel="modulepreload" href="js/common.js">
+<link rel="modulepreload" href="js/booking.js">
+<link rel="modulepreload" href="js/data.js">
+<link rel="modulepreload" href="../../assets/shared/ribbon.js">
 <link rel="stylesheet" href="css/wren.css">
 <link rel="stylesheet" href="../../assets/shared/ribbon.css">
 <link rel="expect" href="#wren-ready" blocking="render">

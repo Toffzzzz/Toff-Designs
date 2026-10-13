@@ -30,9 +30,12 @@
     r.classList.add('js');
   })();
 </script>
-<link rel="preload" href="fonts/fraunces-latin-full-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="fonts/fraunces-latin-wght400-600-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="fonts/schibsted-grotesk-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="img/playground-restaurant.webp" as="image" type="image/webp" fetchpriority="high">
+<link rel="preload" href="img/playground-restaurant.avif" as="image" type="image/avif" fetchpriority="high">
+<link rel="modulepreload" href="js/main.js">
+<link rel="modulepreload" href="../../assets/shared/motion.js">
+<link rel="modulepreload" href="../../assets/shared/ribbon.js">
 <link rel="stylesheet" href="../../assets/shared/ribbon.css">
 <link rel="stylesheet" href="saltmarsh.css">
 <script type="application/ld+json">
@@ -83,8 +86,11 @@
 
   <section class="hero" id="top" aria-labelledby="hero-title">
     <div class="hero__media" id="steam-stage">
-      <img class="hero__img" src="img/playground-restaurant.webp" width="1200" height="751" decoding="async" fetchpriority="high"
-        alt="Sliced duck breast with roasted carrots, a charred shallot, cherries and hazelnuts on a dark plate, with a candle and a glass of red wine on the table">
+      <picture>
+        <source srcset="img/playground-restaurant.avif" type="image/avif">
+        <img class="hero__img" src="img/playground-restaurant.webp" width="1200" height="751" decoding="async" fetchpriority="high"
+          alt="Sliced duck breast with roasted carrots, a charred shallot, cherries and hazelnuts on a dark plate, with a candle and a glass of red wine on the table">
+      </picture>
     </div>
     <div class="hero__shade" aria-hidden="true"></div>
     <div class="hero__copy">

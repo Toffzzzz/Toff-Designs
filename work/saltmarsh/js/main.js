@@ -297,8 +297,18 @@ function initSteam() {
       .catch((err) => { console.warn('Steam unavailable:', err && err.message); });
   };
   const idle = (fn) => ('requestIdleCallback' in window ? requestIdleCallback(fn, { timeout: 1500 }) : setTimeout(fn, 300));
-  if (document.readyState === 'complete') idle(go);
-  else window.addEventListener('load', () => idle(go), { once: true });
+  // after load and an idle moment, and only once the hero is on screen (a visit that lands
+  // further down, from Back or a link, sets it up when the visitor scrolls up to it)
+  const whenSeen = (fn) => {
+    if (!('IntersectionObserver' in window)) { fn(); return; }
+    const io = new IntersectionObserver((entries) => {
+      if (!entries.some((e) => e.isIntersecting)) return;
+      io.disconnect(); idle(fn);
+    });
+    io.observe(stage);
+  };
+  if (document.readyState === 'complete') idle(() => whenSeen(go));
+  else window.addEventListener('load', () => idle(() => whenSeen(go)), { once: true });
 }
 
 /* ------------------------------------------------------------------ the menu card */
