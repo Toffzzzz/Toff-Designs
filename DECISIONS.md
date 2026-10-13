@@ -175,3 +175,6 @@ A dated log. One line per decision, with the reason where given. Never remove li
 - 2026-10-13: The top bar never hides while scrolling, so "Start a project" is always visible (round 04's decision, which section 6 keeps); settings.js topbar.hideOnScroll can switch hiding on.
 - 2026-10-13: The Worker's address moves into settings.js (ai.workerBase); each AI endpoint is derived from it unless set, and '' switches that feature off.
 - 2026-10-13: Below 360px wide the top bar's button reads "Enquire" (kept from round 04) because "Start a project" doesn't fit at 320px.
+- 2026-10-13: Design yours' "Send this to Toff" uses the outlined secondary button, not gold: the gold solid button stays the top bar's one "Start a project" (overrides the plan's storyboard, screen 8).
+- 2026-10-13: Design yours' Describe counts its own 8 live answers per visit, separately from the AI demo and the concierge; /read-sketch stays uncounted, as before. Its time-out uses ai.firstWordTimeoutMs (12 s).
+- 2026-10-13: Draw your site (drawsite.js) gained onBuilt/onBusy options so Sketch feeds SiteKit; without them it behaves exactly as before.

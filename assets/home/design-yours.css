@@ -1,0 +1,297 @@
+/* =====================================================================
+   Design yours (assets/home/design-yours.js)
+
+   Art direction. The studio's promise in miniature: "We sketch it. Then we
+   build it." The preview's laptop and phone are not product shots but
+   drawings, made with the same cream ink line and gold under-shadow as the
+   pen elsewhere on the page; the first time you reach them they are drawn,
+   and the finished site appears inside. Everything around them stays quiet:
+   controls are plain chips on the tint, gold only marks what is selected
+   and the focus ring, and the one solid gold button stays the top bar's
+   ("Send this to Toff" and the panel actions use the outlined secondary
+   style). The Sketch paper is the one warm, light object: a sheet of
+   drawing paper, the only surface that takes a finger (touch-action: none
+   lives there and nowhere else). Laptop: the segmented control and the
+   controls in the first columns, the preview across the rest. Phone: the
+   control, the controls, then the phone drawn large with the laptop small
+   beside it, then "Send this to Toff". 8px corners on controls, the devices
+   are drawings with their own rounding. Reduced motion: no transitions.
+   ===================================================================== */
+
+.dy { --dy-ink-w: 1.5px; margin-top: var(--s-7); color: var(--text); }
+.dy *, .dy *::before, .dy *::after { box-sizing: border-box; }
+
+/* ---------- grid: phone first (stacked), laptop splits controls | preview ---------- */
+.dy-grid { display: grid; grid-template-columns: minmax(0, 1fr); row-gap: var(--s-6); align-items: start; }
+.dy-head, .dy-controls, .dy-preview, .dy-send { min-width: 0; }
+@media (min-width: 1024px) {
+  .dy-grid { grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-5); grid-template-rows: auto auto 1fr; }
+  .dy-head { grid-column: 1 / span 5; grid-row: 1; }
+  .dy-controls { grid-column: 1 / span 5; grid-row: 2; }
+  .dy-send { grid-column: 1 / span 5; grid-row: 3; align-self: start; }
+  .dy-preview { grid-column: 6 / -1; grid-row: 1 / span 3; }
+}
+@media (min-width: 1280px) {
+  .dy-head, .dy-controls, .dy-send { grid-column: 1 / span 4; }
+  .dy-preview { grid-column: 5 / -1; }
+}
+
+/* ---------- the segmented control (a tablist) ---------- */
+.dy-ways {
+  --i: 0; position: relative; display: grid; grid-template-columns: repeat(3, minmax(0, 1fr));
+  padding: 4px; border-radius: var(--radius); background: var(--tint); isolation: isolate;
+}
+.dy-ways-ind {
+  position: absolute; z-index: -1; top: 4px; bottom: 4px; left: 4px; width: calc((100% - 8px) / 3);
+  border-radius: calc(var(--radius) - 2px); background: var(--bg);
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 70%, transparent);
+  transform: translateX(calc(var(--i) * 100%));
+  transition: transform var(--dur-base) var(--ease-in-out);
+}
+.dy-way {
+  min-height: 44px; padding: 0 var(--s-2); border: 0; border-radius: calc(var(--radius) - 2px); background: transparent;
+  color: var(--slate); font: 500 var(--fs-ui)/1 var(--sans); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: color var(--dur-quick) var(--ease-out);
+}
+.dy-way[aria-selected="true"] { color: var(--text); }
+@media (hover: hover) { .dy-way:hover { color: var(--text); } }
+.dy-way:focus-visible { outline-offset: -2px; }
+
+/* ---------- panels ---------- */
+.dy-panel { padding-top: var(--s-2); }
+.dy-intro { margin: 0 0 var(--s-5); color: var(--slate); font: 400 var(--fs-small)/var(--lh-small) var(--sans); max-width: 46ch; }
+.dy-field { margin: 0 0 var(--s-5); padding: 0; border: 0; min-width: 0; }
+.dy-legend { display: block; margin: 0 0 var(--s-3); padding: 0; color: var(--text); font: 500 var(--fs-ui)/1.3 var(--sans); }
+.dy-optional { color: var(--slate); font-weight: 400; }
+
+/* chips: radio buttons dressed as 8px chips */
+.dy-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); }
+.dy-chip {
+  position: relative; display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px; padding: 0 var(--s-4);
+  border-radius: var(--radius); background: var(--tint); color: var(--text); font: 400 var(--fs-ui)/1.2 var(--sans);
+  box-shadow: inset 0 0 0 1px transparent; cursor: pointer; -webkit-tap-highlight-color: transparent; user-select: none; -webkit-user-select: none;
+  transition: box-shadow var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out);
+}
+.dy-radio { position: absolute; inset: 0; width: 100%; height: 100%; margin: 0; opacity: 0; cursor: pointer; }
+.dy-chip:has(.dy-radio:checked) { background: color-mix(in srgb, var(--gold) 12%, var(--tint)); box-shadow: inset 0 0 0 1px var(--gold); }
+.dy-chip:has(.dy-radio:focus-visible) { outline: 2px solid var(--gold); outline-offset: 3px; }
+@media (hover: hover) { .dy-chip:hover { box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold) 50%, transparent); } .dy-chip:has(.dy-radio:checked):hover { box-shadow: inset 0 0 0 1px var(--gold); } }
+.dy-chip:active { transform: translateY(1px); }
+.dy-chip-art { display: inline-flex; pointer-events: none; }
+.dy-chip-label { pointer-events: none; }
+.dy-dots { display: inline-flex; }
+.dy-dots i { width: 12px; height: 12px; border-radius: 50%; box-shadow: 0 0 0 1px color-mix(in srgb, var(--slate) 45%, transparent); }
+.dy-dots i + i { margin-left: -3px; }
+.dy-chips--layout .dy-chip-art svg { width: 30px; height: 20px; fill: none; stroke: var(--ink); stroke-width: 1.4; stroke-linecap: round; stroke-linejoin: round; }
+/* even rows: business in threes; mood and layout as small tiles (the swatch or the shape above its name) */
+.dy-chips--business, .dy-chips--layout { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); }
+.dy-chips--mood { display: grid; grid-template-columns: repeat(4, minmax(0, 1fr)); }
+.dy-chips--business .dy-chip { justify-content: center; padding: 0 var(--s-2); }
+.dy-chips--mood .dy-chip, .dy-chips--layout .dy-chip { flex-direction: column; justify-content: center; gap: 6px; padding: 10px 6px; text-align: center; }
+.dy-chips--mood .dy-chip-label, .dy-chips--layout .dy-chip-label { font-size: var(--fs-fine); line-height: 1.2; }
+
+/* text inputs */
+.dy-input {
+  display: block; width: 100%; min-height: 48px; padding: 12px var(--s-4); border: 0; border-radius: var(--radius);
+  background: var(--tint); color: var(--text); font: 400 var(--fs-body)/1.5 var(--sans);
+  box-shadow: inset 0 0 0 1px var(--outline); transition: box-shadow var(--dur-quick) var(--ease-out);
+}
+.dy-input::placeholder { color: var(--slate); opacity: 1; }
+.dy-input:focus { outline: none; box-shadow: inset 0 0 0 1px var(--gold); }
+.dy-input:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+.dy-textarea { min-height: 132px; resize: vertical; }
+
+/* buttons: the outlined secondary style (the one solid gold button is the top bar's) */
+.dy-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2); min-height: 48px; padding: 0 var(--s-5);
+  border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); border-radius: var(--radius); background: var(--tint);
+  color: var(--text); font: 500 var(--fs-ui)/1.2 var(--sans); text-decoration: none; cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out), transform var(--dur-press) var(--ease-out);
+}
+@media (hover: hover) { .dy-btn:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 8%, var(--tint)); } }
+.dy-btn:not(:disabled):active { transform: translateY(1px); }
+.dy-btn:disabled, .dy-btn[aria-disabled="true"] { opacity: .5; cursor: not-allowed; }
+.dy-btn .arrow { display: inline-block; transition: transform var(--dur-quick) var(--ease-out); }
+@media (hover: hover) { .dy-btn:hover .arrow { transform: translateX(3px); } }
+
+.dy-text-btn {
+  display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--s-2); border: 0; background: none; color: var(--ink);
+  font: 500 var(--fs-ui)/1.2 var(--sans); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em;
+  text-decoration-color: color-mix(in srgb, var(--gold) 55%, transparent); cursor: pointer;
+}
+@media (hover: hover) { .dy-text-btn:not(:disabled):hover { text-decoration-color: var(--gold); } }
+.dy-text-btn:disabled { opacity: .45; cursor: not-allowed; }
+
+.dy-status, .dy-why, .dy-note, .dy-sent { margin: var(--s-3) 0 0; font: 400 var(--fs-small)/var(--lh-small) var(--sans); max-width: 52ch; }
+.dy-status { color: var(--ink); }
+.dy-status:empty, .dy-why:empty, .dy-sent:empty { display: none; }
+.dy-status em { font-style: normal; color: var(--gold); }
+.dy-status .dr-ai-note { color: var(--slate); }
+.dy-why { color: var(--slate); }
+.dy-note { color: var(--slate); }
+.dy-note b { font-weight: 500; color: var(--text); }
+.dy-sent { color: var(--ink); }
+
+/* ---------- Describe ---------- */
+.dy-row { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: var(--s-2) var(--s-4); margin-top: var(--s-2); }
+.dy-row--act { margin-top: var(--s-5); justify-content: flex-start; gap: var(--s-2) var(--s-5); }
+.dy-count { color: var(--slate); font: 400 var(--fs-fine)/1.5 var(--sans); }
+.dy-eg { margin: var(--s-4) 0 0; color: var(--slate); font: 400 var(--fs-small)/var(--lh-small) var(--sans); }
+.dy-eg q { color: var(--text); quotes: "“" "”"; }
+
+/* ---------- Sketch: the paper and its tools (DrawSite's markup) ---------- */
+.dy-sketch { position: relative; }
+.dy-sketch .dr-palette { margin: 0 0 var(--s-4); }
+.dy-sketch .dr-palette-hint { margin: 0 0 var(--s-2); color: var(--slate); font: 400 var(--fs-small)/var(--lh-small) var(--sans); }
+.dy-sketch .dr-palette-chips { display: flex; flex-wrap: wrap; gap: 6px; min-height: 44px; }
+.dy-sketch .dr-chip {
+  min-height: 44px; padding: 0 var(--s-3); border-radius: var(--radius); border: 1px dashed color-mix(in srgb, var(--ink) 50%, transparent);
+  background: transparent; color: var(--text); font: 500 var(--fs-fine)/1 var(--sans); cursor: grab;
+  touch-action: manipulation; user-select: none; -webkit-user-select: none; -webkit-tap-highlight-color: transparent;
+}
+.dy-sketch .dr-chip:disabled { opacity: .45; cursor: default; }
+@media (hover: hover) { .dy-sketch .dr-chip:not(:disabled):hover { border-color: var(--gold); border-style: solid; } }
+.dy-sketch .dr-chip:active { transform: translateY(1px); }
+
+.dy-sketch .dr-paper {
+  position: relative; aspect-ratio: 4 / 5; max-width: 480px; border-radius: var(--radius-media); overflow: hidden; background: #F3EDE1;
+  touch-action: none;   /* the drawing surface: the only place a finger draws instead of scrolling */
+}
+.dy-sketch .dr-paper::before { content: ""; position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(74, 123, 208, .12) 1px, transparent 1px), linear-gradient(90deg, rgba(74, 123, 208, .12) 1px, transparent 1px); background-size: 5% 4%; }
+.dy-sketch .dr-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: crosshair; z-index: 2; touch-action: none; }
+.dy-sketch .dr-hint { position: absolute; inset: 0 0 auto; height: 46%; margin: 0; z-index: 3; pointer-events: none; display: flex; flex-direction: column; align-items: center; justify-content: center; gap: var(--s-2); text-align: center; padding: 0 var(--s-4); }
+.dy-sketch .dr-hint span { font: italic 400 clamp(24px, 2.4vw, 32px)/1.1 var(--serif); color: #4E483F; }
+.dy-sketch .dr-hint small { font: 400 var(--fs-fine)/1.4 var(--sans); color: #4E483F; }
+.dy-sketch .dr-paper:has(.dr-block) .dr-hint, .dy-sketch .dr-paper.dr-has-strokes .dr-hint { display: none; }
+.dy-sketch .dr-paper.dr-drop { box-shadow: 0 0 0 3px var(--gold); }
+
+.dy-sketch .dr-blocks { position: absolute; inset: 0; z-index: 3; pointer-events: none; }
+.dy-sketch .dr-block { position: absolute; pointer-events: auto; border: 1.5px dashed rgba(42, 39, 34, .72); border-radius: 4px; background: rgba(243, 237, 225, .55); cursor: move; touch-action: none; display: flex; align-items: center; justify-content: center; padding: 18px 6px 4px; color: #2A2722; outline: none; }
+.dy-sketch .dr-block:focus-visible, .dy-sketch .dr-block:focus-within { border-color: #6B4A16; border-style: solid; box-shadow: 0 0 0 2px #6B4A16; }
+.dy-sketch .dr-block.dr-dragging { opacity: .85; }
+.dy-sketch .dr-b-tag { position: absolute; left: 5px; top: 3px; font: 500 12px/1 var(--sans); color: #6B4A16; pointer-events: none; }
+.dy-sketch .dr-b-text { display: block; width: 100%; max-height: 100%; overflow: hidden; outline: none; cursor: text; font: italic 400 clamp(14px, 1.4vw, 17px)/1.15 var(--serif); color: #2A2722; text-align: left; word-break: break-word; }
+.dy-sketch .dr-b-heading .dr-b-text { font-size: clamp(16px, 1.8vw, 22px); }
+.dy-sketch .dr-b-button .dr-b-text, .dy-sketch .dr-b-card .dr-b-text { text-align: center; font-size: 14px; }
+.dy-sketch .dr-b-text.dr-b-empty::before { content: attr(data-ph); color: rgba(42, 39, 34, .62); }
+.dy-sketch .dr-b-del { position: absolute; right: 1px; top: 1px; width: 24px; height: 24px; padding: 0; border: 0; border-radius: 6px; background: transparent; color: #6B4A16; font: 500 18px/1 var(--sans); cursor: pointer; opacity: 0; }
+.dy-sketch .dr-block:hover .dr-b-del, .dy-sketch .dr-block:focus-within .dr-b-del { opacity: 1; }
+@media (hover: none) { .dy-sketch .dr-b-del { opacity: .85; } }
+.dy-sketch .dr-b-del:focus-visible { opacity: 1; outline: 2px solid #6B4A16; outline-offset: 0; }
+.dy-sketch .dr-b-size { position: absolute; right: -1px; bottom: -1px; width: 16px; height: 16px; cursor: nwse-resize; background: linear-gradient(135deg, transparent 50%, rgba(42, 39, 34, .6) 50%); border-bottom-right-radius: 4px; }
+.dy-sketch .dr-b-button { border-radius: 10px; }
+.dy-sketch .dr-b-logo { border-radius: 50%; }
+.dy-sketch .dr-b-logo .dr-b-tag { left: 50%; transform: translateX(-50%); top: 50%; margin-top: -6px; }
+.dy-sketch .dr-b-image, .dy-sketch .dr-b-gallery { background-image: linear-gradient(to top right, transparent calc(50% - .8px), rgba(42, 39, 34, .35) 50%, transparent calc(50% + .8px)), linear-gradient(to bottom right, transparent calc(50% - .8px), rgba(42, 39, 34, .35) 50%, transparent calc(50% + .8px)); }
+.dy-sketch .dr-b-header { background: rgba(232, 224, 209, .7); }
+.dy-sketch .dr-block.dr-b-small { padding: 2px 6px; }
+.dy-sketch .dr-block.dr-b-small:has(.dr-b-text) .dr-b-tag { display: none; }
+.dy-sketch .dr-block.dr-b-small:not(:has(.dr-b-text)) .dr-b-tag { position: static; }
+.dr-ghost { position: fixed; z-index: 90; transform: translate(-50%, -50%); padding: 8px 12px; border-radius: 8px; background: #F3EDE1; color: #2A2722; border: 1.5px dashed rgba(42, 39, 34, .7); font: 500 14px/1 var(--sans); pointer-events: none; }
+
+.dy-sketch .dr-tools { display: flex; flex-wrap: wrap; align-items: center; gap: var(--s-1) var(--s-3); margin-top: var(--s-4); }
+.dy-sketch .dr-tools .dr-done { flex: 0 0 auto; margin-right: calc(100% - 1px); margin-bottom: var(--s-2); }   /* the main action on its own row, the quiet ones under it */
+.dy-sketch .dr-tools .dy-text-btn { padding: 0; }
+.dy-sketch .dr-paper.dr-has-strokes ~ .dy-why--sketch, .dy-sketch:has(.dr-block) .dy-why--sketch { display: none; }
+.dy-sketch[data-state="ready"] .dy-loading, .dy-sketch .dy-loading:empty { display: none; }
+.dy-details { margin-top: var(--s-4); color: var(--slate); font: 400 var(--fs-small)/var(--lh-small) var(--sans); }
+.dy-details summary { display: inline-flex; align-items: center; min-height: 44px; cursor: pointer; color: var(--ink); text-decoration: underline; text-decoration-thickness: 1px; text-underline-offset: 0.3em; text-decoration-color: color-mix(in srgb, var(--gold) 55%, transparent); }
+.dy-details .dr-key { list-style: none; margin: var(--s-3) 0 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(170px, 1fr)); gap: var(--s-3) var(--s-4); }
+.dy-details .dr-key li { display: flex; align-items: center; gap: var(--s-3); line-height: 1.35; }
+.dy-details .dr-key li[hidden] { display: none; }
+.dy-details .dr-key b { display: block; color: var(--text); font-weight: 500; }
+.dy-key-art svg { display: block; width: 40px; height: 28px; fill: none; stroke: var(--ink); stroke-width: 1.5; stroke-linecap: round; stroke-linejoin: round; }
+.dy-sketch .dr-touch-tip { display: none; }
+@media (hover: none) { .dy-sketch .dr-touch-tip { display: block; } }
+
+/* ---------- the preview: a laptop and a phone drawn in ink ---------- */
+.dy-preview { margin: 0; }
+.dy-devices { position: relative; padding-bottom: 2%; }
+.dy-laptop { width: 84%; }
+.dy-lid { position: relative; margin: 0 5.5%; padding: 2.2% 2.2% 2.8%; border-radius: 14px; background: var(--bg-deep); }
+.dy-screen-wrap { position: relative; }
+.dy-screen { position: relative; overflow: hidden; background: #F4F1EA; scrollbar-width: none; }
+.dy-screen::-webkit-scrollbar { display: none; }
+.dy-screen--laptop { aspect-ratio: 16 / 10; border-radius: 4px; }
+.dy-devices.can-scroll .dy-screen--laptop { overflow-y: auto; overscroll-behavior: auto; }
+.dy-screen--laptop:focus-visible { outline: 2px solid var(--gold); outline-offset: 4px; }
+.dy-base { position: relative; height: 14px; margin-top: 3px; border-radius: 7px; background: var(--bg-deep); }
+.dy-notch { position: absolute; left: 50%; top: 0; width: 14%; height: 5px; transform: translateX(-50%); border-radius: 0 0 6px 6px; border: var(--dy-ink-w) solid var(--ink); border-top: 0; opacity: .7; }
+.dy-phone { position: absolute; right: 0; bottom: 0; width: 23.5%; padding: 20px 7px 9px; border-radius: 26px; background: var(--bg-deep); }
+.dy-screen--phone { aspect-ratio: 390 / 800; border-radius: 19px; }
+.dy-island { position: absolute; z-index: 2; left: 50%; top: 8px; width: 22%; height: 5px; transform: translateX(-50%); border-radius: 3px; border: 1px solid color-mix(in srgb, var(--ink) 55%, transparent); }   /* the speaker, drawn in the bezel above the screen */
+
+/* the ink outlines: one stroke, round ends, the gold under-shadow (no blur) */
+.dy-ol { position: absolute; inset: 0; pointer-events: none; z-index: 1; }
+.dy-ol svg { position: absolute; inset: 0; width: 100%; height: 100%; overflow: visible; filter: drop-shadow(0 3.5px 0 var(--line-shadow)); }
+.dy-ol rect { fill: none; stroke: var(--ink); stroke-width: var(--dy-ink-w); stroke-linecap: round; stroke-linejoin: round; }
+.dy-screen-wrap, .dy-screen--phone { z-index: 2; }
+.dy-island { z-index: 3; }
+
+/* the site inside: SiteKit's picture */
+.dy-laptop, .dy-phone, .dy-lid, .dy-screen-wrap, .dy-screen { min-width: 0; }
+.dy-site { display: block; width: 100%; min-width: 0; overflow: hidden; }
+.dy-site .sk { min-height: 100%; }
+
+/* the first visit: drawn in ink, then the site appears (motion.js plays it once; reduced motion skips it) */
+.dy-devices.is-pre .dy-ol rect { stroke-dasharray: 0 99999; }
+.dy-devices.is-pre .dy-screen, .dy-devices.is-pre .dy-notch, .dy-devices.is-pre .dy-island,
+.dy-devices.is-drawing:not(.is-drawn) .dy-screen, .dy-devices.is-drawing:not(.is-drawn) .dy-notch, .dy-devices.is-drawing:not(.is-drawn) .dy-island { opacity: 0; }
+.dy-devices.is-pre .dy-lid, .dy-devices.is-pre .dy-base, .dy-devices.is-pre .dy-phone,
+.dy-devices.is-drawing:not(.is-drawn) .dy-lid, .dy-devices.is-drawing:not(.is-drawn) .dy-base, .dy-devices.is-drawing:not(.is-drawn) .dy-phone { background-color: transparent; }
+.dy-lid, .dy-base, .dy-phone { transition: background-color var(--dur-reveal) var(--ease-out); }
+.dy-screen, .dy-notch, .dy-island { transition: opacity var(--dur-reveal) var(--ease-out); }
+
+/* busy: the old picture stays (no jump), dimmed, with a plain line over it */
+.dy-devices.is-busy .dy-screen { opacity: .4; }
+.dy-busy { position: absolute; inset: 0; z-index: 3; margin: 0; display: flex; align-items: center; justify-content: center; padding: 0 10%; text-align: center; pointer-events: none; }
+.dy-busy[hidden] { display: none; }
+.dy-busy-text { padding: var(--s-3) var(--s-4); border-radius: var(--radius); background: var(--bg-deep); color: var(--text); font: italic 400 var(--fs-display-s)/1.2 var(--serif); }
+
+.dy-preview-foot { display: flex; flex-wrap: wrap; align-items: flex-start; justify-content: space-between; gap: var(--s-2) var(--s-6); margin-top: var(--s-5); }
+.dy-caption { flex: 1 1 32ch; max-width: 62ch; color: var(--slate); font: 400 var(--fs-small)/var(--lh-small) var(--sans); text-wrap: pretty; }
+.dy-more { flex: 0 0 auto; min-height: 44px; margin-top: -11px; }
+.dy-more[hidden] { display: none; }
+
+/* ---------- Send this to Toff ---------- */
+.dy-send { padding-top: var(--s-2); }
+.dy-send .dy-sent { margin-top: var(--s-3); }
+
+/* ---------- tablet: Pick's groups side by side; the preview under the controls ---------- */
+@media (min-width: 700px) and (max-width: 1023px) {
+  .dy-pick { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--gutter); }
+  .dy-sketch { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--gutter); align-items: start; }
+  .dy-sketch > * { grid-column: 2; }
+  .dy-sketch > .dr-paper { grid-column: 1; grid-row: 1 / span 9; }
+  .dy-sketch > .dr-palette { grid-row: 1; }
+}
+
+/* ---------- phones: the phone large, the laptop small beside it ---------- */
+@media (max-width: 699px) {
+  .dy { margin-top: var(--s-6); }
+  .dy-grid { row-gap: var(--s-5); }
+  .dy-devices { display: flex; align-items: flex-end; justify-content: space-between; gap: 4%; padding-bottom: 6px; }
+  .dy-phone { position: relative; right: auto; bottom: auto; order: -1; flex: 0 0 54%; width: auto; padding: 22px 8px 10px; border-radius: 30px; }
+  .dy-screen--phone { border-radius: 22px; }
+  .dy-island { top: 9px; }
+  .dy-laptop { flex: 0 0 42%; width: auto; }
+  .dy-lid { margin: 0 6%; padding: 4px 4px 5px; border-radius: 8px; }
+  .dy-lid .dy-ol rect { rx: 8px; ry: 8px; }
+  .dy-base { height: 8px; margin-top: 2px; border-radius: 4px; }
+  .dy-busy-text { font-size: 19px; }
+  .dy-sketch .dr-paper { max-width: none; }
+  .dy-preview-foot { margin-top: var(--s-4); }
+  .dy-more { margin-top: 0; }
+}
+@media (max-width: 359px) {
+  .dy-way { font-size: 14px; padding: 0 4px; }
+  .dy-chip { padding: 0 var(--s-3); }
+}
+
+/* ---------- reduced motion: no transitions at all ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .dy *, .dy *::before, .dy *::after { transition: none !important; animation: none !important; }
+}
+.dy-jump { margin-top: var(--s-2); }
+.dy-preview:focus { outline: none; }

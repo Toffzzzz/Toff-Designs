@@ -14,6 +14,15 @@
  * it doesn't answer, simple shape rules read the pen strokes instead, so the visitor always gets a page.
  * Pen marks it understands: a wide box at the top = menu bar; a box with an X = picture; a small box = button; a bigger
  * box = card; lines = a heading then text; a zig-zag = a paragraph; a circle = logo. Fires 'toff:drawn' after each build.
+ *
+ * Round 05 (Design yours, assets/home/design-yours.js): pass onBuilt and DrawSite feeds SiteKit instead of drawing its
+ * own picture. Only the paper, the palette, the tools and .dr-status are then needed in the markup (the preview
+ * elements .dr-screen, .dr-scroll, .dr-page, .dr-foot, .dr-fold, .dr-empty, .dr-more and .dr-building are optional).
+ *   DrawSite.mount(el, {
+ *     getStyle, ai,                                          // as above; /read-sketch is used exactly as before
+ *     onBusy: function (busy, message) {},                   // reading the sketch (message says by whom), or finished
+ *     onBuilt: function (r) {}                               // r = { elements, description, how: 'ai'|'rules'|'fallback', unread }
+ *   });                                                      // elements are dr.blocks()-style: { kind, x, y, w, h, text }
  */
 (function () {
   'use strict';
@@ -151,6 +160,7 @@
     var btnDone = root.querySelector('.dr-done'), btnExample = root.querySelector('.dr-example'), btnUndo = root.querySelector('.dr-undo'), btnClear = root.querySelector('.dr-clear');
     var ctx = canvas.getContext('2d'), strokes = [], blocks = [], history = [], current = null, dpr = 1, built = null, playing = false, building = false, stale = false, ver = 0, seen = new Map(), uid = 0;
     var aiFn = o.recognise || (o.ai && o.ai.endpoint ? endpointRecogniser(o.ai) : null);
+    var toKit = typeof o.onBuilt === 'function';         // round 05: SiteKit draws the picture, not render() below
     var keyAi = root.querySelector('.dr-key-ai'), aiNote = root.querySelector('.dr-ai-privacy');
     function syncAiBits() { if (keyAi) keyAi.hidden = !aiFn; if (aiNote) aiNote.hidden = !aiFn; }
     syncAiBits();
@@ -333,7 +343,9 @@
     // ---------- "I'm done": build the homepage ----------
     function done() {
       if (building || playing || (!blocks.length && !strokes.length)) return Promise.resolve(built);
-      building = true; buttons(); busyEl.hidden = false; busyEl.querySelector('span').textContent = aiFn && strokes.length ? 'Claude is reading your sketch…' : 'Laying it out…';
+      var busyMsg = aiFn && strokes.length ? 'Claude is reading your sketch…' : 'Laying it out…';
+      building = true; buttons(); if (busyEl) { busyEl.hidden = false; busyEl.querySelector('span').textContent = busyMsg; }
+      if (o.onBusy) o.onBusy(true, busyMsg);
       var my = ++ver, st = style(), placedEls = blockEls(), shapes = strokeShapes(), rules = interpret(shapes), quick = merge(placedEls, rules.els);
       if (!aiFn || !strokes.length) { finish(quick, 'rules', my, rules.unread.length); return Promise.resolve(built); }   // only blocks: nothing for the AI to read
       var payload = { image: sketchImage(), page: { width: 4, height: 5 }, business: st.business, mood: st.mood,
@@ -346,29 +358,39 @@
       });
     }
     function finish(els, how, my, unreadCount) {
-      building = false; busyEl.hidden = true;
-      render(els, true);
+      building = false; if (busyEl) busyEl.hidden = true;
+      if (o.onBusy) o.onBusy(false, '');
+      if (!toKit) render(els, true);
       built = { elements: els.map(serial), description: describe(els), how: how, _els: els };
-      empty.hidden = !!els.length; stale = my !== ver; screen.classList.toggle('dr-stale', stale);
+      stale = my !== ver;
+      if (empty) empty.hidden = !!els.length;
+      if (screen) screen.classList.toggle('dr-stale', stale);
       var msg = els.length ? (how === 'ai' ? 'Built by Claude from your sketch: ' : 'Built from your sketch: ') + '<em>' + esc(built.description) + '</em>.' : 'Nothing on the paper could be turned into a page yet.';
       if (how === 'fallback') msg += ' <span class="dr-ai-note">The AI didn’t answer this time, so this is the quick version.</span>';
       if (how !== 'ai' && unreadCount) msg += ' ' + (unreadCount === 1 ? 'One pen mark' : unreadCount + ' pen marks') + ' couldn’t be read; the blocks above the paper are the surest way.';
-      status.innerHTML = msg;
+      if (status) status.innerHTML = msg;
       btnDone.textContent = 'Update my site';
-      buttons(); placeFold(); scroller.scrollTop = 0; cue();
+      buttons(); placeFold(); if (scroller) scroller.scrollTop = 0; cue();
       if (els.length) announce();
+      if (toKit) o.onBuilt({ elements: built.elements.slice(), description: built.description, how: how, unread: unreadCount });
     }
     function changed() {
       ver++;
       hint.hidden = !!(blocks.length || strokes.length);
       paper.classList.toggle('dr-has-strokes', !!(blocks.length || strokes.length));
-      if (built && !building) { stale = true; screen.classList.add('dr-stale'); status.innerHTML = 'You’ve changed your sketch. Press <em>Update my site</em> to rebuild it.'; }
+      if (built && !building) { stale = true; if (screen) screen.classList.add('dr-stale'); if (status) status.innerHTML = 'You’ve changed your sketch. Press <em>Update my site</em> to rebuild it.'; }
       if (!blocks.length && !strokes.length) reset();
       buttons();
     }
     function reset() {
-      built = null; stale = false; screen.classList.remove('dr-stale'); page.innerHTML = ''; page.style.background = ''; foot.hidden = true; empty.hidden = false; more.hidden = true;
-      status.textContent = ''; seen = new Map(); btnDone.textContent = 'I’m done: build my site';
+      built = null; stale = false;
+      if (screen) screen.classList.remove('dr-stale');
+      if (page) { page.innerHTML = ''; page.style.background = ''; }
+      if (foot) foot.hidden = true;
+      if (empty) empty.hidden = false;
+      if (more) more.hidden = true;
+      if (status) status.textContent = '';
+      seen = new Map(); btnDone.textContent = 'I’m done: build my site';
     }
 
     // ---------- the picture of the page ----------
@@ -538,11 +560,13 @@
       return out;
     }
     function placeFold() {                               // how much of the page a visitor sees before scrolling
+      if (!fold) return;
+      if (!page || !scroller) { fold.hidden = true; return; }
       var P = page.clientWidth || 1, frac = scroller.clientHeight / (P / PAPER);
       fold.style.top = (Math.max(0.15, Math.min(0.98, frac)) * 100) + '%'; fold.hidden = frac >= 0.98;
     }
-    function cue() { more.hidden = !(built && built.elements.length && scroller.scrollHeight > scroller.clientHeight + 10 && scroller.scrollTop < 24); }
-    scroller.addEventListener('scroll', cue, { passive: true });
+    function cue() { if (!more || !scroller) return; more.hidden = !(built && built.elements.length && scroller.scrollHeight > scroller.clientHeight + 10 && scroller.scrollTop < 24); }
+    if (scroller) scroller.addEventListener('scroll', cue, { passive: true });
     function buttons() {
       var any = !!(blocks.length || strokes.length);
       btnDone.disabled = !any || building || playing; btnUndo.disabled = !history.length || playing || building; btnClear.disabled = !any || playing || building; btnExample.disabled = playing || building;
@@ -558,7 +582,7 @@
     }
     function clear() {
       if (playing || building) return;
-      blocks.forEach(function (b) { b.el.remove(); }); blocks = []; strokes = []; history = []; redraw(); scroller.scrollTop = 0; changed();
+      blocks.forEach(function (b) { b.el.remove(); }); blocks = []; strokes = []; history = []; redraw(); if (scroller) scroller.scrollTop = 0; changed();
     }
 
     function example() {
@@ -598,10 +622,10 @@
     btnUndo.addEventListener('click', undo);
     btnClear.addEventListener('click', clear);
     root.addEventListener('keydown', function (e) { if ((e.ctrlKey || e.metaKey) && !e.shiftKey && (e.key === 'z' || e.key === 'Z') && !/INPUT|TEXTAREA/.test(e.target.tagName) && !e.target.isContentEditable) { e.preventDefault(); undo(); } });
-    document.addEventListener('toff:design', function () { if (built && !building) render(built._els, false); });   // new playground colours
+    if (!toKit) document.addEventListener('toff:design', function () { if (built && !building) render(built._els, false); });   // new playground colours
     var rq = 0;
-    function relayout() { cancelAnimationFrame(rq); rq = requestAnimationFrame(function () { sizePaper(); placeFold(); blocks.forEach(place); if (built) render(built._els, false); }); }
-    if ('ResizeObserver' in window) { var ro = new ResizeObserver(relayout); ro.observe(paper); ro.observe(screen); } else window.addEventListener('resize', relayout);
+    function relayout() { cancelAnimationFrame(rq); rq = requestAnimationFrame(function () { sizePaper(); placeFold(); blocks.forEach(place); if (built && !toKit) render(built._els, false); }); }
+    if ('ResizeObserver' in window) { var ro = new ResizeObserver(relayout); ro.observe(paper); if (screen) ro.observe(screen); } else window.addEventListener('resize', relayout);
     sizePaper(); placeFold(); buttons();
     return {
       done: done, example: example, undo: undo, clear: clear, build: done, playing: function () { return playing; }, building: function () { return building; }, stale: function () { return stale; },
