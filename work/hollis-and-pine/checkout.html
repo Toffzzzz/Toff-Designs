@@ -1,0 +1,172 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Checkout: Hollis &amp; Pine</title>
+  <meta name="description" content="Check out from Hollis &amp; Pine, clothing and ceramics from small makers in Islington.">
+  <meta name="robots" content="noindex">
+  <meta name="theme-color" content="#FAFAF7">
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Hollis &amp; Pine">
+  <meta property="og:title" content="Checkout: Hollis &amp; Pine">
+  <meta property="og:description" content="Natural-fibre clothing and hand-thrown ceramics from small makers we know by name.">
+  <meta property="og:image" content="img/playground-boutique.webp">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="751">
+  <meta property="og:image:alt" content="Inside the shop: a stoneware vase on a stone plinth and a rail of linen clothes">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Crect width='32' height='32' rx='8' fill='%233E4D3A'/%3E%3Cpath d='M12 9c-3 3-3 6-1 9 1 2 1 4-1 5h12c-2-1-2-3-1-5 2-3 2-6-1-9z' fill='%23FAFAF7'/%3E%3C/svg%3E">
+  <link rel="preload" href="fonts/albert-sans-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="stylesheet" href="css/site.css">
+  <link rel="stylesheet" href="../../assets/shared/ribbon.css">
+  <script>(function(d){var m=/[?&]embed(?:=([^&]*))?(?:&|$)/.exec(location.search);if(m){d.classList.add('is-embed');d.setAttribute('data-embed',decodeURIComponent(m[1]||''))}if(!(window.matchMedia&&matchMedia('(prefers-reduced-motion: reduce)').matches)){d.classList.add('js-motion');setTimeout(function(){if(!window.__toffMotion)d.classList.remove('js-motion')},4000)}})(document.documentElement)</script>
+  <script type="module" src="js/checkout.js"></script>
+</head>
+<body data-page="checkout">
+  <a class="skip" href="#main">Skip to content</a>
+
+  <header class="bar" data-bar>
+    <div class="wrap bar__in">
+      <a class="wordmark" href="./" aria-label="Hollis &amp; Pine, home">Hollis <span class="wordmark__amp">&amp;</span>&nbsp;Pine</a>
+      <nav class="nav" aria-label="Main">
+        <ul role="list">
+          <li><a href="./#shop">Shop</a></li>
+          <li><a href="./#vase">Ceramics</a></li>
+          <li><a href="./#makers">Makers</a></li>
+          <li><a href="./#visit">Visit</a></li>
+        </ul>
+      </nav>
+      <button class="bag" type="button" data-open-basket aria-haspopup="dialog">Basket <span class="bag__count" data-basket-count data-n="0">0</span></button>
+      <button class="menu-btn" type="button" data-open-menu aria-haspopup="dialog">Menu</button>
+    </div>
+  </header>
+
+  <main id="main" tabindex="-1">
+    <div class="wrap">
+      <div class="checkout" data-feature="checkout">
+        <div class="checkout__head">
+          <nav class="crumbs" aria-label="Breadcrumb"><ol><li><a href="./#shop">Shop</a></li><li><span aria-current="page">Checkout</span></li></ol></nav>
+          <h1 class="checkout__title" data-co-title tabindex="-1">Checkout</h1>
+        </div>
+        <div class="empty" data-co-empty hidden>
+          <p class="h3">Your basket is empty</p>
+          <p class="quiet">Add something from the shop and come back here to see how checkout works.</p>
+          <a class="btn btn--solid" href="./#shop">Go to the shop</a>
+        </div>
+        <form class="form" data-co-form novalidate hidden>
+          <div class="errsum" data-errsum role="alert" tabindex="-1" hidden>
+            <h2>Please check these details</h2>
+            <ul data-errlist></ul>
+          </div>
+          <fieldset>
+            <legend>Your details</legend>
+            <div class="field">
+              <label for="f-name">Full name</label>
+              <input class="input" id="f-name" name="name" autocomplete="name" aria-describedby="e-name">
+              <p class="err" id="e-name" hidden></p>
+            </div>
+            <div class="field">
+              <label for="f-email">Email</label>
+              <p class="hint" id="h-email">For the order confirmation.</p>
+              <input class="input" id="f-email" name="email" type="email" autocomplete="email" spellcheck="false" aria-describedby="h-email e-email">
+              <p class="err" id="e-email" hidden></p>
+            </div>
+          </fieldset>
+          <fieldset>
+            <legend>Delivery</legend>
+            <label class="option"><input type="radio" name="method" value="post" checked><span>Delivery to your door</span><span class="price" data-post-price></span><span class="note">Within two working days of your order, anywhere in the UK.</span></label>
+            <label class="option"><input type="radio" name="method" value="collect"><span>Collect from the shop</span><span class="price">Free</span><span class="note">28 Halton Yard, Islington. We’ll keep it aside for a week.</span></label>
+          </fieldset>
+          <fieldset data-address>
+            <legend>Address</legend>
+            <div class="field">
+              <label for="f-line1">Address line 1</label>
+              <input class="input" id="f-line1" name="line1" autocomplete="address-line1" aria-describedby="e-line1">
+              <p class="err" id="e-line1" hidden></p>
+            </div>
+            <div class="field">
+              <label for="f-line2">Address line 2 (optional)</label>
+              <input class="input" id="f-line2" name="line2" autocomplete="address-line2">
+            </div>
+            <div class="two">
+              <div class="field">
+                <label for="f-town">Town or city</label>
+                <input class="input" id="f-town" name="town" autocomplete="address-level2" aria-describedby="e-town">
+                <p class="err" id="e-town" hidden></p>
+              </div>
+              <div class="field">
+                <label for="f-postcode">Postcode</label>
+                <input class="input" id="f-postcode" name="postcode" autocomplete="postal-code" autocapitalize="characters" spellcheck="false" aria-describedby="e-postcode" style="max-width: 12em">
+                <p class="err" id="e-postcode" hidden></p>
+              </div>
+            </div>
+            <p class="note">We deliver within the UK only.</p>
+          </fieldset>
+          <fieldset>
+            <legend>Payment</legend>
+            <p>In a real shop, card details would go here. This is a concept, so there’s nothing to fill in.</p>
+          </fieldset>
+          <div style="display:grid; gap:10px; justify-items:start">
+            <button class="btn btn--solid" type="submit" data-place>Place order</button>
+            <p class="concept-line">A concept: nothing is charged, sent or stored.</p>
+          </div>
+        </form>
+        <aside class="summary" aria-labelledby="sum-title" data-co-summary hidden>
+          <div style="display:flex; justify-content:space-between; align-items:baseline; gap:12px">
+            <h2 id="sum-title">Your order</h2>
+            <button class="textbtn" type="button" data-open-basket>Edit basket</button>
+          </div>
+          <ul class="lines" data-co-lines></ul>
+          <div class="totals" data-co-totals></div>
+        </aside>
+        <section class="done" data-co-done hidden aria-labelledby="done-title" tabindex="-1">
+          <h2 class="h2" id="done-title">Thank you</h2>
+          <p class="done__ref" data-done-ref></p>
+          <div data-done-body></div>
+          <p class="concept-line">A concept: nothing is charged. Nothing was sent or stored, and the basket is now empty.</p>
+          <div><a class="btn btn--solid" href="./#shop">Back to the shop</a></div>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer class="foot">
+    <div class="wrap">
+      <div class="foot__grid">
+        <div>
+          <p class="foot__brand">Hollis &amp; Pine</p>
+          <p class="quiet">Clothing and ceramics from small makers.</p>
+        </div>
+        <nav aria-label="Shop">
+          <h2>Shop</h2>
+          <ul role="list">
+            <li><a href="./#shop">Clothing</a></li>
+            <li><a href="./#shop">Ceramics</a></li>
+            <li><a href="./#makers">Makers</a></li>
+          </ul>
+        </nav>
+        <nav aria-label="Help">
+          <h2>Help</h2>
+          <ul role="list">
+            <li><a href="./#delivery">Delivery and returns</a></li>
+            <li><a href="checkout.html">Checkout</a></li>
+          </ul>
+        </nav>
+        <div>
+          <h2>Visit</h2>
+          <p>28 Halton Yard, Islington, London N1</p>
+          <p><a href="tel:+442079460412">020 7946 0412</a></p>
+        </div>
+      </div>
+      <p class="foot__small">Prices include VAT. © Hollis &amp; Pine</p>
+    </div>
+  </footer>
+
+  <div data-toff-ribbon data-name="Hollis &amp; Pine" class="toff-ribbon" role="complementary" aria-label="About this site">
+    <p class="toff-ribbon__text"><span class="toff-ribbon__line">A concept site by Toff Studio.</span>
+      <span class="toff-ribbon__line">Hollis &amp; Pine is made up.</span></p>
+    <a class="toff-ribbon__link" href="../../"><span class="toff-ribbon__arrow" aria-hidden="true">←</span><span class="toff-ribbon__label">Back to Toff Studio</span></a>
+  </div>
+</body>
+</html>
