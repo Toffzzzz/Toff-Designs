@@ -1,0 +1,10 @@
+/* Letters with weight: the letters own the room; a fine gold floor; the panel top left. */
+.lp-weight .lp-canvas { cursor: default; }
+.lp-weight .lp-canvas[data-over] { cursor: grab; }
+.lp-weight .lp-canvas[data-dragging] { cursor: grabbing; }
+.lp-weight-note {
+  position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(440px, calc(100% - 32px)); margin: 0; padding: 18px 20px; border-radius: var(--radius-media, 12px);
+  background: color-mix(in srgb, var(--bg-deep, #0A101E) 92%, transparent); color: var(--slate, #A7AFC2); text-align: center;
+}
+.lp-weight-loading { position: absolute; left: 50%; top: 50%; transform: translate(-50%, -50%); margin: 0; color: var(--slate, #A7AFC2); }

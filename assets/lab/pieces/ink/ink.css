@@ -1,0 +1,9 @@
+/* Ink that moves: the water fills the piece; the panel sits top left (top on a phone). */
+.lp-ink { background: var(--bg, #0E1628); }
+.lp-ink .lp-canvas { cursor: crosshair; }
+.lp-ink .lp-canvas[data-dragging] { cursor: grabbing; }
+.lp-ink-note {
+  position: absolute; z-index: 2; left: 50%; top: 50%; transform: translate(-50%, -50%);
+  width: min(440px, calc(100% - 32px)); margin: 0; padding: 18px 20px; border-radius: var(--radius-media, 12px);
+  background: color-mix(in srgb, var(--bg-deep, #0A101E) 92%, transparent); color: var(--slate, #A7AFC2); text-align: center;
+}

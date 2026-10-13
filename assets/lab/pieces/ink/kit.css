@@ -1,0 +1,100 @@
+/* =====================================================================
+   Lab pieces 5, 6 and 7 (Ink that moves, Letters with weight, Your logo in
+   one line): the shared frame.
+
+   Art direction. Each piece is one object on a dark table, lit from
+   nowhere: midnight water, cream ink, gold only where it earns it (the
+   under-shadow, the pen tip, the one solid button). Controls sit in one
+   quiet deep-midnight panel in the top-left corner (top, full width on a
+   phone), never over the middle of the work, so the piece owns the screen.
+   Type: Work Sans for what you read and press, Cormorant Garamond only for
+   the work itself (the letters, the name). 8px corners on controls, 12px on
+   the panel and pictures, no borders around pictures, no glows, no blur.
+   Movement is the piece's own; the frame never animates except a 280ms
+   cross-fade when a still gives way to the live piece.
+
+   The Lab page may lay a caption bar over the bottom of the piece: set
+   --lab-safe-bottom (and --lab-safe-top for a top bar) on the container and
+   every piece keeps its floor, stage and panel clear of it.
+   ===================================================================== */
+
+.lp {
+  --lp-top: var(--lab-safe-top, 0px);
+  --lp-bottom: var(--lab-safe-bottom, 0px);
+  --lp-gutter: clamp(16px, 4.4vw, 64px);
+  position: absolute; inset: 0; overflow: hidden;
+  background: var(--bg, #0E1628); color: var(--text, #F6F0E4);
+  font: 400 var(--fs-small, 15px)/var(--lh-small, 1.5) var(--sans, "Work Sans", system-ui, sans-serif);
+  -webkit-tap-highlight-color: transparent;
+}
+.lp *, .lp *::before, .lp *::after { box-sizing: border-box; }
+.lp :focus-visible { outline: 2px solid var(--gold, #D8AC5F); outline-offset: 3px; }
+.lp :focus:not(:focus-visible) { outline: none; }
+
+/* The panel: one place for every control */
+.lp-panel {
+  position: absolute; z-index: 3;
+  left: var(--lp-gutter); top: calc(var(--lp-top) + clamp(16px, 3vw, 32px));
+  width: min(380px, calc(100% - 2 * var(--lp-gutter)));
+  padding: 20px 20px 18px; border-radius: var(--radius-media, 12px);
+  background: color-mix(in srgb, var(--bg-deep, #0A101E) 90%, transparent);
+  display: grid; gap: 12px;
+}
+.lp-label { display: block; color: var(--slate, #A7AFC2); font-size: var(--fs-small, 15px); margin: 0 0 6px; }
+.lp-row { display: flex; gap: 8px; align-items: stretch; }
+.lp-input {
+  flex: 1 1 auto; min-width: 0; min-height: 44px; padding: 0 14px;
+  border: 1px solid var(--outline, rgba(167, 175, 194, .4)); border-radius: var(--radius, 8px);
+  background: var(--tint, #1A2541); color: var(--text, #F6F0E4);
+  font: 400 17px/1.2 var(--sans, "Work Sans", system-ui, sans-serif);
+}
+.lp-input::placeholder { color: color-mix(in srgb, var(--slate, #A7AFC2) 80%, transparent); }
+.lp-input:focus-visible { outline-offset: 2px; border-color: transparent; }
+.lp-btn {
+  display: inline-flex; align-items: center; justify-content: center; gap: 8px;
+  min-height: 44px; padding: 0 18px; border: 0; border-radius: var(--radius, 8px);
+  font: 500 var(--fs-ui, 15px)/var(--lh-ui, 1.2) var(--sans, "Work Sans", system-ui, sans-serif);
+  white-space: nowrap; cursor: pointer; text-decoration: none;
+  transition: background-color var(--dur-quick, 180ms) var(--ease-out, ease), transform var(--dur-press, 100ms) var(--ease-out, ease);
+}
+.lp-btn:active { transform: translateY(1px); }
+.lp-btn:disabled { opacity: .45; cursor: default; transform: none; }
+.lp-btn--gold { background: var(--gold, #D8AC5F); color: var(--bg, #0E1628); }
+.lp-btn--gold:focus-visible { outline-color: var(--text, #F6F0E4); }
+.lp-btn--quiet { background: var(--tint, #1A2541); color: var(--text, #F6F0E4); }
+.lp-btn--quiet[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--gold, #D8AC5F); color: var(--gold, #D8AC5F); }
+@media (hover: hover) {
+  .lp-btn--gold:hover { background: color-mix(in srgb, var(--gold, #D8AC5F) 88%, var(--text, #F6F0E4)); }
+  .lp-btn--quiet:hover { background: color-mix(in srgb, var(--tint, #1A2541) 80%, var(--slate, #A7AFC2)); }
+}
+.lp-actions { display: flex; flex-wrap: wrap; gap: 8px; }
+.lp-hint { margin: 0; color: var(--slate, #A7AFC2); font-size: var(--fs-fine, 14px); line-height: 1.5; text-wrap: pretty; }
+.lp-status { margin: 0; min-height: 1.5em; color: var(--ink, #F1E3C6); font-size: var(--fs-fine, 14px); }
+.lp-sr { position: absolute; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0; }
+
+/* The stage the piece draws on */
+.lp-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+.lp-canvas:focus-visible { outline-offset: -6px; }
+
+/* Still with "Play" (reduced motion, low-power devices) */
+.lp-still { position: absolute; inset: 0; z-index: 4; display: grid; place-items: center; background: var(--bg, #0E1628); transition: opacity var(--dur-base, 280ms) var(--ease-out, ease); }
+.lp-still[data-leaving] { opacity: 0; pointer-events: none; }
+.lp-still img, .lp-still canvas { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; display: block; }
+.lp-still-card {
+  position: absolute; z-index: 1; left: 50%; bottom: calc(var(--lp-bottom) + clamp(24px, 6vh, 64px)); transform: translateX(-50%);
+  width: min(420px, calc(100% - 32px)); padding: 18px 20px; border-radius: var(--radius-media, 12px);
+  background: color-mix(in srgb, var(--bg-deep, #0A101E) 92%, transparent);
+  display: grid; gap: 12px; justify-items: start;
+}
+.lp-still-card[data-place="top"] { bottom: auto; top: calc(var(--lp-top) + clamp(24px, 16vh, 180px)); }
+.lp-still-card p { margin: 0; color: var(--slate, #A7AFC2); font-size: var(--fs-small, 15px); text-wrap: pretty; }
+
+.lp-live { opacity: 0; transition: opacity var(--dur-base, 280ms) var(--ease-out, ease); }
+.lp-live[data-in] { opacity: 1; }
+
+@media (max-width: 699px) {
+  .lp-panel { left: 16px; right: 16px; width: auto; top: calc(var(--lp-top) + 12px); padding: 14px 14px 12px; gap: 10px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-still, .lp-live, .lp-btn { transition: none; }
+}
