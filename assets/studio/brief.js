@@ -2,6 +2,12 @@
  * Brief: turns what a visitor told the assistant (answers, pinned picks, designs) into a polished,
  * self-contained project brief document, with a generative ink cover unique to each visitor.
  *
+ * The brief (round 05, the concierge; contract B 11.6, plus what stays on the page):
+ *   { business, goals: [], must_haves: [], look, pins: [{ n, label, choice, note, snapshot, section }],
+ *     designs: [{ source: 'pick'|'sketch'|'describe', summary, snapshot }], timing, budget, notes: [],
+ *     summary, transcript: [{ who: 'you'|'bot', text }], created }
+ * The round 03 to 04 fields (name, need, pages, features, email) still work.
+ *
  *   Brief.html(brief)      -> the whole document as an HTML string
  *   Brief.text(brief)      -> a plain-text version (for email)
  *   Brief.download(brief)  -> saves "toff-brief-<name>.html"
@@ -53,7 +59,7 @@
     'Chat assistant': 'Scripted or AI; asks your questions in your order',
     'Online shop': 'Products, basket, checkout and order emails',
     'Blog or news': 'Posts the owner can add themselves',
-    'Custom animations': 'Bespoke drawn or scroll animations',
+    'Custom animations': 'Drawn or scroll animations made for the site',
     'Photos or video shoot': 'Planned shoot or art-directed imagery',
     'Multiple languages': 'Translated pages and a language switch',
     'Hosting & care': 'Hosting, updates, backups and small changes'
@@ -61,19 +67,33 @@
 
   function dateStr(d) { try { return new Intl.DateTimeFormat('en-GB', { day: 'numeric', month: 'long', year: 'numeric' }).format(d); } catch (e) { return d.toDateString(); } }
 
+  function list(v) { return Array.isArray(v) ? v.filter(function (x) { return x != null && String(x).trim() !== ''; }) : []; }
+  function designLabel(src) { return { pick: 'Picked in Design yours', sketch: 'Sketched in Design yours', describe: 'Described in Design yours', drawn: 'Drawn by hand', playground: 'Made in the playground' }[src] || 'A design'; }
+
   function text(b) {
     var L = [];
     L.push('Website brief' + (b.name ? ' for ' + b.name : ''), dateStr(new Date(b.created || Date.now())), '');
-    L.push('Business: ' + (b.business || '-'), 'Needs: ' + (b.need || '-'), 'Pages: ' + (b.pages || '-'), 'Timing: ' + (b.timing || '-'), 'Budget: ' + (b.budget || '-'), 'Email: ' + (b.email || '-'), '');
-    if (b.features && b.features.length) { L.push('Features:'); b.features.forEach(function (f) { L.push(' - ' + f); }); L.push(''); }
-    if (b.designs && b.designs.length) { L.push('Designs:'); b.designs.forEach(function (d) { L.push(' - ' + (d.source === 'drawn' ? 'Drawn: ' : 'Playground: ') + d.summary); }); L.push(''); }
+    if (b.summary) L.push(b.summary, '');
+    L.push('Business: ' + (b.business || '-'));
+    if (b.need) L.push('Needs: ' + b.need);
+    if (b.pages) L.push('Pages: ' + b.pages);
+    L.push('Timing: ' + (b.timing || '-'), 'Budget: ' + (b.budget || '-'));
+    if (b.email) L.push('Email: ' + b.email);
+    L.push('');
+    if (list(b.goals).length) { L.push('What the website must do:'); list(b.goals).forEach(function (g) { L.push(' - ' + g); }); L.push(''); }
+    var must = list(b.must_haves).concat(list(b.features));
+    if (must.length) { L.push('Must-haves:'); must.forEach(function (f) { L.push(' - ' + f); }); L.push(''); }
+    if (b.look) L.push('The look: ' + b.look, '');
+    if (b.designs && b.designs.length) { L.push('Designs:'); b.designs.forEach(function (d) { L.push(' - ' + designLabel(d.source) + ': ' + (d.summary || '')); }); L.push(''); }
     if (b.pins && b.pins.length) { L.push('Pinned on the site:'); b.pins.forEach(function (p) { L.push(' ' + p.n + '. ' + p.label + (p.choice ? ' [' + p.choice + ']' : '') + (p.note ? ': ' + p.note : '')); }); L.push(''); }
-    if (b.notes && b.notes.length) { L.push('Other notes:'); b.notes.forEach(function (n) { L.push(' - ' + n); }); }
+    if (list(b.notes).length) { L.push('Other notes:'); list(b.notes).forEach(function (n) { L.push(' - ' + n); }); }
     return L.join('\n');
   }
 
   function html(b) {
-    var name = b.name || 'your business', d = new Date(b.created || Date.now());
+    var name = b.name || '', d = new Date(b.created || Date.now());
+    var title = name ? 'Website brief for ' + name : 'Website brief';
+    var ul = function (v) { return '<ul>' + list(v).map(function (x) { return '<li>' + esc(x) + '</li>'; }).join('') + '</ul>'; };
     var row = function (k, v) { return v ? '<tr><th>' + esc(k) + '</th><td>' + esc(v) + '</td></tr>' : ''; };
     var pins = (b.pins || []).map(function (p) {
       return '<figure class="pin"><div class="pin-n">' + p.n + '</div>' +
@@ -82,17 +102,18 @@
         (p.section ? '<small>' + esc(p.section) + '</small>' : '') + '</figcaption></figure>';
     }).join('');
     var designs = (b.designs || []).map(function (ds) {
-      return '<div class="design">' + (ds.snapshot ? '<img src="' + ds.snapshot + '" alt="">' : '') + '<div><b>' + (ds.source === 'drawn' ? 'Drawn by hand' : 'Made in the playground') + '</b><p>' + esc(ds.summary) + '</p>' +
+      return '<div class="design">' + (ds.snapshot ? '<img src="' + ds.snapshot + '" alt="">' : '') + '<div><b>' + esc(designLabel(ds.source)) + '</b><p>' + esc(ds.summary) + '</p>' +
         (ds.colours ? '<span class="sw">' + ds.colours.map(function (c) { return '<i style="background:' + esc(c) + '"></i>'; }).join('') + '</span>' : '') + '</div></div>';
     }).join('');
     var scope = [['Pages', b.pages || 'To agree', 'Page count drives most of the build time']];
-    (b.features || []).forEach(function (f) { scope.push([f, 'Requested', FEATURE_NOTES[f] || '']); });
+    list(b.must_haves).forEach(function (f) { scope.push([f, 'Requested', FEATURE_NOTES[f] || '']); });
+    list(b.features).forEach(function (f) { scope.push([f, 'Requested', FEATURE_NOTES[f] || '']); });
     (b.pins || []).filter(function (p) { return p.choice !== 'Not this'; }).forEach(function (p) { scope.push(['Like: ' + p.label, p.choice || 'Liked', p.note || '']); });
     var scopeRows = scope.map(function (s) { return '<tr><td>' + esc(s[0]) + '</td><td>' + esc(s[1]) + '</td><td>' + esc(s[2]) + '</td><td class="q"></td></tr>'; }).join('');
     var transcript = (b.transcript || []).map(function (m) { return '<p class="' + (m.who === 'you' ? 'you' : 'bot') + '"><b>' + (m.who === 'you' ? esc(b.name || 'Visitor') : 'Assistant') + ':</b> ' + esc(m.text) + '</p>'; }).join('');
-    return '<!doctype html><html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
-      '<title>Website brief – ' + esc(name) + '</title><style>' +
-      '@page{size:A4;margin:16mm}*{box-sizing:border-box}body{margin:0;font:15px/1.6 Inter,-apple-system,"Segoe UI",sans-serif;color:#14202E;background:#F6F1E8}' +
+    return '<!doctype html><html lang="en-GB"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">' +
+      '<title>' + esc(title) + '</title><style>' +
+      '@page{size:A4;margin:16mm}*{box-sizing:border-box}body{margin:0;font:15px/1.6 "Work Sans",-apple-system,"Segoe UI",sans-serif;color:#14202E;background:#F6F1E8}' +
       '.cover{position:relative;min-height:100vh;color:#F6F0E4;background:#0E1628;display:flex;flex-direction:column;justify-content:flex-end;padding:56px;overflow:hidden;page-break-after:always;-webkit-print-color-adjust:exact;print-color-adjust:exact}' +
       '.cover .art{position:absolute;inset:0}.cover .art svg{width:100%;height:100%;display:block}.cover>*:not(.art){position:relative}' +
       '.kicker{font:italic 400 20px/1.2 "Cormorant Garamond",Georgia,serif;color:#D8AC5F;margin:0 0 10px}.cover h1{font:300 clamp(40px,7vw,76px)/1.02 "Cormorant Garamond",Georgia,serif;margin:0 0 14px;max-width:14ch}' +
@@ -106,27 +127,31 @@
       '.pin figcaption{padding-top:10px}.pin p{margin:4px 0}.pin small{color:#5B6472}.tag{display:inline-block;margin-left:8px;font-size:11px;padding:2px 8px;border-radius:99px;background:#EFE6D6;color:#5A4630}' +
       '.design{display:flex;gap:16px;align-items:center;background:#fff;border-radius:12px;padding:12px;margin-bottom:12px}.design img{width:260px;max-width:45%;border-radius:8px;background:#fff}' +
       '.sw i{display:inline-block;width:16px;height:16px;border-radius:50%;margin-right:4px;box-shadow:0 0 0 1px #0002}' +
-      '.chat p{margin:6px 0}.chat .bot{color:#5B6472}.foot{margin-top:48px;color:#5B6472;font-size:13px}' +
+      '.lede{font:300 24px/1.35 "Cormorant Garamond",Georgia,serif;margin:0}ul{padding-left:20px}li{margin:4px 0}.chat p{margin:6px 0}.chat .bot{color:#5B6472}.foot{margin-top:48px;color:#5B6472;font-size:13px}' +
       '@media print{.wrap{padding:0}h2{break-after:avoid}.pin,.design{break-inside:avoid}}' +
       '</style></head><body>' +
-      '<section class="cover"><div class="art">' + flowArt((b.name || '') + (b.business || '') + (b.email || ''), 800, 1100) + '</div>' +
-      '<div class="cover-text"><p class="kicker">Toff Studio</p><h1>Website brief for ' + esc(name) + '</h1><p class="meta">' + esc(dateStr(d)) + (b.email ? ' · ' + esc(b.email) : '') + '</p></div></section>' +
+      '<section class="cover"><div class="art">' + flowArt((b.name || '') + (b.business || '') + (b.email || '') + (b.summary || ''), 800, 1100) + '</div>' +
+      '<div class="cover-text"><p class="kicker">Toff Studio</p><h1>' + esc(title) + '</h1><p class="meta">' + esc(dateStr(d)) + (b.email ? ' · ' + esc(b.email) : '') + '</p></div></section>' +
       '<main class="wrap">' +
+      (b.summary ? '<h2>In short</h2><p class="lede">' + esc(b.summary) + '</p>' : '') +
       '<h2>The business</h2><table>' + row('Name', b.name) + row('Business', b.business) + row('What they need', b.need) + row('Pages', b.pages) + row('Timing', b.timing) + row('Budget', b.budget) + row('Email', b.email) + '</table>' +
+      (list(b.goals).length ? '<h2>What the website must do</h2>' + ul(b.goals) : '') +
+      (list(b.must_haves).length ? '<h2>Must-haves</h2>' + ul(b.must_haves) : '') +
+      (b.look ? '<h2>The look</h2><p>' + esc(b.look) + '</p>' : '') +
       (b.features && b.features.length ? '<h2>Features</h2><table>' + b.features.map(function (f) { return row(f, FEATURE_NOTES[f] || 'Requested'); }).join('') + '</table>' : '') +
       (designs ? '<h2>Their designs</h2>' + designs : '') +
       (pins ? '<h2>What they pointed at</h2><div class="pins">' + pins + '</div>' : '') +
-      (b.notes && b.notes.length ? '<h2>Other notes</h2><ul>' + b.notes.map(function (n) { return '<li>' + esc(n) + '</li>'; }).join('') + '</ul>' : '') +
+      (list(b.notes).length ? '<h2>Other notes</h2>' + ul(b.notes) : '') +
       '<h2>Scope for the quote</h2><table class="scope"><tr><th>Item</th><th>Detail</th><th>Notes</th><th>Quote</th></tr>' + scopeRows + '</table>' +
       (transcript ? '<h2>Conversation</h2><div class="chat">' + transcript + '</div>' : '') +
-      '<p class="foot">Made with the planning assistant on the Toff Studio website. The cover artwork was drawn for this brief alone.</p>' +
+      '<p class="foot">Made with the studio’s assistant on the Toff Studio website. The cover artwork was drawn for this brief alone.</p>' +
       '</main></body></html>';
   }
 
   function slug(s) { return String(s || 'brief').toLowerCase().replace(/[^a-z0-9]+/g, '-').replace(/^-|-$/g, '').slice(0, 40) || 'brief'; }
   function download(b) {
     var blob = new Blob([html(b)], { type: 'text/html' }), url = URL.createObjectURL(blob), a = document.createElement('a');
-    a.href = url; a.download = 'toff-brief-' + slug(b.name) + '.html'; document.body.appendChild(a); a.click(); a.remove();
+    a.href = url; a.download = 'toff-brief-' + slug(b.name || b.business || 'brief') + '.html'; document.body.appendChild(a); a.click(); a.remove();
     setTimeout(function () { URL.revokeObjectURL(url); }, 4000);
     return a.download;
   }

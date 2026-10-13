@@ -55,3 +55,10 @@ Next: Phase 2 (foundations). The shader, vendoring and serve.py --gzip were star
 - Worker tests: test-round-05-routes.mjs 146/146, test-sketch-ai-worker.mjs 33/33, test-sketch-counter.mjs 12/12.
 - Deployed with `npx wrangler deploy` (version 39b20053-dccb-4040-8c48-e5f5e1472c2a). Live checks (Origin https://toffzzzz.github.io): /chat 200 with an answer, /read-sketch 200 with elements (so no rollback); /agent and /concierge 200 streaming text/event-stream; /brief and /design 200 JSON; Origin https://example.com 403; 21 invalid requests within a minute: the first 20 got 400, the 21st 429. Python needed the system certificates (/etc/ssl/cert.pem). The key was never read or printed.
 - Phase 3 started: five site-builders running in parallel.
+
+## Phases 3, 5 and 7 in progress (2026-10-13)
+
+- Concept sites committed separately: Hart & Sons (Lighthouse desktop P100 A100 BP100 SEO60, mobile P99 A100 BP100 SEO60; SEO's only failure is is-crawlable, which noindex fails on purpose; LCP 0.49 s / 2.10 s; CLS 0), Morrow Coffee, Atelier Wren. Lighthouse for the rest runs once all five are in.
+- Home page chapters committed: Design yours (67/67 harness, 21/21 index), AI chapter (60/60 harness, 32/32 index), concierge (all suites pass). Builder HOME (index.html, hero, work, concepts) still working.
+- Lab pieces committed: ink, weight, oneline (102/103 then fixed check, 17/17). Gold and specks in progress.
+- Open: "Download your brief" uses a gold solid button; the gold solid is reserved for "Start a project" (fix in Phase 9).

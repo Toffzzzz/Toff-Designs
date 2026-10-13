@@ -178,3 +178,6 @@ A dated log. One line per decision, with the reason where given. Never remove li
 - 2026-10-13: Design yours' "Send this to Toff" uses the outlined secondary button, not gold: the gold solid button stays the top bar's one "Start a project" (overrides the plan's storyboard, screen 8).
 - 2026-10-13: Design yours' Describe counts its own 8 live answers per visit, separately from the AI demo and the concierge; /read-sketch stays uncounted, as before. Its time-out uses ai.firstWordTimeoutMs (12 s).
 - 2026-10-13: Draw your site (drawsite.js) gained onBuilt/onBusy options so Sketch feeds SiteKit; without them it behaves exactly as before.
+- 2026-10-13: The concierge is one component in two places: inline under "Tell us what you need", and as a panel (docked on the right from 1024px, a full-height sheet below). The floating "Plan with us" button never shows on phones on the home page, because content fills the width; "Start a project" in the top bar is always there instead.
+- 2026-10-13: The concierge removes emails, phone numbers and stated names from anything sent to the Worker, as a second line of defence, and tells the visitor it did.
+- 2026-10-13: The AI demo keeps each business's conversation and frame while switching; the Linden Clinic page is a small calm booking page in system fonts (noindex).
