@@ -1,0 +1,154 @@
+/* Linden Clinic: a made-up private GP clinic, for Toff Studio's AI demo.
+   Art direction: a calm, clinical page that still feels kind. Pale sage paper, deep linden-green
+   ink, one green for actions, white cards with soft rounded corners, and the system's own sans
+   (no font download), with tabular numerals for times and prices. Nothing moves except the
+   brief highlight when something changes. Not Midnight & Gold: it is a client's own site. */
+
+:root {
+  --bg: #F4F6F2;
+  --card: #FFFFFF;
+  --ink: #17322B;          /* 12.4 : 1 on bg */
+  --quiet: #4D5F57;        /* 6.4 : 1 on bg, 6.9 on white */
+  --accent: #2C6853;       /* white text on it 6.4 : 1 */
+  --accent-ink: #FFFFFF;
+  --soft: #DFEBE4;         /* selected */
+  --line: #CCD8D1;         /* non-text rules */
+  --line-strong: #7D948A;  /* control outlines, 3.3 : 1 on white */
+  --held: #FBF1DC;
+  --warn: #8A3B12;         /* 7.4 : 1 on held */
+  --r: 12px;
+  --r-s: 8px;
+  --sans: "Avenir Next", "Segoe UI", system-ui, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  color-scheme: light;
+}
+
+*, *::before, *::after { box-sizing: border-box; }
+html { background: var(--bg); color: var(--ink); -webkit-text-size-adjust: 100%; text-size-adjust: 100%; }
+body { margin: 0; font: 400 16px/1.55 var(--sans); background: var(--bg); color: var(--ink); -webkit-font-smoothing: antialiased; }
+h1, h2, p, dl, dd, fieldset, legend { margin: 0; padding: 0; }
+fieldset { border: 0; min-width: 0; }
+button, input { font: inherit; color: inherit; }
+.num { font-variant-numeric: tabular-nums; }
+:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
+[hidden] { display: none !important; }
+
+.skip { position: absolute; left: 12px; top: -60px; padding: 10px 14px; background: var(--ink); color: #fff; border-radius: var(--r-s); z-index: 10; }
+.skip:focus { top: 12px; }
+
+/* ---------- Header ---------- */
+.top { display: flex; align-items: baseline; justify-content: space-between; gap: 12px; flex-wrap: wrap;
+  max-width: 560px; margin: 0 auto; padding: 20px 20px 8px; }
+.mark { display: flex; align-items: center; gap: 8px; font-weight: 600; font-size: 19px; letter-spacing: -0.01em; }
+.mark__leaf { width: 26px; height: 26px; fill: none; stroke: var(--accent); stroke-width: 1.6; stroke-linecap: round; stroke-linejoin: round; flex: none; }
+.top__line { color: var(--quiet); font-size: 14px; }
+
+main { max-width: 560px; margin: 0 auto; padding: 0 20px 24px; }
+
+.intro { padding: 24px 0 8px; }
+.intro__title { font-size: 30px; line-height: 1.15; font-weight: 600; letter-spacing: -0.02em; max-width: 16ch; text-wrap: balance; }
+.intro__text { color: var(--quiet); margin-top: 8px; }
+
+/* ---------- Booking ---------- */
+.book { padding-top: 16px; outline: none; }
+.book__title { font-size: 24px; line-height: 1.2; font-weight: 600; letter-spacing: -0.015em; margin-bottom: 12px; }
+.step { margin-top: 18px; }
+.step__title { font-size: 15px; font-weight: 600; margin-bottom: 8px; }
+
+.services { display: grid; gap: 8px; }
+.svc { position: relative; display: grid; grid-template-columns: 1fr auto; gap: 2px 12px; align-items: baseline;
+  padding: 12px 14px 12px 44px; background: var(--card); border-radius: var(--r); cursor: pointer;
+  box-shadow: inset 0 0 0 1px var(--line); transition: box-shadow 160ms ease-out, background-color 160ms ease-out; }
+.svc input { position: absolute; left: 14px; top: 15px; width: 18px; height: 18px; margin: 0; accent-color: var(--accent); }
+.svc__name { font-weight: 600; }
+.svc__price { font-variant-numeric: tabular-nums; font-weight: 600; }
+.svc__len { grid-column: 1 / -1; color: var(--quiet); font-size: 14px; }
+.svc:has(input:checked) { background: var(--soft); box-shadow: inset 0 0 0 2px var(--accent); }
+.svc:has(input:focus-visible) { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.days { display: flex; gap: 6px; overflow-x: auto; padding: 2px 2px 8px; margin: 0 -2px; scroll-snap-type: x proximity; scrollbar-width: thin; }
+.day { flex: none; position: relative; scroll-snap-align: start; }
+.day input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.day span { display: grid; place-items: center; width: 62px; min-height: 64px; padding: 6px 4px; border-radius: var(--r-s);
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--line); text-align: center; line-height: 1.2; font-size: 13px; color: var(--quiet); }
+.day b { display: block; font-size: 18px; color: var(--ink); font-weight: 600; font-variant-numeric: tabular-nums; }
+.day input:checked + span { background: var(--accent); color: var(--accent-ink); box-shadow: none; }
+.day input:checked + span b { color: var(--accent-ink); }
+.day input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.day input:disabled { cursor: not-allowed; }
+.day input:disabled + span { background: transparent; box-shadow: inset 0 0 0 1px var(--line); color: var(--quiet); }
+.day input:disabled + span b { color: var(--quiet); font-weight: 400; }
+
+.parts { display: flex; gap: 6px; flex-wrap: wrap; margin-bottom: 10px; }
+.part { position: relative; }
+.part input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.part span { display: inline-flex; align-items: center; min-height: 36px; padding: 0 12px; border-radius: 999px; font-size: 14px;
+  background: var(--card); box-shadow: inset 0 0 0 1px var(--line-strong); }
+.part input:checked + span { background: var(--ink); color: #fff; box-shadow: none; }
+.part input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+
+.times { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 6px; }
+.time { position: relative; }
+.time input { position: absolute; opacity: 0; inset: 0; margin: 0; cursor: pointer; }
+.time span { display: grid; place-items: center; min-height: 44px; border-radius: var(--r-s); background: var(--card);
+  box-shadow: inset 0 0 0 1px var(--line-strong); font-weight: 600; font-variant-numeric: tabular-nums; }
+.time input:checked + span { background: var(--accent); color: var(--accent-ink); box-shadow: none; }
+.time input:focus-visible + span { outline: 2px solid var(--accent); outline-offset: 2px; }
+.times__empty { color: var(--quiet); padding: 10px 0 2px; }
+.times__empty button { display: inline; padding: 0; border: 0; background: none; color: var(--accent); font-weight: 600; text-decoration: underline; text-underline-offset: 3px; cursor: pointer; min-height: 0; }
+
+.btn { display: inline-flex; align-items: center; justify-content: center; min-height: 46px; padding: 0 18px; border: 0; border-radius: 999px;
+  font-weight: 600; cursor: pointer; transition: background-color 160ms ease-out, transform 100ms ease-out; }
+.btn:active { transform: translateY(1px); }
+.btn--main { background: var(--accent); color: var(--accent-ink); }
+.btn--main:disabled { background: #B9C8C0; color: var(--ink); cursor: not-allowed; transform: none; }
+.btn--quiet { background: transparent; color: var(--ink); box-shadow: inset 0 0 0 1px var(--line-strong); }
+@media (hover: hover) {
+  .btn--main:not(:disabled):hover { background: #245847; }
+  .btn--quiet:hover { background: var(--card); }
+  .svc:hover { box-shadow: inset 0 0 0 1px var(--line-strong); }
+  .svc:has(input:checked):hover { box-shadow: inset 0 0 0 2px var(--accent); }
+}
+#hold-btn { margin-top: 14px; width: 100%; }
+.hint { color: var(--quiet); font-size: 14px; margin-top: 6px; }
+
+/* ---------- The hold ---------- */
+.held { margin-top: 20px; padding: 18px; border-radius: var(--r); background: var(--held); outline: none; }
+.held__title { font-size: 19px; font-weight: 600; line-height: 1.25; }
+.held__what { margin-top: 4px; }
+.held__facts { display: grid; grid-template-columns: 1fr 1fr; gap: 10px 16px; margin-top: 12px; }
+.held__facts dt { font-size: 13px; color: var(--quiet); }
+.held__facts dd { font-weight: 600; }
+.held__actions { display: flex; gap: 8px; flex-wrap: wrap; margin-top: 16px; }
+.held__done { margin-top: 10px; font-size: 14px; color: var(--warn); }
+.held__done:empty, .expired:empty { display: none; }
+.expired { margin-top: 16px; padding: 12px 14px; border-radius: var(--r-s); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); }
+
+.demo-note { margin-top: 16px; font-size: 14px; color: var(--quiet); }
+
+/* The highlight when the assistant (or anything else) changes a part: a soft green wash, once */
+.is-spotlit { animation: lc-spot 1200ms ease-out both; }
+@keyframes lc-spot { 0% { box-shadow: 0 0 0 3px var(--accent); } 70% { box-shadow: 0 0 0 3px var(--accent); } 100% { box-shadow: 0 0 0 3px rgba(44, 104, 83, 0); } }
+
+/* ---------- Urgent, hours, footer ---------- */
+.urgent { margin-top: 24px; padding: 14px 16px; border-radius: var(--r); background: var(--card); box-shadow: inset 0 0 0 1px var(--line); font-size: 15px; }
+.urgent__title { font-size: 15px; font-weight: 600; margin-bottom: 2px; }
+.info { margin-top: 28px; }
+.info__title { font-size: 17px; font-weight: 600; margin: 18px 0 6px; }
+.hours div { display: flex; justify-content: space-between; gap: 12px; padding: 6px 0; border-bottom: 1px solid var(--line); }
+.hours dt { color: var(--quiet); }
+.foot { max-width: 560px; margin: 0 auto; padding: 8px 20px 40px; color: var(--quiet); font-size: 14px; }
+
+/* ---------- Embed mode (inside the AI demo's frame): just the booking ---------- */
+html.is-embed [data-full-only] { display: none !important; }
+html.is-embed .skip { display: none; }
+html.is-embed .top { padding: 14px 16px 4px; }
+html.is-embed main { padding: 0 16px 20px; }
+html.is-embed .book { padding-top: 8px; }
+html.is-embed .book__title { font-size: 21px; margin-bottom: 4px; }
+html.is-embed .step { margin-top: 14px; }
+html.is-embed .urgent { margin-top: 16px; font-size: 14px; }
+
+@media (prefers-reduced-motion: reduce) {
+  .is-spotlit { animation: none; box-shadow: 0 0 0 3px var(--accent); }
+  .btn, .svc { transition: none; }
+}

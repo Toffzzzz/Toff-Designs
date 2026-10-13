@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Book an appointment · Linden Clinic</title>
+<meta name="description" content="Book a GP, video or health check appointment at Linden Clinic, a made-up private GP clinic in Notting Hill used in Toff Studio’s AI demo.">
+<meta property="og:title" content="Linden Clinic, a made-up clinic for Toff Studio’s AI demo">
+<meta property="og:description" content="A small booking page that Toff Studio’s demo assistant can find free times on and hold appointments with.">
+<meta property="og:type" content="website">
+<meta property="og:image" content="../../../og-image.png">
+<meta name="theme-color" content="#F4F6F2">
+<link rel="icon" href="../../../favicon.svg" type="image/svg+xml">
+<script>if(/[?&]embed(=|&|$)/.test(location.search))document.documentElement.classList.add('is-embed')</script>
+<link rel="stylesheet" href="linden.css">
+<link rel="stylesheet" href="../../shared/ribbon.css">
+</head>
+<body>
+<a class="skip" href="#book">Skip to booking</a>
+
+<header class="top">
+  <p class="mark">
+    <svg class="mark__leaf" viewBox="0 0 32 32" aria-hidden="true" focusable="false">
+      <path d="M16 29c-1.2-3.6-1.4-6.4-1-9.2C9.6 19.6 5 15.8 5 10.4 5 6.6 7.8 3.6 11.2 3.6c2.2 0 3.8 1 4.8 2.6 1-1.6 2.6-2.6 4.8-2.6C24.2 3.6 27 6.6 27 10.4c0 5.4-4.6 9.2-10 9.4"/>
+      <path d="M16 6.4V24M16 12.2l-4.4-3M16 16.4l5-3.4M16 20l-3.6-2.4"/>
+    </svg>
+    <span class="mark__name">Linden Clinic</span>
+  </p>
+  <p class="top__line">Private GP, Notting Hill</p>
+</header>
+
+<main id="main">
+  <section class="intro" aria-label="About the clinic" data-full-only>
+    <p class="intro__title">See a GP the same day or the next</p>
+    <p class="intro__text">Appointments in person or by video, booked online.</p>
+  </section>
+
+  <section class="book" id="book" aria-labelledby="book-title" tabindex="-1">
+    <h1 id="book-title" class="book__title">Book an appointment</h1>
+
+    <form class="booking" id="booking" novalidate>
+      <fieldset class="step">
+        <legend class="step__title">What do you need?</legend>
+        <div class="services" id="services"></div>
+      </fieldset>
+
+      <fieldset class="step">
+        <legend class="step__title">Choose a day</legend>
+        <div class="days" id="days"></div>
+      </fieldset>
+
+      <fieldset class="step step--times" id="times-step">
+        <legend class="step__title"><span id="times-title">Free times</span></legend>
+        <div class="parts" id="parts"></div>
+        <div class="times" id="times"></div>
+        <p class="times__empty" id="times-empty" hidden></p>
+        <button type="button" class="btn btn--main" id="hold-btn" disabled aria-describedby="hold-why">Hold this time</button>
+        <p class="hint" id="hold-why">Choose a time first.</p>
+      </fieldset>
+    </form>
+
+    <div class="held" id="held" hidden tabindex="-1" aria-labelledby="held-title">
+      <h2 class="held__title" id="held-title">Held for you for 10 minutes</h2>
+      <p class="held__what" id="held-what"></p>
+      <dl class="held__facts">
+        <div><dt>Name</dt><dd>Guest</dd></div>
+        <div><dt>Reference</dt><dd id="held-ref" class="num"></dd></div>
+        <div><dt>Price</dt><dd id="held-price" class="num"></dd></div>
+        <div><dt>Time left</dt><dd id="held-left" class="num"></dd></div>
+      </dl>
+      <div class="held__actions">
+        <button type="button" class="btn btn--main" id="confirm-btn">Book this appointment</button>
+        <button type="button" class="btn btn--quiet" id="release-btn">Release it</button>
+      </div>
+      <p class="held__done" id="held-done" role="status"></p>
+    </div>
+    <p class="expired" id="expired" role="status"></p>
+
+    <p class="demo-note">A demo: nothing is booked or charged.</p>
+  </section>
+
+  <aside class="urgent" aria-labelledby="urgent-title">
+    <h2 class="urgent__title" id="urgent-title">Feeling unwell right now?</h2>
+    <p>We can’t give medical advice online. For urgent advice call NHS&nbsp;111. In an emergency call 999.</p>
+  </aside>
+
+  <section class="info" aria-labelledby="info-title" data-full-only>
+    <h2 id="info-title" class="info__title">Opening hours</h2>
+    <dl class="hours num">
+      <div><dt>Monday to Friday</dt><dd>8am to 7pm</dd></div>
+      <div><dt>Saturday</dt><dd>9am to 1pm</dd></div>
+      <div><dt>Sunday</dt><dd>Closed</dd></div>
+    </dl>
+    <h2 class="info__title">Finding us</h2>
+    <p>Ten minutes’ walk from Notting Hill Gate station. Paid street parking nearby.</p>
+  </section>
+</main>
+
+<footer class="foot" data-full-only>
+  <p>Linden Clinic is a made-up clinic, built for Toff Studio’s AI demo.</p>
+</footer>
+
+<div data-toff-ribbon data-name="Linden Clinic" class="toff-ribbon" role="complementary" aria-label="About this site">
+  <p class="toff-ribbon__text"><span class="toff-ribbon__line">A concept site by Toff Studio.</span>
+    <span class="toff-ribbon__line">Linden Clinic is made up.</span></p>
+  <a class="toff-ribbon__link" href="../../../"><span class="toff-ribbon__arrow" aria-hidden="true">←</span><span class="toff-ribbon__label">Back to Toff Studio</span></a>
+</div>
+
+<script type="module" src="linden.js"></script>
+</body>
+</html>

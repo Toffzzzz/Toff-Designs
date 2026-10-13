@@ -1,0 +1,219 @@
+/* =====================================================================
+   Toff Studio: the AI chapter (assets/home/agent.js)
+
+   Art direction. A working counter, not a showcase: the conversation, the
+   business's real website and what the assistant has been taught sit side by
+   side on one deep-midnight band, so cause and effect are visible at a glance.
+   You ask; the words write themselves in at reading pace; the site in the
+   frame changes; a small receipt-like card confirms it. Type does the work:
+   the assistant's name in the serif, everything you read or press in Work
+   Sans. Gold is spent only on what is selected or has just happened (the
+   chosen business, the tick on a card, the line beside a fact it used, the
+   brief outline when the frame changes). No bubbles with tails, no bouncing
+   dots, no fake phone chrome: the frame is the site itself, with 12px corners.
+   Laptops: chat, frame, taught panel in three columns. Tablets: chat and
+   frame side by side, the panel below. Phones: everything stacked, the panel
+   a disclosure, and each card offers "See it on their site ↓".
+   ===================================================================== */
+
+.ag { --ag-frame-w: 360px; --ag-frame-h: 700px; --ag-pad: var(--s-4); position: relative; }
+
+/* ---------- The switch: Café · Salon · Clinic · Plumber ---------- */
+.ag-switch { position: relative; display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: var(--s-2); margin-bottom: var(--s-5); isolation: isolate; }
+.ag-switch__mark {
+  position: absolute; left: 0; top: 0; z-index: -1; border-radius: var(--radius); background: var(--gold);
+  transition: transform var(--dur-base) var(--ease-in-out), width var(--dur-base) var(--ease-in-out), height var(--dur-base) var(--ease-in-out);
+  pointer-events: none;
+}
+.ag-switch__mark.is-instant { transition: none; }
+.ag-seg {
+  display: flex; flex-direction: column; align-items: flex-start; justify-content: center; gap: 2px;
+  min-height: 56px; padding: var(--s-2) var(--s-4); border: 0; border-radius: var(--radius);
+  background: transparent; box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--slate) 38%, transparent); color: var(--text); text-align: left; cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), transform var(--dur-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+.ag-seg__kind { font: 500 var(--fs-ui)/var(--lh-ui) var(--sans); }
+.ag-seg__name { font: 400 var(--fs-fine)/1.3 var(--sans); color: var(--slate); transition: color var(--dur-quick) var(--ease-out); }
+.ag-seg[aria-pressed="true"] { box-shadow: none; color: var(--bg); }
+.ag-seg[aria-pressed="true"] .ag-seg__name { color: var(--bg); }
+.ag-seg:active { transform: translateY(1px); }
+.ag-seg:focus-visible { outline-offset: 3px; }
+@media (hover: hover) { .ag-seg[aria-pressed="false"]:hover { background: var(--tint); } }
+@media (min-width: 700px) {
+  .ag-switch { display: inline-grid; grid-template-columns: repeat(4, auto); }
+  .ag-seg { min-width: 152px; padding-inline: var(--s-5) var(--s-6); }
+}
+
+/* ---------- The band ---------- */
+.ag-band {
+  display: grid; grid-template-columns: minmax(0, 1fr); gap: var(--s-6);
+  margin-inline: calc(-1 * var(--margin)); padding: var(--s-5) var(--margin) var(--s-6);
+  background: var(--bg-deep);
+}
+@media (min-width: 700px) {
+  .ag-band { margin-inline: 0; padding: clamp(20px, 2.4vw, 32px); border-radius: var(--radius-media);
+    grid-template-columns: minmax(0, 1fr) minmax(300px, 340px); gap: var(--s-6) clamp(20px, 2.4vw, 32px); }
+  .ag-taught { grid-column: 1 / -1; }
+}
+@media (min-width: 1024px) { .ag-band { grid-template-columns: minmax(0, 1fr) var(--ag-frame-w); } }
+@media (min-width: 1280px) {
+  .ag-band { grid-template-columns: minmax(0, 5fr) var(--ag-frame-w) minmax(0, 4fr); }
+  .ag-taught { grid-column: auto; }
+}
+
+/* When the whole chapter is already deep midnight, the band is that chapter: no tone of its own,
+   and the frame and the conversation sit on the page's own grid. */
+.ag--on-deep .ag-band { background: transparent; margin-inline: 0; padding-inline: 0; padding-block: 0; }
+.ag--on-deep .ag-band .ag-frame { background: var(--tint); }
+
+/* ---------- The chat ---------- */
+.ag-chat { display: flex; flex-direction: column; min-width: 0; }
+.ag-head { padding-bottom: var(--s-4); border-bottom: 1px solid var(--hairline); }
+.ag-name { font: 300 var(--fs-display-s)/var(--lh-display-s) var(--serif); letter-spacing: var(--tracking-display); }
+.ag-mode { display: flex; gap: var(--s-2); align-items: baseline; margin-top: var(--s-2); color: var(--slate); font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); max-width: 62ch; }
+.ag-dot { flex: none; width: 7px; height: 7px; border-radius: 50%; background: var(--slate); transform: translateY(-1px); }
+.ag-mode[data-mode="live"] .ag-dot { background: var(--gold); }
+
+.ag-logs { position: relative; flex: 1 1 auto; min-height: 0; display: flex; }
+.ag-log {
+  flex: 1 1 auto; list-style: none; margin: 0; padding: var(--s-4) 2px var(--s-2) 0;
+  height: 400px; overflow-y: auto; overscroll-behavior: contain; scrollbar-width: thin; scrollbar-color: var(--tint) transparent;
+  -webkit-mask-image: linear-gradient(to bottom, transparent 0, #000 20px); mask-image: linear-gradient(to bottom, transparent 0, #000 20px);
+  display: flex; flex-direction: column; gap: var(--s-4);
+}
+.ag-log:focus-visible { outline-offset: -2px; }
+@media (min-width: 700px) {
+  /* The chat takes the height the frame gives the row, and its conversation scrolls inside it */
+  .ag-chat { contain: size; align-self: stretch; min-height: 560px; }
+  .ag-logs { min-height: 0; }
+  .ag-log { position: absolute; inset: 0; height: auto; }
+}
+
+.ag-msg { max-width: 92%; font: 400 16px/1.55 var(--sans); }
+.ag-text { white-space: pre-line; overflow-wrap: anywhere; }
+.ag-msg--you { align-self: flex-end; max-width: 84%; padding: var(--s-2) var(--s-4); border-radius: var(--radius); background: var(--tint); color: var(--text); }
+.ag-msg--bot { align-self: flex-start; color: var(--text); }
+.ag-src { margin-top: var(--s-1); color: var(--slate); font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); }
+.ag-fallback { font-style: italic; }
+.ag-wait { color: var(--slate); }
+.ag-caret { display: inline-block; width: 2px; height: 1.05em; margin-left: 2px; vertical-align: -0.16em; background: var(--gold); }
+.ag-w { animation: ag-word var(--dur-quick) var(--ease-out) both; }
+@keyframes ag-word { from { opacity: 0; } to { opacity: 1; } }
+
+/* The confirmation card: a small receipt of what was done on the site */
+.ag-cards { display: grid; gap: var(--s-2); }
+.ag-cards:not(:empty) { margin-top: var(--s-3); }
+.ag-card {
+  display: grid; grid-template-columns: 20px minmax(0, 1fr); gap: var(--s-1) var(--s-3); align-items: start;
+  padding: var(--s-3) var(--s-4); border-radius: var(--radius); background: var(--tint);
+  box-shadow: inset 2px 0 0 var(--gold);
+  font: 400 var(--fs-small)/var(--lh-small) var(--sans); font-variant-numeric: tabular-nums;
+  animation: ag-card var(--dur-reveal) var(--ease-out) both;
+}
+@keyframes ag-card { from { opacity: 0; transform: translateY(var(--rise-s)); } to { opacity: 1; transform: none; } }
+.ag-card__tick { width: 20px; height: 20px; margin-top: 1px; fill: none; stroke: var(--gold); stroke-width: 1.8; stroke-linecap: round; stroke-linejoin: round; }
+.ag-card__text { color: var(--text); }
+.ag-see { grid-column: 2; justify-self: start; display: none; align-items: center; gap: var(--s-1); min-height: 44px; margin: calc(-1 * var(--s-2)) 0 calc(-1 * var(--s-3)); padding: 0; border: 0; background: none; color: var(--ink); font: 500 var(--fs-ui)/var(--lh-ui) var(--sans); text-decoration: underline; text-underline-offset: 0.22em; text-decoration-thickness: 1px; cursor: pointer; }
+@media (max-width: 699px) { .ag-see { display: inline-flex; } }
+
+/* Chips and the question box */
+.ag-chips { display: flex; flex-wrap: wrap; gap: var(--s-2); padding-top: var(--s-4); }
+.ag-chip {
+  min-height: 44px; padding: var(--s-2) var(--s-4); border: 0; border-radius: var(--radius); background: var(--tint); color: var(--ink);
+  font: 500 var(--fs-fine)/1.35 var(--sans); text-align: left; cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-out), transform var(--dur-press) var(--ease-out);
+}
+.ag-chip:active { transform: translateY(1px); }
+.ag-chip[aria-disabled="true"] { opacity: .55; cursor: not-allowed; transform: none; }
+.ag-chip--offer, .ag-chip--again { box-shadow: inset 0 0 0 1px var(--gold); color: var(--text); }
+@media (hover: hover) { .ag-chip:not([aria-disabled="true"]):hover { background: color-mix(in srgb, var(--tint) 82%, var(--slate)); } }
+
+.ag-form { display: flex; gap: var(--s-2); margin-top: var(--s-4); }
+.ag-input {
+  flex: 1 1 auto; min-width: 0; min-height: 48px; padding: 0 var(--s-4); border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--slate) 55%, var(--tint)); background: var(--tint); color: var(--text);
+  font: 400 16px/1.2 var(--sans);
+}
+.ag-input::placeholder { color: var(--slate); opacity: 1; }
+.ag-input:focus-visible { outline-offset: 2px; }
+.ag-ask {
+  flex: none; min-height: 48px; min-width: 76px; padding: 0 var(--s-5); border-radius: var(--radius);
+  border: 1px solid var(--ink); background: transparent; color: var(--ink); font: 500 var(--fs-ui)/1 var(--sans); cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-out), color var(--dur-quick) var(--ease-out), transform var(--dur-press) var(--ease-out);
+}
+.ag-ask:active { transform: translateY(1px); }
+.ag-ask:disabled { opacity: .5; cursor: not-allowed; transform: none; }
+@media (hover: hover) { .ag-ask:not(:disabled):hover { background: var(--ink); color: var(--bg-deep); } }
+.ag-status { min-height: 0; color: var(--slate); font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); }
+.ag-status.is-on { margin-top: var(--s-2); }
+.ag-note { margin-top: var(--s-2); color: var(--slate); font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); }
+
+/* ---------- The business's own website, in a frame ---------- */
+.ag-site { margin: 0; min-width: 0; display: flex; flex-direction: column; gap: var(--s-3); scroll-margin-top: calc(var(--bar-h) + 12px); }
+.ag-frame {
+  position: relative; width: 100%; max-width: 400px; height: min(600px, 78svh); margin-inline: auto;
+  border-radius: var(--radius-media); overflow: hidden; background: var(--tint);
+  outline: 2px solid transparent; outline-offset: 4px; transition: outline-color var(--dur-base) var(--ease-out);
+}
+@media (min-width: 700px) { .ag-frame { max-width: none; height: var(--ag-frame-h); } }
+@media (min-width: 700px) and (max-width: 1023px) { .ag-frame { height: 680px; } }
+.ag-frame.is-changed { outline-color: var(--gold); }
+.ag-iframe { position: absolute; left: 0; top: 0; display: block; border: 0; background: #fff; transform-origin: 0 0; }
+.ag-frame__state {
+  position: absolute; inset: 0; display: grid; place-items: center; padding: var(--s-6); text-align: center;
+  color: var(--slate); font: 400 var(--fs-small)/var(--lh-small) var(--sans); background: var(--tint);
+}
+.ag-frame[data-state="ready"] .ag-frame__state { display: none; }
+.ag-frame[data-state="loading"] .ag-iframe { opacity: 0; }
+.ag-cap { display: grid; gap: var(--s-2); color: var(--slate); font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); max-width: 400px; margin-inline: auto; width: 100%; }
+@media (min-width: 700px) { .ag-cap { max-width: none; } }
+.ag-cap__about { font: italic 400 19px/1.3 var(--serif); color: var(--text); }
+.ag-cap__link { justify-self: start; min-height: 44px; }
+
+/* ---------- What it's been taught ---------- */
+.ag-taught { min-width: 0; }
+.ag-taught__title { font: 300 var(--fs-display-s)/var(--lh-display-s) var(--serif); letter-spacing: var(--tracking-display); }
+.ag-taught__toggle { display: none; }
+.ag-taught__hint { margin-top: var(--s-2); color: var(--slate); font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); }
+.ag-facts { display: grid; gap: var(--s-4); margin-top: var(--s-4); }
+@media (min-width: 700px) and (max-width: 1279px) {
+  .ag-facts { grid-template-columns: repeat(2, minmax(0, 1fr)); column-gap: var(--s-6); }
+}
+@media (min-width: 1280px) {
+  .ag-taught { contain: size; align-self: stretch; overflow-y: auto; scrollbar-width: thin; scrollbar-color: var(--tint) transparent; padding-right: 6px; }
+}
+.ag-group { position: relative; padding-left: var(--s-4); }
+.ag-group::before { content: ""; position: absolute; left: 0; top: 2px; bottom: 2px; width: 1px; background: var(--hairline); transition: background-color var(--dur-base) var(--ease-out), width var(--dur-base) var(--ease-out); }
+.ag-group.is-used::before { width: 2px; background: var(--gold); }
+.ag-group__title { font: 500 var(--fs-fine)/var(--lh-fine) var(--sans); color: var(--text); margin-bottom: var(--s-2); }
+.ag-fact { display: grid; gap: var(--s-1); }
+.ag-fact + .ag-fact { margin-top: var(--s-2); }
+.ag-fact__label { color: var(--slate); font: 400 var(--fs-fine)/1.3 var(--sans); }
+.ag-group--rows .ag-fact { grid-template-columns: minmax(0, 0.9fr) minmax(0, 1.1fr); align-items: center; gap: var(--s-3); }
+@media (max-width: 459px) { .ag-group--rows .ag-fact { grid-template-columns: minmax(0, 1fr); gap: var(--s-1); } }
+.ag-fact__input {
+  width: 100%; min-height: 44px; padding: var(--s-2) var(--s-3); border-radius: var(--radius);
+  border: 1px solid color-mix(in srgb, var(--slate) 55%, var(--tint)); background: var(--tint); color: var(--text);
+  font: 400 var(--fs-fine)/1.45 var(--sans); resize: none; overflow: hidden;
+}
+.ag-fact.is-edited .ag-fact__input { border-color: var(--gold); }
+
+/* Phones: the taught panel is a disclosure, closed until opened */
+@media (max-width: 699px) {
+  .ag-taught__title { display: none; }
+  .ag-taught__toggle {
+    display: flex; width: 100%; align-items: center; justify-content: space-between; min-height: 52px; padding: 0 var(--s-4);
+    border: 0; border-radius: var(--radius); background: var(--tint); color: var(--text); cursor: pointer;
+    font: 300 var(--fs-display-s)/1.1 var(--serif); text-align: left;
+  }
+  .ag-taught__chev { width: 10px; height: 10px; border-right: 1.5px solid var(--ink); border-bottom: 1.5px solid var(--ink); transform: translateY(-3px) rotate(45deg); transition: transform var(--dur-base) var(--ease-out); }
+  .ag-taught.is-open .ag-taught__chev { transform: translateY(2px) rotate(-135deg); }
+  .ag-taught__body { display: none; padding: 0 var(--s-1); }
+  .ag-taught.is-open .ag-taught__body { display: block; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .ag-switch__mark, .ag-seg, .ag-chip, .ag-ask, .ag-frame, .ag-group::before, .ag-taught__chev { transition: none; }
+  .ag-w, .ag-card { animation: none; }
+}
