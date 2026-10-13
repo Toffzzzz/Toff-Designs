@@ -19,3 +19,13 @@ __pycache__/
 assets/handwriting/preview.html
 assets/handwriting/other.html
 assets/enquiry/preview.html
+
+# Round 05: local-only files
+.claude/settings.local.json
+.claude/ship-approved
+.claude/worktrees/
+scratch/
+handover/
+test-results/
+.wrangler/
+*.zip
