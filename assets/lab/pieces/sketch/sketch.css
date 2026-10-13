@@ -1,0 +1,96 @@
+/* =====================================================================
+   Lab piece 1: Sketch to site. Builds on the pieces' shared frame
+   (ink/kit.css: .lp, .lp-panel, .lp-btn, the still with Play).
+
+   Art direction. The website is the work: it runs the full width of the
+   screen on paper the colour of the page, so while it's a sketch it seems
+   drawn straight onto the night, and where you paint, the real site comes
+   up in full colour. The only gold in motion is the 2px line that sweeps
+   across once, turning the real page into its sketch (the same line as
+   the site's page transition). One quiet panel holds every control.
+   ===================================================================== */
+
+.lp-sketch .sk-live { position: absolute; inset: 0; }
+.lp-sketch .sk-screen { position: absolute; left: 0; right: 0; top: 0; height: 100%; overflow: hidden; background: var(--bg, #0E1628); }
+.lp-sketch .sk-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; user-select: none; -webkit-user-select: none; }
+.lp-sketch .sk-canvas:focus-visible { outline: 2px solid var(--gold, #D8AC5F); outline-offset: -4px; }
+.lp-sketch .sk-photo, .lp-sketch .sk-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; object-position: 50% 0; display: block; pointer-events: none; }
+.lp-sketch .sk-photo[hidden], .lp-sketch .sk-line[hidden], .lp-sketch .sk-ring[hidden] { display: none; }
+.lp-sketch .sk-line { position: absolute; top: 0; bottom: 0; left: 0; width: 2px; background: var(--gold, #D8AC5F); pointer-events: none; }
+.lp-sketch .sk-ring {
+  position: absolute; left: -14px; top: -14px; width: 28px; height: 28px; border-radius: 50%;
+  border: 1.5px solid var(--ink, #F1E3C6); box-shadow: 0 0 0 1px rgba(10, 16, 30, .5); pointer-events: none;
+}
+
+/* the panel */
+.lp-sketch .sk-panel { width: min(372px, calc(100% - 2 * var(--lp-gutter))); gap: 14px; }
+.lp-sketch .sk-note { min-height: 0; }
+.lp-sketch .sk-pick .lp-label { margin-bottom: 8px; }
+.lp-sketch .sk-chips { display: flex; flex-wrap: wrap; gap: 6px; }
+.lp-sketch .sk-chip {
+  min-height: 40px; padding: 0 12px; border: 0; border-radius: var(--radius, 8px);
+  background: var(--tint, #1A2541); color: var(--text, #F6F0E4);
+  font: 500 var(--fs-fine, 14px)/1.2 var(--sans, "Work Sans", system-ui, sans-serif); white-space: nowrap; cursor: pointer;
+  transition: background-color var(--dur-quick, 180ms) var(--ease-out, ease), color var(--dur-quick, 180ms) var(--ease-out, ease);
+  -webkit-tap-highlight-color: transparent;
+}
+.lp-sketch .sk-chip[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--gold, #D8AC5F); color: var(--gold, #D8AC5F); }
+.lp-sketch .sk-chip:active { transform: translateY(1px); }
+@media (hover: hover) { .lp-sketch .sk-chip:hover { background: color-mix(in srgb, var(--tint, #1A2541) 80%, var(--slate, #A7AFC2)); } }
+.lp-sketch .sk-yours { display: flex; flex-wrap: wrap; align-items: center; column-gap: 12px; row-gap: 4px; }
+.lp-sketch .sk-yours .lp-hint { flex: 1 1 150px; }
+.lp-sketch .sk-file { position: absolute; width: 1px; height: 1px; opacity: 0; overflow: hidden; clip-path: inset(50%); }
+.lp-sketch .sk-file:focus-visible + .sk-own { outline: 2px solid var(--gold, #D8AC5F); outline-offset: 3px; }
+.lp-sketch .sk-own { cursor: pointer; }
+.lp-sketch .lp-actions [hidden] { display: none; }
+.lp-sketch .sk-note:empty { display: none; }
+.lp-sketch .sk-short { display: none; }
+
+/* tablets and laptops: a slim toolbar across the top, so the site always sits clear below it */
+@media (min-width: 700px) {
+  .lp-sketch .sk-panel {
+    right: var(--lp-gutter); width: auto; max-width: 1312px; margin-inline: auto;
+    display: flex; flex-wrap: wrap; align-items: center; column-gap: 24px; row-gap: 10px; padding: 12px 14px;
+  }
+  .lp-sketch .sk-pick { display: flex; align-items: center; gap: 12px; }
+  .lp-sketch .sk-pick .lp-label { margin: 0; white-space: nowrap; }
+  .lp-sketch .sk-yours { flex-wrap: nowrap; }
+  .lp-sketch .sk-yours .lp-hint { flex: 0 1 auto; max-width: 30ch; }
+  .lp-sketch .lp-actions { margin-left: auto; }
+  .lp-sketch .sk-note { flex: 1 0 100%; margin: 0; }
+}
+@media (min-width: 700px) and (max-width: 1279px) {
+  .lp-sketch .sk-pick .lp-label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip-path: inset(50%); }
+  .lp-sketch .sk-yours .lp-hint { display: none; }
+}
+
+/* dropping a file */
+.lp-sketch .sk-drop {
+  position: absolute; inset: 0; z-index: 6; display: grid; place-items: center; pointer-events: none;
+  background: color-mix(in srgb, var(--bg-deep, #0A101E) 80%, transparent); opacity: 0;
+  transition: opacity var(--dur-quick, 180ms) var(--ease-out, ease);
+}
+.lp-sketch .sk-drop p { margin: 0; color: var(--text, #F6F0E4); font: 300 clamp(28px, 3.4vw, 48px)/1.1 var(--serif, Georgia, serif); }
+.lp-sketch .sk-drop[data-on] { opacity: 1; }
+
+/* phones: the sites in one row you can swipe; the rest below */
+@media (max-width: 699px) {
+  .lp-sketch .sk-panel { width: auto; gap: 10px; }
+  .lp-sketch .sk-pick .lp-label { display: none; }
+  .lp-sketch .sk-chips { flex-wrap: nowrap; overflow-x: auto; scrollbar-width: none; margin: 0 -14px; padding: 0 14px; scroll-padding: 0 14px; }
+  .lp-sketch .sk-chips::-webkit-scrollbar { display: none; }
+  .lp-sketch .sk-chip { flex: none; min-height: 44px; }
+  .lp-sketch .sk-yours .lp-hint { display: none; }
+  .lp-sketch .sk-panel { grid-template-columns: repeat(3, minmax(0, 1fr)); column-gap: 8px; }
+  .lp-sketch .sk-panel > .sk-pick, .lp-sketch .sk-panel > .sk-note { grid-column: 1 / -1; }
+  .lp-sketch .sk-yours, .lp-sketch .lp-actions { display: contents; }
+  .lp-sketch .sk-own { grid-column: 1; grid-row: 2; }
+  .lp-sketch .sk-paint, .lp-sketch .sk-again { grid-column: 2; grid-row: 2; }
+  .lp-sketch .sk-save { grid-column: 3; grid-row: 2; }
+  .lp-sketch .sk-long { display: none; }
+  .lp-sketch .lp-btn { padding: 0 8px; }
+  .lp-sketch .sk-short { display: inline; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lp-sketch .sk-chip, .lp-sketch .sk-drop { transition: none; }
+}
