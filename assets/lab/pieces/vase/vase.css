@@ -1,0 +1,103 @@
+/* =====================================================================
+   Lab piece 4: Shape a vase.
+
+   Art direction. A potter's bench at night. The whole piece is one dark
+   studio: a midnight sweep with a soft pool of light on the floor, and in
+   it the thrown pot, lit as Hollis & Pine lights it (a window key light
+   and a room's soft fill), so the glaze is the only colour on the screen.
+   Beside it, the sketchbook: a deep-midnight card where the visitor draws
+   half an outline in the studio's own line (cream, round ends, the gold
+   under-shadow). The other half mirrors faintly as you draw; when the pen
+   lifts, the line tidies itself, a few rings sweep round it like a
+   draughtsman's lathe sketch, and the pot rises on the right. "We sketch
+   it. Then we build it." in one gesture. Controls are the Lab kit's: Work
+   Sans, 8px corners, gold only on the one solid button and the selected
+   glaze. No borders around pictures, no glows, no blur.
+   ===================================================================== */
+
+.lp-vase { background: var(--bg, #0E1628); }
+.lv-studio { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+
+.lv {
+  position: absolute; z-index: 1;
+  inset: calc(var(--lp-top) + clamp(16px, 3.4vh, 32px)) var(--lp-gutter) calc(var(--lp-bottom) + clamp(16px, 3.4vh, 32px));
+  display: grid; grid-template-columns: minmax(320px, 440px) minmax(0, 1fr); gap: clamp(24px, 3.4vw, 56px);
+}
+
+/* the sketchbook */
+.lv-draw {
+  min-height: 0; display: flex; flex-direction: column; gap: 14px;
+  padding: 20px; border-radius: var(--radius-media, 12px);
+  background: color-mix(in srgb, var(--bg-deep, #0A101E) 92%, transparent);
+}
+.lv-draw .lp-label { margin: 0 0 -4px; }
+.lv-presets { display: flex; flex-wrap: wrap; gap: 8px; }
+.lv-presets .lp-btn { padding: 0 14px; }
+.lv-surface { position: relative; flex: 1 1 auto; min-height: 220px; border-radius: var(--radius, 8px); background: var(--bg, #0E1628); overflow: hidden; }
+.lv-pad { position: absolute; inset: 0; width: 100%; height: 100%; display: block; touch-action: none; user-select: none; -webkit-user-select: none; cursor: crosshair; }
+.lv-status {
+  position: absolute; z-index: 1; left: 16px; right: 16px; top: 12px; margin: 0;
+  color: var(--slate, #A7AFC2); font-size: var(--fs-fine, 14px); line-height: 1.45; text-wrap: pretty; pointer-events: none;
+}
+.lv-again { position: absolute; z-index: 1; left: 12px; bottom: 12px; }
+
+/* the pot */
+.lv-stage { position: relative; min-width: 0; min-height: 0; display: grid; grid-template-rows: minmax(0, 1fr) auto; gap: 16px; }
+.lv-view { position: relative; min-height: 0; }
+.lv-gl {
+  position: absolute; inset: 0; width: 100%; height: 100%; display: block; cursor: grab; border-radius: var(--radius-media, 12px);
+  transition: opacity 560ms var(--ease-out, ease), transform 560ms var(--ease-out, ease);
+}
+.lv-gl:active { cursor: grabbing; }
+.lv-gl:focus-visible { outline-offset: -4px; }
+.lv-gl[data-out] { opacity: 0; transform: translateY(var(--rise-m, 16px)); transition-duration: 160ms; transition-timing-function: var(--ease-in, ease-in); }
+.lv-flat { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.lv-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: contain; }
+.lv-note {
+  position: absolute; left: 50%; bottom: 16px; transform: translateX(-50%); width: min(420px, calc(100% - 16px)); margin: 0;
+  padding: 12px 16px; border-radius: var(--radius, 8px); background: color-mix(in srgb, var(--bg-deep, #0A101E) 92%, transparent);
+  color: var(--slate, #A7AFC2); font-size: var(--fs-fine, 14px); text-align: center;
+}
+
+.lv-tools { display: flex; flex-wrap: wrap; align-items: center; justify-content: space-between; gap: 12px 16px; }
+.lv-glazes { display: flex; flex-wrap: wrap; gap: 8px; margin: 0; padding: 0; border: 0; min-width: 0; }
+.lv-glaze {
+  position: relative; display: inline-flex; align-items: center; gap: 8px; min-height: 44px; padding: 0 14px;
+  border-radius: var(--radius, 8px); background: color-mix(in srgb, var(--tint, #1A2541) 88%, transparent); color: var(--text, #F6F0E4);
+  font: 500 var(--fs-ui, 15px)/1.2 var(--sans, "Work Sans", system-ui, sans-serif); cursor: pointer; white-space: nowrap;
+  transition: background-color var(--dur-quick, 180ms) var(--ease-out, ease), color var(--dur-quick, 180ms) var(--ease-out, ease);
+}
+.lv-glaze input { position: absolute; opacity: 0; width: 1px; height: 1px; margin: 0; pointer-events: none; }
+.lv-glaze i { width: 12px; height: 12px; border-radius: 50%; background: var(--c); flex: none; }
+.lv-glaze:has(input:checked) { box-shadow: inset 0 0 0 1px var(--gold, #D8AC5F); color: var(--gold, #D8AC5F); }
+.lv-glaze:has(input:focus-visible) { outline: 2px solid var(--gold, #D8AC5F); outline-offset: 3px; }
+@media (hover: hover) {
+  .lv-glaze:hover { background: color-mix(in srgb, var(--tint, #1A2541) 80%, var(--slate, #A7AFC2)); }
+}
+.lv-save { flex: none; }
+.lv-shot { position: fixed; left: 0; top: 0; visibility: hidden; pointer-events: none; z-index: -1; }
+
+/* phones, and tall narrow screens: the sketchbook on top, the pot below */
+@media (max-width: 699px), (max-width: 1100px) and (max-aspect-ratio: 1/1) {
+  .lv { grid-template-columns: minmax(0, 1fr); grid-template-rows: auto minmax(0, 1fr); gap: 12px; }
+  .lv-surface { flex: none; min-height: 0; height: clamp(190px, 34vh, 420px); }
+}
+@media (max-width: 699px) {
+  .lv { inset: calc(var(--lp-top) + 12px) 16px calc(var(--lp-bottom) + 12px); }
+  .lv-draw { padding: 10px; gap: 10px; }
+  .lv-draw .lp-label { display: none; }
+  .lv-presets { flex-wrap: nowrap; justify-content: space-between; gap: 6px; }
+  .lv-presets .lp-btn { flex: 1 1 auto; padding: 0 8px; }
+  .lv-surface { height: clamp(176px, 29vh, 260px); }
+  .lv-status { left: 12px; right: 12px; top: 10px; }
+  .lv-again { left: 8px; bottom: 8px; min-height: 40px; padding: 0 12px; }
+  .lv-stage { gap: 10px; }
+  .lv-tools { gap: 8px; }
+  .lv-glazes { flex-wrap: nowrap; width: 100%; gap: 6px; }
+  .lv-glaze { flex: 1 1 auto; justify-content: center; padding: 0 8px; gap: 6px; }
+  .lv-save { width: 100%; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .lv-gl, .lv-gl[data-out], .lv-glaze { transition: none; }
+  .lv-gl[data-out] { transform: none; }
+}

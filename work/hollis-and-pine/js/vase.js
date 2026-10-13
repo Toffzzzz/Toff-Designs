@@ -275,7 +275,7 @@ export function createVase(canvas, opts = {}) {
   if (!o.profile || o.profile.length < 3) throw new TypeError('createVase: profile needs at least three [r, y] points');
 
   const renderer = new WebGLRenderer({ canvas, antialias: true, alpha: true, powerPreference: 'default' });
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio || 1, 2));
+  renderer.setPixelRatio(o.pixelRatio || Math.min(window.devicePixelRatio || 1, 2));
   renderer.toneMapping = NeutralToneMapping;
   renderer.toneMappingExposure = 1.0;
   renderer.shadowMap.enabled = true;
