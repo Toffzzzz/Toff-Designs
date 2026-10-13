@@ -6,9 +6,9 @@
  *    it starts once the film is on screen and the last frame holds when the case scrolls away. No pinning.
  *  - Phones: it plays once by itself when reached.
  *  - Reduced motion: the last frame, at once.
- * What plays comes from assets/home/captures/manifest.json `films`:
+ * What plays comes from `films` in the manifest home.js builds: captures.json's frames over manifest.json's fallbacks.
  *  - frames: a frame sequence per device ({ frames: 'path/f{i}.webp' or a list of addresses, pad, count, w, h, poster }),
- *    streamed in order and drawn on a canvas; used once Phase 4 has made them (count > 0);
+ *    streamed in order and drawn on a canvas (captures.json films.<key>.<device>, from tools/capture/films.py);
  *  - fallback 'scroll': the real site's full-page screenshot scrolls inside each screen down to endY;
  *  - fallback 'everest-mock': the mock-up of the design, with the air conditioner opening as the room
  *    cools from 32 to 26 °C.
@@ -64,6 +64,14 @@ export function mountFilms(root, opts) {
 }
 
 /* ---------------------------------------------------------------- frame sequences (Phase 4) */
+// Until the visitor first scrolls, a film loads only its first and last frames (the last is what reduced
+// motion shows); the rest stream in from then on, so the page stays light before anyone interacts.
+let streaming = window.scrollY > 0;
+const waiting = [];
+if (!streaming) {
+  const go = () => { if (streaming) return; streaming = true; window.removeEventListener('scroll', go); waiting.splice(0).forEach((f) => f()); };
+  window.addEventListener('scroll', go, { passive: true });
+}
 function framePlayer(screen, seq) {
   const canvas = document.createElement('canvas');
   canvas.className = 'film-canvas'; canvas.setAttribute('aria-hidden', 'true');
@@ -71,16 +79,18 @@ function framePlayer(screen, seq) {
   const ctx = canvas.getContext('2d');
   const n = seq.count, imgs = new Array(n), pad = seq.pad || 3;
   const url = (i) => (Array.isArray(seq.frames) ? seq.frames[i] : seq.frames.replace('{i}', String(i + 1).padStart(pad, '0')));
-  let want = 0, shown = -1, nextLoad = 0, loading = 0;
+  let want = 0, shown = -1, nextLoad = 1, loading = 0;
   if (seq.poster) { screen.style.backgroundImage = 'url("' + seq.poster + '")'; screen.style.backgroundSize = 'cover'; }
+  function load(k, then) {
+    const im = new Image();
+    im.decoding = 'async'; loading++;
+    im.onload = () => { loading--; (im.decode ? im.decode() : Promise.resolve()).catch(() => {}).then(() => { imgs[k] = im; draw(); }); then(); };
+    im.onerror = () => { loading--; then(); };
+    im.src = url(k);
+  }
   function pump() {
-    while (loading < 4 && nextLoad < n) {
-      const k = nextLoad++, im = new Image();
-      im.decoding = 'async'; loading++;
-      im.onload = () => { loading--; (im.decode ? im.decode() : Promise.resolve()).catch(() => {}).then(() => { imgs[k] = im; draw(); }); pump(); };
-      im.onerror = () => { loading--; pump(); };
-      im.src = url(k);
-    }
+    if (!streaming) return;
+    while (loading < 4 && nextLoad < n - 1) load(nextLoad++, pump);
   }
   function size() {
     const r = screen.getBoundingClientRect(), dpr = Math.min(2, window.devicePixelRatio || 1);
@@ -97,7 +107,10 @@ function framePlayer(screen, seq) {
     ctx.drawImage(im, (cw - w) / 2, 0, w, h);   // top-aligned cover
   }
   if ('ResizeObserver' in window) new ResizeObserver(size).observe(screen);
-  size(); pump();
+  size();
+  load(0, pump);
+  if (n > 1) load(n - 1, pump);
+  if (streaming) pump(); else waiting.push(pump);
   return { set(p) { want = Math.round(clamp01(p) * (n - 1)); draw(); } };
 }
 

@@ -20,6 +20,7 @@
   --mk-gutter: clamp(16px, 4.4vw, 64px);
   position: absolute; inset: 0; overflow: hidden;
   display: grid; grid-template-rows: auto minmax(0, 1fr) auto;
+  grid-template-columns: minmax(0, 1fr);   /* the column never grows past the piece (the words and the captures fit inside it) */
   gap: clamp(14px, 2.6vh, 28px);
   padding: calc(var(--mk-top) + clamp(18px, 3.4vh, 40px)) var(--mk-gutter) calc(var(--mk-bottom) + clamp(10px, 2vh, 22px));
   /* deep midnight table, so the midnight captures of rounds 2 to 5 read as pictures without a border */
@@ -109,6 +110,14 @@
 
 @media (hover: hover) {
   .mk-stop:not([data-on]):hover { color: var(--text, #F6F0E4); }
+}
+
+/* ---------- Tablets and small laptops: the round and its buttons on one row, the line under them ---------- */
+@media (min-width: 700px) and (max-width: 1099px) {
+  .mk-head { grid-template-columns: minmax(0, 1fr) auto; align-items: center; }
+  .mk-name { grid-column: 1; grid-row: 1; display: flex; align-items: baseline; column-gap: 16px; flex-wrap: wrap; }
+  .mk-tools { grid-column: 2; grid-row: 1; }
+  .mk-line { grid-column: 1 / -1; grid-row: 2; }
 }
 
 /* ---------- Phones ---------- */

@@ -4,6 +4,10 @@
     python3 tools/capture/films.py bluebird          only one site
     python3 tools/capture/films.py --no-copy         leave everything in scratch/captures/films/
 
+(2026-10-13, integration: END is a selector- or heading-based stop point per site; HIDE holds CSS
+applied only while a site is captured; a frame that shows "Placeholder", "[TODO]" or "Upgrade to Pro"
+on screen stops the run.)
+
 Each site is scrolled smoothly from the very top to the bottom (or to END, below), like a visitor would
 (small wheel steps with short pauses, so its own scroll-driven drawing plays as it goes), at
 a laptop viewport (1440 x 900) and a phone viewport (390 x 844, a phone with touch). A frame
@@ -42,13 +46,43 @@ DEVICES = {
 QUALITIES = (82, 76, 70, 64, 58, 52)
 
 # Where each film stops (JS returning a scroll position; None: the very bottom of the page).
-# Everest stops once its intro (the room cooling from 32 to 18 °C) and the services are done,
-# just before the About section, whose text in the local build is still marked [TODO].
+# stop_before(...) ends the film with the first element that matches still just below the screen,
+# so nothing of it shows in the last frame. It is found by a CSS selector, or failing that by its
+# heading's text, so the stop point follows the live page if its sections change height.
+def stop_before(selector, heading_text):
+    return ("(() => { let a = document.querySelector(%r); "
+            "if (!a) { const h = [...document.querySelectorAll('h1,h2,h3')].find((e) => "
+            "e.textContent.replace(/\\s+/g, ' ').trim().startsWith(%r)); a = h && (h.closest('section') || h); } "
+            "return a ? Math.max(0, Math.floor(a.getBoundingClientRect().top + scrollY - innerHeight)) : null; })()"
+            % (selector, heading_text))
+
+
+# Bluebird stops just before "In clinic, or at your door." (#how-it-works): from there on the live
+# site's photos still carry "Placeholder" badges. Everest stops once its intro (the room cooling
+# from 32 to 18 °C) and the services are done, just before the About section, whose text in the
+# local build is still marked [TODO].
 END = {
-    'bluebird': None,
+    'bluebird': stop_before('#how-it-works', 'In clinic, or at your door'),
     'everest': "(() => { const a = document.querySelector('#about'); "
                "return a ? Math.round(a.getBoundingClientRect().top + scrollY - innerHeight + 100) : null; })()",
 }
+# CSS applied to a site only while it is captured. Bluebird: its "Upgrade to Pro" chips (a.pro-chip,
+# the clinic's own links to the Pro version of a treatment, beside some prices) are hidden at the
+# lead's request. Delete the entry to show them again.
+HIDE = {
+    'bluebird': '.pro-chip { display: none !important; }',
+}
+# Any frame that shows one of these words in a visible element is reported (and the run fails),
+# so a film never shows a placeholder, or anything hidden above, from the live site.
+FORBIDDEN = ('Placeholder', '[TODO]', 'Upgrade to Pro')
+FORBIDDEN_JS = """(words) => [...document.querySelectorAll('body *')].filter((e) => {
+    if (e.children.length > 1) return false;
+    const t = (e.textContent || '').trim();
+    if (!t || t.length > 40 || !words.some((w) => t.includes(w))) return false;
+    const r = e.getBoundingClientRect(), cs = getComputedStyle(e);
+    return r.width > 0 && r.height > 0 && r.bottom > 0 && r.top < innerHeight && r.right > 0 && r.left < innerWidth
+      && cs.visibility !== 'hidden' && cs.display !== 'none' && Number(cs.opacity) > 0.05;
+  }).map((e) => (e.textContent || '').trim())"""
 FILMS = os.path.join(SCRATCH, 'films')
 
 
@@ -76,16 +110,18 @@ def scroll_by(page, dy, step=50, pause=45):
         page.wait_for_timeout(120)
 
 
-def record(browser, url, dev, local_only, hold, end=None):
+def record(browser, url, dev, local_only, hold, end=None, hide=None):
     """Returns the list of PIL frames from top to bottom."""
     w, h = dev['view']
     ctx, page = new_page(browser, w, h, dev['scale'], phone=dev['phone'], reduced=False, local_only=local_only)
     try:
         page.goto(url, wait_until='load', timeout=60000)
+        if hide:
+            page.add_style_tag(content=hide)
         page.evaluate('window.scrollTo(0, 0)')
         wait_settled(page, min_wait=5000, timeout=20000)
         page.mouse.move(w / 2, h / 2)
-        frames = []
+        frames, bad = [], []
         total = page.evaluate('document.documentElement.scrollHeight - innerHeight')
         for k in range(FRAMES):
             # the page can grow as it reveals itself: aim at the current bottom
@@ -98,10 +134,17 @@ def record(browser, url, dev, local_only, hold, end=None):
                 scroll_by(page, dy)
             page.wait_for_timeout(hold)
             frames.append(shot(page))
+            seen = page.evaluate(FORBIDDEN_JS, list(FORBIDDEN))
+            if seen:
+                bad.append((k + 1, scroll_y(page), seen[:3]))
         # the last frame: wait for anything still drawing at the bottom to finish
         wait_settled(page, min_wait=800, timeout=8000)
         frames[-1] = shot(page)
         print(f'    {len(frames)} frames, page {total + h}px tall, ended at {scroll_y(page)}')
+        if bad:
+            for n, y, seen in bad:
+                print(f'    WARNING: frame {n:03d} (scrolled to {y}) shows {seen}')
+            raise SystemExit('a frame shows placeholder text: move END for this site up')
         return frames
     finally:
         ctx.close()
@@ -156,7 +199,7 @@ def main():
                 made[site] = {}
                 for tag, dev in DEVICES.items():
                     print(f'{site} {tag}: {url}')
-                    frames = record(browser, url, dev, local_only=False, hold=380 if dev['phone'] else 220, end=END[site])
+                    frames = record(browser, url, dev, local_only=False, hold=380 if dev['phone'] else 220, end=END[site], hide=HIDE.get(site))
                     outdir = os.path.join(FILMS, f'{site}-{tag}')
                     paths, size, q, total = encode(frames, outdir, dev['sizes'])
                     print(f'    saved {len(paths)} frames at {size[0]}x{size[1]}, quality {q}: {total / 1e6:.2f} MB')

@@ -135,7 +135,13 @@
 .cg-send-row { display: flex; flex-wrap: wrap; gap: var(--s-3); align-items: center; }
 
 /* ---------- The brief ---------- */
-.cg-brief { min-width: 0; overflow-x: clip; }
+.cg-brief { min-width: 0; overflow-x: clip; container: cgb / inline-size; }
+/* A wide brief (the inline one on a laptop) sets its fields in two columns, in reading order, row by row,
+   so it is about as tall as the conversation beside it; the last field (Notes) spans both. */
+@container cgb (min-width: 500px) {
+  .cg-fields { display: grid; grid-template-columns: minmax(0, 1fr) minmax(0, 1fr); column-gap: var(--s-6); align-items: start; }
+  .cg-fields > .cg-field:last-child:nth-child(odd) { grid-column: 1 / -1; }
+}
 .cg-brief-toggle {
   width: 100%; min-height: 52px; display: flex; align-items: center; gap: var(--s-3); padding: 0 var(--s-4);
   border: 0; border-radius: var(--radius); background: var(--tint); color: var(--text); cursor: pointer; font: 500 var(--fs-ui)/1.2 var(--sans); text-align: left;
@@ -318,7 +324,8 @@ html.cg-locked body { padding-right: var(--cg-sbw, 0); }
   flex: none; min-height: 44px; padding: 0 16px; border-radius: var(--radius); cursor: pointer; font: 500 var(--fs-ui)/1 var(--sans);
 }
 .as-veil-pin { border: 1px solid var(--ink); background: none; color: var(--text); }
-.as-veil-done { border: 0; background: var(--gold); color: var(--bg); }
+.as-veil-done { border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); background: var(--tint); color: var(--text); }   /* the secondary style: the one solid gold button is the top bar's */
+@media (hover: hover) { .as-veil-done:hover { border-color: var(--gold); } }
 .as-pop {
   position: fixed; z-index: 78; padding: var(--s-4); border-radius: var(--radius-media); border: 1px solid var(--hairline);
   background: var(--bg-deep); color: var(--text); box-shadow: 0 24px 56px -20px rgba(0, 0, 0, .9); font-family: var(--sans);

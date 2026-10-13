@@ -36,13 +36,15 @@ const shortName = (n) => n.replace(/\s+(Wellness|Coffee|Plumbing)$/, '');
 
 async function ourSites() {
   try {
-    const r = await fetch(new URL('assets/home/captures/manifest.json', ROOT), { cache: 'no-cache' });
+    // The home page's hero list: captures.json (tools/capture/hero.py); each picture is { src, srcset, w, h }
+    const r = await fetch(new URL('assets/home/captures/captures.json', ROOT), { cache: 'no-cache' });
     if (!r.ok) throw new Error(r.status);
     const m = await r.json();
-    const list = (m.hero || []).filter((h) => h && h.laptop && h.laptop.site).map((h) => ({
+    const src = (v) => (v && typeof v === 'object' ? v.src : v) || '';
+    const list = (m.hero || []).filter((h) => h && h.laptop && src(h.laptop.site)).map((h) => ({
       id: h.id, name: h.name, short: shortName(h.name || h.id),
-      laptop: { site: h.laptop.site, sketch: h.laptop.sketch || '' },
-      phone: { site: (h.phone && h.phone.site) || h.laptop.site, sketch: (h.phone && h.phone.sketch) || '' },
+      laptop: { site: src(h.laptop.site), sketch: src(h.laptop.sketch) },
+      phone: { site: src(h.phone && h.phone.site) || src(h.laptop.site), sketch: src(h.phone && h.phone.sketch) },
     }));
     // Bluebird: the real client's full screenshots from the case study
     const bb = list.find((s) => s.id === 'bluebird');
@@ -133,7 +135,7 @@ export async function mount(container, { reducedMotion = false, lowPower = false
     const ownBtn = el('label', { class: 'lp-btn lp-btn--quiet sk-own', for: fileId }, [el('span', { class: 'sk-long' }, ['Use your screenshot']), el('span', { class: 'sk-short' }, ['Use yours'])]);
     const paintBtn = el('button', { type: 'button', class: 'lp-btn lp-btn--quiet sk-paint' }, [el('span', { class: 'sk-long' }, ['Paint it for me']), el('span', { class: 'sk-short' }, ['Paint it'])]);
     const againBtn = el('button', { type: 'button', class: 'lp-btn lp-btn--quiet sk-again', hidden: true }, [el('span', { class: 'sk-long' }, ['Sketch it again']), el('span', { class: 'sk-short' }, ['Again'])]);
-    const saveBtn = el('button', { type: 'button', class: 'lp-btn lp-btn--gold sk-save' }, [el('span', { class: 'sk-long' }, ['Save the sketch']), el('span', { class: 'sk-short' }, ['Save'])]);
+    const saveBtn = el('button', { type: 'button', class: 'lp-btn lp-btn--line sk-save' }, [el('span', { class: 'sk-long' }, ['Save the sketch']), el('span', { class: 'sk-short' }, ['Save'])]);
     const note = el('p', { class: 'lp-status sk-note' });
     const panel = el('div', { class: 'lp-panel sk-panel' }, [
       el('div', { class: 'sk-pick' }, [

@@ -190,6 +190,20 @@ html:not(.show-unfinished) [data-unfinished] { display: none !important; }
 .btn-gold:focus-visible { outline-color: var(--text); }
 .btn-gold:disabled, .btn-gold[aria-disabled="true"] { opacity: .45; cursor: not-allowed; transform: none; }
 
+/* The secondary button: outlined in gold on the raised tint, text colour (every button that isn't
+   the top bar's "Start a project", e.g. "Send this to Toff", "Download your brief"). 14 : 1 text. */
+.btn-line {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: 44px; padding: 0 var(--s-5); border: 1px solid color-mix(in srgb, var(--gold) 55%, transparent); border-radius: var(--radius);
+  background: var(--tint); color: var(--text);
+  font: 500 var(--fs-ui)/var(--lh-ui) var(--sans); text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: border-color var(--dur-quick) var(--ease-out), background-color var(--dur-quick) var(--ease-out), transform var(--dur-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .btn-line:not(:disabled):not([aria-disabled="true"]):hover { border-color: var(--gold); background: color-mix(in srgb, var(--gold) 8%, var(--tint)); } }
+.btn-line:not(:disabled):active { transform: translateY(1px); }
+.btn-line:disabled, .btn-line[aria-disabled="true"] { opacity: .5; cursor: not-allowed; transform: none; }
+
 /* A quiet text action with an arrow: "Read the case study →" */
 .link-arrow {
   display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
@@ -235,6 +249,7 @@ body::after {
 .paper::before { top: -11px; }
 .paper::after { bottom: -11px; transform: scaleY(-1); }
 .paper .btn-gold { background: var(--paper-text); color: var(--paper); }
+.paper .btn-line { background: transparent; color: var(--paper-text); border-color: var(--paper-text); }
 
 /* ---------- The gold-line page transition (cross-document View Transitions) ----------
    The old page dims; the new one is wiped in from the left behind a 2px gold line that sweeps
@@ -255,5 +270,5 @@ body::after {
   @view-transition { navigation: none; }
   html { scroll-behavior: auto !important; }
   [data-fade] { opacity: 1 !important; transform: none !important; transition: none !important; }
-  .btn-gold, .link-arrow > span:first-child, .link-arrow .arrow { transition: none; }
+  .btn-gold, .btn-line, .link-arrow > span:first-child, .link-arrow .arrow { transition: none; }
 }

@@ -4,7 +4,8 @@
     python3 tools/capture/hero.py saltmarsh morrow   only these (the index keeps the others)
     python3 tools/capture/hero.py --no-copy          leave everything in scratch/captures/hero/
 
-For each site (order from rounds/round-05-plan.md section 9):
+For each site, in SITES order (rounds/round-05-plan.md section 9, with Everest moved to the end
+during integration, 2026-10-13, because its first screen is nearly empty):
 
   1. Screenshots of its first screen
        laptop: a 1440 x 600 viewport at device scale 1.5 -> 2160 x 900 (the stage is 2.4 : 1)
@@ -38,14 +39,15 @@ from capture_common import (ROOT, SCRATCH, EVEREST_DIR, serve, launch, new_page,
                             save_webp, copy_out, update_index, contact_sheet, bluebird_url)
 
 SITES = [
-    # id, name, kind, where
+    # id, name, kind, where. This list is the hero's order ("Another site →" goes down it).
+    # Everest is last: its first screen is nearly empty (just its logo, before its own intro plays).
     ('bluebird', 'Bluebird Wellness', 'client', 'live'),
     ('atelier-wren', 'Atelier Wren', 'concept', 'work'),
-    ('everest', 'Everest Climate Solutions', 'client', 'everest'),
     ('saltmarsh', 'Saltmarsh', 'concept', 'work'),
     ('morrow', 'Morrow Coffee', 'concept', 'work'),
     ('hollis-and-pine', 'Hollis & Pine', 'concept', 'work'),
     ('hart-and-sons', 'Hart & Sons Plumbing', 'concept', 'work'),
+    ('everest', 'Everest Climate Solutions', 'client', 'everest'),
 ]
 QUALITY = 80
 LAPTOP = dict(view=(1440, 600), scale=1.5, size=(2160, 900), stage_css=1312, widths=(1312, 1968))

@@ -127,7 +127,7 @@ export async function mount(container, { reducedMotion = false, lowPower = false
 
     // ---- the panel
     const input = el('input', { id: id + '-word', class: 'lp-input', type: 'text', maxlength: '14', autocomplete: 'off', autocapitalize: 'none', spellcheck: 'false', enterkeyhint: 'go', placeholder: 'A word' });
-    const dropBtn = el('button', { type: 'submit', class: 'lp-btn lp-btn--gold', text: 'Drop it' });
+    const dropBtn = el('button', { type: 'submit', class: 'lp-btn lp-btn--line', text: 'Drop it' });
     const clearBtn = el('button', { type: 'button', class: 'lp-btn lp-btn--quiet', text: 'Clear the floor' });
     const actions = el('div', { class: 'lp-actions' }, [clearBtn]);
     const touch = coarse();

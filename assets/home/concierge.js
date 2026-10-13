@@ -753,7 +753,7 @@ async function goEnd() {
   const status = h('p', { class: 'cg-sum-status', role: 'status', text: 'Writing your summary…' });
   const sum = h('textarea', { class: 'cg-sum', id: 'cg-sum', rows: '5', maxlength: '800', 'aria-describedby': 'cg-sum-note' });
   const sumNote = h('p', { class: 'cg-sum-note', id: 'cg-sum-note' });
-  const dl = h('button', { class: 'btn-gold cg-download', type: 'button' }, 'Download your brief');
+  const dl = h('button', { class: 'btn-line cg-download', type: 'button' }, 'Download your brief');
   const back = h('button', { class: 'cg-back', type: 'button' }, h('span', { 'aria-hidden': 'true', text: '←' }), 'Back to the conversation');
   v.replaceChildren(back, h('h3', { class: 'cg-end-title', id: 'cg-end-title', tabindex: '-1', text: 'Your summary' }), status,
     h('label', { class: 'visually-hidden', for: 'cg-sum', text: 'Your summary' }), sum, sumNote,
@@ -873,7 +873,7 @@ function shortForm(onBack) {
       h('div', { class: 'cg-cf' }, h('label', { for: 'cg-sf-phone' }, 'Phone', h('span', { class: 'cg-opt', text: ' (optional)' })), h('input', { id: 'cg-sf-phone', name: 'phone', type: 'tel', class: 'cg-input-line', autocomplete: 'tel', inputmode: 'tel', maxlength: '40' }))),
     h('label', { class: 'cg-consent' }, h('input', { type: 'checkbox', name: 'consent', id: 'cg-sf-consent' }), h('span', null, `I agree to ${S.studioName || 'Toff Studio'} using these details to reply to my enquiry.`, filled(L.privacyPolicyUrl) ? [' ', link(L.privacyPolicyUrl, 'Privacy policy', true)] : null)),
     err,
-    h('div', { class: 'cg-send-row' }, h('button', { class: 'btn-gold', type: 'submit' }, 'Send')),
+    h('div', { class: 'cg-send-row' }, h('button', { class: 'btn-line', type: 'submit' }, 'Send')),
     live ? null : h('p', { class: 'cg-demo', text: 'Preview: the enquiry isn’t switched on yet, so nothing is sent. Please don’t enter personal details.' }));
   const wrap = h('div', { class: 'cg-sf-wrap', hidden: true }, back, form);
   form.addEventListener('submit', (e) => {

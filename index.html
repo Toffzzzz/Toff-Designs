@@ -58,11 +58,11 @@
           <p class="hero-lede">A small web design studio in London. Every site starts as a pencil sketch, and can come with its own AI assistant.</p>
         </div>
         <div class="wrap hero-body">
-          <!-- The stage: hero[0] of assets/home/captures/manifest.json (change both together). The still is the shader's own sketch, shown until WebGL is ready. -->
+          <!-- The stage: hero[0] of assets/home/captures/captures.json (tools/capture/hero.py; change both together). The still is the shader's own sketch, shown until WebGL is ready. -->
           <div class="hero-stage" data-hero-stage role="img" aria-label="Bluebird Wellness, a client’s site, drawn as a pencil sketch of its first screen">
             <picture class="hero-still">
-              <source media="(max-width: 699px)" srcset="assets/home/captures/interim/bluebird-phone-sketch-358.webp 358w, assets/home/captures/interim/bluebird-phone-sketch-716.webp 716w" sizes="calc(100vw - 32px)" width="716" height="940" />
-              <img src="assets/home/captures/interim/bluebird-laptop-sketch-1968.webp" srcset="assets/home/captures/interim/bluebird-laptop-sketch-1312.webp 1312w, assets/home/captures/interim/bluebird-laptop-sketch-1968.webp 1968w" sizes="(min-width: 1680px) 1440px, (min-width: 1455px) 1312px, (min-width: 1024px) 91vw, 94vw" width="1968" height="821" alt="" fetchpriority="high" decoding="async" />
+              <source media="(max-width: 699px)" srcset="assets/home/captures/hero/bluebird-phone-sketch-358.webp 358w, assets/home/captures/hero/bluebird-phone-sketch.webp 716w" sizes="calc(100vw - 32px)" width="716" height="940" />
+              <img src="assets/home/captures/hero/bluebird-laptop-sketch-1968.webp" srcset="assets/home/captures/hero/bluebird-laptop-sketch-1312.webp 1312w, assets/home/captures/hero/bluebird-laptop-sketch-1968.webp 1968w, assets/home/captures/hero/bluebird-laptop-sketch.webp 2160w" sizes="(min-width: 1680px) 1440px, (min-width: 1455px) 1312px, (min-width: 1024px) 91vw, 94vw" width="1968" height="820" alt="" fetchpriority="high" decoding="async" />
             </picture>
           </div>
           <div class="hero-row">
@@ -188,8 +188,8 @@
       <!-- ============ The Lab ============ -->
       <section class="lab-band section-s" id="lab" aria-labelledby="lab-title">
         <div class="wrap">
-          <!-- Until Phase 7 makes a still from the new pieces: the top of the Round 04 Lab still -->
-          <img class="lab-still" src="assets/studio/lab-teaser.webp" width="1200" height="817" alt="Toff Studio spelt out in gold specks, one of the experiments in the Lab" loading="lazy" decoding="async" />
+          <!-- Made from the Lab's own stills by tools/capture/lab_stills.py (2624x720, and 1312x360) -->
+          <img class="lab-still" src="assets/home/captures/lab-band-1312.webp" srcset="assets/home/captures/lab-band-1312.webp 1312w, assets/home/captures/lab-band.webp 2624w" sizes="(min-width: 1680px) 1440px, (min-width: 1455px) 1312px, (min-width: 1024px) 91vw, 94vw" width="1312" height="360" alt="Three experiments from the Lab: a website sketch painted back to colour, initials cast in gold, and a logo drawn in one line" loading="lazy" decoding="async" />
           <div class="lab-grid">
             <div class="lab-text">
               <h2 class="t-display-l" id="lab-title">There’s more in the Lab</h2>
@@ -237,8 +237,8 @@
               <li data-fade>Search-engine basics</li>
               <li data-fade>Your own domain and email set up</li>
             </ul>
+            <p class="hww-quote">Every project is quoted personally after a short call.</p>
           </div>
-          <p class="hww-quote">Every project is quoted personally after a short call.</p>
         </div>
       </section>
 

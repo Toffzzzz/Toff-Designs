@@ -61,9 +61,10 @@ const CSS = `
 @media (hover: none) { .sp-meta .sp-fine { display: none; } .sp-meta .sp-touch { display: inline; } }
 .sp-still { position: absolute; inset: 0; width: 100%; height: 100%; object-fit: cover; }
 .sp-play { position: absolute; z-index: 3; left: 50%; bottom: calc(var(--lab-caption-h, 112px) + 24px); transform: translateX(-50%);
-  min-height: 48px; padding: 0 28px; border: 0; border-radius: var(--radius, 8px); background: var(--gold, #D8AC5F); color: var(--bg, #0E1628);
+  min-height: 48px; padding: 0 28px; border: 1px solid color-mix(in srgb, var(--gold, #D8AC5F) 55%, transparent); border-radius: var(--radius, 8px); background: var(--tint, #1A2541); color: var(--text, #F6F0E4);
   font: 500 15px/1.2 var(--sans, "Work Sans", system-ui, sans-serif); cursor: pointer; }
-.sp-play:focus-visible { outline: 2px solid var(--text, #F6F0E4); outline-offset: 3px; }
+@media (hover: hover) { .sp-play:hover { border-color: var(--gold, #D8AC5F); } }
+.sp-play:focus-visible { outline: 2px solid var(--gold, #D8AC5F); outline-offset: 3px; }
 .sp-msg { position: absolute; left: var(--margin, 16px); right: var(--margin, 16px); top: 45%; text-align: center; color: var(--slate, #A7AFC2); }
 .sp-sr { position: absolute !important; width: 1px; height: 1px; margin: -1px; padding: 0; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
 @media (min-width: 1024px) { .sp-meta { flex-basis: auto; margin-left: auto; align-self: flex-end; padding-bottom: 12px; } }`;

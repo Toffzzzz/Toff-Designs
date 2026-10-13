@@ -2,9 +2,10 @@
  * Toff Studio: the concept sites list on the home page (round 05). Builder HOME.
  *
  * An editorial list of five rows (in index.html). This adds:
- *  - laptops (hover and a fine pointer): a preview window of the row's site that follows the pointer
- *    within the row while it's hovered, and sits at the row's right while the row has keyboard focus.
- *    It shows the site's short frame sequence (manifest concepts.<slug>.preview, once Phase 4 makes one),
+ *  - laptops (hover and a fine pointer): a preview window of the row's site, just above the row (below it
+ *    near the top of the screen) so it never covers the row's own words, following the pointer sideways
+ *    while the row is hovered, and towards the row's right while the row has keyboard focus.
+ *    It shows the site's short frame sequence (captures.json concepts.<slug>, from tools/capture/concepts.py),
  *    played once per hover, or its still. Reduced motion: the still, no movement of its own.
  *  - phones and touch screens: a still under each name (lazy, sized, no layout shift).
  * Opening a site is an ordinary link: the gold-line page transition comes from the View Transition in
@@ -51,18 +52,13 @@ export function mountConcepts(root, opts) {
   function place(row, clientX, clientY) {
     const r = root.getBoundingClientRect(), rr = row.getBoundingClientRect();
     const w = win.offsetWidth || 360, h = win.offsetHeight || 225;
-    let x, y;
-    if (clientX == null) {   // keyboard focus: just above the row (below it for the first row), never over the row's own words
-      x = rr.right - r.left - w - 150;
-      y = rr.top - r.top - h - 10;
-      if (rr.top - h - 10 < 72) y = rr.bottom - r.top + 10;
-    }
-    else {
-      x = clientX - r.left + 28;                                     // just right of the pointer, never under it
-      if (x + w > r.width) x = clientX - r.left - w - 28;
-      y = clientY - r.top - h / 2;
-      y = Math.max(rr.top - r.top - h * 0.6, Math.min(rr.bottom - r.top - h * 0.4, y));   // stays with the row
-    }
+    // Always just above the row (just below it when the top bar would cover it), so it never sits over
+    // the row's own words: the name, the kind of business, the signature or "Open the site". Sideways it
+    // follows the pointer (keyboard focus: towards the row's right), kept inside the list.
+    const bar = 72, gap = 12;
+    const y = rr.top - h - gap < bar ? rr.bottom - r.top + gap : rr.top - r.top - h - gap;
+    let x = clientX == null ? rr.right - r.left - w - 150 : clientX - r.left - w / 2;
+    x = Math.max(rr.left - r.left, Math.min(rr.right - r.left - w, x));
     win.style.setProperty('--x', Math.round(x) + 'px');
     win.style.setProperty('--y', Math.round(y) + 'px');
   }

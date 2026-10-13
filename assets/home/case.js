@@ -10,9 +10,9 @@
  *    empty, [data-live] stays hidden and [data-soon] ("Live site coming soon") shows instead.
  *  - Fade-ups ([data-fade]) through motion.js: once, forward only.
  *  - [data-film="bluebird"]: the real site moving on a screen. Frames from Phase 4
- *    (assets/home/captures/manifest.json films.<key>.laptop with count > 0) when they exist;
- *    until then the full-page screenshot scrolls inside the screen from its top to data-end
- *    (pixels in the picture). On laptops the page's scroll drives it (forward only); on phones it
+ *    (assets/home/captures/captures.json films.<key>.laptop, made by tools/capture/films.py) when
+ *    they exist; otherwise the full-page screenshot scrolls inside the screen from its top to
+ *    data-end (pixels in the picture). On laptops the page's scroll drives it (forward only); on phones it
  *    plays once by itself; reduced motion shows the last frame. [data-film-index] li[data-at]
  *    light up as the film passes them, and a gold line draws down beside them.
  *  - [data-cool]: Everest's cooling scene: the flap opens (closed, half, open) and the room counts
@@ -54,11 +54,11 @@ doc.querySelectorAll('[data-fit]').forEach((box) => {
 });
 
 /* ---------------------------------------------------------------- the film (Bluebird) */
-async function manifest() {
+async function captures() {
   try {
-    const r = await fetch(base + 'assets/home/captures/manifest.json', { cache: 'no-cache' });
+    const r = await fetch(base + 'assets/home/captures/captures.json', { cache: 'no-cache' });
     if (r.ok) return await r.json();
-  } catch (e) { /* no manifest yet: the fallback below */ }
+  } catch (e) { /* no captures: the fallback below */ }
   return null;
 }
 
@@ -86,8 +86,9 @@ function framePlayer(screen, seq) {
   canvas.className = 'film-canvas'; canvas.setAttribute('aria-hidden', 'true');
   screen.append(canvas);
   const ctx = canvas.getContext('2d');
-  const n = seq.count, imgs = new Array(n), pad = seq.pad || 3;
-  const url = (i) => base + seq.frames.replace('{i}', String(i + 1).padStart(pad, '0'));
+  // frames: a list of addresses (captures.json), or a pattern with {i} and a count
+  const list = Array.isArray(seq.frames), n = list ? seq.frames.length : seq.count, imgs = new Array(n), pad = seq.pad || 3;
+  const url = (i) => base + (list ? seq.frames[i] : seq.frames.replace('{i}', String(i + 1).padStart(pad, '0')));
   let want = 0, shown = -1, nextLoad = 0, loading = 0;
   function pump() {
     while (loading < 4 && nextLoad < n) {
@@ -119,7 +120,7 @@ function framePlayer(screen, seq) {
 async function films() {
   const els = [...doc.querySelectorAll('[data-film]')];
   if (!els.length) return;
-  const m = await manifest();
+  const m = await captures();
   els.forEach((el) => {
     const key = el.getAttribute('data-film');
     const screen = el.querySelector('[data-device="laptop"]');
@@ -128,7 +129,7 @@ async function films() {
     const seq = cfg.laptop;
     // the fallback: the real full-page screenshot, from the page's own attributes
     const fb = { src: base + el.getAttribute('data-src'), w: Number(el.getAttribute('data-w')), h: Number(el.getAttribute('data-h')) };
-    const useFrames = seq && seq.frames && seq.count > 0;
+    const useFrames = !!(seq && seq.frames && (Array.isArray(seq.frames) ? seq.frames.length : seq.count > 0));
     if (useFrames) screen.querySelectorAll('img.film-img').forEach((i) => i.remove());
     const player = useFrames ? framePlayer(screen, seq) : scrollPlayer(screen, fb, Number(el.getAttribute('data-end')) || 0);
     const idx = doc.querySelector('[data-film-index="' + key + '"]');

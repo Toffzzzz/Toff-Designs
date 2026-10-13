@@ -188,6 +188,15 @@ window.TOFF_SETTINGS = {
     maxLiveAnswers: 8, // at most this many live answers per visit (a tool round trip counts as part of one answer)
     firstWordTimeoutMs: 12000, // if the first word hasn't arrived after this long, answer from the page instead
   },
+
+  /* ---------- The Lab (lab.html, round 05) ----------
+     On a slower device each experiment opens as a still with a Play button, and runs a lighter
+     version once played. A device counts as slower when it reports this many processor cores
+     or fewer, or this much memory or less (or when the visitor's browser asks to save data). */
+  lab: {
+    lowPowerCores: 4, // processor cores (4 or fewer counts as slower)
+    lowPowerMemoryGB: 4, // memory in GB (4 or less counts as slower; not every browser reports it)
+  },
 };
 
 /* Fill in the AI addresses left as null from ai.workerBase (nothing to change here). */

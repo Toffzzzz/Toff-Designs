@@ -75,7 +75,7 @@ export function stillGate(root, { still, draw, message, label, place }) {
   const card = el('div', { class: 'lp-still-card', 'data-place': place || 'bottom' }, [
     el('p', { text: message }),
   ]);
-  const btn = el('button', { type: 'button', class: 'lp-btn lp-btn--gold', text: 'Play' });
+  const btn = el('button', { type: 'button', class: 'lp-btn lp-btn--line', text: 'Play' });
   if (label) btn.setAttribute('aria-label', label);
   card.appendChild(btn);
   const wrap = el('div', { class: 'lp-still' });

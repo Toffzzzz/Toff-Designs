@@ -108,7 +108,7 @@ export async function mount(container, { reducedMotion = false, lowPower = false
   // ---- the panel
   const chips = SAMPLES.map((s, i) => el('button', { type: 'button', class: 'lp-btn lp-btn--quiet', 'aria-pressed': 'false', text: s.label, 'data-i': String(i) }));
   const file = el('input', { id: id + '-file', class: 'lp-ol-file', type: 'file', accept: 'image/*' });
-  const fileBtn = el('label', { class: 'lp-btn lp-btn--gold', for: file.id, text: 'Use your own logo' });
+  const fileBtn = el('label', { class: 'lp-btn lp-btn--line', for: file.id, text: 'Use your own logo' });
   const again = el('button', { type: 'button', class: 'lp-btn lp-btn--quiet', text: instant ? 'Play the drawing' : 'Draw it again', disabled: true });
   const save = el('button', { type: 'button', class: 'lp-btn lp-btn--quiet', text: 'Save the drawing', disabled: true });
   const thumb = el('img', { alt: '', width: '56', height: '56', decoding: 'async' });

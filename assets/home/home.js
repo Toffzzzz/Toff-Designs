@@ -92,8 +92,8 @@ const shell = mountShell({ aliases });
 const ctx = () => ({ settings: window.TOFF_SETTINGS, shell: window.ToffShell || shell });
 
 /* ---------------------------------------------------------------- helpers */
-// The pictures: Phase 4's captures index (assets/home/captures/captures.json) when it exists, over the
-// interim manifest (assets/home/captures/manifest.json), so new captures drop in without code changes.
+// The pictures: Phase 4's captures index (assets/home/captures/captures.json, made by tools/capture/), over
+// manifest.json, which now holds only the case films' fallbacks (used while a film has no frames).
 const getJSON = (u) => fetch(u).then((r) => (r.ok ? r.json() : null)).catch(() => null);
 const manifest = Promise.all([getJSON('assets/home/captures/captures.json'), getJSON('assets/home/captures/manifest.json')])
   .then(([c, m]) => withCaptures(m || {}, c));

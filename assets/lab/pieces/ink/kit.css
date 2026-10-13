@@ -4,7 +4,9 @@
 
    Art direction. Each piece is one object on a dark table, lit from
    nowhere: midnight water, cream ink, gold only where it earns it (the
-   under-shadow, the pen tip, the one solid button). Controls sit in one
+   under-shadow, the pen tip, selected states; buttons are the site's
+   outlined secondary style, because the one solid gold button is the top
+   bar's "Start a project"). Controls sit in one
    quiet deep-midnight panel in the top-left corner (top, full width on a
    phone), never over the middle of the work, so the piece owns the screen.
    Type: Work Sans for what you read and press, Cormorant Garamond only for
@@ -59,12 +61,13 @@
 }
 .lp-btn:active { transform: translateY(1px); }
 .lp-btn:disabled { opacity: .45; cursor: default; transform: none; }
-.lp-btn--gold { background: var(--gold, #D8AC5F); color: var(--bg, #0E1628); }
-.lp-btn--gold:focus-visible { outline-color: var(--text, #F6F0E4); }
+/* The main action of a piece ("Write it", "Play"): the site's outlined secondary style (tokens.css .btn-line).
+   .lp-btn--gold is kept as another name for it, for anything still using it. */
+.lp-btn--line, .lp-btn--gold { background: var(--tint, #1A2541); color: var(--text, #F6F0E4); box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--gold, #D8AC5F) 55%, transparent); }
 .lp-btn--quiet { background: var(--tint, #1A2541); color: var(--text, #F6F0E4); }
 .lp-btn--quiet[aria-pressed="true"] { box-shadow: inset 0 0 0 1px var(--gold, #D8AC5F); color: var(--gold, #D8AC5F); }
 @media (hover: hover) {
-  .lp-btn--gold:hover { background: color-mix(in srgb, var(--gold, #D8AC5F) 88%, var(--text, #F6F0E4)); }
+  .lp-btn--line:hover, .lp-btn--gold:hover { background: color-mix(in srgb, var(--gold, #D8AC5F) 8%, var(--tint, #1A2541)); box-shadow: inset 0 0 0 1px var(--gold, #D8AC5F); }
   .lp-btn--quiet:hover { background: color-mix(in srgb, var(--tint, #1A2541) 80%, var(--slate, #A7AFC2)); }
 }
 .lp-actions { display: flex; flex-wrap: wrap; gap: 8px; }

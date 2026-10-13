@@ -954,3 +954,4 @@ Changes made to the plan from the critique:
   - /concierge tools: `show_work {projects:[bluebird|everest|saltmarsh|morrow|atelier-wren|hollis-and-pine|hart-and-sons]}`; `open_design_tool {way: pick|sketch|describe, business, mood, layout ('' when not chosen), words}`; `start_pointing {hint}`; `update_brief {field: business|goals|must_haves|look|timing|budget|notes, value}` (list fields get one item per call, text fields are replaced); `finish {}`.
   - /brief: `{history:[≤16 {role, content≤1500}], brief}` → `{ok:true, brief:{business, goals, must_haves, look, pins, timing, budget, notes, summary}}`. /design: `{text: 1–400}` → `{ok:true, spec}` (a 502 means use the offline Describe).
   - Daily caps (UTC): /agent 300, /concierge 150, /brief 40, /design 120 (worst case $2.62 a day). Contact details typed by visitors are replaced with "(removed)" before anything reaches Anthropic.
+- 2026-10-13 (integration): hero order as built puts Everest last (DECISIONS.md).

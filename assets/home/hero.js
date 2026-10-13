@@ -8,9 +8,10 @@
  *    by itself again (automatic motion stops for good when the visitor takes over).
  *  - phones: it plays by itself when 60% of the stage is in view; a tap finishes it; the stage keeps
  *    touch-action: pan-y, so scrolling always wins.
- *  - The site list is assets/home/captures/captures.json (Phase 4) over manifest.json, merged by home.js.
+ *  - The site list is the "hero" section of assets/home/captures/captures.json (tools/capture/hero.py),
+ *    read by home.js; its first entry is also written into index.html's still (change both together).
  *  - "Build it" finishes it (keyboard users; the stage itself takes no keys). "Another site →" swaps in
- *    the next site from assets/home/captures/manifest.json as a fresh sketch; nothing advances by itself.
+ *    the next site from that list as a fresh sketch; nothing advances by itself.
  *  - First paint is the pre-rendered still in index.html (fetchpriority high); WebGL starts after load and
  *    takes over when its first frame is drawn. No WebGL2: the still cross-fades into the screenshot.
  *    Reduced motion or Save-Data: the finished screenshot, nothing moves.
@@ -46,11 +47,11 @@ export function mountHero(section, opts) {
   let sites = [fromPage()], index = 0, done = false, firstSent = false, tookOver = false;
   let gl = null, canvas = null, siteImg = null, ready = false, busy = false, inView = false, idleTimer = 0, autoOn = false;
 
-  // The first site as the page describes it (until the manifest arrives)
+  // The first site as the page describes it (until captures.json arrives)
   function fromPage() {
     const cap = capEl.textContent.trim();
     return { id: 'bluebird', name: cap.split(',')[0], kind: /concept/.test(cap) ? 'concept' : 'client', caption: cap,
-      laptop: { site: 'assets/home/captures/interim/bluebird-laptop.webp' }, phone: { site: 'assets/home/captures/interim/bluebird-phone.webp' } };
+      laptop: { site: 'assets/home/captures/hero/bluebird-laptop-site.webp' }, phone: { site: 'assets/home/captures/hero/bluebird-phone-site.webp' } };
   }
   const device = () => (PHONE.matches ? 'phone' : 'laptop');
   const cur = () => sites[index];

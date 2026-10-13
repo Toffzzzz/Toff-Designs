@@ -86,7 +86,7 @@ export async function mount(container, { reducedMotion = false, lowPower = false
     const i = el('i', { 'aria-hidden': 'true' }); i.style.setProperty('--c', GLAZES[k].colour);
     return el('label', { class: 'lv-glaze' }, [input, i, GLAZES[k].label]);
   })));
-  const save = el('button', { type: 'button', class: 'lp-btn lp-btn--gold lv-save', text: 'Save a product shot' });
+  const save = el('button', { type: 'button', class: 'lp-btn lp-btn--line lv-save', text: 'Save a product shot' });
   const desc = el('p', { class: 'lp-sr', id: id + '-desc' });
   const stage = el('section', { class: 'lv-stage', 'aria-label': 'Your vase' }, [view, el('div', { class: 'lv-tools' }, [glazes, save]), desc]);
   const wrap = el('div', { class: 'lv' }, [draw, stage]);

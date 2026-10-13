@@ -106,7 +106,7 @@ export async function mount(container, { reducedMotion = false, lowPower = false
 
     // ---- the panel
     const input = el('input', { id: id + '-name', class: 'lp-input', type: 'text', maxlength: '24', autocomplete: 'off', autocapitalize: 'words', spellcheck: 'false', enterkeyhint: 'go', placeholder: 'Your name' });
-    const write = el('button', { type: 'submit', class: 'lp-btn lp-btn--gold', text: 'Write it' });
+    const write = el('button', { type: 'submit', class: 'lp-btn lp-btn--line', text: 'Write it' });
     const clearBtn = el('button', { type: 'button', class: 'lp-btn lp-btn--quiet', text: 'Clear the water' });
     const form = el('form', { class: 'lp-panel', 'aria-label': 'Write in the ink' }, [
       el('div', {}, [el('label', { class: 'lp-label', for: input.id, text: 'Type your name' }), el('div', { class: 'lp-row' }, [input, write])]),

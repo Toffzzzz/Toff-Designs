@@ -69,3 +69,5 @@ Next: Phase 2 (foundations). The shader, vendoring and serve.py --gzip were star
 - All five concept sites committed. Lighthouse: Hart & Sons, Morrow and Hollis & Pine meet every budget; Saltmarsh desktop P83 (TBT 375 ms) and mobile LCP 2.71 s, Atelier Wren mobile LCP 2.55 s: being fixed.
 - The owner replied "finish"; all eight builders resumed where they stopped.
 - Open: re-run python3 tools/capture/making_of.py --round 05 at the end (round 05 was captured mid-rebuild).
+- Case studies committed (90/90). Open: case.js reads manifest.json; switch it to captures.json once Phase 4 lands. The Everest mock-up on the home page says "Cool, quiet comfort." (from round 04's assets/studio/cases.js), while the case study uses the sketch's own wording; owner to confirm. The sketch-*.webp pictures look generated (notebook photos); they're named in the brief, owner to confirm.
+- Open (Phase 9): gold solid buttons inside the Lab pieces' shared kit (assets/lab/pieces/ink/kit.css: 'Save a product shot', 'Write it', 'Use your own logo') and the concierge's 'Download your brief'; the gold solid button is reserved for the top bar's 'Start a project'.
