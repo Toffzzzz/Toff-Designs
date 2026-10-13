@@ -1,0 +1,30 @@
+<!doctype html>
+<html lang="en"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="robots" content="noindex">
+<title>Sketch still maker</title>
+<!-- Used only by tools/capture/hero.py (served from the repo root): draws a screenshot with
+     SketchStage, an empty mask (nothing painted in), at ?w=&h= CSS px and the page's
+     devicePixelRatio, and returns the pure sketch as a base64 PNG. -->
+<style>html,body{margin:0;background:#0A101E}#c{display:block}</style></head>
+<body><canvas id="c"></canvas>
+<script type="module">
+  import { SketchStage } from '../../assets/shared/sketch-shader.js';
+  const q = new URLSearchParams(location.search);
+  const c = document.getElementById('c');
+  c.style.width = q.get('w') + 'px';
+  c.style.height = q.get('h') + 'px';
+  window.__supported = SketchStage.supported();
+  window.__make = async (src) => {
+    const stage = new SketchStage(c, { paper: '#0A101E', dprCap: 4, autoResize: false });
+    stage.resize();
+    await stage.load(src);
+    stage.renderSketchOnly();
+    const blob = await stage.toBlob('image/png');
+    const buf = new Uint8Array(await blob.arrayBuffer());
+    let s = '';
+    for (let i = 0; i < buf.length; i += 0x8000) s += String.fromCharCode.apply(null, buf.subarray(i, i + 0x8000));
+    stage.dispose();
+    return btoa(s);
+  };
+  window.__ready = true;
+</script></body></html>
