@@ -139,3 +139,35 @@ A dated log. One line per decision, with the reason where given. Never remove li
 - 2026-10-12: `lab.js` takes a `logoBase` option (like its `image` option), so lab.html in the site root can load the sample logos from `assets/studio/lab-logos/`.
 - 2026-10-12: 404.html uses `site.css` and `settings.js` (colours) like the other root pages, instead of the preview-only `base.css`, with absolute `/Toff-Designs/` paths (no CNAME yet) and `noindex`.
 - 2026-10-12: The AI assistants preview in `assets/studio/site.html` stays offline (`{}`, as delivered); only index.html has the live `/chat` endpoint. site.html keeps the sketch AI endpoint, as after the round 03 AI follow-up.
+
+## 2026-10-13 — Round 05 (owner's decisions)
+
+- 2026-10-13: Self-hosted libraries are allowed where they earn their place: three.js r186 (npm three 0.186.x) and Rapier (0.19.x compat builds) for the Lab and one concept site, and GSAP 3.15.0 (already in vendor/) if a timeline genuinely needs it. Never Lenis or any other scroll-jacking. Replaces round 02's "no libraries are loaded".
+- 2026-10-13: The main page may use WebGL where it shows our work or our process (the hero and the case films). Decoration stays banned everywhere; a Lab piece or a concept site's one named signature moment isn't decoration. The main page never loads the Lab's pieces. Replaces round 03's "the main page never loads the Lab's effects" and the master prompt's "showpieces only on a Lab page".
+- 2026-10-13: The home page follows round-05.md section 7. Replaces round 04's section order, the Try it tabs and the four separate tools.
+- 2026-10-13: Top-bar links are Work, AI, Design yours, The Lab. Replaces round 04's AI assistants, Work, Try it, How it works, The Lab.
+- 2026-10-13: The new hero and work chapter replace round 02's and 04's opening (the drawn Morrow Coffee site in assets/opening/) and the showcase cards beside the phrases (assets/showcase/). Everest's cooling picture (from assets/showcase/) stays in use.
+- 2026-10-13: One concierge (an AI that takes the brief, keeps the planner's point-and-pin and its brief document, and offers a short form) replaces the six-step enquiry with its style picker (assets/enquiry/) and the separate "Plan with us" planner.
+- 2026-10-13: The concierge talks to Claude through the Worker's /concierge route, with a notice like the AI demo's. Sending an enquiry stays in demo mode until it can go live. Replaces round 03's "the planner stays in demo mode".
+- 2026-10-13: The Sketch lens in the top bar is retired (its files stay, unloaded).
+- 2026-10-13: Five complete concept sites, each a real, finished website for a made-up business, replace the concept studies drawn by MiniSite.
+- 2026-10-13: The studio owns every file now. Two rules stay: line-data.js and the line SVG/JSON are only regenerated with tools/handwriting/build_line.py, and face-line.svg is never redrawn or retraced. Replaces "Delivered parts: don't rewrite or improve them".
+- 2026-10-13: The four phrases "You plan", "We design", "We deliver", "So... what will it be?" are retired (a slogan triplet by our own rules). The pen now writes the names of the work and, at the end, "Tell us what you need".
+- 2026-10-13: Kinetic headings on the main pages are retired (allowed in the Lab).
+- 2026-10-13: Nothing that was in assets/ before a round (anything on that round's backup branch) is ever deleted or moved; files created during the round may be removed or renamed. Refines CLAUDE.md's "never delete files inside assets/".
+- 2026-10-13: Tests live in tests/, run with `python3 tests/run_all.py` and by GitHub Actions on every push. The older round scripts in /tmp/toff-tests stay as they are. For this round, "run every CHECKLIST.md item" means the new checklist written in Phase 10. Replaces tests kept outside the repo.
+- 2026-10-13: wrangler.toml may change once, in Phase 11, to add the preview link's address to ALLOWED_ORIGIN, after the Worker folder has been backed up. Replaces round 04's "wrangler.toml unchanged".
+- 2026-10-13: This round is built on the round-05 branch and goes live only when the owner replies "ship it". Replaces pushing main at the end of every round.
+
+## 2026-10-13 — Round 05 (made while building; owner to confirm)
+- 2026-10-13: Hero order: Bluebird Wellness (client), Atelier Wren, Everest Climate Solutions (client, from the local capture), Saltmarsh, Morrow Coffee, Hollis & Pine, Hart & Sons Plumbing; "Another site →" returns to the first after the last. Reason: real client work first, Bluebird's light page gives the biggest dark-to-light change and its line-drawn bird and serif headline survive the sketch (style frame); Atelier Wren next for its large editorial type and photography. Phase 4 may swap 2 and 4 after looking at the real stills.
+- 2026-10-13: The laptop stage is 2.4 : 1 so the caption row and its controls are on the first screen; laptop hero screenshots are therefore captured at a 1440×600 viewport (device scale 1.5, 2160×900) instead of 1440×900, so each site lays out its own first screen for that shape. Phone stills: 390×844 captures, cropped to the top 358 : 470.
+- 2026-10-13: The stage's paper is deep midnight (#0A101E), not the page colour, so it reads as an object without a border.
+- 2026-10-13: A quiet hint sits beside the caption ("Move your pointer over it to paint it in" / "Tap to finish it").
+- 2026-10-13: A new token, `--paper-accent` #7E5E24, for gold-ish text on the cream paper (the existing #8F6A2A is 4.1 : 1, so it is kept for lines only).
+- 2026-10-13: The concept ribbon is in the page flow at the bottom, never fixed.
+- 2026-10-13: The heading of 7.1 point 7 is "How we work"; the concept list's heading is "Concept sites".
+- 2026-10-13: The AI demo's business switch is a segmented control labelled Café, Salon, Clinic, Plumber.
+- 2026-10-13: /brief returns a ninth field, `summary`, because 7.2 asks the AI to write the brief's summary through /brief.
+- 2026-10-13: Made-up details for the concept sites that the AI demo now needs (section 10): Morrow's full menu and drink options, Atelier Wren's four stylists (Ana, Theo, Isla, Sam), the clinic's 30-minute video appointment and 60-minute health check, Hart & Sons' covered postcode districts (W2 to W14) and visit windows.
+- 2026-10-13: Lab pieces follow the module contract in section 6.
