@@ -1,0 +1,155 @@
+/* =====================================================================
+   Toff Studio: the page shell (round 05): skip link, top bar, full-screen
+   menu, footer, floating-button slot. Reads the tokens in tokens.css.
+   The bar is quiet: a serif name, four slate links and the one gold
+   button; it is see-through at the very top and solid midnight with a
+   fine gold rule as soon as the page moves; it slides away on the way
+   down and back on the way up.
+   ===================================================================== */
+
+/* ---------- Skip link: first in the tab order, hidden until it has focus ---------- */
+.sh-skip { position: fixed; left: var(--margin); top: calc(var(--bar-h) + env(safe-area-inset-top) + 12px); z-index: 2147483001; padding: 12px 18px; border-radius: var(--radius);
+  background: var(--gold); color: var(--bg); font: 500 var(--fs-ui)/1.2 var(--sans); text-decoration: none; }
+.sh-skip:not(:focus) { clip-path: inset(50%); width: 1px; height: 1px; padding: 0; overflow: hidden; white-space: nowrap; }
+.sh-skip:focus-visible { outline: 2px solid var(--text); outline-offset: 2px; }
+
+/* ---------- Top bar ---------- */
+.sh-bar {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 70; height: var(--bar-h);
+  padding-top: env(safe-area-inset-top);
+  box-sizing: content-box;
+  transition: transform var(--dur-base) var(--ease-out);
+}
+.sh-bar::before {   /* the solid midnight and its gold rule, once the page has moved */
+  content: ""; position: absolute; inset: 0; background: var(--bg); border-bottom: 1px solid var(--hairline);
+  opacity: 0; transition: opacity var(--dur-base) var(--ease-out);
+}
+.sh-bar.is-solid::before, .sh-bar.is-menu::before { opacity: 1; }
+.sh-bar.is-hidden, .sh-bar.is-suppressed { transform: translateY(calc(-100% - 1px)); }
+.sh-bar-in {
+  position: relative; height: var(--bar-h); display: flex; align-items: center; gap: var(--s-6);
+  width: min(100% - 2 * var(--margin), var(--content-max)); margin-inline: auto;
+}
+.sh-mark {
+  display: inline-flex; align-items: center; min-height: 44px;
+  margin-right: auto; color: var(--text); text-decoration: none; white-space: nowrap;
+  font: 400 26px/1 var(--serif); letter-spacing: -0.005em;
+}
+.sh-nav ul { display: flex; align-items: center; gap: clamp(20px, 2.4vw, 36px); margin: 0; padding: 0; list-style: none; }
+.sh-nav a {
+  display: inline-flex; align-items: center; min-height: 44px; color: var(--slate); text-decoration: none; white-space: nowrap;
+  font: 400 var(--fs-ui)/1.2 var(--sans);
+  background: linear-gradient(var(--gold), var(--gold)) 50% calc(50% + 0.9em) / 0 1px no-repeat;
+  transition: color var(--dur-quick) var(--ease-out), background-size var(--dur-base) var(--ease-out);
+}
+.sh-nav a[aria-current] { color: var(--text); background-size: 100% 1px; }
+@media (hover: hover) { .sh-nav a:hover { color: var(--text); } }
+.sh-nav + .sh-cta { margin-left: var(--s-3); }
+.sh-cta-short { display: none; }
+.sh-menu-btn {
+  display: none; align-items: center; justify-content: center; min-width: 64px; min-height: 44px; padding: 0 var(--s-4);
+  border: 1px solid color-mix(in srgb, var(--gold) 45%, transparent); border-radius: var(--radius); background: transparent;
+  color: var(--text); font: 500 var(--fs-ui)/1 var(--sans); cursor: pointer; -webkit-tap-highlight-color: transparent;
+  transition: border-color var(--dur-quick) var(--ease-out);
+}
+@media (hover: hover) { .sh-menu-btn:hover { border-color: var(--gold); } }
+.sh-menu-btn:active { transform: translateY(1px); }
+
+/* Phones: the name, "Start a project" and Menu */
+@media (max-width: 699px) {
+  .sh-nav { display: none; }
+  .sh-bar-in { gap: var(--s-2); }
+  .sh-mark { font-size: 23px; }
+  .sh-cta { padding: 0 var(--s-4); }
+  .sh-menu-btn { display: inline-flex; }
+}
+@media (max-width: 359px) {
+  .sh-mark { font-size: 21px; }
+  .sh-cta-long { display: none; }
+  .sh-cta-short { display: inline; }
+  .sh-menu-btn { min-width: 0; padding: 0 var(--s-3); }
+}
+
+/* ---------- The full-screen menu (phones) ---------- */
+.sh-menu {
+  position: fixed; inset: 0; z-index: 69; display: flex; flex-direction: column; gap: var(--s-7);
+  padding: calc(var(--bar-h) + env(safe-area-inset-top) + var(--s-6)) var(--margin) calc(var(--s-7) + env(safe-area-inset-bottom));
+  background: var(--bg); overflow-y: auto; overscroll-behavior: contain;
+  opacity: 0; transition: opacity var(--dur-base) var(--ease-out);
+}
+.sh-menu.is-open { opacity: 1; }
+html.sh-menu-open, html.sh-menu-open body { overflow: hidden; }
+.sh-menu-links { margin: 0; padding: 0; list-style: none; }
+.sh-menu-links li { border-bottom: 1px solid var(--hairline); opacity: 0; transform: translateY(var(--rise-s));
+  transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
+.sh-menu.is-open .sh-menu-links li { opacity: 1; transform: none; }
+.sh-menu.is-open .sh-menu-links li:nth-child(2) { transition-delay: var(--stagger-rows); }
+.sh-menu.is-open .sh-menu-links li:nth-child(3) { transition-delay: calc(2 * var(--stagger-rows)); }
+.sh-menu.is-open .sh-menu-links li:nth-child(4) { transition-delay: calc(3 * var(--stagger-rows)); }
+.sh-menu-links a {
+  display: flex; align-items: center; min-height: 64px; padding: var(--s-2) 0; color: var(--text); text-decoration: none;
+  font: 300 clamp(36px, 10vw, 44px)/1.1 var(--serif); letter-spacing: var(--tracking-display);
+}
+.sh-menu-links a[aria-current] { color: var(--gold); }
+.sh-menu-links a:focus-visible { outline-offset: 2px; }
+.sh-menu-more { margin: auto 0 0; padding: 0; list-style: none; display: grid; gap: var(--s-1); }
+.sh-menu-more a { display: inline-flex; align-items: center; min-height: 44px; color: var(--slate); font: 400 var(--fs-small)/1.4 var(--sans); text-underline-offset: 0.25em; }
+@media (min-width: 700px) { .sh-menu { display: none !important; } }
+
+/* ---------- Footer: the only change of shade ---------- */
+.sh-footer {
+  position: relative; background: var(--bg-deep); border-top: 1px solid var(--hairline); color: var(--text);
+  padding: var(--section-m) 0 calc(var(--s-7) + env(safe-area-inset-bottom));
+}
+.sh-ft-top { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--gutter); row-gap: var(--s-7); align-items: end; }
+.sh-ft-main { grid-column: 1 / -1; display: flex; flex-direction: column; align-items: flex-start; }
+.sh-ft-links { grid-column: 1 / -1; margin: 0; padding: 0; list-style: none; display: grid; gap: 0; }
+@media (min-width: 700px) { .sh-ft-main { grid-column: 1 / span 5; } .sh-ft-links { grid-column: 6 / -1; } }
+@media (min-width: 1024px) { .sh-ft-main { grid-column: 1 / span 7; } .sh-ft-links { grid-column: 9 / -1; } }
+
+.sh-ft-sign { width: 132px; aspect-ratio: 55.4 / 40.1; margin: 0 0 var(--s-4); }
+.sh-ft-sign svg { display: block; width: 100%; height: 100%; overflow: visible; }
+.sh-sign-ink path { stroke: var(--gold); stroke-width: 1.2; }
+.sh-sign-shadow path { stroke: rgba(0, 0, 0, .35); stroke-width: 1.55; transform: translate(0, 1.1px); }
+.sh-ft-mark { margin: 0 0 var(--s-6); font: 400 26px/1 var(--serif); color: var(--text); }
+.sh-ft-start {
+  display: inline-flex; align-items: baseline; gap: 0.3em; padding-block: 6px; color: var(--gold); text-decoration: none;
+  font: 300 var(--fs-display-m)/var(--lh-display-m) var(--serif); letter-spacing: var(--tracking-display);
+}
+.sh-ft-start .arrow { display: inline-block; font-family: var(--sans); font-weight: 300; font-size: 0.62em; transition: transform var(--dur-quick) var(--ease-out); }
+@media (hover: hover) { .sh-ft-start:hover .arrow { transform: translateX(4px); } }
+.sh-ft-start:active .arrow { transform: translateX(2px); }
+.sh-ft-plan { display: inline-flex; align-items: center; min-height: 44px; margin-top: var(--s-3); color: var(--ink); font: 500 var(--fs-ui)/1.2 var(--sans); text-underline-offset: 0.3em; }
+
+.sh-ft-links li { padding-block: var(--s-1); color: var(--slate); font: 400 var(--fs-small)/1.45 var(--sans); }
+.sh-ft-links li + li { border-top: 1px solid color-mix(in srgb, var(--hairline) 60%, transparent); }
+.sh-ft-links a { display: inline-flex; align-items: center; min-height: 44px; color: var(--ink); text-underline-offset: 0.25em; text-decoration-color: color-mix(in srgb, var(--ink) 40%, transparent); transition: text-decoration-color var(--dur-quick) var(--ease-out); }
+@media (hover: hover) { .sh-ft-links a:hover { text-decoration-color: var(--ink); } }
+.sh-ft-note { display: block; margin: -6px 0 var(--s-2); color: var(--slate); font: 400 var(--fs-fine)/1.5 var(--sans); }
+.sh-ft-ph { color: var(--ink); }
+.sh-ph-tag { font: italic 400 16px/1.3 var(--serif); color: var(--slate); }
+
+.sh-ft-base {
+  display: flex; flex-wrap: wrap; justify-content: space-between; align-items: baseline; gap: var(--s-3) var(--s-7);
+  margin-top: var(--s-8); padding-top: var(--s-5); border-top: 1px solid color-mix(in srgb, var(--hairline) 60%, transparent);
+}
+.sh-craft { max-width: 64ch; margin: 0; color: var(--slate); font: 400 var(--fs-fine)/1.6 var(--sans); }
+.sh-craft span { color: var(--ink); font-variant-numeric: tabular-nums; }
+.sh-ft-copy { margin: 0; color: var(--slate); font: 400 var(--fs-fine)/1.6 var(--sans); }
+.sh-ft-company { display: block; }
+
+/* ---------- The floating-button slot (the concierge puts its button here) ---------- */
+.sh-float {
+  position: fixed; z-index: 60; right: max(16px, env(safe-area-inset-right)); bottom: max(16px, env(safe-area-inset-bottom));
+  display: flex; flex-direction: column; align-items: flex-end; gap: var(--s-2); pointer-events: none;
+}
+.sh-float > * { pointer-events: auto; }
+.sh-float:empty { display: none; }
+html.sh-menu-open .sh-float { visibility: hidden; }
+
+/* ---------- Reduced motion: no sliding, no fading ---------- */
+@media (prefers-reduced-motion: reduce) {
+  .sh-bar, .sh-bar::before, .sh-nav a, .sh-menu, .sh-menu-links li, .sh-ft-start .arrow, .sh-ft-links a, .sh-menu-btn { transition: none !important; }
+  .sh-menu-links li { opacity: 1; transform: none; }
+}
+@media print { .sh-bar, .sh-menu, .sh-float, .sh-skip { display: none !important; } }

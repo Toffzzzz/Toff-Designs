@@ -1,0 +1,259 @@
+/* =====================================================================
+   Toff Studio: shared design tokens and base (round 05)
+
+   Art direction. Midnight & Gold, kept quiet: the page is a dark sheet of
+   paper, type does the work, gold is spent sparingly (one solid button, fine
+   rules, selected states, the focus ring). Cormorant Garamond light for
+   display, never bold; Work Sans for everything you read or press. Calm,
+   generous spacing with a varied rhythm, 8px corners on controls and 12px on
+   pictures, no borders around pictures, no glows. One easing family
+   (quintic) for every interface movement; durations grow with distance. The
+   cream-paper section is the one change of tone in the scroll; the deep
+   midnight footer is the one change of shade. A still paper grain sits over
+   everything and never moves.
+
+   Values: rounds/round-05-plan.md section 4, recorded in DESIGN.md
+   ("Round 05 design system"). settings.js overwrites the colours and the
+   motion tokens when the page loads (assets/shared/boot.js), so the owner can
+   change them in one place. Keep the defaults here equal to settings.js.
+
+   Load order on a studio page (head):
+     <link rel="preload" href="{base}assets/studio/fonts/cormorant-garamond-latin.woff2" as="font" type="font/woff2" crossorigin>
+     <link rel="preload" href="{base}assets/studio/fonts/work-sans-regular-latin.woff2" as="font" type="font/woff2" crossorigin>
+     <link rel="stylesheet" href="{base}assets/shared/tokens.css">
+     <link rel="stylesheet" href="{base}assets/shared/shell.css">
+     <script src="{base}settings.js"></script>
+     <script src="{base}assets/shared/boot.js"></script>
+   ===================================================================== */
+
+/* ---------- Fonts (self-hosted, SIL Open Font License 1.1; see CREDITS.md) ----------
+   Cormorant Garamond: variable, 300 to 700, roman and italic (display uses 300; captions and "build" use italic 400).
+   Work Sans: variable 300 to 599 (text 400, buttons and labels 500), its italic, and a bold cut for <strong>. */
+@font-face { font-family: "Cormorant Garamond"; src: url("../studio/fonts/cormorant-garamond-latin.woff2") format("woff2"); font-weight: 300 700; font-style: normal; font-display: swap; }
+@font-face { font-family: "Cormorant Garamond"; src: url("../studio/fonts/cormorant-garamond-italic-latin.woff2") format("woff2"); font-weight: 300 700; font-style: italic; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("../studio/fonts/work-sans-regular-latin.woff2") format("woff2"); font-weight: 300 599; font-style: normal; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("../studio/fonts/work-sans-italic-latin.woff2") format("woff2"); font-weight: 300 599; font-style: italic; font-display: swap; }
+@font-face { font-family: "Work Sans"; src: url("../studio/fonts/work-sans-bold-latin.woff2") format("woff2"); font-weight: 600 900; font-style: normal; font-display: swap; }
+
+/* ---------- Tokens ---------- */
+:root {
+  /* Colour (settings.js colors.*; boot.js writes them here) */
+  --bg: #0E1628;            /* colors.bg: the page */
+  --bg-deep: #0A101E;       /* colors.footer: footer, the AI band, the hero stage's paper */
+  --tint: #1A2541;          /* colors.tint: raised areas, inputs, chips */
+  --text: #F6F0E4;          /* colors.text: headings and body (15.9 : 1 on bg) */
+  --ink: #F1E3C6;           /* colors.ink: lines, links, outlines (14.2 : 1) */
+  --slate: #A7AFC2;         /* colors.slate: quiet text (8.2 : 1 on bg, 6.9 on tint) */
+  --gold: #D8AC5F;          /* colors.accent: the one solid button, fine rules, selected states, focus ring (8.6 : 1) */
+  --accent: var(--gold);    /* the name the round 02 to 04 parts use */
+  --line-shadow: rgba(216, 172, 95, 0.38);  /* colors.lineShadow: the gold under-shadow */
+  --hairline: rgba(216, 172, 95, 0.22);     /* colors.hairline: fine rules */
+  --error: #F2A7A0;         /* colors.error: form messages (9.3 : 1) */
+  --paper: #F1EADC;         /* colors.paper: the cream-paper section */
+  --paper-text: #141C2E;    /* colors.paperText: text on paper (14.2 : 1) */
+  --paper-quiet: #4C5468;   /* colors.paperQuiet: quiet text on paper (6.3 : 1) */
+  --paper-line: #8F6A2A;    /* colors.paperLine: lines on paper only, never text (4.1 : 1) */
+  --paper-accent: #7E5E24;  /* colors.paperAccent: gold-ish text on paper (5.0 : 1) */
+  --outline: color-mix(in srgb, var(--slate) 40%, transparent);   /* fine slate outlines on inputs */
+
+  /* Type */
+  --serif: "Cormorant Garamond", Georgia, "Times New Roman", serif;
+  --sans: "Work Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --fs-display-xl: clamp(52px, 6.6vw, 100px);  --lh-display-xl: 0.92;   /* the hero headline */
+  --fs-display-l: clamp(40px, 5vw, 72px);      --lh-display-l: 1.0;     /* chapter headings (h2) */
+  --fs-display-m: clamp(32px, 3.6vw, 56px);    --lh-display-m: 1.04;    /* concept names, Lab titles */
+  --fs-display-s: clamp(22px, 2vw, 28px);      --lh-display-s: 1.2;     /* sub-headings, italic captions */
+  --fs-lede: clamp(17px, 1.3vw, 20px);         --lh-lede: 1.5;          /* lines under headings */
+  --fs-body: 17px;                             --lh-body: 1.6;
+  --fs-ui: 15px;                               --lh-ui: 1.2;            /* buttons, links in bars, chips (Work Sans 500) */
+  --fs-small: 15px;                            --lh-small: 1.5;         /* captions, notes, meta */
+  --fs-fine: 14px;                             --lh-fine: 1.5;          /* fine print only; nothing smaller */
+  --tracking-display: -0.012em;
+  --measure: 60ch;          /* paragraphs */
+  --measure-lede: 40ch;     /* ledes, 34 to 40 characters */
+
+  /* Space (4px base) */
+  --s-1: 4px; --s-2: 8px; --s-3: 12px; --s-4: 16px; --s-5: 24px; --s-6: 32px;
+  --s-7: 48px; --s-8: 64px; --s-9: 96px; --s-10: 128px; --s-11: 192px;
+  --section-s: clamp(48px, 6vw, 80px);
+  --section-m: clamp(72px, 9vw, 128px);
+  --section-l: clamp(96px, 12vw, 176px);
+
+  /* Grid (phone first: 4 columns; see the breakpoints below) */
+  --cols: 4;
+  --margin: 16px;
+  --gutter: 16px;
+  --content-max: 100%;
+  --bar-h: 56px;            /* the top bar (shell.css) */
+
+  /* Shape */
+  --radius: 8px;            /* buttons, chips, inputs, segmented controls */
+  --radius-media: 12px;     /* the stage, film screens, preview windows, the AI frame, stills */
+  --radius-panel: 18px;     /* the concierge sheet */
+
+  /* Motion (settings.js motion.*; one easing family: quintic) */
+  --ease-out: cubic-bezier(.22, 1, .36, 1);     /* everything that arrives */
+  --ease-in-out: cubic-bezier(.83, 0, .17, 1);  /* things that move from one place to another */
+  --ease-in: cubic-bezier(.64, 0, .78, 0);      /* things that leave (rare) */
+  --dur-press: 100ms;
+  --dur-quick: 180ms;
+  --dur-base: 280ms;
+  --dur-reveal: 560ms;
+  --dur-move: 900ms;
+  --dur-line: 1400ms;
+  --rise-s: 8px; --rise-m: 16px; --rise-l: 32px;
+  --stagger-lines: 90ms;
+  --stagger-rows: 60ms;
+
+  color-scheme: dark;
+}
+@media (min-width: 700px) {   /* tablet: 8 columns */
+  :root { --cols: 8; --margin: clamp(24px, 4vw, 40px); --gutter: 24px; }
+}
+@media (min-width: 1024px) {  /* laptop: 12 columns, content up to 1312px */
+  :root { --cols: 12; --margin: clamp(40px, 4.4vw, 64px); --gutter: clamp(24px, 2.2vw, 32px); --content-max: 1312px; --bar-h: 64px; }
+}
+@media (min-width: 700px) and (max-width: 1023px) { :root { --bar-h: 64px; } }
+@media (min-width: 1680px) {  /* large: centred at 1440px; type has stopped growing */
+  :root { --gutter: 32px; --content-max: 1440px; }
+}
+
+/* ---------- Base ---------- */
+*, *::before, *::after { box-sizing: border-box; }
+html {
+  background: var(--bg); color: var(--text);
+  -webkit-text-size-adjust: 100%; text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--bar-h) + 12px);   /* anything scrolled into view lands just below the top bar */
+}
+body {
+  margin: 0; min-height: 100vh; background: var(--bg); color: var(--text);
+  font: 400 var(--fs-body)/var(--lh-body) var(--sans);
+  -webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;
+  font-kerning: normal; font-optical-sizing: auto;
+  overflow-x: clip;
+}
+h1, h2, h3, h4, p, ol, ul, dl, dd, figure, blockquote { margin: 0; }
+h1, h2, h3, h4 { font-family: var(--serif); font-weight: 300; letter-spacing: var(--tracking-display); text-wrap: balance; color: var(--text); }
+p, li, dd, figcaption, blockquote { text-wrap: pretty; }
+a { color: var(--ink); text-underline-offset: 0.22em; text-decoration-thickness: 1px; }
+img, svg, video, canvas { max-width: 100%; }
+img, video { height: auto; }
+button, input, select, textarea { font: inherit; color: inherit; }
+[hidden] { display: none !important; }
+main { display: block; }
+::selection { background: color-mix(in srgb, var(--gold) 40%, transparent); color: var(--text); }
+
+/* Unfinished details (data-unfinished) stay hidden until filled in; showPlaceholders or ?unfinished shows them (boot.js) */
+html:not(.show-unfinished) [data-unfinished] { display: none !important; }
+
+/* ---------- Type helpers ---------- */
+.t-display-xl { font: 300 var(--fs-display-xl)/var(--lh-display-xl) var(--serif); letter-spacing: var(--tracking-display); text-wrap: balance; }
+.t-display-l  { font: 300 var(--fs-display-l)/var(--lh-display-l) var(--serif); letter-spacing: var(--tracking-display); text-wrap: balance; }
+.t-display-m  { font: 300 var(--fs-display-m)/var(--lh-display-m) var(--serif); letter-spacing: var(--tracking-display); text-wrap: balance; }
+.t-display-s  { font: 300 var(--fs-display-s)/var(--lh-display-s) var(--serif); text-wrap: balance; }
+.t-caption    { font: italic 400 var(--fs-display-s)/var(--lh-display-s) var(--serif); }
+.t-lede  { font: 400 var(--fs-lede)/var(--lh-lede) var(--sans); color: var(--slate); max-width: var(--measure-lede); text-wrap: pretty; }
+.t-body  { font: 400 var(--fs-body)/var(--lh-body) var(--sans); max-width: var(--measure); }
+.t-ui    { font: 500 var(--fs-ui)/var(--lh-ui) var(--sans); }
+.t-small { font: 400 var(--fs-small)/var(--lh-small) var(--sans); }
+.t-fine  { font: 400 var(--fs-fine)/var(--lh-fine) var(--sans); }
+.t-quiet { color: var(--slate); }
+.t-gold  { color: var(--gold); }
+.tnum    { font-variant-numeric: tabular-nums; }   /* prices and times */
+.nowrap  { white-space: nowrap; }
+.visually-hidden { position: absolute !important; width: 1px; height: 1px; padding: 0; margin: -1px; overflow: hidden; clip: rect(0 0 0 0); clip-path: inset(50%); white-space: nowrap; border: 0; }
+
+/* ---------- Layout helpers ---------- */
+.wrap { width: min(100% - 2 * var(--margin), var(--content-max)); margin-inline: auto; }
+.grid { display: grid; grid-template-columns: repeat(var(--cols), minmax(0, 1fr)); column-gap: var(--gutter); }
+.section-s { padding-block: var(--section-s); }
+.section-m { padding-block: var(--section-m); }
+.section-l { padding-block: var(--section-l); }
+
+/* ---------- Focus: 2px gold, 3px off the edge; on paper, 2px paper text ---------- */
+:focus-visible { outline: 2px solid var(--gold); outline-offset: 3px; }
+:focus:not(:focus-visible) { outline: none; }
+.paper :focus-visible { outline-color: var(--paper-text); }
+
+/* ---------- Actions ---------- */
+/* The one solid button (gold, midnight text, 8px corners) */
+.btn-gold {
+  display: inline-flex; align-items: center; justify-content: center; gap: var(--s-2);
+  min-height: 44px; padding: 0 var(--s-5); border: 0; border-radius: var(--radius);
+  background: var(--gold); color: var(--bg);
+  font: 500 var(--fs-ui)/var(--lh-ui) var(--sans); text-decoration: none; white-space: nowrap; cursor: pointer;
+  transition: background-color var(--dur-quick) var(--ease-out), transform var(--dur-press) var(--ease-out);
+  -webkit-tap-highlight-color: transparent;
+}
+@media (hover: hover) { .btn-gold:hover { background: color-mix(in srgb, var(--gold) 88%, var(--text)); } }
+.btn-gold:active { transform: translateY(1px); }
+.btn-gold:focus-visible { outline-color: var(--text); }
+.btn-gold:disabled, .btn-gold[aria-disabled="true"] { opacity: .45; cursor: not-allowed; transform: none; }
+
+/* A quiet text action with an arrow: "Read the case study →" */
+.link-arrow {
+  display: inline-flex; align-items: center; gap: var(--s-2); min-height: 44px;
+  color: var(--ink); font: 500 var(--fs-ui)/var(--lh-ui) var(--sans); text-decoration: none;
+  background: none; border: 0; padding: 0; cursor: pointer;
+}
+.link-arrow > span:first-child { background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat; padding-bottom: 3px; transition: background-size var(--dur-quick) var(--ease-out); }
+.link-arrow .arrow { display: inline-block; transition: transform var(--dur-quick) var(--ease-out); }
+@media (hover: hover) { .link-arrow:hover .arrow { transform: translateX(3px); } }
+.link-arrow:active .arrow { transform: translateX(1px); }
+
+/* ---------- Fade-up (motion.js fadeUp): once, never replayed while on the page ----------
+   Hidden only while html has js-motion (boot.js adds it, never with reduced motion, and removes it
+   again if motion.js hasn't started within 4 seconds, so nothing can stay invisible). */
+html.js-motion [data-fade]:not(.is-in) { opacity: 0; transform: translateY(var(--fade-rise, var(--rise-m))); }
+html.js-motion [data-fade] { transition: opacity var(--dur-reveal) var(--ease-out), transform var(--dur-reveal) var(--ease-out); }
+
+/* ---------- The still paper grain over the whole page (it never moves) ---------- */
+body::after {
+  content: ""; position: fixed; inset: 0; pointer-events: none; z-index: 2147483000; opacity: .05;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='180' height='180'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='.85' numOctaves='2' stitchTiles='stitch'/%3E%3CfeColorMatrix values='0 0 0 0 1 0 0 0 0 1 0 0 0 0 1 0 0 0 .6 0'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
+}
+@media print { body::after { display: none; } }
+
+/* ---------- The cream-paper section, with a torn edge above and below ----------
+   <section class="paper"> … </section>. Inside it the usual names point at the paper colours, so
+   any part placed on it (text, quiet text, gold lines) reads correctly without its own rules.
+   The torn edge is a mask, so it always matches --paper from settings.js. */
+.paper {
+  position: relative; isolation: isolate;
+  background: var(--paper); color: var(--paper-text);
+  --text: var(--paper-text); --slate: var(--paper-quiet); --ink: var(--paper-text);
+  --gold: var(--paper-accent); --accent: var(--paper-accent);   /* 5.0 : 1, safe for text and lines */
+  --hairline: color-mix(in srgb, var(--paper-line) 35%, transparent);
+  --line-shadow: rgba(20, 28, 46, .14);
+  color-scheme: light;
+}
+.paper::before, .paper::after {
+  content: ""; position: absolute; left: 0; right: 0; height: 12px; pointer-events: none; background: var(--paper);
+  -webkit-mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M0 12 L0 7 L9 5 L17 8 L26 4 L34 6 L45 3 L53 7 L61 5 L72 8 L80 4 L91 6 L99 2 L108 6 L118 5 L126 8 L137 4 L146 7 L155 3 L163 6 L174 5 L183 8 L191 4 L202 6 L211 3 L220 7 L229 5 L240 7 L240 12 Z'/%3E%3C/svg%3E") 0 0 / 240px 12px repeat-x;
+          mask: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='240' height='12' viewBox='0 0 240 12' preserveAspectRatio='none'%3E%3Cpath d='M0 12 L0 7 L9 5 L17 8 L26 4 L34 6 L45 3 L53 7 L61 5 L72 8 L80 4 L91 6 L99 2 L108 6 L118 5 L126 8 L137 4 L146 7 L155 3 L163 6 L174 5 L183 8 L191 4 L202 6 L211 3 L220 7 L229 5 L240 7 L240 12 Z'/%3E%3C/svg%3E") 0 0 / 240px 12px repeat-x;
+}
+.paper::before { top: -11px; }
+.paper::after { bottom: -11px; transform: scaleY(-1); }
+.paper .btn-gold { background: var(--paper-text); color: var(--paper); }
+
+/* ---------- The gold-line page transition (cross-document View Transitions) ----------
+   The old page dims; the new one is wiped in from the left behind a 2px gold line that sweeps
+   across (760ms). Both pages need this rule and a .vt-rule element (shell.js adds one if the page
+   has none). Browsers without View Transitions simply change page (the fallback). Reduced motion: off. */
+@view-transition { navigation: auto; }
+::view-transition-old(root) { animation: 480ms var(--ease-out) both vt-dim; }
+::view-transition-new(root) { animation: 760ms var(--ease-out) both vt-wipe; }
+::view-transition-group(vt-rule) { animation: 760ms var(--ease-out) both vt-sweep; }
+::view-transition-old(vt-rule), ::view-transition-new(vt-rule) { animation: none; }
+.vt-rule { position: fixed; left: -2px; top: 0; width: 2px; height: 100vh; background: var(--gold); view-transition-name: vt-rule; pointer-events: none; }
+@keyframes vt-wipe { from { clip-path: inset(0 100% 0 0); } to { clip-path: inset(0 0 0 0); } }
+@keyframes vt-dim { to { opacity: .55; } }
+@keyframes vt-sweep { from { transform: translateX(0); } to { transform: translateX(calc(100vw + 2px)); } }
+
+/* ---------- Reduced motion: everything shown finished, nothing moves ---------- */
+@media (prefers-reduced-motion: reduce) {
+  @view-transition { navigation: none; }
+  html { scroll-behavior: auto !important; }
+  [data-fade] { opacity: 1 !important; transform: none !important; transition: none !important; }
+  .btn-gold, .link-arrow > span:first-child, .link-arrow .arrow { transition: none; }
+}

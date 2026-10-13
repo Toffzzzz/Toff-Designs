@@ -2,6 +2,128 @@
 
 The exact values used by the site (Round 02: Midnight & Gold; Round 03: Work Sans, the top bar, the portfolio sections and the Lab). **Keep this file and `settings.js` in sync:** whenever a value changes in one, update the other. The colours are defined on `:root` in `site.css` and overwritten from `settings.js` (`colors`) when the page loads. Round 01's values (light page, navy ink) are in git history and on the `backup-before-round-02` branch.
 
+## Round 05 design system
+
+The values every round 05 page uses (from rounds/round-05-plan.md section 4). They live as CSS variables in `assets/shared/tokens.css`; `assets/shared/boot.js` (loaded straight after `settings.js`) writes the colours (`colors.*`) and motion tokens (`motion.*`) from `settings.js` over them, so the owner changes them in one place. **Keep this section, `tokens.css` and `settings.js` the same.** The older sections below describe the round 02 to 04 site and stay until Phase 10 rewrites this file.
+
+### Grid and breakpoints
+
+| Range | Columns | Outer margin (`--margin`) | Gutter (`--gutter`) | Content max (`--content-max`) | Top bar (`--bar-h`) |
+|---|---|---|---|---|---|
+| under 700px (phone) | 4 | 16px | 16px | 100% | 56px |
+| 700 to 1023px (tablet) | 8 | clamp(24px, 4vw, 40px) | 24px | 100% | 64px |
+| 1024 to 1679px (laptop) | 12 | clamp(40px, 4.4vw, 64px) | clamp(24px, 2.2vw, 32px) | 1312px | 64px |
+| 1680px and wider | 12 | centred | 32px | 1440px; type has stopped growing | 64px |
+
+`--measure` 60ch for paragraphs; `--measure-lede` 40ch for ledes. The phone breakpoint is 700px (`handwriting.breakpoint`): below it the top bar shows the name, "Start a project" and Menu (a full-screen menu), and the motion rules play parts by themselves. Helpers: `.wrap` (centred content width) and `.grid` (the columns above). At 320px nothing scrolls sideways (the bar's button reads "Enquire" below 360px).
+
+### Type
+
+Cormorant Garamond (variable, 300 for display, never bold; italic 400 for "build" and captions) and Work Sans (400 text, 500 buttons and labels), self-hosted in `assets/studio/fonts/` (SIL Open Font License 1.1, see CREDITS.md).
+
+| Token (class) | Font | Size | Line height | Use |
+|---|---|---|---|---|
+| `--fs-display-xl` (`.t-display-xl`) | Cormorant 300 | clamp(52px, 6.6vw, 100px) | 0.92 | The hero headline |
+| `--fs-display-l` (`.t-display-l`) | Cormorant 300 | clamp(40px, 5vw, 72px) | 1.0 | Chapter headings (h2) |
+| `--fs-display-m` (`.t-display-m`) | Cormorant 300 | clamp(32px, 3.6vw, 56px) | 1.04 | Concept names, Lab titles, the footer's "Start a project →" |
+| `--fs-display-s` (`.t-display-s`, `.t-caption` italic) | Cormorant 300 / italic 400 | clamp(22px, 2vw, 28px) | 1.2 | Sub-headings, italic captions |
+| `--fs-lede` (`.t-lede`) | Work Sans 400, slate | clamp(17px, 1.3vw, 20px) | 1.5 | Lines under headings |
+| `--fs-body` | Work Sans 400 | 17px | 1.6 | Body |
+| `--fs-ui` (`.t-ui`) | Work Sans 500 | 15px | 1.2 | Buttons, links in bars, chips |
+| `--fs-small` (`.t-small`) | Work Sans 400 | 15px | 1.5 | Captions, notes, meta |
+| `--fs-fine` (`.t-fine`) | Work Sans 400 | 14px | 1.5 | Fine print only; nothing on the studio's pages is smaller |
+
+Display letter-spacing -0.012em; everything else 0 (no tracked capitals). Headings `text-wrap: balance`, paragraphs `text-wrap: pretty`. Prices and times use `.tnum` (tabular numerals). Proper quotes and apostrophes, and a non-breaking space before units (32&nbsp;°C).
+
+### Spacing
+
+4px base: `--s-1` 4, `--s-2` 8, `--s-3` 12, `--s-4` 16, `--s-5` 24, `--s-6` 32, `--s-7` 48, `--s-8` 64, `--s-9` 96, `--s-10` 128, `--s-11` 192. Section rhythm, varied on purpose: `--section-s` clamp(48px, 6vw, 80px), `--section-m` clamp(72px, 9vw, 128px), `--section-l` clamp(96px, 12vw, 176px) (classes `.section-s/m/l`). Work and AI use l; Other AI and the Lab band s; the rest m.
+
+### Colours
+
+| Token | Value | Use | Contrast | settings.js |
+|---|---|---|---|---|
+| `--bg` | #0E1628 | Page | | `colors.bg` |
+| `--bg-deep` | #0A101E | Footer, the AI band, the hero stage's paper | | `colors.footer` |
+| `--tint` | #1A2541 | Raised areas, inputs, chips | | `colors.tint` |
+| `--text` | #F6F0E4 | Headings and body | 15.9 : 1 on bg | `colors.text` |
+| `--ink` | #F1E3C6 | Lines, links, outlines | 14.2 : 1 | `colors.ink` |
+| `--slate` | #A7AFC2 | Quiet text | 8.2 : 1 on bg, 6.9 on tint | `colors.slate` |
+| `--gold` (also `--accent`) | #D8AC5F | The one solid button, fine rules, selected states, focus ring | 8.6 : 1; bg text on gold 8.6 | `colors.accent` |
+| `--line-shadow` | rgba(216,172,95,.38) | The gold under-shadow | | `colors.lineShadow` |
+| `--hairline` | rgba(216,172,95,.22) | Fine rules | | `colors.hairline` |
+| `--error` | #F2A7A0 | Form messages | 9.3 : 1 | `colors.error` |
+| `--paper` | #F1EADC | The cream-paper section | | `colors.paper` |
+| `--paper-text` | #141C2E | Text on paper | 14.2 : 1 | `colors.paperText` |
+| `--paper-quiet` | #4C5468 | Quiet text on paper | 6.3 : 1 | `colors.paperQuiet` |
+| `--paper-line` | #8F6A2A | Lines on paper only (non-text) | 4.1 : 1 | `colors.paperLine` |
+| `--paper-accent` | #7E5E24 | Gold-ish text on paper | 5.0 : 1 | `colors.paperAccent` |
+
+Inside `.paper` (the cream-paper section, torn edge above and below as a mask, so it follows `--paper`), `--text`, `--slate`, `--ink` and `--gold` point at the paper colours, so anything placed on it reads correctly. The handwriting colours stay in `handwriting.color` / `handwriting.shadow.color` and must change with `--ink` / `--line-shadow`.
+
+Focus ring: 2px solid gold, 3px offset (on paper: 2px `--paper-text`). Hover effects only inside `@media (hover: hover)`; pressed states move 1px down over `--dur-press`.
+
+### Shape
+
+`--radius` 8px (buttons, chips, inputs, segmented controls); `--radius-media` 12px (the stage, film screens, preview windows, the AI frame, stills); `--radius-panel` 18px (the concierge sheet). True circles only for dots, radio buttons and the brush cursor. No borders around pictures.
+
+### Motion
+
+| Token | Value | Use | settings.js |
+|---|---|---|---|
+| `--ease-out` | cubic-bezier(.22, 1, .36, 1) | Everything that arrives (JS: `ease.out`, 1 − (1 − t)^5) | `motion.easeOut` |
+| `--ease-in-out` | cubic-bezier(.83, 0, .17, 1) | Things that move from one place to another | `motion.easeInOut` |
+| `--ease-in` | cubic-bezier(.64, 0, .78, 0) | Things that leave (rare) | `motion.easeIn` |
+| `--dur-press` | 100ms | Pressed states | `motion.pressMs` |
+| `--dur-quick` | 180ms | Hover, chips, toggles | `motion.quickMs` |
+| `--dur-base` | 280ms | Menus, disclosures, segmented controls, panels, the top bar sliding | `motion.baseMs` |
+| `--dur-reveal` | 560ms | Fade-ups (16px rise), confirmation cards | `motion.revealMs` |
+| `--dur-move` | 900ms | Headline lines, stage swaps, large travels | `motion.moveMs` |
+| `--dur-line` | 1400ms | The gold line dropping from the stage | `motion.lineMs` |
+| `--rise-s` / `--rise-m` / `--rise-l` | 8px / 16px / 32px | Distances | `motion.riseSmallPx` / `riseMediumPx` / `riseLargePx` |
+| `--stagger-lines` | 90ms | Headline lines only | `motion.staggerLinesMs` |
+| `--stagger-rows` | 60ms | List rows, at most five | `motion.staggerRowsMs` |
+
+Duration grows with distance: about 200ms + 1.2ms per pixel, capped at `--dur-move` (`durationFor(px)` in motion.js). Nothing linear in the interface (the pen and the films follow the scroll, which is not an interface easing). Every animation can be interrupted; automatic motion stops for good when the visitor takes over.
+
+The motion rules are in one module, `assets/shared/motion.js` (ported from the handwriting engine, with its settings: `handwriting.breakpoint`, `writeStart`, `writeEnd`, `ease`, `phoneTrigger`, `jumpScreens`, `settleMs`): laptops (a fine pointer, 700px and wider) follow the scroll with a high-water mark that never goes backwards; phones and tablets with a finger play each part by itself when it reaches 82% down the screen; once something plays by itself it finishes; reduced motion shows the finished state; Back, bfcache and Safari's late scroll restore keep your place (what's on screen plays again, what's above plays as you scroll back up); a jump of more than 1.2 screens plays what you land on; a fresh visit opens at the top.
+
+### The hero (settings.js `hero`)
+
+| What | Value | Setting |
+|---|---|---|
+| Idle time before the brush paints the site in by itself | 2500ms | `hero.idleMs` |
+| How long that brush takes | 2000ms | `hero.autoPaintMs` |
+| Painted share at which the finished site is shown and drawing stops | 0.98 | `hero.doneAt` |
+
+### The AI features (settings.js `ai`)
+
+| What | Value | Setting |
+|---|---|---|
+| The Worker's address | https://toff-sketch-ai.toffdesigns.workers.dev | `ai.workerBase` |
+| Routes (each is workerBase + route unless a full address is given; '' answers from the page only) | /chat, /read-sketch, /agent, /concierge, /brief, /design | `ai.chatEndpoint`, `readSketchEndpoint`, `agentEndpoint`, `conciergeEndpoint`, `briefEndpoint`, `designEndpoint` |
+| Live answers per visit | 8 | `ai.maxLiveAnswers` |
+| Time-out until the first streamed word | 12000ms | `ai.firstWordTimeoutMs` |
+
+### Address
+
+`siteUrl` in settings.js (`https://toffzzzz.github.io/Toff-Designs/`): canonical links, link previews, JSON-LD and sitemap.xml are built from it.
+
+### The shell (assets/shared/shell.js, shell.css)
+
+- **Top bar:** 64px (56px on phones), see-through at the very top, solid midnight with the gold hairline once the page moves. "Toff Studio" (Cormorant 26px; 23px on phones), then Work, AI, Design yours, The Lab (Work Sans 15px, slate; the section you're reading is underlined in gold), then "Start a project" (the one gold button, 44px tall). Slides away (280ms) while you scroll down and comes back as soon as you scroll up or tab into it. Phones: name, "Start a project", Menu; the menu fills the screen with the four links in the serif and the two case studies, the rest of the page is inert while it's open, Escape or Close shuts it and focus returns to Menu.
+- **Links** jump straight to their section, land 12px below the bar and add no #fragment; from other pages they go to `index.html#id` (the home page removes the fragment on arrival, and maps old addresses through `aliases`).
+- **"Start a project"** dispatches `toff:concierge-open` on document; without a concierge it goes to #contact on the home page.
+- **Skip link** first in the tab order, shown below the bar when focused.
+- **Footer** (deep midnight, gold hairline above): the signature written by the pen (gold, 132px wide, 70 font units a second, once when reached), the name, "Start a project →" (Cormorant 300 at `--fs-display-m`, gold), "Plan it with our helper", the two case studies, the Lab, Email and Privacy policy (hidden until set), other legal pages, social links, the craft line and ©.
+- **Floating-button slot** bottom right (16px from the edges, safe areas respected), empty until the concierge fills it.
+- **Gold-line page transition:** cross-document View Transitions (`@view-transition { navigation: auto }` in tokens.css, with a `.vt-rule` element): the old page dims, the new one is wiped in behind a 2px gold line (760ms, `--ease-out`). Browsers without it simply change page; off with reduced motion.
+
+
+### Top bar
+
+The top bar stays on screen all the time, so "Start a project" is always visible (round 04's decision, kept). `settings.js` `topbar.hideOnScroll` (false) switches hide-on-scroll-down back on.
+
 ## Colours
 
 | Name | CSS variable | Value | Where it's used | settings.js |

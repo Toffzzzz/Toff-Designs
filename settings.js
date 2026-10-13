@@ -4,10 +4,17 @@
    Keep DESIGN.md in sync whenever a value here changes.
    ===================================================================== */
 window.TOFF_SETTINGS = {
+  // The top bar. hideOnScroll: false keeps it (and its "Start a project" button) on screen all the time;
+  // true hides it while scrolling down and brings it back on the way up.
+  topbar: { hideOnScroll: false },
+
   /* ---------- Studio ---------- */
   studioName: 'Toff Studio',
   copyrightYear: 2026,
   location: 'London',
+  // The site's public address, with the closing slash. Canonical links, link previews, JSON-LD and
+  // sitemap.xml are all built from it. Change it once the studio has its own domain.
+  siteUrl: 'https://toffzzzz.github.io/Toff-Designs/',
   // Your email, e.g. 'hello@toffstudio.com'. Shown in the footer.
   email: '',
 
@@ -81,6 +88,13 @@ window.TOFF_SETTINGS = {
     lineShadow: 'rgba(216, 172, 95, 0.38)', // the gold under-shadow on every line
     footer: '#0A101E', // the footer's slightly deeper midnight
     error: '#F2A7A0', // form messages when something is missing
+    hairline: 'rgba(216, 172, 95, 0.22)', // fine gold rules (round 05)
+    // The cream-paper section ("How we work"), round 05:
+    paper: '#F1EADC', // the paper
+    paperText: '#141C2E', // text on paper
+    paperQuiet: '#4C5468', // quiet text on paper
+    paperLine: '#8F6A2A', // lines on paper only (too light for text)
+    paperAccent: '#7E5E24', // gold-ish text on paper
   },
 
   /* ---------- The opening page ("From sketch to site") ---------- */
@@ -130,4 +144,56 @@ window.TOFF_SETTINGS = {
     durationMs: 600, // how long each fade-up takes
     risePx: 12, // how far it rises into place
   },
+
+  /* ---------- Movement on the studio's pages (round 05) ----------
+     One family of easings (quintic). Written onto the page as CSS variables (assets/shared/boot.js)
+     and read by assets/shared/motion.js. Durations grow with distance: about 200ms plus 1.2ms per pixel,
+     never more than moveMs. */
+  motion: {
+    easeOut: 'cubic-bezier(.22, 1, .36, 1)', // everything that arrives
+    easeInOut: 'cubic-bezier(.83, 0, .17, 1)', // things that move from one place to another
+    easeIn: 'cubic-bezier(.64, 0, .78, 0)', // things that leave (rare)
+    pressMs: 100, // pressed states
+    quickMs: 180, // hover, chips, toggles
+    baseMs: 280, // menus, disclosures, segmented controls, panels
+    revealMs: 560, // fade-ups, confirmation cards
+    moveMs: 900, // headline lines, stage swaps, large travels
+    lineMs: 1400, // the gold line dropping from the stage
+    riseSmallPx: 8, // small rise
+    riseMediumPx: 16, // fade-ups
+    riseLargePx: 32, // large rise
+    staggerLinesMs: 90, // between the headline's lines
+    staggerRowsMs: 60, // between list rows (at most five)
+  },
+
+  /* ---------- The hero: the sketch you paint into the finished site (round 05) ---------- */
+  hero: {
+    idleMs: 2500, // if the visitor doesn't paint for this long, a brush paints the site in by itself
+    autoPaintMs: 2000, // how long that brush takes
+    doneAt: 0.98, // once this share of the stage is painted, the finished site is shown and drawing stops
+  },
+
+  /* ---------- The AI features (round 05) ----------
+     They call the studio's Cloudflare Worker only when a visitor uses them. Each address below is
+     workerBase plus its route unless you give a full address; '' switches that feature to answering
+     from the page only. */
+  ai: {
+    workerBase: 'https://toff-sketch-ai.toffdesigns.workers.dev', // the Worker's address, without a closing slash
+    chatEndpoint: null, // the round 04 chat demo: workerBase + '/chat'
+    readSketchEndpoint: null, // "Draw your site" reading a sketch: workerBase + '/read-sketch'
+    agentEndpoint: null, // the AI demo that acts on the business's site: workerBase + '/agent'
+    conciergeEndpoint: null, // the concierge ("Plan with us"): workerBase + '/concierge'
+    briefEndpoint: null, // writing the brief's summary: workerBase + '/brief'
+    designEndpoint: null, // "Design yours", Describe: workerBase + '/design'
+    maxLiveAnswers: 8, // at most this many live answers per visit (a tool round trip counts as part of one answer)
+    firstWordTimeoutMs: 12000, // if the first word hasn't arrived after this long, answer from the page instead
+  },
 };
+
+/* Fill in the AI addresses left as null from ai.workerBase (nothing to change here). */
+(function (ai) {
+  if (!ai) return;
+  var base = String(ai.workerBase || '').replace(/\/+$/, '');
+  var routes = { chat: '/chat', readSketch: '/read-sketch', agent: '/agent', concierge: '/concierge', brief: '/brief', design: '/design' };
+  for (var k in routes) if (ai[k + 'Endpoint'] == null) ai[k + 'Endpoint'] = base ? base + routes[k] : '';
+})(window.TOFF_SETTINGS.ai);

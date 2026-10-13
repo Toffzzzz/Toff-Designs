@@ -1,0 +1,123 @@
+/*
+ * Toff Studio: the concept ribbon (see ribbon.js for usage).
+ *
+ * Art direction: a quiet colophon, not a banner. It is the last thing on the page,
+ * after the footer, in the normal flow (never fixed or sticky), so it can't cover
+ * content or controls. One line on laptops (sentence left, link right); on phones two
+ * short lines (one sentence each) with the link beneath as a 44px tap target. Neutral
+ * enough to sit under any concept site's palette: it defaults to Toff's midnight,
+ * text and gold, and each site may retune it with three custom properties:
+ *
+ *   --ribbon-bg      #0E1628   background
+ *   --ribbon-fg      #F6F0E4   text (15.9 : 1 on the default bg)
+ *   --ribbon-accent  #D8AC5F   the link and its focus ring (8.6 : 1 on the default bg)
+ *
+ * If you change them, keep fg and accent at 4.5 : 1 or more on bg.
+ * To line it up with the site's own grid (optional):
+ *   --ribbon-gutter  side padding (default 16px phone, clamp(24px, 4vw, 40px) tablet,
+ *                    clamp(40px, 4.4vw, 64px) laptop)
+ *   --ribbon-max     content width it centres within (default 1312px)
+ */
+
+.toff-ribbon {
+  --_bg: var(--ribbon-bg, #0E1628);
+  --_fg: var(--ribbon-fg, #F6F0E4);
+  --_accent: var(--ribbon-accent, #D8AC5F);
+  --_gutter: 16px;
+
+  position: static;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px 24px;
+  margin: 0;
+  padding-block: 14px;
+  padding-inline: max(var(--ribbon-gutter, var(--_gutter)), calc((100% - var(--ribbon-max, 1312px)) / 2));
+  background: var(--_bg);
+  color: var(--_fg);
+  font: 400 15px/1.5 "Work Sans", system-ui, -apple-system, "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  letter-spacing: normal;
+  text-transform: none;
+  text-align: start;
+  -webkit-font-smoothing: antialiased;
+  box-sizing: border-box;
+}
+
+.toff-ribbon *,
+.toff-ribbon *::before,
+.toff-ribbon *::after { box-sizing: border-box; }
+
+@media (min-width: 700px) {
+  .toff-ribbon { --_gutter: clamp(24px, 4vw, 40px); }
+}
+@media (min-width: 1024px) {
+  .toff-ribbon { --_gutter: clamp(40px, 4.4vw, 64px); }
+}
+
+.toff-ribbon .toff-ribbon__text {
+  margin: 0;
+  max-width: none;
+  font: inherit;
+  color: inherit;
+  text-wrap: pretty;
+}
+
+.toff-ribbon .toff-ribbon__line { display: block; }
+
+.toff-ribbon .toff-ribbon__link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  min-width: 44px;
+  margin-inline: -8px;           /* the padding is tap area; the text lines up with the edges */
+  padding: 0 8px;
+  border-radius: 8px;
+  color: var(--_accent);
+  font: inherit;
+  font-weight: 500;
+  text-decoration: none;
+  white-space: nowrap;
+}
+
+.toff-ribbon .toff-ribbon__label {
+  text-decoration: underline;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 4px;
+  transition: text-decoration-thickness 180ms cubic-bezier(.22, 1, .36, 1);
+}
+
+.toff-ribbon .toff-ribbon__link:focus { outline: none; }
+.toff-ribbon .toff-ribbon__link:focus-visible {
+  outline: 2px solid var(--_accent);
+  outline-offset: 2px;
+}
+
+@media (hover: hover) {
+  .toff-ribbon .toff-ribbon__link:hover .toff-ribbon__label { text-decoration-thickness: 2px; }
+}
+
+/* Laptop: one line, both sentences side by side. */
+@media (min-width: 700px) {
+  .toff-ribbon { flex-wrap: nowrap; padding-block: 12px; }
+  .toff-ribbon .toff-ribbon__line { display: inline; }
+}
+
+/* Phone: two short lines of text, the link beneath. */
+@media (max-width: 699.98px) {
+  .toff-ribbon { flex-direction: column; align-items: flex-start; padding-block: 16px 8px; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .toff-ribbon .toff-ribbon__label { transition: none; }
+}
+
+@media (forced-colors: active) {
+  .toff-ribbon { border-top: 1px solid CanvasText; }
+  .toff-ribbon .toff-ribbon__link:focus-visible { outline-color: Highlight; }
+}
+
+/* Inside the AI demo's frame (?embed=<feature>) the ribbon is never shown. */
+html.is-embed [data-toff-ribbon],
+[data-toff-ribbon][hidden] { display: none !important; }

@@ -171,3 +171,7 @@ A dated log. One line per decision, with the reason where given. Never remove li
 - 2026-10-13: /brief returns a ninth field, `summary`, because 7.2 asks the AI to write the brief's summary through /brief.
 - 2026-10-13: Made-up details for the concept sites that the AI demo now needs (section 10): Morrow's full menu and drink options, Atelier Wren's four stylists (Ana, Theo, Isla, Sam), the clinic's 30-minute video appointment and 60-minute health check, Hart & Sons' covered postcode districts (W2 to W14) and visit windows.
 - 2026-10-13: Lab pieces follow the module contract in section 6.
+- 2026-10-13: The shared shell (assets/shared/tokens.css, boot.js, motion.js, shell.js, shell.css) replaces topbar.js, studio.css and the per-page scripts on the new pages. Work Sans and Cormorant Garamond are reused from assets/studio/fonts/ (already credited).
+- 2026-10-13: The top bar never hides while scrolling, so "Start a project" is always visible (round 04's decision, which section 6 keeps); settings.js topbar.hideOnScroll can switch hiding on.
+- 2026-10-13: The Worker's address moves into settings.js (ai.workerBase); each AI endpoint is derived from it unless set, and '' switches that feature off.
+- 2026-10-13: Below 360px wide the top bar's button reads "Enquire" (kept from round 04) because "Start a project" doesn't fit at 320px.

@@ -46,3 +46,12 @@ Doesn't work:
 - Worker folder backed up to ~/Documents/toff-studio-tools/optional-ai-backup-2026-10-13/ (Phase 6 step 1, done early).
 
 Next: Phase 2 (foundations). The shader, vendoring and serve.py --gzip were started in parallel during Phase 1.
+
+## Phase 2 (partial) and Phase 6 steps 1 to 5 (2026-10-13)
+
+- Phase 2 done so far (subagents, reviewed by the lead): tools/serve.py --gzip; three.js r186 (0.186.1) and Rapier 2D/3D 0.19.3 vendored (minified with esbuild, licences beside them; note in scratch/phase2-shader/VENDOR-NOTE.md for CREDITS.md); assets/shared/sketch-shader.js (raw WebGL2, mask only grows, 98% done, dispose loses the context; looked at Bluebird, Everest and phone results); assets/shared/embed-api.js (Contract A, 61/61) and ribbon.js/ribbon.css (101/101, axe clean). In progress: tokens/motion/shell, SiteKit.
+- Contract A gained the error code `internal`; the Worker's browser-facing API is in plan section 13.
+- Worker: backed up to ~/Documents/toff-studio-tools/optional-ai-backup-2026-10-13/. /agent, /concierge, /brief and /design added (claude-haiku-5-5, thinking disabled, prompt caching, tools defined in the Worker, structured output for /brief and /design, daily caps /agent 300, /concierge 150, /brief 40, /design 120 per UTC day in the existing SketchCounter class; worst case $2.62 a day). No new classes or migrations; wrangler.toml unchanged.
+- Worker tests: test-round-05-routes.mjs 146/146, test-sketch-ai-worker.mjs 33/33, test-sketch-counter.mjs 12/12.
+- Deployed with `npx wrangler deploy` (version 39b20053-dccb-4040-8c48-e5f5e1472c2a). Live checks (Origin https://toffzzzz.github.io): /chat 200 with an answer, /read-sketch 200 with elements (so no rollback); /agent and /concierge 200 streaming text/event-stream; /brief and /design 200 JSON; Origin https://example.com 403; 21 invalid requests within a minute: the first 20 got 400, the 21st 429. Python needed the system certificates (/etc/ssl/cert.pem). The key was never read or printed.
+- Phase 3 started: five site-builders running in parallel.
